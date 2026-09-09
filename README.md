@@ -1,8 +1,10 @@
 # AADOE
 
-Directory of [The Thermal Underground](https://thermalunderground.org) properties: each host on `thermalunderground.org`, and what it does.
+Animated map of [The Thermal Underground](https://thermalunderground.org) properties: each host on `thermalunderground.org`, and what it does.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
+
+Drag to pan, scroll to zoom, click a node.
 
 ## Properties
 
