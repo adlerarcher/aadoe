@@ -1,24 +1,39 @@
 # AADOE
 
-Animated map of [The Thermal Underground](https://thermalunderground.org) properties: each host on `thermalunderground.org`, and what it does.
+Adler DOE project dashboard for [The Thermal Underground](https://thermalunderground.org). One public front door for Index and Permitting coordination, with role-based entry.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 
-Drag to pan, scroll to zoom, click a node.
+## Products
 
-## Properties
+| Hub label | Target | Roles |
+|---|---|---|
+| **Index** | [SEPI](https://sepi.thermalunderground.org/) | System user · System owner |
+| **Permitting coordination** | [GPCP](https://gpcp.thermalunderground.org/) | Applicant · Reviewer |
 
-| Host | What it does |
-|---|---|
-| [thermalunderground.org](https://thermalunderground.org/) | Geothermal field guide |
-| [sepi.thermalunderground.org](https://sepi.thermalunderground.org/) | Subsurface Energy Permitting Index |
-| [gpcp.thermalunderground.org](https://gpcp.thermalunderground.org/) | Geothermal Permitting Coordination Platform |
-| [gpic.thermalunderground.org](https://gpic.thermalunderground.org/) | Geothermal Permitting Innovation Collaborative |
-| [mdev.thermalunderground.org](https://mdev.thermalunderground.org/) | International market development |
-| [odev.thermalunderground.org](https://odev.thermalunderground.org/) | Organization development |
-| [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org/) | This directory |
+Secondary links keep the rest of the estate reachable: Field guide, GPIC, ODEV, MDEV.
 
-Records live in `src/properties.js`.
+## Role mapping
+
+Deep links pass both `role=` (hub contract) and `as=` (what each target already reads):
+
+| Hub role | URL params | Lands on |
+|---|---|---|
+| System user | `?role=user&as=user` | `sepi…/records/` |
+| System owner | `?role=owner&as=admin` | `sepi…/records/` |
+| Applicant | `?role=applicant&as=applicant` | `gpcp…/gpcp/` |
+| Reviewer | `?role=reviewer&as=reviewer` | `gpcp…/gpcp/` |
+
+### What targets support today
+
+- **SEPI** reads `?as=user|admin` in `session-user.js`. Owner maps to `admin` until SEPI adds an `owner` alias.
+- **GPCP** reads `?as=applicant|reviewer` in `session-user.js`.
+
+### Next on the target sites
+
+1. SEPI: accept `as=owner` (or `role=owner`) as an alias for admin / system-owner view.
+2. Both sites: optionally read `role=` and treat it as the canonical hub param.
+3. Optional path segments (`/as/user`, `/as/owner`) if query strings are awkward for bookmarks.
 
 ## Run locally
 
@@ -35,10 +50,22 @@ Pushes to `main` build and deploy via GitHub Actions Pages.
 
 ### DNS
 
-At the `thermalunderground.org` registrar, add:
+At the `thermalunderground.org` registrar:
 
 ```
 CNAME  aadoe  →  adlerarcher.github.io
 ```
 
-In this repo, GitHub Pages should use the custom domain `aadoe.thermalunderground.org` with Enforce HTTPS.
+GitHub Pages custom domain: `aadoe.thermalunderground.org` with Enforce HTTPS. `public/CNAME` already holds that host.
+
+## Redirect candidates
+
+Once Adler points people at AADOE first, these CNAMEs can redirect into hub entry points:
+
+| Host | Suggested redirect |
+|---|---|
+| `sepi.thermalunderground.org` home | stay as product; hub links with roles |
+| `gpcp.thermalunderground.org` home | stay as product; hub links with roles |
+| Optional apex marketing | `thermalunderground.org` can link to AADOE as “Enter products” |
+
+Keep SEPI and GPCP hosts live for deep links and connectors. Use AADOE as the public chooser so fewer people need to remember subdomains.
