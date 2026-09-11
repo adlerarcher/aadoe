@@ -385,7 +385,7 @@ h1 {
 }
 
 .lede {
-  margin: 1.1rem 0 0;
+  margin: 1.1rem auto 0;
   width: 100%;
   max-width: 38em;
   min-width: 0;
@@ -393,13 +393,15 @@ h1 {
   font-family: var(--title);
   font-size: 19px;
   line-height: 1.4;
+  text-align: center;
 }
 
 .products {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: center;
   gap: 18px;
-  width: min(100%, 56rem);
+  width: min(100%, 72rem);
   margin: 28px auto 0;
 }
 
@@ -408,9 +410,11 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   gap: 22px;
   min-height: 100%;
   padding: 28px 26px 24px;
+  text-align: center;
   background: var(--panel);
   border: 1px solid var(--panel-line);
   backdrop-filter: blur(10px);
@@ -421,10 +425,11 @@ h1 {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: 48px;
   height: 3px;
-  background: linear-gradient(90deg, var(--gold), transparent 70%);
+  transform: translateX(-50%);
+  background: var(--gold);
 }
 
 .product-code {
@@ -455,8 +460,12 @@ h1 {
   color: var(--muted);
 }
 
+.product-head {
+  width: 100%;
+}
+
 .product-blurb {
-  margin: .9rem 0 0;
+  margin: .9rem auto 0;
   max-width: 34em;
   font-size: 15px;
   line-height: 1.45;
@@ -467,6 +476,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+  width: 100%;
 }
 
 .role-row--single {
@@ -477,9 +487,10 @@ h1 {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 6px;
   padding: 16px 16px 14px;
+  text-align: center;
   text-decoration: none;
   color: var(--navy);
   background: var(--gold);
@@ -510,31 +521,11 @@ h1 {
   opacity: .78;
 }
 
-.research {
-  margin-top: 42px;
-  padding-top: 28px;
-  border-top: 1px solid rgba(245, 184, 25, .22);
-}
-
-.research-kicker {
-  margin: 0 0 16px;
-  font-family: var(--label);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  text-align: center;
-}
-
-.research .products {
-  margin-top: 0;
-}
-
 .page-footer {
   position: relative;
   z-index: 6;
   padding: 0 40px 22px;
+  text-align: center;
 }
 
 .page-footer p {

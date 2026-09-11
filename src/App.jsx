@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { PRODUCTS, RESEARCH, entryUrl } from './products.js'
+import { PRODUCTS, entryUrl } from './products.js'
 
 const MOSAIC = [
   { src: '/mosaic-1.jpg', className: 'tile wide' },
@@ -52,6 +52,7 @@ function LogoShell() {
 
 function ProductPanel({ product, delayClass }) {
   const hasRoles = Array.isArray(product.roles) && product.roles.length > 0
+  const hasLinks = Array.isArray(product.links) && product.links.length > 0
 
   return (
     <section className={`product rise ${delayClass}`} aria-labelledby={`product-${product.id}`}>
@@ -71,6 +72,19 @@ function ProductPanel({ product, delayClass }) {
             >
               <span className="role-label">{role.label}</span>
               <span className="role-hint">Enter</span>
+            </a>
+          ))}
+        </div>
+      ) : hasLinks ? (
+        <div className="role-row" role="group" aria-label={product.name}>
+          {product.links.map((link) => (
+            <a
+              key={link.id}
+              className="role-enter"
+              href={link.href}
+            >
+              <span className="role-label">{link.label}</span>
+              <span className="role-hint">{link.hint}</span>
             </a>
           ))}
         </div>
@@ -160,19 +174,6 @@ export default function App() {
             />
           ))}
         </div>
-
-        <section className="research rise d8" aria-labelledby="research-heading">
-          <p className="research-kicker" id="research-heading">Research and translation</p>
-          <div className="products">
-            {RESEARCH.map((product, i) => (
-              <ProductPanel
-                key={product.id}
-                product={product}
-                delayClass={`d${9 + i}`}
-              />
-            ))}
-          </div>
-        </section>
       </main>
 
       <footer className="page-footer">

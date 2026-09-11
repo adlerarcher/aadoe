@@ -1,12 +1,8 @@
 /**
- * Hub entries.
- *
- * SEPI = permitting database (Subsurface Energy Permitting Index)
- * GPCP = coordination dashboard (Geothermal Permitting Coordination Platform)
- *
- * Research and translation:
- * - Field guide at /guide/
- * - Hackathons at /gpic/ (CEQ PIC and PNNL)
+ * Hub entries. Three primary boxes:
+ * 1. SEPI = permitting database (Subsurface Energy Permitting Index)
+ * 2. GPCP = coordination dashboard (Geothermal Permitting Coordination Platform)
+ * 3. Research and translation = Field guide (/guide/) and Hackathons (/gpic/)
  *
  * All apps are nested same-origin under this site (aadoe).
  *
@@ -69,28 +65,27 @@ export const PRODUCTS = [
       },
     ],
   },
-]
-
-export const RESEARCH = [
   {
-    id: 'guide',
-    code: 'Guide',
-    name: 'Field guide',
-    fullName: 'Geothermal field guide',
-    href: '/guide/',
+    id: 'research',
+    code: '03 · Research',
+    name: 'Research and translation',
+    fullName: 'Field guide and hackathons',
     blurb:
-      'Primer, permitting, workforce, drilling, and projects. Written for people doing the work.',
-    enterLabel: 'Open the field guide',
-  },
-  {
-    id: 'hackathons',
-    code: 'CEQ PIC · PNNL',
-    name: 'Hackathons',
-    fullName: 'CEQ PIC and PNNL',
-    href: '/gpic/',
-    blurb:
-      'Hackathons in partnership with the Council on Environmental Quality Presidential Innovation Fellows and Pacific Northwest National Laboratory. Timed builds on permitting data and coordination.',
-    enterLabel: 'Open hackathons',
+      'The field guide for people doing the work. Hackathons in partnership with CEQ PIC and Pacific Northwest National Laboratory.',
+    links: [
+      {
+        id: 'guide',
+        label: 'Field guide',
+        hint: 'Open',
+        href: '/guide/',
+      },
+      {
+        id: 'hackathons',
+        label: 'Hackathons',
+        hint: 'CEQ PIC · PNNL',
+        href: '/gpic/',
+      },
+    ],
   },
 ]
 

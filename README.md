@@ -11,7 +11,7 @@ Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 | **SEPI** | System user · System owner | `/sepi/records/` |
 | **GPCP** | Applicant · Reviewer | `/gpcp/gpcp/` |
 
-Research and translation: `/guide/` (field guide), `/gpic/` (hackathons with CEQ PIC and PNNL).
+Research and translation (box 3): Field guide `/guide/`, Hackathons `/gpic/` (CEQ PIC and PNNL).
 
 ## Role mapping
 
