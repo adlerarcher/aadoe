@@ -60,7 +60,7 @@ a { color: var(--gold); }
   position: relative;
   background: var(--navy);
   color: var(--ink);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mast::before {
@@ -203,7 +203,7 @@ h1 {
 
 /* -- Nav -- */
 .site-nav, .mast-copy { position: relative; z-index: 2; }
-.site-nav { z-index: 20; }
+.site-nav { z-index: 30; }
 
 .site-nav {
   display: flex;
@@ -253,7 +253,7 @@ h1 {
 }
 
 .site-nav nav > a,
-.nav-drop > summary {
+.nav-drop > a {
   font-family: var(--mono);
   font-weight: 700;
   font-size: .62rem;
@@ -264,35 +264,28 @@ h1 {
   padding: 6px 0;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  list-style: none;
-  background: none;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  outline: none;
-  box-shadow: none;
-  -webkit-appearance: none;
-  appearance: none;
+}
+
+.nav-drop > a {
+  display: inline-flex;
+  align-items: center;
 }
 
 .site-nav nav > a:hover,
-.nav-drop > summary:hover,
+.nav-drop > a:hover,
 .site-nav nav > a:focus-visible,
-.nav-drop > summary:focus-visible {
+.nav-drop > a:focus-visible {
   color: var(--ink);
   border-bottom-color: var(--gold);
 }
 
 .site-nav nav > a[aria-current="page"],
-.nav-drop[data-active="true"] > summary,
-.nav-drop[open] > summary {
+.nav-drop[data-active="true"] > a {
   color: var(--ink);
   border-bottom-color: var(--gold);
 }
 
-.nav-drop > summary::-webkit-details-marker { display: none; }
-.nav-drop > summary::marker { content: ""; }
-.nav-drop > summary::after {
+.nav-drop > a::after {
   content: "";
   display: inline-block;
   width: 0;
@@ -305,7 +298,8 @@ h1 {
   opacity: .75;
 }
 
-.nav-drop[open] > summary::after {
+.nav-drop:hover > a::after,
+.nav-drop:focus-within > a::after {
   transform: rotate(180deg);
   opacity: 1;
 }
@@ -315,6 +309,7 @@ h1 {
 }
 
 .nav-menu {
+  display: none;
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
@@ -324,7 +319,21 @@ h1 {
   background: var(--navy);
   border: 1px solid rgba(245, 184, 25, .28);
   box-shadow: 0 18px 40px -16px rgba(0, 0, 0, .65);
-  z-index: 40;
+  z-index: 50;
+}
+
+.nav-menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nav-drop:hover .nav-menu,
+.nav-drop:focus-within .nav-menu {
+  display: block;
 }
 
 .nav-menu a {
