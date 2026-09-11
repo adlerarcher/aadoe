@@ -512,6 +512,7 @@ def partners_body(depth):
   <article data-reveal>
     <h2>Thermal Underground</h2>
     <p>Research and translation for geothermal and other subsurface energy. The field guide sits next to these hackathons on the hub.</p>
+    <p>SEPI indexes Argonne GEM for siting layers and PNNL Tethys for environmental-effects literature. GPCP reads those records from the index.</p>
   </article>'''
 
 

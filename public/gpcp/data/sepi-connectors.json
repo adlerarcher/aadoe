@@ -1,8 +1,8 @@
 {
-  "updated": "2026-08-24",
+  "updated": "2026-09-11",
   "source": "SEPI",
-  "url": "/sepi/connectors.json",
-  "inventory": "Revised 21 August 2026. Status is what was verified by direct request. Blank status is not probed.",
+  "url": "https://sepi.thermalunderground.org/connectors.json",
+  "inventory": "Revised 11 September 2026. Status is what was verified by direct request. Blank status is not probed.",
   "connectors": [
     {
       "id": "mlrs",
@@ -1229,6 +1229,40 @@
       "url": "https://openei.org/wiki/RAPID/Geothermal"
     },
     {
+      "id": "gem",
+      "name": "Geospatial Energy Mapper",
+      "owner": "ANL",
+      "group": "Reference Knowledge",
+      "tier": "nexus",
+      "holds": "Energy facility siting and constraint layers for early spatial screening",
+      "applies": "Applicant siting and constraint screening",
+      "priority": 1,
+      "light": "open",
+      "status": "",
+      "method": "",
+      "note": "Not probed.",
+      "endpoint": "Public web map at gem.anl.gov",
+      "pointer": "Public web map at gem.anl.gov",
+      "url": "https://gem.anl.gov/"
+    },
+    {
+      "id": "tethys",
+      "name": "Tethys environmental effects hub",
+      "owner": "PNNL",
+      "group": "Reference Knowledge",
+      "tier": "nexus",
+      "holds": "Literature and knowledge records on environmental effects of wind and marine energy",
+      "applies": "Transferable environmental-effects literature",
+      "priority": 2,
+      "light": "open",
+      "status": "",
+      "method": "",
+      "note": "Not probed.",
+      "endpoint": "Public knowledge hub at tethys.pnnl.gov",
+      "pointer": "Public knowledge hub at tethys.pnnl.gov",
+      "url": "https://tethys.pnnl.gov/"
+    },
+    {
       "id": "pic-standards",
       "name": "NEPA and Permitting Data Standard",
       "owner": "GSA PIC",
@@ -1295,6 +1329,23 @@
       "endpoint": "Nexus data layer",
       "pointer": "Nexus data layer",
       "url": ""
+    },
+    {
+      "id": "ogrre",
+      "name": "OGRRE",
+      "owner": "DOE",
+      "group": "Reference Knowledge",
+      "tier": "nexus",
+      "holds": "Digitized oil and gas well records from scanned regulatory files: location, construction, status",
+      "applies": "Historic well construction",
+      "priority": 2,
+      "light": "go",
+      "status": "VERIFIED WORKING",
+      "method": "extract",
+      "note": "VERIFIED WORKING",
+      "endpoint": "catalog.energy.gov CATALOG OGRRE",
+      "pointer": "catalog.energy.gov CATALOG OGRRE",
+      "url": "https://catalog.energy.gov/portfolio-items/catalog-data-extraction/"
     },
     {
       "id": "dep",

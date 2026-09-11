@@ -304,6 +304,14 @@ ROWS = [
      "Regulatory and permitting references",
      "nexus", "Permitting narratives", 1, "go", "VERIFIED WORKING",
      "openei.org wiki API", "https://openei.org/wiki/RAPID/Geothermal", "extract"),
+    ("Reference Knowledge", "gem", "Geospatial Energy Mapper", "ANL",
+     "Energy facility siting and constraint layers for early spatial screening",
+     "nexus", "Applicant siting and constraint screening", 1, "open", "",
+     "Public web map at gem.anl.gov", "https://gem.anl.gov/", ""),
+    ("Reference Knowledge", "tethys", "Tethys environmental effects hub", "PNNL",
+     "Literature and knowledge records on environmental effects of wind and marine energy",
+     "nexus", "Transferable environmental-effects literature", 2, "open", "",
+     "Public knowledge hub at tethys.pnnl.gov", "https://tethys.pnnl.gov/", ""),
     ("Reference Knowledge", "pic-standards", "NEPA and Permitting Data Standard", "GSA PIC",
      "Government-wide schema",
      "nexus", "Record shape", 2, "go", "VERIFIED WORKING",
@@ -471,10 +479,10 @@ def main():
     if dupes:
         raise SystemExit("Duplicate ids: " + ", ".join(dupes))
     payload = {
-        "updated": "2026-08-28",
+        "updated": "2026-09-11",
         "source": "SEPI",
         "url": "https://sepi.thermalunderground.org/connectors.json",
-        "inventory": "Revised 28 August 2026. Status is what was verified by direct request. Blank status is not probed.",
+        "inventory": "Revised 11 September 2026. Status is what was verified by direct request. Blank status is not probed.",
         "connectors": connectors,
     }
     dest = Path(__file__).resolve().parents[1] / "connectors.json"

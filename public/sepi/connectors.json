@@ -1,8 +1,8 @@
 {
-  "updated": "2026-08-28",
+  "updated": "2026-09-11",
   "source": "SEPI",
-  "url": "/sepi/connectors.json",
-  "inventory": "Revised 28 August 2026. Status is what was verified by direct request. Blank status is not probed.",
+  "url": "https://sepi.thermalunderground.org/connectors.json",
+  "inventory": "Revised 11 September 2026. Status is what was verified by direct request. Blank status is not probed.",
   "connectors": [
     {
       "id": "mlrs",
@@ -1227,6 +1227,40 @@
       "endpoint": "openei.org wiki API",
       "pointer": "openei.org wiki API",
       "url": "https://openei.org/wiki/RAPID/Geothermal"
+    },
+    {
+      "id": "gem",
+      "name": "Geospatial Energy Mapper",
+      "owner": "ANL",
+      "group": "Reference Knowledge",
+      "tier": "nexus",
+      "holds": "Energy facility siting and constraint layers for early spatial screening",
+      "applies": "Applicant siting and constraint screening",
+      "priority": 1,
+      "light": "open",
+      "status": "",
+      "method": "",
+      "note": "Not probed.",
+      "endpoint": "Public web map at gem.anl.gov",
+      "pointer": "Public web map at gem.anl.gov",
+      "url": "https://gem.anl.gov/"
+    },
+    {
+      "id": "tethys",
+      "name": "Tethys environmental effects hub",
+      "owner": "PNNL",
+      "group": "Reference Knowledge",
+      "tier": "nexus",
+      "holds": "Literature and knowledge records on environmental effects of wind and marine energy",
+      "applies": "Transferable environmental-effects literature",
+      "priority": 2,
+      "light": "open",
+      "status": "",
+      "method": "",
+      "note": "Not probed.",
+      "endpoint": "Public knowledge hub at tethys.pnnl.gov",
+      "pointer": "Public knowledge hub at tethys.pnnl.gov",
+      "url": "https://tethys.pnnl.gov/"
     },
     {
       "id": "pic-standards",
