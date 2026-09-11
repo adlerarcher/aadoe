@@ -1,7 +1,8 @@
 {
-  "name": "gpic",
+  "name": "hackathons",
   "private": true,
   "scripts": {
-    "dev": "npx --yes serve -l 5175 --cors ."
+    "dev": "npx --yes serve -l 5175 --cors .",
+    "build": "python3 scripts/build-pages.py"
   }
 }

@@ -30,10 +30,13 @@ function listTop(dir) {
   })
 }
 
-// 1) Hub
+// 1) Rebuild static hackathons pages (public/gpic → copied into dist by Vite)
+run('python3', ['scripts/build-pages.py'], join(root, 'public', 'gpic'))
+
+// 2) Hub
 run('npm', ['run', 'build:hub'], root)
 
-// 2) Nested SPAs
+// 3) Nested SPAs
 const spas = [
   { name: 'mdev', out: join(dist, 'mdev') },
   { name: 'guide', out: join(dist, 'guide') },
@@ -56,7 +59,7 @@ for (const spa of spas) {
   console.log(`Copied apps/${spa.name}/dist → dist/${spa.name}`)
 }
 
-// 3) Verify required nested roots exist (avoid silent 404s)
+// 4) Verify required nested roots exist (avoid silent 404s)
 const required = ['sepi', 'gpcp', 'gpic', 'odev', 'mdev', 'guide']
 const missing = required.filter((name) => !existsSync(join(dist, name)))
 if (missing.length) {
