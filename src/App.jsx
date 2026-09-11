@@ -56,7 +56,7 @@ function ProductPanel({ product, delayClass }) {
   return (
     <section className={`product rise ${delayClass}`} aria-labelledby={`product-${product.id}`}>
       <div className="product-head">
-        <p className="product-code">{product.code} · {product.mark}</p>
+        <p className="product-code">{product.code}</p>
         <h2 id={`product-${product.id}`}>{product.name}</h2>
         <p className="product-full">{product.fullName}</p>
         <p className="product-blurb">{product.blurb}</p>
@@ -131,7 +131,7 @@ export default function App() {
         <a className="brand" href="/">
           <img src="/logo.png" width="256" height="256" alt="" />
           <span className="brand-name">
-            The Thermal Underground <i>AADOE</i>
+            The Thermal Underground
           </span>
           <span className="demo-mark">Demo</span>
         </a>
@@ -140,14 +140,14 @@ export default function App() {
       <main className="hub">
         <div className="intro">
           <LogoShell />
-          <p className="kicker rise d2">Database · Dashboards · Discovery</p>
+          <p className="kicker rise d2">Databases · Dashboards</p>
           <h1>
             <span className="title-line rise d3">Thermal Underground</span>
-            <span className="title-accent rise d4">AADOE</span>
+            <span className="title-accent rise d4">Databases and dashboards</span>
           </h1>
           <span className="rule rise d5" aria-hidden="true" />
           <p className="lede rise d5">
-            Permitting database, coordination dashboards, and innovation delivery. Enter by product and role.
+            The permitting database and the coordination dashboard. Enter SEPI or GPCP as the role you hold.
           </p>
         </div>
 
@@ -181,6 +181,7 @@ export default function App() {
 
       <footer className="page-footer">
         <p>Thermal Underground © Adler Archer</p>
+        <p className="page-footer-note">AADOE · Adler / DOE</p>
         <p className="page-footer-note disclosure-glow">
           Not an official U.S. government publication
         </p>

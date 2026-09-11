@@ -1,18 +1,17 @@
-# AADOE
+# Databases and dashboards
 
-Adler DOE hub for [The Thermal Underground](https://thermalunderground.org): permitting database, coordination dashboards, and innovation delivery, with role-based entry.
+Hub for [The Thermal Underground](https://thermalunderground.org): the permitting database (SEPI) and the coordination dashboard (GPCP), with role-based entry.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 
-## Products
+## Entries
 
-| Hub label | Target | Roles / entry |
+| Hub label | Role | Lands on |
 |---|---|---|
-| **Permitting database** | [SEPI](https://sepi.thermalunderground.org/) | System user · System owner |
-| **Dashboard** | [GPCP](https://gpcp.thermalunderground.org/) | Applicant · Reviewer |
-| **Discovery & innovation** | [GPIC](https://gpic.thermalunderground.org/) | Open GPIC |
+| **SEPI** | System user · System owner | [sepi.thermalunderground.org](https://sepi.thermalunderground.org/) |
+| **GPCP** | Applicant · Reviewer | [gpcp.thermalunderground.org](https://gpcp.thermalunderground.org/) |
 
-Secondary links: Field guide, ODEV, MDEV.
+Secondary links: Field guide, GPIC, ODEV, MDEV.
 
 ## Role mapping
 
@@ -65,6 +64,5 @@ GitHub Pages custom domain: `aadoe.thermalunderground.org` with Enforce HTTPS. `
 |---|---|
 | `sepi.thermalunderground.org` home | stay as product; hub links with roles |
 | `gpcp.thermalunderground.org` home | stay as product; hub links with roles |
-| Optional apex marketing | `thermalunderground.org` can link to AADOE as product entry |
 
-Keep SEPI, GPCP, and GPIC hosts live for deep links and connectors. Point people at AADOE for database, dashboard, and discovery entry.
+Keep SEPI and GPCP hosts live for deep links and connectors. Point people here for database and dashboard entry.

@@ -1,9 +1,8 @@
 /**
- * AADOE product map.
+ * Hub entries.
  *
- * Permitting database = SEPI (Subsurface Energy Permitting Index)
- * Dashboard = GPCP (Geothermal Permitting Coordination Platform)
- * Discovery & innovation delivery = GPIC
+ * SEPI = permitting database (Subsurface Energy Permitting Index)
+ * GPCP = coordination dashboard (Geothermal Permitting Coordination Platform)
  *
  * Role query params:
  * - SEPI reads `?as=user|admin` (session-user.js).
@@ -15,14 +14,14 @@
 
 export const PRODUCTS = [
   {
-    id: 'database',
-    code: '01',
-    name: 'Permitting database',
+    id: 'sepi',
+    code: '01 · Database',
+    name: 'SEPI',
     fullName: 'Subsurface Energy Permitting Index',
     mark: 'SEPI',
     host: 'sepi.thermalunderground.org',
     base: 'https://sepi.thermalunderground.org/records/',
-    blurb: 'Agency systems of record, indexed for reuse. Dashboards and coordination tools read from here.',
+    blurb: 'Permitting database. Enter as system user or system owner.',
     roles: [
       {
         id: 'user',
@@ -39,14 +38,14 @@ export const PRODUCTS = [
     ],
   },
   {
-    id: 'dashboard',
-    code: '02',
-    name: 'Dashboard',
+    id: 'gpcp',
+    code: '02 · Dashboard',
+    name: 'GPCP',
     fullName: 'Geothermal Permitting Coordination Platform',
     mark: 'GPCP',
     host: 'gpcp.thermalunderground.org',
     base: 'https://gpcp.thermalunderground.org/gpcp/',
-    blurb: 'Project coordination: what applies, who runs each review, what waits on what, and how long it takes.',
+    blurb: 'Coordination dashboard. Enter as applicant or reviewer.',
     roles: [
       {
         id: 'applicant',
@@ -62,17 +61,6 @@ export const PRODUCTS = [
       },
     ],
   },
-  {
-    id: 'discovery',
-    code: '03',
-    name: 'Discovery & innovation',
-    fullName: 'Geothermal Permitting Innovation Collaborative',
-    mark: 'GPIC',
-    host: 'gpic.thermalunderground.org',
-    href: 'https://gpic.thermalunderground.org/',
-    blurb: 'Programs, community, and resources that deliver the next round of permitting practice.',
-    enterLabel: 'Open GPIC',
-  },
 ]
 
 export const SECONDARY = [
@@ -82,6 +70,13 @@ export const SECONDARY = [
     mark: 'TU',
     href: 'https://thermalunderground.org/',
     note: 'thermalunderground.org',
+  },
+  {
+    id: 'gpic',
+    label: 'GPIC',
+    mark: 'GPIC',
+    href: 'https://gpic.thermalunderground.org/',
+    note: 'Programs · community · resources',
   },
   {
     id: 'odev',
