@@ -1,0 +1,5311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Home</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" integrity="sha384-MinO0mNliZ3vwppuPOUnGa+iq619pfMhLVUXfC4LHwSCvF9H+6P/KO4Q7qBOYV5V" crossorigin="anonymous" onerror="this.onerror=null;this.href='../vendor/maplibre-gl.css'">
+<style>
+  :root {
+    --navy: #0A1A4F;
+    --gold: #F5B819;
+    --white: #ffffff;
+    --blm: #0A1A4F;
+    --fws: #243A72;
+    --shpo: #3D548A;
+    --epa: #5A6FA3;
+    --state: #7A8CB8;
+    --crit: #F5B819;
+    --line: #0A1A4F;
+    --muted: #3D4A73;
+    --title: Cambria, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --body: Calibri, "Segoe UI", Candara, Arial, sans-serif;
+    --label: Figtree, Calibri, "Segoe UI", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  [x-cloak] { display: none !important; }
+  body {
+    background: var(--white);
+    color: var(--navy);
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.42;
+    font-variant-numeric: tabular-nums;
+  }
+  .page { padding: 0 88px 64px; }
+  .mast {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.88fr);
+    align-items: stretch;
+    min-height: 0;
+    height: auto;
+    margin: 0 -88px;
+    padding: 0;
+    background: var(--navy);
+    color: var(--white);
+    overflow: hidden;
+  }
+  .mast-copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .mast-visual {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .site-nav {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 16px 88px;
+    background: transparent;
+  }
+  .site-nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+    line-height: 1;
+  }
+  .site-nav .brand img { display: block; width: 44px; height: 44px; }
+  .demo-mark {
+    flex: 0 0 auto;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 3px 7px;
+    line-height: 1.2;
+    animation: demo-flash 2.8s ease-in-out infinite;
+  }
+  @keyframes demo-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .28; }
+  }
+  .brand-name {
+    font-family: var(--title);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 14em;
+  }
+  .brand-name i { font-style: italic; color: var(--gold); }
+  .site-nav nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    justify-content: flex-end;
+  }
+  .site-nav nav a {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+  .site-nav nav a[aria-current="page"] { color: var(--white); border-bottom-color: var(--gold); }
+  .mast-copy {
+    position: relative;
+    z-index: 2;
+    padding: 108px 48px 48px 106px;
+    min-width: 0;
+  }
+  .mast-visual {
+    position: relative;
+    z-index: 1;
+    min-height: 440px;
+    align-self: stretch;
+    background: var(--navy);
+  }
+  .mast-visual::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 108px;
+    bottom: 0;
+    width: 5px;
+    background: var(--gold);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .mast-visual img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% 42%;
+  }
+  .mast-rule {
+    position: absolute;
+    left: 88px; top: 108px;
+    width: 5px; height: 0;
+    background: var(--gold);
+    z-index: 3;
+    animation: mastBar .7s .08s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  .mast-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    flex-wrap: wrap;
+    margin: 0 0 22px;
+    animation: mastIn .55s .2s ease both;
+  }
+  .mast-top .eyebrow { margin: 0; animation: none; }
+  .eyebrow {
+    position: relative;
+    margin: 0 0 24px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); line-height: 1;
+    z-index: 1;
+    animation: mastIn .55s .2s ease both;
+  }
+  h1 {
+    position: relative;
+    margin: 0 0 12px;
+    font-family: var(--title); font-weight: 700;
+    font-size: clamp(44px, 6.2vw, 84px);
+    line-height: .92;
+    letter-spacing: -0.04em;
+    max-width: 9em;
+    z-index: 1;
+  }
+  h1 .mast-line { display: block; overflow: hidden; }
+  h1 .mast-line span {
+    display: block;
+    animation: mastTitle .8s cubic-bezier(.2,.7,.2,1) both;
+  }
+  h1 .mast-line:nth-child(1) span { animation-delay: .28s; }
+  h1 .mast-line:nth-child(2) span { animation-delay: .42s; }
+  .mast-kind {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 6px;
+    font-family: var(--title); font-weight: 700;
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+    animation: mastIn .55s .48s ease both;
+  }
+  .mast-place {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 18px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--white);
+    animation: mastIn .55s .52s ease both;
+  }
+  .mast-deck {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 22px;
+    max-width: 26em;
+    font-size: 18px;
+    line-height: 1.35;
+    font-style: italic;
+    animation: mastIn .55s .58s ease both;
+  }
+  .mast-case {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    padding: 16px 0 0;
+    border-top: 4px solid var(--gold);
+    animation: mastIn .55s .64s ease both;
+  }
+  .mast-facts {
+    margin: 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: var(--white);
+  }
+  @keyframes mastBar { to { height: calc(100% - 108px); } }
+  @keyframes mastIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes mastTitle {
+    from { transform: translateY(110%); }
+    to { transform: translateY(0); }
+  }
+  .stage { padding-top: 22px; position: relative; z-index: 2; }
+  .stage-nav {
+    position: sticky;
+    top: 0;
+    z-index: 12;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 8px 22px;
+    padding: 14px 0 12px;
+    margin: 0 0 18px;
+    background: var(--white);
+    border-bottom: 1px solid var(--navy);
+  }
+  .stage-nav .kicker { margin: 0 0 6px; }
+  .stage-nav .menu {
+    min-width: 16em;
+    width: 16em;
+  }
+  .stage-back {
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--navy);
+    background: transparent;
+    border: none;
+    padding: 8px 0 10px;
+    cursor: pointer;
+    margin-right: 8px;
+  }
+  .stage-back:hover { color: var(--gold); }
+  .stage-lede {
+    margin: 0 0 18px;
+    max-width: 42em;
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    color: var(--navy);
+  }
+  .mast-why {
+    margin: 12px 0 0;
+    max-width: 36em;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, .82);
+  }
+  .checks-panel {
+    margin: 0 0 28px;
+    padding: 0;
+    border: 1px solid rgba(10, 26, 79, .22);
+    background: var(--white);
+  }
+  .checks-panel .fold-head {
+    width: 100%;
+    padding: 12px 18px;
+    align-items: center;
+  }
+  .checks-panel .fold-head h2 {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .checks-panel .fold-sign {
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .checks-panel .checks { padding: 0 18px 16px; }
+  #stage-main, #panel-file {
+    scroll-margin-top: 64px;
+  }
+  #stage-main .map-card { margin-top: 0; }
+  .banner {
+    margin: 14px 0 0;
+    padding: 0;
+    border: none;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .banner a { color: var(--navy); }
+
+  .mast .tag.captured {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .mast .tag.sim {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  .mast-sim {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .mast.desk-mast {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .mast.desk-mast .mast-kind { font-style: italic; }
+  .mast.desk-mast .mast-copy {
+    padding: 108px 88px 48px 106px;
+    max-width: 48em;
+  }
+  .mast.home-mast {
+    min-height: min(42vh, 400px);
+    grid-template-columns: 1fr;
+  }
+  .mast.home-mast .mast-rule,
+  .mast.home-mast + .mast-rule {
+    display: none !important;
+  }
+  .mast.home-mast::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(10, 26, 79, .9) 0%, rgba(10, 26, 79, .55) 38%, rgba(10, 26, 79, .18) 68%, transparent 100%),
+      radial-gradient(70% 80% at 72% 48%, rgba(245, 184, 25, .16), transparent 58%);
+    animation: home-glow 7s ease-in-out infinite;
+  }
+  .mast.home-mast .mast-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-self: stretch;
+    box-sizing: border-box;
+    min-height: min(42vh, 400px);
+    height: 100%;
+    padding: 108px 88px 36px 106px;
+    max-width: 40em;
+    z-index: 5;
+  }
+  .mast.home-mast .mast-portrait {
+    width: 88px;
+    height: 88px;
+    margin: 0 0 16px;
+  }
+  .mast.home-mast h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+    font-style: normal !important;
+    font-weight: 400 !important;
+    margin: 0;
+    max-width: none;
+    line-height: .92;
+  }
+  .mast.home-mast .mast-line {
+    display: block;
+    width: 100%;
+  }
+  .mast.home-mast .mast-line-name {
+    color: var(--gold);
+    font-style: italic !important;
+    font-weight: 500 !important;
+    font-size: clamp(2.8rem, 5.6vw, 4.6rem);
+    white-space: nowrap;
+    letter-spacing: -0.04em;
+    margin-top: .06em;
+  }
+  .mast.home-mast .mast-kind {
+    margin: 6px 0 0;
+    font-size: 16px;
+  }
+  .mast.home-mast .mast-datum {
+    margin: 8px 0 0;
+    padding-top: 0;
+    border-top: none;
+    animation: none;
+  }
+  .mast-plate {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(245,184,25,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,184,25,.07) 1px, transparent 1px);
+    background-size: 80px 80px;
+    background-position: 18px 18px;
+    mask-image: radial-gradient(78% 72% at 62% 50%, #000 0%, transparent 78%);
+  }
+  .mast-ridges {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .mast-ridges path {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 1.1;
+    stroke-linecap: round;
+    opacity: .22;
+  }
+  .mast-ridges path:nth-child(2) { opacity: .14; }
+  .mast-ridges path:nth-child(3) { opacity: .1; }
+  .mast-wash {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .mast-wash img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 42%;
+    opacity: .42;
+    filter: saturate(1.05) contrast(1.08);
+    animation: mast-ken 28s ease-in-out infinite alternate;
+  }
+  .mast-rays {
+    position: absolute;
+    inset: -30%;
+    z-index: 1;
+    pointer-events: none;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0 7%,
+      rgba(245, 184, 25, .09) 9%,
+      transparent 13%,
+      transparent 28%,
+      rgba(245, 184, 25, .07) 31%,
+      transparent 36%,
+      transparent 55%,
+      rgba(255, 255, 255, .05) 58%,
+      transparent 64%
+    );
+    mask-image: radial-gradient(circle at 72% 46%, #000 0%, transparent 58%);
+    animation: mast-spin 48s linear infinite;
+  }
+  .mast-wisps {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .mast-wisps span {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(28px);
+    background: radial-gradient(circle, rgba(255, 255, 255, .16) 0%, transparent 70%);
+    animation: mast-wisp 16s ease-in-out infinite;
+  }
+  .mast-wisps span:nth-child(1) { width: 18rem; height: 12rem; left: 42%; bottom: -18%; animation-duration: 18s; }
+  .mast-wisps span:nth-child(2) { width: 16rem; height: 16rem; right: 8%; bottom: -22%; animation-delay: -5s; background: radial-gradient(circle, rgba(245, 184, 25, .2) 0%, transparent 70%); }
+  .mast-wisps span:nth-child(3) { width: 12rem; height: 18rem; right: 28%; bottom: -12%; animation-delay: -9s; animation-duration: 14s; }
+  @keyframes mast-spin { to { transform: rotate(360deg); } }
+  @keyframes mast-wisp {
+    0% { transform: translate3d(0, 10%, 0) scale(1); opacity: .3; }
+    50% { transform: translate3d(4%, -36%, 0) scale(1.16); opacity: .7; }
+    100% { transform: translate3d(-5%, -70%, 0) scale(1.04); opacity: 0; }
+  }
+  .mast.home-mast .mast-datum {
+    position: relative;
+    z-index: 1;
+    margin: 20px 0 0;
+    max-width: 22em;
+    padding-top: 14px;
+    border-top: 1px solid rgba(245,184,25,.5);
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    animation: mastIn .55s .62s ease both;
+  }
+  .mast-mosaic {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 46%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .mast-tile {
+    position: absolute;
+    width: clamp(8.75rem, 18vw, 14.5rem);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--navy);
+    border: 1px solid rgba(245,184,25,.55);
+    box-shadow: 0 18px 40px rgba(0,0,0,.38), 0 0 0 1px rgba(255,255,255,.06);
+    animation: mast-float-1 9s ease-in-out infinite;
+    animation-delay: calc(var(--i) * -.7s);
+  }
+  .mast-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 36%, rgba(255, 255, 255, .36) 50%, transparent 64%);
+    background-size: 220% 100%;
+    background-position: 120% 0;
+    animation: mast-sheen 7.5s ease-in-out infinite;
+  }
+  .mast-tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: mast-ken 16s ease-in-out infinite alternate;
+  }
+  .mast-tile.portrait {
+    aspect-ratio: 3 / 4;
+    width: clamp(6.5rem, 12vw, 10rem);
+  }
+  .mast-tile:nth-child(1) {
+    right: 8%;
+    top: 18%;
+    width: clamp(10rem, 28%, 16.5rem);
+    animation-name: mast-float-2;
+    z-index: 2;
+  }
+  .mast-tile:nth-child(2) {
+    left: 4%;
+    bottom: 15%;
+    animation-name: mast-float-1;
+    z-index: 3;
+  }
+  .mast-tile:nth-child(3) {
+    right: 6%;
+    bottom: 12%;
+    width: clamp(8rem, 24%, 12.5rem);
+    animation-name: mast-float-3;
+    z-index: 2;
+  }
+  .mast-tile:nth-child(4) {
+    left: 22%;
+    top: 10%;
+    animation-name: mast-float-4;
+    z-index: 1;
+  }
+  .mast-tile:nth-child(5) {
+    right: 28%;
+    top: 8%;
+    animation-name: mast-float-1;
+    z-index: 2;
+  }
+  .mast-tile:nth-child(6) {
+    right: 18%;
+    bottom: 6%;
+    animation-name: mast-float-2;
+    z-index: 1;
+  }
+  .mast-tile:nth-child(odd)::after { animation-delay: -2.4s; }
+  @keyframes home-glow {
+    0%, 100% { opacity: .72; }
+    50% { opacity: 1; }
+  }
+  @keyframes mast-float-1 {
+    0%, 100% { transform: rotate(-8deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(-4deg) translate(10px, -14px) scale(1.05); }
+  }
+  @keyframes mast-float-2 {
+    0%, 100% { transform: rotate(-3deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(2deg) translate(-12px, -12px) scale(1.04); }
+  }
+  @keyframes mast-float-3 {
+    0%, 100% { transform: rotate(10deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(14deg) translate(-8px, -14px) scale(1.06); }
+  }
+  @keyframes mast-float-4 {
+    0%, 100% { transform: rotate(4deg) translate(0, 0) scale(1); }
+    50% { transform: rotate(1deg) translate(12px, -10px) scale(1.04); }
+  }
+  @keyframes mast-ken {
+    from { transform: scale(1) translate(0, 0); }
+    to { transform: scale(1.1) translate(-2%, 2%); }
+  }
+  @keyframes mast-sheen {
+    0%, 55% { background-position: 120% 0; }
+    75%, 100% { background-position: -20% 0; }
+  }
+
+  .kicker {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    margin: 0 0 14px; color: var(--navy);
+  }
+  .projects { margin: 0 0 14px; }
+  .desk { padding-top: 28px; }
+  .desk-lede {
+    margin: 0 0 18px;
+    max-width: 40em;
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+  .desk-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px 28px;
+    margin: 0 0 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--navy);
+  }
+  .desk-bar-end {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+  }
+  .desk-index {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    padding: 10px 14px;
+  }
+  .desk-index .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #2f9e6b;
+    flex: none;
+  }
+  .desk-index.warn .dot { background: var(--gold); }
+  .desk-index .n { color: var(--muted); font-weight: 400; letter-spacing: .06em; }
+  .desk-work {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+    margin: 0 0 20px;
+  }
+  .proj-rows {
+    margin: 0;
+    padding: 8px 0 12px;
+    list-style: none;
+  }
+  .proj-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) auto auto;
+    gap: 12px 16px;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-top: 1px solid #d5dae8;
+    color: var(--navy);
+    cursor: pointer;
+    font-family: var(--body);
+    padding: 12px 20px;
+  }
+  .proj-row::after { display: none; }
+  .proj-row:hover { background: #f7f4ea; }
+  .proj-row-thumb {
+    display: block;
+    width: 44px; height: 32px;
+    overflow: hidden;
+    background: var(--navy);
+    flex: none;
+  }
+  .proj-row-thumb img {
+    display: block;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .proj-row .name {
+    font-family: var(--title);
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  .proj-row .place {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted);
+    justify-self: end;
+  }
+  .proj-row .phase {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .proj-row .phase.on {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 3px 7px;
+  }
+  .desk-counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .desk-counts li { margin: 0; }
+  .desk-counts b {
+    display: block;
+    font-family: var(--title);
+    font-size: 22px;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+  .desk-counts span {
+    display: block;
+    margin-top: 5px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .desk-new {
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 16px 32px;
+    cursor: pointer;
+  }
+  .desk-new:hover { background: var(--white); }
+  .desk-board {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .desk-lower {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+  .widget {
+    border: 1px solid var(--navy);
+    background: var(--white);
+    min-width: 0;
+  }
+  .widget-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px 0;
+  }
+  .widget-head h2 {
+    margin: 0;
+    font-family: var(--title);
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 500;
+    font-style: italic;
+  }
+  .widget-tabs {
+    display: flex;
+    gap: 2px;
+  }
+  .widget-tabs button {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 10px;
+    cursor: pointer;
+  }
+  .widget-tabs button.on {
+    color: var(--navy);
+    border-bottom-color: var(--gold);
+  }
+  .widget-empty {
+    margin: 0;
+    padding: 20px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .proj-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 18px 20px 22px;
+    list-style: none;
+  }
+  .proj-strip li {
+    min-width: 0;
+    animation: proj-in .75s cubic-bezier(.2,.7,.2,1) both;
+    animation-delay: calc(var(--i, 0) * .1s + .12s);
+  }
+  .proj-tile {
+    position: relative;
+    display: block;
+    width: 100%;
+    isolation: isolate;
+    text-align: left;
+    background: var(--navy);
+    border: 1px solid var(--navy);
+    color: var(--white);
+    cursor: pointer;
+    font-family: var(--body);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0;
+    transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .45s ease;
+  }
+  .proj-tile::after { display: none; }
+  .proj-tile:hover,
+  .proj-tile:focus-visible {
+    transform: translateY(-7px);
+    border-color: var(--gold);
+    box-shadow: 6px 10px 0 var(--gold);
+    z-index: 1;
+  }
+  .proj-tile:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+  .proj-tile-photo {
+    position: relative;
+    display: block;
+    height: 176px;
+    overflow: hidden;
+    background: var(--navy);
+  }
+  .proj-tile-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+    animation: proj-ken 14s ease-in-out infinite alternate;
+    animation-delay: calc(var(--i, 0) * -3.2s);
+    transition: transform 1.1s cubic-bezier(.2,.7,.2,1);
+  }
+  .proj-tile:hover .proj-tile-photo img,
+  .proj-tile:focus-visible .proj-tile-photo img {
+    animation-play-state: paused;
+    transform: scale(1.16);
+  }
+  .proj-tile-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 32%, rgba(245,184,25,.28) 48%, transparent 64%);
+    transform: translateX(-130%);
+    pointer-events: none;
+  }
+  .proj-tile:hover .proj-tile-photo::after,
+  .proj-tile:focus-visible .proj-tile-photo::after {
+    animation: proj-sheen .85s ease forwards;
+  }
+  .proj-tile-body {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 40px 14px 14px;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,26,79,.42) 28%, rgba(10,26,79,.94) 78%);
+  }
+  .proj-tile .phase {
+    display: inline-block;
+    margin: 0 0 8px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+  .proj-tile .phase.on {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 3px 7px;
+  }
+  .proj-tile .name {
+    display: block;
+    font-family: var(--title);
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.2;
+    color: var(--white);
+  }
+  .proj-tile .place {
+    display: block;
+    margin-top: 5px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.72);
+  }
+  @keyframes proj-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes proj-ken {
+    from { transform: scale(1.06) translate3d(0, 0, 0); }
+    to { transform: scale(1.14) translate3d(-2%, -1.5%, 0); }
+  }
+  @keyframes proj-sheen {
+    from { transform: translateX(-130%); }
+    to { transform: translateX(130%); }
+  }
+  .widget-list {
+    margin: 8px 0 0;
+    padding: 0 0 8px;
+    list-style: none;
+  }
+  .widget-tabs button::after { display: none; }
+  .board-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+    align-items: start;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    border-top: 1px solid #d5dae8;
+    color: var(--navy);
+    cursor: pointer;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 12px 16px;
+  }
+  .board-row::after { display: none; }
+  .board-row:hover { background: #f7f4ea; }
+  .board-row .copy { min-width: 0; }
+  .board-row .title {
+    display: block;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+  .board-row .sub {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    margin-top: 5px;
+  }
+  .board-row .meta, .board-row .note {
+    min-width: 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .board-row .note {
+    font-family: var(--body);
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 12px;
+  }
+  .board-row .when {
+    font-size: 12px;
+    line-height: 1.3;
+    white-space: nowrap;
+    color: var(--muted);
+    padding-top: 1px;
+  }
+  .board-row .when.late { color: var(--navy); font-weight: 700; }
+  .board-row .st { margin: 0; flex: 0 0 auto; }
+  .intake { max-width: 36em; padding-top: 8px; }
+  .intake label { display: block; margin: 0 0 14px; }
+  .intake .lab {
+    display: block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+  .intake input[type="text"] {
+    width: 100%;
+    font-family: var(--body);
+    font-size: 16px;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    padding: 8px 12px;
+  }
+  .intake .checks { margin: 8px 0 18px; }
+  .intake .go {
+    font-family: var(--label); font-weight: 700;
+    font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 14px 28px;
+    cursor: pointer;
+  }
+  .st {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 8px;
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+  .st.complete { background: var(--navy); color: var(--white); }
+  .st.under_review { background: var(--gold); color: var(--navy); }
+  .st.not_started { border: 1px solid var(--navy); color: var(--navy); }
+  .comments { margin: 0 0 22px; padding: 0; list-style: none; }
+  .comments li {
+    border-top: 1px solid var(--navy);
+    padding: 12px 0;
+  }
+  .comments .who {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+  .comments p { margin: 0; }
+  @media (max-width: 900px) {
+    .desk-lower { grid-template-columns: 1fr; }
+    .desk-work { grid-template-columns: 1fr; }
+    .proj-strip { grid-template-columns: 1fr 1fr; }
+    .proj-tile-photo { height: 154px; }
+    .proj-row { grid-template-columns: 44px minmax(0, 1fr) auto; }
+    .proj-row .place { display: none; }
+  }
+  @media (max-width: 640px) {
+    .desk-board { grid-template-columns: 1fr; }
+    .proj-strip { grid-template-columns: 1fr; }
+    .proj-tile-photo { height: 168px; }
+  }
+  select.menu {
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 8px 12px;
+    background: var(--white);
+    min-width: min(28em, 100%);
+    max-width: 100%;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 12px 22px;
+    margin: 0 0 18px;
+    padding: 12px 0 14px;
+    border-top: 1px solid var(--navy);
+    border-bottom: 1px solid var(--navy);
+  }
+  .ctrl-speed {
+    position: relative;
+    z-index: 1;
+    padding: 12px 16px 14px;
+    background: var(--white);
+    border: 1px solid var(--navy);
+    margin: 0 6px 6px 0;
+  }
+  .ctrl-speed::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold);
+    z-index: -1;
+  }
+  .ctrl-speed .kicker {
+    font-size: 12px;
+    letter-spacing: .12em;
+  }
+  .ctrl-speed .band button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 18px 10px;
+    font-size: 12px;
+  }
+  .ctrl-speed .band button.on {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+  .pace-arrows {
+    display: flex;
+    gap: 4px;
+    height: 8px;
+    pointer-events: none;
+  }
+  .pace-arrows i {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid var(--gold);
+  }
+  .checks-lead {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .ctrl:has(.checks) {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .ctrl .kicker { margin: 0 0 6px; }
+  .checks {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 8px 20px;
+    max-width: none;
+  }
+  .checks label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; cursor: pointer; line-height: 1.12;
+  }
+  .checks input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px; height: 18px; margin: 0;
+    border: 1.5px solid var(--navy);
+    background: var(--white);
+    flex: none;
+    display: inline-block;
+    padding: 0;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .checks input:checked {
+    background-color: var(--navy);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23F5B819' stroke-width='3' stroke-linecap='square' stroke-linejoin='miter' d='M2.4 8.1 6.4 12 13.6 3.8'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px 14px;
+    border-color: var(--navy);
+  }
+  .checks input:checked::after { content: none; }
+  .band { display: flex; gap: 6px; flex-wrap: wrap; }
+  .band button { padding: 7px 12px; }
+  .band button.on {
+    background: var(--gold); color: var(--navy); border-color: var(--gold);
+  }
+  .band button.on::after { display: none; }
+  .controls input[type="date"] {
+    font-family: var(--body);
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 7px 10px;
+    background: var(--white);
+  }
+  .controls .actions {
+    gap: 8px;
+    align-items: center;
+  }
+  .controls .actions button.ghost {
+    padding: 7px 12px;
+    font-size: 11px;
+    letter-spacing: .1em;
+  }
+  .controls .actions button.primary {
+    padding: 16px 32px;
+    font-size: 15px;
+    letter-spacing: .12em;
+  }
+  button.ghost.on {
+    background: var(--gold); color: var(--navy); border-color: var(--gold);
+  }
+  .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  button {
+    position: relative;
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 11px 22px; border: 1px solid var(--navy);
+    background: var(--navy); color: var(--white); cursor: pointer;
+    border-radius: 0;
+  }
+  button::after {
+    content: "";
+    position: absolute; top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold); z-index: -1;
+  }
+  button:disabled { opacity: .4; cursor: default; }
+  button:disabled::after { display: none; }
+  button.ghost, a.ghost {
+    background: var(--white); color: var(--navy);
+  }
+  button.ghost::after { display: none; }
+  a.ghost {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--label); font-weight: 700;
+    font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+    padding: 11px 22px; border: 1px solid var(--navy);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .delta {
+    margin: 0;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .outcome { margin: 0; }
+  .seq-head { margin: 0 0 40px; padding: 4px 0 0; }
+  .seq-mast {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px 40px;
+    align-items: end;
+    padding: 0 0 8px;
+  }
+  .seq-hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  .seq-hero::after { display: none; }
+  .seq-num {
+    font-family: var(--title); font-weight: 500;
+    font-style: italic;
+    font-size: clamp(56px, 7vw, 80px);
+    line-height: .9;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--navy);
+  }
+  .seq-num.rolling { color: var(--navy); }
+  .seq-num-rule {
+    display: block;
+    width: 3.2em;
+    max-width: 100%;
+    height: 3px;
+    margin: 10px 0 0;
+    background: var(--gold);
+    transform-origin: left center;
+    transform: scaleX(var(--p, 0));
+  }
+  .seq-tune {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 16px 36px;
+    align-items: end;
+    min-width: 0;
+    overflow: visible;
+    padding: 18px 0 20px;
+    border: none;
+    border-top: 1px solid rgba(10, 26, 79, .16);
+    border-bottom: 1px solid rgba(10, 26, 79, .16);
+  }
+  .seq-tune .kicker { margin: 0 0 8px; }
+  .seq-speed { min-width: 0; }
+  .seq-speed .pace-arrows { display: none; }
+  .seq-speed .band {
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .seq-speed .band button {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    margin-left: -1px;
+    padding: 7px 12px;
+    font-size: 10px;
+    z-index: 0;
+    background: var(--white);
+    color: var(--navy);
+  }
+  .seq-speed .band button:first-child { margin-left: 0; }
+  .seq-speed .band button::after { display: none; }
+  .seq-speed .band button.on {
+    z-index: 1;
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+  .seq-unit {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 8px 0 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.2;
+  }
+  .seq-unit::before { display: none; }
+  .seq-span { min-width: 0; }
+  .seq-window {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    min-height: 0;
+    min-width: 0;
+  }
+  .seq-start { display: flex; }
+  .seq-start input[type="date"] {
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 14px;
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 7px 10px;
+    background: var(--white);
+  }
+  .seq-window-rule {
+    display: block;
+    font-family: var(--label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    width: auto;
+    height: auto;
+    background: none;
+    flex: none;
+  }
+  .seq-end-date {
+    margin: 0;
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.3;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+    color: var(--navy);
+    white-space: nowrap;
+    overflow: visible;
+    flex: 0 0 auto;
+  }
+  .seq-tally {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0 0 4px;
+    background: none;
+    border: none;
+  }
+  .seq-tally::after { display: none; }
+  .seq-stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: auto;
+  }
+  .seq-stats li {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .seq-stats b {
+    display: block;
+    font-family: var(--title); font-weight: 500;
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-transform: none;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .seq-pathrow {
+    display: grid;
+    grid-template-columns: 11ch minmax(0, 1fr);
+    gap: 6px 16px;
+    align-items: baseline;
+    padding: 14px 0 0;
+    border-top: none;
+  }
+  .seq-path-kicker {
+    margin: 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .seq-chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .seq-chain li {
+    display: flex;
+    align-items: baseline;
+  }
+  .seq-chain li + li::before {
+    content: "";
+    width: 4px; height: 4px;
+    margin: 0 8px;
+    background: var(--navy);
+    opacity: .28;
+    flex: none;
+    align-self: center;
+  }
+  .seq-chain button {
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(10, 26, 79, .28);
+    padding: 0 0 1px;
+    color: var(--navy);
+    font-family: var(--body); font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.3;
+  }
+  .seq-chain button::after { display: none; }
+  .seq-chain button:hover,
+  .seq-chain button.on { color: var(--navy); border-bottom-color: var(--gold); }
+  .seq-pick {
+    margin: 18px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--navy);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px 24px;
+    align-items: end;
+  }
+  .seq-pick h3 {
+    margin: 0 0 6px;
+    font-family: var(--title); font-weight: 500;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .seq-pick p { margin: 0; }
+  .seq-pick .cite { margin-top: 6px; font-size: 14px; color: var(--muted); }
+  .seq-pick button, .seq-pick a.ghost { padding: 8px 16px; }
+  .seq-pick button::after { display: none; }
+  .seq-chain-empty {
+    margin: 0;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .seq-head .delta { margin: 14px 0 0; }
+  .gantt { margin-top: 0; }
+  .card.gantt { padding-top: 24px; overflow: visible; }
+
+  .board {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 22px;
+    align-items: start;
+  }
+  .left { min-width: 0; }
+  .card {
+    border: 1px solid var(--navy);
+    background: var(--white);
+    padding: 21px 31px;
+  }
+  .card.mark { border-left: 5px solid var(--gold); }
+  .fold { padding: 0; }
+  .fold-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18px;
+    gap: 16px;
+    align-items: start;
+    text-align: left;
+    background: transparent;
+    color: var(--navy);
+    border: none;
+    padding: 21px 31px;
+    cursor: pointer;
+  }
+  .fold-head::after { display: none; }
+  .fold-head h2 { margin: 0; white-space: normal; overflow: visible; }
+  .card.fold .fold-head h2 { white-space: normal; overflow: visible; margin: 0; }
+  .fold-sub {
+    margin: 8px 0 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .fold-sign {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1;
+    color: var(--gold);
+    justify-self: end;
+  }
+  .fold-body {
+    padding: 0 31px 21px;
+    border-top: 1px solid var(--navy);
+  }
+  .topic {
+    border-top: 1px solid var(--navy);
+    padding: 0;
+  }
+  .topic .fold-head {
+    padding: 14px 0;
+    grid-template-columns: minmax(0, 1fr) auto 18px;
+  }
+  .topic .fold-head h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 18px; line-height: 1.12; margin: 0;
+  }
+  .topic-body { padding: 0 0 16px; }
+  details.payload-fold { margin: 0; }
+  details.payload-fold summary {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    list-style: none;
+  }
+  details.payload-fold summary::-webkit-details-marker { display: none; }
+  details.payload-fold summary::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--gold);
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .steps { margin: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 10px minmax(220px, 32ch) minmax(0, 1fr) 12ch;
+    gap: 12px;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--navy);
+    font-size: 13px;
+    opacity: .32;
+  }
+  .step:last-child { border-bottom: none; }
+  .step.on { opacity: 1; }
+  .step .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--navy); opacity: .25;
+    position: relative; top: -1px;
+  }
+  .step.on .dot { background: var(--gold); opacity: 1; }
+  .step .name {
+    font-family: var(--mono); font-size: 12px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .step .detail { color: var(--muted); min-width: 0; }
+  .id-card .steps { margin: 12px 0 0; }
+  .id-card .step { opacity: 1; }
+
+  .headline { margin-top: 22px; }
+  .metrics { display: flex; gap: 36px; flex-wrap: wrap; }
+  .metric .n {
+    font-family: var(--title); font-weight: 700;
+    font-size: 28px; line-height: 1.12;
+    font-variant-numeric: tabular-nums;
+  }
+  .metric .l {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .gantt-head { margin: 0 0 22px; }
+  .gantt-lead {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 22px 28px;
+    align-items: end;
+  }
+  .gantt-stat { display: flex; align-items: baseline; gap: 12px; line-height: 1; }
+  .gantt-stat .n {
+    font-family: var(--title); font-weight: 700;
+    font-size: clamp(52px, 6vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .gantt-stat .u {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted);
+    position: relative; top: -8px;
+  }
+  .gantt-span {
+    margin: 0 0 8px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--navy);
+  }
+  .gantt-chain {
+    margin: 0;
+    max-width: 46em;
+    font-size: 16px;
+    line-height: 1.42;
+    color: var(--navy);
+  }
+  .gantt-figure {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: 0 28px;
+    align-items: stretch;
+  }
+  .gantt-labels { display: flex; flex-direction: column; }
+  .gantt-label-head { display: none; }
+  .gantt-plot {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .gantt-well {
+    position: relative;
+    background: var(--white);
+    border: 1px solid rgba(10, 26, 79, .22);
+    z-index: 1;
+    margin: 0;
+  }
+  .gantt-well::after { display: none; }
+  .gantt-axis {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    height: 48px;
+    background: transparent;
+  }
+  .gantt-axis::after { display: none; }
+  .axis-svg { height: 48px; overflow: hidden; }
+  .gantt-tracks { position: relative; min-height: 12px; z-index: 1; overflow: hidden; }
+  .gantt-grid, .axis-svg { display: block; width: 100%; }
+  .gantt-grid {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .axis-svg .domain, .axis-svg .tick line { display: none; }
+  .axis-svg .tick text {
+    fill: var(--navy);
+    font-family: var(--label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .axis-svg .fy-lab {
+    fill: var(--muted);
+    font-family: var(--label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .grow {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) 42px;
+    gap: 8px;
+    align-items: center;
+    height: 56px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(10, 26, 79, .1);
+  }
+  .gantt-tracks .grow {
+    display: block;
+    position: relative;
+    z-index: 1;
+    border-bottom: none;
+    height: 56px;
+  }
+  .grow:last-child { border-bottom: none; }
+  .grow:hover .nm { color: var(--navy); }
+  .gantt-tracks .grow.sel { background: rgba(245, 184, 25, .1); }
+  .gantt-labels .grow.sel .ix { color: var(--gold); }
+  .gdur.onpath { color: var(--navy); }
+  .grow.dim { opacity: .28; }
+  .ix {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .glabel { min-width: 0; line-height: 1.15; }
+  .glabel .nm {
+    display: flex; align-items: center; gap: 6px;
+    font-family: var(--body); font-weight: 400;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-size: 14px; line-height: 1.2;
+  }
+  .glabel .nm .sq {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    flex: none;
+  }
+  .glabel .nm span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .glabel .ag {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 3px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .gantt-labels .st {
+    margin: 0;
+    padding: 1px 5px;
+    font-size: 8px;
+    letter-spacing: .06em;
+  }
+  .gantt-labels .st.under_review {
+    background: transparent;
+    color: var(--navy);
+    border: 1px solid rgba(10, 26, 79, .3);
+  }
+  .gantt-labels .st.complete {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(10, 26, 79, .18);
+  }
+  .gdur {
+    font-family: var(--body); font-weight: 400;
+    font-size: 13px;
+    line-height: 1.2;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .gdur .orig { display: block; margin: 2px 0 0; font-size: 8px; }
+  .track { position: relative; height: 56px; width: 100%; }
+  .track-cap { display: none; }
+  .bar {
+    position: absolute; top: 18px; height: 16px;
+    border-radius: 0;
+    padding: 0;
+    min-width: 2px;
+    box-sizing: border-box;
+  }
+  .bar.held {
+    top: 16px; height: 20px;
+    background: transparent;
+    border: 1px solid var(--navy);
+    opacity: .45;
+    padding: 0;
+  }
+  .bar.crit {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+  .bar-date {
+    position: absolute;
+    top: 6px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--navy);
+    white-space: nowrap;
+    margin-left: 8px;
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .legend {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    padding-top: 16px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--navy);
+  }
+  .legend span { display: flex; align-items: center; gap: 8px; }
+  .sw { width: 10px; height: 10px; display: inline-block; border-radius: 0; }
+
+  .maplibregl-ctrl-logo, .maplibregl-ctrl-attrib { display: none !important; }
+  .maplibregl-ctrl-scale {
+    background: var(--white);
+    border: 1px solid var(--navy);
+    border-bottom-width: 2px;
+    color: var(--navy);
+    font-family: var(--label);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .maplibregl-canvas { outline: none; }
+  .orig {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    margin-left: 6px; color: var(--muted);
+    vertical-align: middle;
+  }
+  .est-note { margin: 8px 0 0; font-size: 13px; color: var(--muted); }
+  .tier-legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin: 0 0 18px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .tier-legend span { display: flex; align-items: center; gap: 8px; }
+  .map-card, .rapid-card, .gaps-card, .cov-card, .corpus-card, .id-card { margin-top: 22px; }
+  .map-well {
+    position: relative;
+    height: 460px;
+    background: #f2f0ea;
+    border: 1px solid var(--navy);
+    margin: 0 6px 6px 0;
+  }
+  .map-well::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold);
+    z-index: -1;
+  }
+  #map { position: absolute; inset: 0; }
+  .map-card > .fold-sub { margin: -4px 0 18px; }
+  .map-layers.fold {
+    margin-top: 16px;
+    border: 1px solid var(--navy);
+  }
+  .map-layers .fold-head {
+    padding: 14px 18px;
+    grid-template-columns: minmax(0, 1fr) 18px;
+  }
+  .map-layers .fold-head h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 18px; line-height: 1.12; margin: 0;
+  }
+  .map-layers .fold-body { padding: 0 18px 14px; }
+  .map-pick-wrap { margin-top: 16px; }
+  .layer-list { margin: 0; padding: 0; list-style: none; }
+  .layer-list li {
+    display: grid;
+    grid-template-columns: 10px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--navy);
+    cursor: pointer;
+  }
+  .layer-list li:last-child { border-bottom: none; }
+  .layer-list .sq {
+    width: 7px; height: 7px;
+    background: var(--gold);
+    margin-top: 4px;
+  }
+  .layer-list .sq.off { background: transparent; border: 1px solid var(--navy); }
+  .layer-list .sq.find { background: transparent; border: 1px solid var(--gold); }
+  .layer-list .ln {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .layer-list .src { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .layer-list .src a { color: var(--muted); }
+  .map-pick {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 16px 18px;
+    min-height: 5em;
+    font-size: 14px;
+  }
+  .map-pick .empty { color: var(--muted); }
+  .map-pick p { margin: 0; font-size: 15px; }
+  .zooms { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 14px; }
+  .rapid-select {
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 8px 10px;
+    background: var(--white);
+    max-width: 100%;
+  }
+  .rapid-sum { margin: 0 0 14px; }
+  .rapid-sum .kicker { margin: 0 0 6px; }
+  .rapid-sum .wiki p { margin: 0 0 10px; }
+  .rapid-sum .wiki p:last-child { margin-bottom: 0; }
+  .rapid-sum .wiki p:empty { display: none; }
+  .topic .miss { margin-top: 10px; }
+  .wiki { font-size: 15px; }
+  .wiki p { margin: 0 0 10px; }
+  .wiki p:last-child { margin-bottom: 0; }
+  .wiki p:empty { display: none; }
+  .tag.modelled { background: var(--navy); color: var(--white); }
+  .id-card > p, .id-card .fold-body > p { max-width: 46em; }
+  .id-card .id-part {
+    border-top: 1px solid var(--navy);
+  }
+  .id-card .id-part .fold-head {
+    padding: 14px 0;
+  }
+  .id-card .id-part .fold-head h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 18px; line-height: 1.12;
+    margin: 0;
+  }
+  .id-card .id-part .fold-body {
+    padding: 0 0 16px;
+    border-top: none;
+  }
+  .id-schemes { width: 100%; border-collapse: collapse; font-size: 15px; margin: 0 0 8px; min-width: 720px; }
+  .id-schemes-wrap { overflow-x: auto; }
+  .id-schemes th, .id-schemes td {
+    text-align: left; vertical-align: top;
+    padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--navy);
+  }
+  .id-schemes th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .id-schemes .ex {
+    font-family: var(--mono); font-size: 12px;
+    word-break: break-all;
+  }
+  .id-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 0 0 8px;
+  }
+  .id-item {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 16px 18px;
+  }
+  .id-item.miss {
+    border-style: dashed;
+    border-left-style: solid;
+  }
+  .id-item h4 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 17px; line-height: 1.12;
+    margin: 0 0 8px;
+  }
+  .id-item p { margin: 0 0 8px; font-size: 15px; }
+  .id-item p:last-child { margin-bottom: 0; }
+  .id-item .vals {
+    font-family: var(--mono); font-size: 12px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+  .id-graph-wrap {
+    overflow-x: auto;
+    margin: 8px 0 18px;
+    border: 1px solid var(--navy);
+    background: var(--white);
+  }
+  .id-graph { display: block; min-width: 920px; }
+  .id-graph .node-lab {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    fill: var(--navy);
+  }
+  .id-graph .node-sub {
+    font-family: var(--body);
+    font-size: 11px;
+    fill: var(--muted);
+  }
+  .id-legend {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    margin: 0 0 14px;
+    font-size: 14px;
+  }
+  .id-legend i {
+    display: inline-block;
+    width: 28px; height: 0;
+    border-top: 2px solid var(--navy);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .id-legend i.dash {
+    border-top-style: dashed;
+    border-top-color: var(--gold);
+  }
+  .id-arg {
+    margin: 16px 0 0;
+    max-width: 46em;
+    padding: 16px 18px;
+    border: 1px dashed var(--gold);
+    border-left: 5px solid var(--gold);
+  }
+  .id-arg p { margin: 0; }
+  .id-grid.fail {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (max-width: 900px) {
+    .id-grid { grid-template-columns: 1fr; }
+    .id-grid.fail { grid-template-columns: 1fr; }
+  }
+  .gaps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 16px;
+  }
+  .gap-card {
+    position: relative;
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 21px 31px;
+    z-index: 1;
+  }
+  .gap-card::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold);
+    z-index: -1;
+  }
+  .gap-card h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1.12; margin: 0 0 12px;
+  }
+  .gap-card h3 a { color: var(--navy); text-decoration: none; }
+  .gap-card h3 a:hover { border-bottom: 2px solid var(--gold); }
+  .gap-card p { margin: 0 0 8px; }
+  .gap-card p:last-child { margin-bottom: 0; }
+  .gap-card p a { color: var(--navy); font-family: var(--label); font-weight: 700; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+  .tag.captured { background: var(--navy); color: var(--white); }
+  .tag.extract { background: var(--white); color: var(--navy); border: 1px dashed var(--navy); }
+  .prov-card h2, .cov-card h2, .sheet h2, .corpus-card h2, .map-card h2, .rapid-card h2, .gaps-card h2, .id-card h2 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1.12; margin: 0 0 16px;
+    white-space: nowrap; overflow: hidden;
+  }
+  .id-card h2 { white-space: normal; overflow: visible; }
+  .prov { font-size: 15px; }
+  .prov .empty { color: var(--muted); }
+  .kv { margin: 0 0 12px; display: grid; grid-template-columns: 11em minmax(0, 1fr); gap: 4px 14px; align-items: baseline; }
+  .kv .k {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--navy); line-height: 1.12;
+  }
+  .kv .v { font-variant-numeric: tabular-nums; min-width: 0; }
+  .cite { font-family: var(--mono); font-size: 12px; word-break: break-all; }
+  pre {
+    grid-column: 1 / -1;
+    background: var(--white);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 12px 14px;
+    font-size: 11.5px; line-height: 1.42;
+    overflow: auto; max-height: 280px; margin: 6px 0 0;
+    font-family: var(--mono); color: var(--navy);
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 10px; line-height: 1.2;
+    border-radius: 15.5px;
+  }
+  .tag.sim { background: var(--gold); color: var(--navy); }
+  .tag.live { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+  .tag.none { background: var(--white); color: var(--muted); border: 1px solid var(--navy); }
+  .tag.extract { background: var(--gold); color: var(--navy); }
+  .tag.type {
+    text-transform: none;
+    letter-spacing: .03em;
+    background: var(--white);
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    margin: 0 6px 6px 0;
+  }
+  .tag.gap { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+
+  .corpus-card { margin-top: 22px; }
+  .corpus-lede { margin: 0 0 16px; max-width: 52em; }
+  .corpus-find {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 16px 22px;
+    margin: 0 0 22px;
+    max-width: 52em;
+  }
+  .corpus-find p { margin: 0; }
+  .corpus-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+    gap: 22px;
+    align-items: start;
+  }
+  .corpus-map {
+    position: relative;
+    height: 280px;
+    background: var(--navy);
+    border: 1px solid var(--navy);
+    margin: 0 6px 6px 0;
+  }
+  .corpus-map::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold);
+    z-index: -1;
+  }
+  .corpus-map-inner { position: relative; height: 100%; }
+  .corpus-pt {
+    position: absolute;
+    width: 9px; height: 9px;
+    margin: -4px 0 0 -4px;
+    padding: 0;
+    background: var(--white);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .corpus-pt::after { display: none; }
+  .corpus-pt.adj { background: var(--gold); border-radius: 0; }
+  .corpus-pt.on {
+    background: var(--gold);
+    border-radius: 0;
+    width: 11px; height: 11px;
+    margin: -5px 0 0 -5px;
+  }
+  .corpus-pt-lab {
+    position: absolute;
+    left: 12px; top: -6px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 9px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .corpus-axis {
+    position: absolute;
+    font-family: var(--label); font-weight: 700;
+    font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--gold);
+    pointer-events: none;
+  }
+  .corpus-axis.n { top: 10px; left: 12px; }
+  .corpus-axis.s { bottom: 10px; left: 12px; }
+  .corpus-axis.w { bottom: 10px; left: 40px; }
+  .corpus-axis.e { bottom: 10px; right: 12px; }
+  .corpus-list { margin: 0; padding: 0; list-style: none; }
+  .corpus-item {
+    border-bottom: 1px solid var(--navy);
+    padding: 14px 0 14px 12px;
+    cursor: pointer;
+  }
+  .corpus-item:last-child { border-bottom: none; }
+  .corpus-item.on { border-left: 5px solid var(--gold); padding-left: 7px; }
+  .corpus-item h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 17px; line-height: 1.12;
+    margin: 0 0 8px;
+  }
+  .corpus-meta {
+    display: grid;
+    grid-template-columns: 9em minmax(0, 1fr);
+    gap: 3px 12px;
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+  .corpus-meta dt {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .corpus-meta dd { margin: 0; }
+  .corpus-docs { margin: 12px 0 0; padding: 0; list-style: none; }
+  .corpus-docs li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 5em;
+    gap: 10px;
+    font-size: 13px;
+    padding: 4px 0;
+  }
+  .corpus-docs .fn { font-family: var(--mono); font-size: 12px; word-break: break-all; }
+  .corpus-docs .pg { text-align: right; font-variant-numeric: tabular-nums; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+  .gap-table th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--navy);
+  }
+  .gap-table td { padding: 10px; border-bottom: 1px solid var(--navy); vertical-align: top; }
+  .chips { display: flex; flex-wrap: wrap; margin-top: 4px; }
+
+  .cov-card { margin-top: 22px; }
+  table.cov {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  table.cov th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--navy);
+  }
+  table.cov td {
+    padding: 10px;
+    border-bottom: 1px solid var(--navy);
+    vertical-align: top;
+  }
+  table.cov tr { cursor: pointer; }
+  table.cov tr.hl td:first-child { box-shadow: inset 5px 0 0 var(--gold); }
+  table.cov tr.dim { opacity: .32; }
+  table.cov .holds { color: var(--muted); font-size: 13px; }
+  table.cov .deps { font-size: 13px; }
+
+  .sheet {
+    position: fixed; inset: 0;
+    z-index: 20;
+    background: var(--white);
+    overflow: auto;
+    padding: 38px 88px 64px;
+  }
+  .rules-grid { display: grid; gap: 16px; }
+  .rule {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 21px 31px;
+  }
+  .rule h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 20px; line-height: 1.12; margin: 0 0 12px;
+  }
+  .rule .id { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  footer {
+    margin: 36px 0 0;
+    padding: 21px 0 0;
+    border-top: 1px solid var(--navy);
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.42;
+  }
+  footer p { margin: 0 0 10px; }
+  footer p:last-child { margin-bottom: 0; }
+  a { color: var(--navy); }
+
+  @media (max-width: 1100px) {
+    .checks { grid-template-columns: repeat(4, max-content); }
+    .board, .controls { grid-template-columns: 1fr; }
+    .gantt-figure { grid-template-columns: 280px minmax(0, 1fr); }
+    .gantt-lead { grid-template-columns: 1fr; gap: 10px; }
+    .corpus-layout, .gaps-grid { grid-template-columns: 1fr; }
+    .map-well { height: 360px; }
+    .step { grid-template-columns: 10px minmax(160px, 24ch) minmax(0, 1fr) 10ch; }
+  }
+  @media (max-width: 800px) {
+    .page { padding: 0 24px 48px; }
+    .sheet { padding: 28px 24px 48px; }
+    .mast {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      margin: 0 -24px;
+    }
+    .mast-copy { padding: 96px 24px 28px 42px; grid-column: 1; grid-row: 1; }
+    .mast.desk-mast .mast-copy { padding: 96px 24px 36px 42px; }
+    .mast.home-mast { min-height: 0; }
+    .mast.home-mast .mast-copy { padding: 88px 24px 36px 24px; }
+    .mast-mosaic { left: 0; }
+    .mast-wash img { width: 100%; opacity: .32; }
+    .mast-tile { width: clamp(5.8rem, 30vw, 8.75rem); }
+    .mast-tile:nth-child(1) { right: 6%; top: auto; bottom: 20%; width: clamp(6.5rem, 34vw, 9.5rem); }
+    .mast-tile:nth-child(2) { left: auto; right: 38%; bottom: 10%; }
+    .mast-tile:nth-child(n+3) { display: none; }
+    .mast-visual {
+      min-height: 200px;
+      height: 200px;
+      border-top: 5px solid var(--gold);
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .mast-visual::before { display: none; }
+    .site-nav { padding: 14px 24px; }
+    .mast-rule { left: 24px; top: 96px; }
+    .mast-top { margin: 0 0 16px; }
+    h1 { margin: 0 0 10px; font-size: clamp(40px, 11vw, 56px); }
+    .mast-place { margin: 0 0 14px; }
+    .mast-deck { margin: 0 0 18px; }
+    .checks { grid-template-columns: repeat(2, max-content); }
+    .card { padding: 18px 20px; }
+    .kv { grid-template-columns: 1fr; }
+    .gantt-figure { grid-template-columns: 1fr; }
+    .gantt-labels { display: none; }
+    .track-cap {
+      display: block;
+      position: absolute; left: 10px; top: 4px;
+      font-family: var(--body); font-weight: 400;
+      font-size: 12px; color: var(--navy);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: calc(100% - 20px);
+      pointer-events: none;
+    }
+    .bar-date { top: 4px; }
+    .step { grid-template-columns: 10px 1fr auto; }
+    .step .detail { grid-column: 2 / 3; }
+    .seq-mast {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .seq-tally { min-height: 0; }
+    .seq-tune {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .seq-pathrow {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .seq-pick { grid-template-columns: 1fr; }
+    .bar { top: 22px; }
+    .bar.held { top: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mast-rule, .eyebrow, .mast-top, .mast-kind, .mast-place, .mast-deck, .mast-case, .mast-datum, h1 .mast-line span, .demo-mark, .mast-tile, .mast-tile img, .mast-tile::after, .mast-wash img, .mast-rays, .mast-wisps span, .mast.home-mast::after { animation: none; }
+    .mast-rule { height: calc(100% - 108px); }
+    h1 .mast-line span { transform: none; }
+    .proj-strip li, .proj-tile, .proj-tile-photo img, .proj-tile-photo::after { animation: none; }
+    .proj-tile, .proj-tile-photo img { transition: none; }
+    .proj-tile:hover, .proj-tile:focus-visible { transform: none; box-shadow: none; }
+    .proj-tile:hover .proj-tile-photo img, .proj-tile:focus-visible .proj-tile-photo img { transform: none; }
+    .mast-tile:nth-child(1) { transform: rotate(-3deg); }
+    .mast-tile:nth-child(2) { transform: rotate(-8deg); }
+    .mast-tile:nth-child(3) { transform: rotate(10deg); }
+  }
+
+  .site-loader {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: var(--navy);
+    transition: opacity .48s ease, visibility .48s ease;
+  }
+  .site-loader::before {
+    content: "";
+    position: absolute; inset: -20%;
+    background:
+      radial-gradient(ellipse 55% 45% at 50% 48%, rgba(245,184,25,.16) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 60% at 30% 70%, rgba(255,255,255,.05) 0%, transparent 50%);
+    animation: site-loader-bg-breathe 5.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .site-loader__inner { position: relative; z-index: 1; padding: 24px; }
+  .site-loader__stage {
+    position: relative;
+    width: min(22rem, 86vw);
+    height: min(22rem, 86vw);
+    max-height: min(22rem, 86vh);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .site-loader__bloom {
+    position: absolute; left: 50%; top: 50%;
+    width: 120%; height: 120%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,184,25,.22) 0%, rgba(10,26,79,.12) 38%, transparent 68%);
+    filter: blur(18px);
+    animation: site-loader-bloom-pulse 2.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .site-loader__ring {
+    position: absolute; left: 50%; top: 50%;
+    translate: -50% -50%;
+    border-radius: 50%;
+    pointer-events: none;
+    transform-origin: center;
+  }
+  .site-loader__ring--a {
+    width: 108%; height: 108%;
+    border: 1px dashed rgba(245,184,25,.45);
+    animation: site-loader-spin 14s linear infinite;
+  }
+  .site-loader__ring--b {
+    width: 122%; height: 122%;
+    border: 1px solid rgba(255,255,255,.18);
+    border-top-color: rgba(245,184,25,.7);
+    border-bottom-color: rgba(245,184,25,.22);
+    animation: site-loader-spin 9s linear infinite reverse;
+  }
+  .site-loader__ring--c {
+    width: 138%; height: 138%;
+    border: 1px dashed rgba(245,184,25,.22);
+    opacity: .55;
+    animation: site-loader-spin 22s linear infinite;
+  }
+  .site-loader__spark {
+    position: absolute;
+    width: 5px; height: 5px;
+    background: var(--gold);
+    animation: site-loader-spark-drift 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .site-loader__spark--1 { left: 8%; top: 22%; animation-duration: 3.6s; }
+  .site-loader__spark--2 { right: 12%; top: 18%; animation-delay: -1.1s; animation-duration: 4.4s; }
+  .site-loader__spark--3 { left: 18%; bottom: 14%; width: 4px; height: 4px; animation-delay: -2.2s; animation-duration: 3.9s; }
+  .site-loader__spark--4 { right: 20%; bottom: 20%; animation-delay: -.6s; animation-duration: 5.1s; }
+  .site-loader__logo-shell {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    width: min(17.5rem, 72vw);
+    animation: site-loader-logo-float 3.2s ease-in-out infinite;
+  }
+  .site-loader__logo {
+    width: 100%; height: auto;
+    max-height: min(17.5rem, 72vh);
+    object-fit: contain; display: block;
+    animation: site-loader-logo-pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes site-loader-bg-breathe {
+    0%, 100% { opacity: .75; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.04); }
+  }
+  @keyframes site-loader-bloom-pulse {
+    0%, 100% { opacity: .65; scale: .92; }
+    50% { opacity: 1; scale: 1.08; }
+  }
+  @keyframes site-loader-spin { to { rotate: 360deg; } }
+  @keyframes site-loader-spark-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: .5; }
+    50% { transform: translate(6px, -10px) scale(1.25); opacity: 1; }
+  }
+  @keyframes site-loader-logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @keyframes site-loader-logo-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+  }
+  .site-loader--exit { opacity: 0; visibility: hidden; pointer-events: none; }
+  .site-loader--exit::before,
+  .site-loader--exit .site-loader__bloom,
+  .site-loader--exit .site-loader__ring,
+  .site-loader--exit .site-loader__spark,
+  .site-loader--exit .site-loader__logo-shell,
+  .site-loader--exit .site-loader__logo { animation: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .site-loader::before,
+    .site-loader__bloom,
+    .site-loader__ring,
+    .site-loader__spark,
+    .site-loader__logo-shell,
+    .site-loader__logo { animation: none !important; }
+    .site-loader__ring { opacity: .35; }
+    .site-loader__spark { opacity: .4; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body x-data="app">
+<div id="site-loader" class="site-loader" aria-live="polite" aria-busy="true">
+  <div class="site-loader__inner">
+    <div class="site-loader__stage">
+      <span class="site-loader__bloom" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--a" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--b" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--c" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--1" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--2" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--3" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--4" aria-hidden="true"></span>
+      <div class="site-loader__logo-shell">
+        <img id="site-loader-logo" class="site-loader__logo" src="../thermal-underground-logo.png" alt="Thermal Underground" width="256" height="256" decoding="async" fetchpriority="high">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var loader = document.getElementById('site-loader');
+  if (!loader) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var start = Date.now();
+  var minMs = reduce ? 480 : 2400;
+  function finish() {
+    var wait = Math.max(0, minMs - (Date.now() - start));
+    window.setTimeout(function () {
+      loader.classList.add('site-loader--exit');
+      loader.setAttribute('aria-busy', 'false');
+      window.setTimeout(function () { loader.remove(); }, 480);
+    }, wait);
+  }
+  if (document.readyState === 'complete') finish();
+  else window.addEventListener('load', finish, { once: true });
+})();
+</script>
+<div class="page" x-cloak>
+  <header class="mast" :class="{ 'desk-mast': desk !== 'record' || projectId !== 'dixie', 'home-mast': desk === 'chooser' }">
+    <div class="mast-plate" x-show="desk === 'chooser'" aria-hidden="true"></div>
+    <svg class="mast-ridges" x-show="desk === 'chooser'" viewBox="0 0 1400 560" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-40 408 C 140 372, 260 448, 420 392 S 680 318, 860 368 S 1120 448, 1440 330"/>
+      <path d="M-40 468 C 180 428, 320 502, 500 454 S 760 392, 980 428 S 1220 510, 1440 400"/>
+      <path d="M80 168 C 260 142, 420 208, 600 164 S 900 108, 1100 158 S 1280 198, 1440 148"/>
+    </svg>
+    <div class="mast-wash" x-show="desk === 'chooser'" aria-hidden="true">
+      <img src="../images/steam.jpg" alt="" width="1536" height="1024" decoding="async">
+    </div>
+    <div class="mast-rays" x-show="desk === 'chooser'" aria-hidden="true"></div>
+    <div class="mast-wisps" x-show="desk === 'chooser'" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="mast-mosaic" x-show="desk === 'chooser'" aria-hidden="true">
+      <div class="mast-tile" style="--i:0"><img src="../media/pershing.jpg" alt="" width="800" height="600" decoding="async"></div>
+      <div class="mast-tile" style="--i:1"><img src="../media/elko.jpg" alt="" width="800" height="600" decoding="async"></div>
+      <div class="mast-tile" style="--i:2"><img src="../media/washoe.jpg" alt="" width="800" height="600" decoding="async"></div>
+      <div class="mast-tile portrait" style="--i:3"><img src="../images/gathering.jpg" alt="" width="800" height="600" decoding="async"></div>
+      <div class="mast-tile" style="--i:4"><img src="../images/sinter.jpg" alt="" width="800" height="600" decoding="async"></div>
+      <div class="mast-tile" style="--i:5"><img src="../images/basin.jpg" alt="" width="800" height="600" decoding="async"></div>
+    </div>
+    <div class="site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Geothermal Permitting <i>Coordination Platform</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+      <nav aria-label="Site">
+        <a href="./" aria-current="page">Platform</a>
+        <a href="../about/">About</a>
+        <a href="../coverage/">Sources</a>
+        <a href="../glossary/">Glossary</a>
+      </nav>
+      <a class="profile-mark" data-user href="../profile/" aria-label="Allison Andrews">
+        <img src="../images/allison.jpg" alt="" width="96" height="96">
+      </a>
+      </div>
+    </div>
+    <div class="mast-copy" x-show="desk !== 'record'" x-cloak>
+      <a class="profile-mark mast-portrait" data-user href="../profile/" aria-label="Allison Andrews" x-show="desk === 'chooser'">
+        <img src="../images/allison.jpg" alt="" width="96" height="96">
+      </a>
+      <h1 x-show="desk === 'chooser'">
+        <span class="mast-line"><span>Welcome</span></span>
+        <span class="mast-line mast-line-name"><span x-text="userName"></span></span>
+      </h1>
+      <h1 x-show="desk === 'intake'">
+        <span class="mast-line"><span>Start a project</span></span>
+      </h1>
+      <p class="mast-kind" x-show="desk === 'intake'">What applies, then the sequence</p>
+    </div>
+    <div class="mast-copy" x-show="desk === 'record'" x-cloak>
+      <div class="mast-top">
+        <p class="eyebrow">The sequence</p>
+        <div class="mast-sim">
+          <span class="tag" :class="caseTierClass(project)" x-text="caseTierLabel(project)"></span>
+        </div>
+      </div>
+      <h1>
+        <span class="mast-line"><span x-text="project.name"></span></span>
+      </h1>
+      <p class="mast-kind" x-text="mastKind"></p>
+      <p class="mast-place" x-text="mastPlace"></p>
+      <p class="mast-deck" x-text="project.deck"></p>
+      <div class="mast-case">
+        <p class="mast-facts" x-text="mastFacts"></p>
+      </div>
+      <p class="mast-why">Estimated reviews to a drilling permit.</p>
+    </div>
+    <div class="mast-visual" aria-hidden="true" x-show="desk === 'record' && projectId === 'dixie'">
+      <img src="../hero-dixie.png" alt="" width="1536" height="1024" decoding="async">
+    </div>
+    <span class="mast-rule" aria-hidden="true" x-show="desk === 'record'"></span>
+  </header>
+
+  <div class="desk" x-show="desk === 'chooser'" x-cloak>
+    <div class="desk-bar">
+      <ul class="desk-counts">
+        <li><b x-text="pendingTasks.length"></b><span>To do</span></li>
+        <li><b x-text="overdueDeadlines.length"></b><span>Overdue</span></li>
+        <li><b x-text="incomingComments.length"></b><span>Inbox</span></li>
+      </ul>
+      <div class="desk-bar-end">
+        <a class="desk-index" :class="{ warn: !sepiOk }" href="../coverage/#sepi">
+          <i class="dot" aria-hidden="true"></i>
+          Index
+          <span class="n" x-text="sepiChip" x-show="sepiChip"></span>
+        </a>
+        <button type="button" class="desk-new" @click="openIntake()">New project</button>
+      </div>
+    </div>
+    <div class="desk-work">
+      <section class="widget" aria-labelledby="tasks-heading">
+        <div class="widget-head">
+          <h2 id="tasks-heading">My work</h2>
+          <div class="widget-tabs" role="tablist">
+            <button type="button" role="tab" :class="{ on: deskTaskTab === 'all' }" :aria-selected="deskTaskTab === 'all'" @click="deskTaskTab = 'all'">All</button>
+            <button type="button" role="tab" :class="{ on: deskTaskTab === 'overdue' }" :aria-selected="deskTaskTab === 'overdue'" @click="deskTaskTab = 'overdue'">Overdue <span x-text="'(' + overdueDeadlines.length + ')'"></span></button>
+          </div>
+        </div>
+        <p class="widget-empty" x-show="myWork.length === 0">Nothing in this list.</p>
+        <ul class="widget-list" x-show="myWork.length">
+          <template x-for="t in myWork" :key="t.key">
+            <li>
+              <button type="button" class="board-row" @click="openTask(t)">
+                <span class="copy">
+                  <span class="title" x-text="t.title"></span>
+                  <span class="sub">
+                    <span class="st" :class="t.status" x-text="statusLabel(t.status)"></span>
+                    <span class="meta" x-text="t.project"></span>
+                  </span>
+                </span>
+                <span class="when" :class="{ late: t.late }" x-text="t.when || ''"></span>
+              </button>
+            </li>
+          </template>
+        </ul>
+      </section>
+      <section class="widget" aria-labelledby="inbox-heading">
+        <div class="widget-head">
+          <h2 id="inbox-heading">Inbox</h2>
+        </div>
+        <ul class="widget-list">
+          <template x-for="c in incomingComments" :key="c.key">
+            <li>
+              <button type="button" class="board-row" @click="openTask(c)">
+                <span class="copy">
+                  <span class="title" x-text="c.project"></span>
+                  <span class="sub">
+                    <span class="st not_started" x-text="c.agency"></span>
+                    <span class="note" x-text="c.text"></span>
+                  </span>
+                </span>
+                <span class="when" x-text="c.when"></span>
+              </button>
+            </li>
+          </template>
+        </ul>
+      </section>
+    </div>
+    <section class="widget" aria-labelledby="projects-heading">
+      <div class="widget-head">
+        <h2 id="projects-heading">Projects</h2>
+      </div>
+      <ul class="proj-strip">
+        <template x-for="(p, i) in recentProjects" :key="p.id">
+          <li :style="'--i:' + i">
+            <button type="button" class="proj-tile" @click="openRecord(p.id)">
+              <span class="proj-tile-photo">
+                <img x-show="homeImage(p)" :src="homeImage(p)" alt="" width="800" height="450" loading="lazy" decoding="async">
+              </span>
+              <span class="proj-tile-body">
+                <span class="phase" :class="{ on: homePhase(p) === 'Under review' }" x-text="homePhase(p)"></span>
+                <span class="name" x-text="p.name"></span>
+                <span class="place" x-text="homePlace(p)"></span>
+              </span>
+            </button>
+          </li>
+        </template>
+      </ul>
+    </section>
+  </div>
+
+  <div class="desk intake" x-show="desk === 'intake'" x-cloak>
+    <p class="desk-lede">Identify applicable reviews. The timeline below is the estimate after pre-application closeout.</p>
+    <form @submit.prevent="submitOwn()">
+      <label>
+        <span class="lab">Project name</span>
+        <input type="text" x-model="intake.name" required placeholder="Field or lease name">
+      </label>
+      <label>
+        <span class="lab">County</span>
+        <input type="text" x-model="intake.county" required placeholder="County">
+      </label>
+      <label>
+        <span class="lab">State</span>
+        <input type="text" x-model="intake.state" required placeholder="NV">
+      </label>
+      <p class="kicker">What applies</p>
+      <div class="checks">
+        <label><input type="checkbox" x-model="intake.drilling"><span>Drilling proposed</span></label>
+        <label><input type="checkbox" x-model="intake.listed"><span>Listed species present</span></label>
+        <label><input type="checkbox" x-model="intake.ltaa"><span>Likely to adversely affect</span></label>
+        <label><input type="checkbox" x-model="intake.tribal"><span>Tribal interest present</span></label>
+        <label><input type="checkbox" x-model="intake.wsa"><span>WSA or NLCS nearby</span></label>
+        <label><input type="checkbox" x-model="intake.injection"><span>Injection proposed</span></label>
+        <label><input type="checkbox" x-model="intake.water"><span>Water use proposed</span></label>
+        <label><input type="checkbox" x-model="intake.linear"><span>Roads, pipelines, or transmission</span></label>
+        <label><input type="checkbox" x-model="intake.multi"><span>Multi-well development</span></label>
+      </div>
+      <button type="submit" class="go">See the reviews</button>
+      <button type="button" class="ghost" style="margin-left:12px" @click="showDesk()">All projects</button>
+    </form>
+  </div>
+
+  <div class="stage" x-show="desk === 'record'" x-cloak>
+    <nav class="stage-nav" aria-label="On this project">
+      <button type="button" class="stage-back" @click="showDesk()">All projects</button>
+      <label>
+        <p class="kicker">On this page</p>
+        <select class="menu" x-ref="viewPick" @change="chooseView($event.target.value)">
+          <template x-for="opt in viewOptions" :key="opt.id">
+            <option :value="opt.id" :selected="viewSelect === opt.id" x-text="opt.name"></option>
+          </template>
+        </select>
+      </label>
+      <label>
+        <p class="kicker">Tools</p>
+        <select class="menu" value="" @change="chooseTool($event)">
+          <option value="" disabled selected>Export or reset</option>
+          <option value="reset">Reset</option>
+          <option value="hold" x-text="pinned ? 'Release compare' : 'Hold to compare'"></option>
+          <option value="rules">Rule set</option>
+          <option value="csv">CSV</option>
+          <option value="json">JSON</option>
+        </select>
+      </label>
+    </nav>
+
+    <p class="stage-lede">Estimated schedule.</p>
+
+    <section class="checks-panel" :class="{ open: factsOpen }" aria-label="Project conditions">
+      <button type="button" class="fold-head" @click="factsOpen = !factsOpen" :aria-expanded="factsOpen">
+        <div>
+          <h2>Project conditions</h2>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="factsOpen ? '−' : '+'"></span>
+      </button>
+      <div class="checks" x-show="factsOpen" x-cloak>
+        <template x-for="key in conditionKeys" :key="key">
+          <label>
+            <input type="checkbox" :checked="conditions[key]" @change="setCondition(key, $event.target.checked)">
+            <span x-text="conditionLabels[key]"></span>
+          </label>
+        </template>
+      </div>
+    </section>
+
+    <div id="stage-main">
+    <div class="card mark gantt" x-show="stageView === 'sequence' && result">
+      <header class="seq-head">
+        <div class="seq-mast">
+          <div class="seq-hero">
+            <div class="seq-num"
+                 :class="{ rolling: daysRolling }"
+                 :aria-label="(result.total_duration_days || 0) + ' days to a drilling permit'"
+                 x-text="shownDays"></div>
+            <i class="seq-num-rule" aria-hidden="true" :style="{ '--p': dayProgress }"></i>
+            <p class="seq-unit">Days to a drilling permit</p>
+          </div>
+          <aside class="seq-tally" aria-label="Sequence totals">
+            <ul class="seq-stats">
+              <li><b x-text="result.total_duration_months"></b> Months</li>
+              <li><b x-text="result.reviews_triggered"></b> Reviews</li>
+              <li><b x-text="agencyCount"></b> Agencies</li>
+            </ul>
+          </aside>
+        </div>
+        <div class="seq-tune">
+          <div class="seq-speed">
+            <p class="kicker">Review speed</p>
+            <div class="band" role="group" aria-label="Review speed">
+              <template x-for="b in bands" :key="b">
+                <button type="button" :class="{ on: band === b }" @click="setBand(b)">
+                  <span x-text="bandCaption(b)"></span>
+                  <span class="pace-arrows" aria-hidden="true">
+                    <template x-for="n in paceMarks(b)" :key="n"><i></i></template>
+                  </span>
+                </button>
+              </template>
+            </div>
+          </div>
+          <div class="seq-span">
+            <p class="kicker">If reviews start</p>
+            <div class="seq-window">
+              <label class="seq-start">
+                <input type="date" x-model="startDate" aria-label="Start date" @change="runSequence()">
+              </label>
+              <span class="seq-window-rule">to</span>
+              <p class="seq-end-date" x-text="spanEnd"></p>
+            </div>
+          </div>
+        </div>
+        <div class="seq-pathrow">
+          <p class="seq-path-kicker">Longest path</p>
+          <ol class="seq-chain" x-show="pathSteps.length">
+            <template x-for="step in pathSteps" :key="step.id">
+              <li>
+                <button type="button" :class="{ on: selectedReview === step.id }" @click="selectReview(step.id)" x-text="step.name"></button>
+              </li>
+            </template>
+          </ol>
+          <p class="seq-chain-empty" x-show="!pathSteps.length">No review sits on the critical path.</p>
+        </div>
+        <aside class="seq-pick" x-show="selectedRow" x-cloak>
+          <div>
+            <p class="kicker">This review</p>
+            <h3 x-text="selectedRow ? selectedRow.name : ''"></h3>
+            <p>
+              <span class="st" :class="selectedRow ? reviewStatus(selectedRow.id) : ''" x-text="selectedRow ? statusLabel(reviewStatus(selectedRow.id)) : ''"></span>
+              <span x-text="selectedRow ? (selectedRow.duration_days + ' days · ' + selectedRow.agency) : ''"></span>
+            </p>
+            <p class="cite" x-text="selectedRow ? selectedRow.authority : ''"></p>
+          </div>
+          <a class="ghost" :href="'../identifiers/#' + projectId">See the source</a>
+        </aside>
+        <p class="delta" x-show="baseline" x-text="deltaCopy"></p>
+      </header>
+      <div class="gantt-figure">
+        <div class="gantt-labels">
+          <template x-for="(row, i) in overlayRows" :key="row.id">
+            <div class="grow" :class="rowClass(row.id)" @click="selectReview(row.id)">
+              <span class="ix" x-text="idx(i)"></span>
+              <div class="glabel">
+                    <span class="nm"><i class="sq" x-show="row.current && row.current.on_critical_path"></i><span x-text="chartName(row)"></span></span>
+                <span class="ag"><span class="st" :class="reviewStatus(row.id)" x-text="statusLabel(reviewStatus(row.id))"></span> <span x-text="row.agency"></span></span>
+              </div>
+              <span class="gdur" :class="{ onpath: row.current && row.current.on_critical_path }">
+                <span x-text="row.current ? row.current.duration_days : '—'"></span>
+                <i class="orig" x-show="row.current" :title="originLabel(row.id)" x-text="originAbbr(row.id)"></i>
+              </span>
+            </div>
+          </template>
+        </div>
+        <div class="gantt-plot">
+          <div class="gantt-well">
+            <div class="gantt-tracks" x-ref="tracks">
+              <svg class="gantt-grid" x-ref="grid" aria-hidden="true"></svg>
+              <template x-for="row in overlayRows" :key="row.id">
+                <div class="grow" :class="rowClass(row.id)" @click="selectReview(row.id)">
+                  <div class="track">
+                    <span class="track-cap" x-text="chartName(row)"></span>
+                    <div class="bar held" x-show="row.held" :style="barStyle(row.held, row.agency)"></div>
+                    <div class="bar" x-show="row.current" :class="{ crit: row.current && row.current.on_critical_path }" :style="barStyle(row.current, row.agency)"></div>
+                    <span class="bar-date" x-show="row.current && row.current.on_critical_path" :style="dateStyle(row.current)" x-text="row.current ? endLabel(row.current) : ''"></span>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+          <div class="gantt-axis">
+            <svg class="axis-svg" x-ref="axis" aria-hidden="true"></svg>
+          </div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><i class="sw" style="background:transparent;border:2px solid #F5B819"></i>Critical path</span>
+        <span><i class="sw" style="background:#8B9BC8"></i>BLM</span>
+        <span><i class="sw" style="background:#A3B0D4"></i>USFWS</span>
+        <span><i class="sw" style="background:#B7C2DC"></i>SHPO / Tribes</span>
+        <span><i class="sw" style="background:#C5CEE0"></i>EPA / state</span>
+        <span><i class="sw" style="background:#DDE2EE"></i>NDWR / Minerals</span>
+        <span><i class="sw" style="background:#9AABD0"></i>USACE</span>
+        <span x-show="baseline"><i class="sw" style="border:1px solid #0A1A4F;background:transparent"></i>Compared schedule</span>
+      </div>
+    </div>
+
+    <div class="card mark map-card" x-show="stageView === 'map'" x-cloak>
+      <h2>Spatial context</h2>
+      <p class="fold-sub">CARTO Positron basemap, hydrography, wetlands, federal management, reservations, geothermal leases. Closed in navy; authorized, non-producing in gold. No critical habitat designated.</p>
+      <div class="zooms">
+        <button type="button" :class="mapMode === 'project' ? '' : 'ghost'" @click="fitProject()">Project extent</button>
+        <button type="button" :class="mapMode === 'west' ? '' : 'ghost'" @click="fitWest()">Western United States</button>
+      </div>
+      <div class="map-well">
+        <div id="map" x-ref="map" role="img" aria-label="Dixie Valley spatial layers"></div>
+      </div>
+      <div class="fold map-layers" :class="{ open: layersOpen }">
+        <button type="button" class="fold-head" @click="toggleLayers()" :aria-expanded="layersOpen">
+          <div>
+            <h3>Layers</h3>
+            <p class="fold-sub">Basemap, hillshade, hydrography, wetlands, federal management, reservations, geothermal leases</p>
+          </div>
+          <span class="fold-sign" aria-hidden="true" x-text="layersOpen ? '−' : '+'"></span>
+        </button>
+        <div class="fold-body" x-show="layersOpen" x-cloak>
+          <ul class="layer-list">
+            <template x-for="ly in mapLayers" :key="ly.id">
+              <li @click="ly.finding ? null : toggleLayer(ly.id)">
+                <i class="sq" :class="{ off: !ly.finding && !layersOn[ly.id], find: ly.finding }"></i>
+                <div>
+                  <div class="ln" x-text="ly.name"></div>
+                  <div class="src">
+                    <span x-text="ly.source"></span>
+                    <template x-if="ly.url"><span> · <a :href="ly.url" x-text="ly.url"></a></span></template>
+                  </div>
+                  <div class="src" x-show="ly.note" x-text="ly.note"></div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+      <div class="map-pick-wrap">
+        <p class="kicker">Selection</p>
+        <div class="map-pick">
+          <div class="empty" x-show="!mapPick">Select a lease, a Wilderness Study Area, or a tribal reservation.</div>
+          <template x-if="mapPick && mapPick.kind === 'lease'">
+            <div>
+              <div class="kv"><div class="k">Case serial number</div><div class="v serial" x-text="mapPick.serial"></div></div>
+              <div class="kv"><div class="k">Disposition</div><div class="v" x-text="mapPick.disposition"></div></div>
+              <div class="kv"><div class="k">Acreage</div><div class="v" x-text="mapPick.acres"></div></div>
+              <div class="kv"><div class="k">Effective date</div><div class="v" x-text="mapPick.effective"></div></div>
+              <div class="kv"><div class="k">Production status</div><div class="v" x-text="mapPick.production"></div></div>
+              <div class="kv"><div class="k">Source</div><div class="v"><span x-text="mapPick.source"></span> <span class="tag sim">SEPI</span></div></div>
+            </div>
+          </template>
+          <template x-if="mapPick && mapPick.kind !== 'lease'">
+            <div>
+              <div class="kv"><div class="k">Name</div><div class="v" x-text="mapPick.name"></div></div>
+              <div class="kv"><div class="k">Managing agency</div><div class="v" x-text="mapPick.agency"></div></div>
+              <div class="kv"><div class="k">Acreage</div><div class="v" x-text="mapPick.acres"></div></div>
+              <div class="kv"><div class="k">Source</div><div class="v"><span x-text="mapPick.source"></span> <span class="tag sim">SEPI</span></div></div>
+            </div>
+          </template>
+        </div>
+      </div>
+      <div class="map-pick-wrap">
+        <p class="kicker">Lease records</p>
+        <div class="map-pick">
+          <p>Across MLRS geothermal lease records, case names are blank or null, and expiration dates include values in the year 3000. Fifty years of leasing at this location shows 41 closed cases and 32 currently authorized, none producing.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div id="panel-file" class="card mark fold corpus-card" :class="{ open: openPanel === 'file' }">
+      <button type="button" class="fold-head" @click="togglePanel('file')" :aria-expanded="openPanel === 'file'">
+        <div>
+          <h2>Materials</h2>
+          <p class="fold-sub">Comments and documents for this project.</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openPanel === 'file' ? '−' : '+'"></span>
+      </button>
+      <div class="fold-body" x-show="openPanel === 'file'" x-cloak>
+      <p class="kicker">Agency comments</p>
+      <ul class="comments">
+        <template x-for="(c, i) in fileComments" :key="i">
+          <li>
+            <p class="who" x-text="c.agency + ' · ' + c.date"></p>
+            <p x-text="c.text"></p>
+          </li>
+        </template>
+      </ul>
+      <p class="kicker">Materials</p>
+      <p class="corpus-lede" x-show="projectId !== 'dixie'">No materials filed yet.</p>
+      <p class="corpus-lede" x-show="projectId === 'dixie'">Eight BLM geothermal Environmental Assessments from PNNL NEPATEC 2.0. Source: <a href="https://huggingface.co/datasets/PNNL/NEPATEC2.0">huggingface.co/datasets/PNNL/NEPATEC2.0</a>. <span class="tag extract">Extracted</span></p>
+      <p class="kicker" x-show="projectId === 'dixie' && corpusError" x-text="corpusError"></p>
+      <ul class="corpus-list" x-show="projectId === 'dixie' && corpusProjects.length">
+        <template x-for="p in corpusProjects" :key="p.project_ID">
+          <li class="corpus-item" :class="{ on: selectedCorpusId === p.project_ID }" @click="selectCorpus(p)">
+            <h3 x-text="p.title"></h3>
+            <dl class="corpus-meta">
+              <dt>Sponsor</dt><dd x-text="p.sponsor"></dd>
+              <dt>Location</dt><dd x-text="p.location"></dd>
+              <dt>Lead agency</dt><dd x-text="p.lead"></dd>
+              <dt>Documents</dt><dd x-text="p.docCount + ' · ' + p.pageCount + ' pages'"></dd>
+            </dl>
+            <div class="chips">
+              <template x-for="t in p.types" :key="t">
+                <span class="tag type" x-text="t"></span>
+              </template>
+            </div>
+            <template x-if="selectedCorpusId === p.project_ID">
+              <ul class="corpus-docs">
+                <template x-for="(d, di) in p.documents" :key="di">
+                  <li>
+                    <span class="fn" x-text="d.file_name"></span>
+                    <span class="pg" x-text="d.page_count + ' pp.'"></span>
+                  </li>
+                </template>
+              </ul>
+            </template>
+          </li>
+        </template>
+      </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Geothermal Permitting Coordination Platform - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+
+<div class="sheet" x-show="rulesOpen" x-cloak @keydown.escape.window="rulesOpen = false">
+  <div class="actions" style="margin-bottom:22px">
+    <button type="button" class="ghost" @click="rulesOpen = false">Close the rule set</button>
+  </div>
+  <h2>Rule set <span x-text="ruleVersion"></span></h2>
+  <p x-show="rulePack && rulePack.note" x-text="rulePack ? rulePack.note : ''"></p>
+  <p>Read-only. Closing this view does not change the timeline.</p>
+  <div class="rules-grid">
+    <template x-for="r in rules" :key="r.id">
+      <article class="rule">
+        <div class="id" x-text="r.id"></div>
+        <h3 x-text="r.name"></h3>
+        <div class="kv"><div class="k">Agency</div><div class="v" x-text="r.agency"></div></div>
+        <div class="kv"><div class="k">Phase</div><div class="v" x-text="r.phase || '—'"></div></div>
+        <div class="kv"><div class="k">Triggering conditions</div><div class="v" x-text="r.triggers.map(t => conditionLabels[t] || t).join(', ')"></div></div>
+        <div class="kv"><div class="k">Prerequisites</div><div class="v" x-text="r.prerequisites.length ? r.prerequisites.join(', ') : 'None'"></div></div>
+        <div class="kv"><div class="k">Blocks</div><div class="v" x-text="r.blocks.length ? r.blocks.join(', ') : 'None'"></div></div>
+        <div class="kv"><div class="k">Duration days</div><div class="v">Low <span x-text="r.duration.low"></span> · typical <span x-text="r.duration.typical"></span> · high <span x-text="r.duration.high"></span> <i class="orig" :title="ORIGIN_LABEL[r.origin]" x-text="ORIGIN_ABBR[r.origin]"></i></div></div>
+        <div class="kv"><div class="k">Authority</div><div class="v cite" x-text="r.authority"></div></div>
+        <div class="kv" x-show="r.note"><div class="k">Note</div><div class="v" x-text="r.note"></div></div>
+      </article>
+    </template>
+  </div>
+  <template x-if="rulePack && rulePack.categorical_exclusions && rulePack.categorical_exclusions.length">
+    <div>
+      <h3 style="margin:36px 0 14px">Categorical exclusions</h3>
+      <div class="rules-grid">
+        <template x-for="ce in rulePack.categorical_exclusions" :key="ce.id">
+          <article class="rule">
+            <div class="id" x-text="ce.id"></div>
+            <h3 x-text="ce.name"></h3>
+            <div class="kv"><div class="k">Agency</div><div class="v" x-text="ce.agency"></div></div>
+            <div class="kv"><div class="k">Phase</div><div class="v" x-text="ce.phase || '—'"></div></div>
+            <div class="kv"><div class="k">Covers</div><div class="v" x-text="ce.covers"></div></div>
+            <div class="kv"><div class="k">Replaces</div><div class="v" x-text="(ce.replaces || []).join(', ') || 'None'"></div></div>
+            <div class="kv"><div class="k">Duration days</div><div class="v">Low <span x-text="ce.duration_days.low"></span> · typical <span x-text="ce.duration_days.typical"></span> · high <span x-text="ce.duration_days.high"></span></div></div>
+            <div class="kv"><div class="k">Authority</div><div class="v cite" x-text="ce.authority"></div></div>
+          </article>
+        </template>
+      </div>
+    </div>
+  </template>
+</div>
+
+<script src="../js/sepi-index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script>if (typeof d3 === "undefined") { document.write('<script src="../vendor/d3.min.js"><\/script>'); }</script>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" integrity="sha384-SYKAG6cglRMN0RVvhNeBY0r3FYKNOJtznwA0v7B5Vp9tr31xAHsZC0DqkQ/pZDmj" crossorigin="anonymous"></script>
+<script>if (typeof maplibregl === "undefined") { document.write('<script src="../vendor/maplibre-gl.js"><\/script>'); }</script>
+<script>
+const RULES_URL = "../rules/dependencies.json";
+const CONDITION_LABELS = {
+  federal_action: "Federal action",
+  listed_species_present: "Listed species present",
+  federal_nexus: "Federal nexus",
+  likely_to_adversely_affect: "Likely to adversely affect",
+  federal_undertaking: "Federal undertaking",
+  drilling_proposed: "Drilling proposed",
+  injection_proposed: "Injection proposed",
+  water_use_proposed: "Water use proposed",
+  tribal_interest_present: "Tribal interest present",
+  wsa_or_nlcs_proximity: "WSA or NLCS nearby",
+  federal_land: "Federal land",
+  well_change_proposed: "Well change proposed",
+  multi_well_development: "Multi-well development",
+  state_jurisdiction_nv: "Nevada jurisdiction",
+  well_completed: "Well completed",
+  linear_facility_proposed: "Roads, pipelines, or transmission",
+  waters_of_the_us_present: "Waters of the U.S. present",
+  resource_utilization_proposed: "Resource utilization proposed",
+  ce_blm_2_13: "CE: geophysical NOI",
+  ce_blm_2_14: "CE: resource confirmation GDP"
+};
+const CONDITION_KEYS = Object.keys(CONDITION_LABELS);
+const AGENCY_COLOR = {
+  "BLM": "#8B9BC8",
+  "USFWS": "#A3B0D4",
+  "BLM / SHPO": "#B7C2DC",
+  "BLM / Tribes": "#B7C2DC",
+  "EPA or delegated state": "#C5CEE0",
+  "NDWR": "#DDE2EE",
+  "Applicant / BLM": "#8B9BC8",
+  "NV Division of Minerals": "#DDE2EE",
+  "USACE": "#9AABD0",
+  "BLM / state": "#8B9BC8"
+};
+const ORIGIN_FROM_BASIS = {
+  statutory_clock: "statutory",
+  agency_published: "agency",
+  stated_assumption: "assumption"
+};
+const REVIEW_SHORT = {
+  nhpa_section106: "NHPA 106",
+  nhpa_section106_shpo: "NHPA 106 SHPO",
+  nhpa_section106_tribal: "NHPA 106 tribal",
+  uic_permit: "UIC",
+  nepa_ea: "NEPA EA",
+  biological_assessment: "Biological assessment",
+  nv_water_right: "Water right",
+  esa_section7_informal: "ESA informal",
+  esa_section7_formal: "ESA formal",
+  nepa_decision: "NEPA decision",
+  apd_approval: "GDP",
+  wsa_nlcs_review: "WSA / NLCS",
+  leasing_withdrawal_check: "Leasing withdrawal",
+  sundry_notice: "Sundry notice",
+  nv_project_area_permit: "NV project area",
+  nv_well_completion_report: "NV well completion",
+  row_grant: "Right-of-way",
+  cwa_404: "CWA 404",
+  plant_siting: "Plant siting",
+  ce_blm_2_13: "CE geophysical NOI",
+  ce_blm_2_14: "CE resource confirmation"
+};
+const REVIEW_CHART = {
+  nhpa_section106: "NHPA Section 106",
+  nhpa_section106_shpo: "NHPA 106, SHPO",
+  nhpa_section106_tribal: "NHPA 106, tribal",
+  uic_permit: "UIC Class V permit",
+  nepa_ea: "NEPA environmental assessment",
+  biological_assessment: "Biological assessment",
+  nv_water_right: "Nevada water right",
+  esa_section7_informal: "ESA informal consultation",
+  esa_section7_formal: "ESA formal consultation",
+  nepa_decision: "NEPA decision",
+  apd_approval: "Geothermal drilling permit",
+  wsa_nlcs_review: "WSA and NLCS review",
+  leasing_withdrawal_check: "Leasing withdrawal check",
+  sundry_notice: "Sundry notice",
+  nv_project_area_permit: "Nevada project area permit",
+  nv_well_completion_report: "Nevada well completion report",
+  row_grant: "Right-of-way grant",
+  cwa_404: "CWA Section 404",
+  plant_siting: "Power plant siting",
+  ce_blm_2_13: "CE: geophysical NOI",
+  ce_blm_2_14: "CE: resource confirmation GDP"
+};
+
+function normalizeReviews(pack) {
+  return (pack.reviews || []).map(r => ({
+    id: r.id,
+    name: r.name,
+    agency: r.agency,
+    phase: r.phase || "",
+    triggers: r.triggered_by || [],
+    prerequisites: r.requires || [],
+    blocks: r.blocks || [],
+    duration: r.duration_days,
+    origin: ORIGIN_FROM_BASIS[r.duration_basis] || "assumption",
+    authority: r.authority,
+    note: r.note || "",
+    suppressed_by_ce: r.suppressed_by_ce || []
+  }));
+}
+
+async function loadRulesPack() {
+  const res = await fetch(RULES_URL);
+  if (!res.ok) throw new Error("rules " + res.status);
+  return res.json();
+}
+
+const ORIGIN_LABEL = {
+  statutory: "Statutory clock",
+  agency: "Published agency figure",
+  assumption: "Stated assumption"
+};
+const ORIGIN_ABBR = { statutory: "Stat", agency: "Agency", assumption: "Assume" };
+
+const DATA_FILES = [
+  "rapid-geothermal-content.json",
+  "rapid-geothermal-index.json",
+  "nepatec-blm-geothermal.json",
+  "nwi-dixie-valley.geojson",
+  "padus-dixie-valley.geojson",
+  "nhd-named-dixie-valley.geojson",
+  "tribal-reservations-nv.geojson",
+  "ipac-dixie-valley-crithab.json",
+  "mlrs-geothermal-dixie-valley.geojson",
+  "mlrs-authorized-dixie.geojson"
+];
+const DATA_CACHE = "gpcp-data-v2";
+
+const NEPATEC_TYPE_TO_RULES = {
+  "Renewable Energy Production - Geothermal": ["nepa_ea", "nepa_decision", "apd_approval"],
+  "Threatened and Endangered Species Management": ["biological_assessment", "esa_section7_informal", "esa_section7_formal"],
+  "Water Resources - Irrigation and Water Supply": ["nv_water_right"],
+  "Water Resources - Other": ["nv_water_right"],
+  "Land Development - Other": ["nepa_ea"],
+  "Electricity Transmission": ["row_grant"],
+  "Pipelines": ["row_grant"],
+  "Surface Transportation - Other": ["row_grant"],
+  "Vegetation and Fuels Management": [],
+  "Waste Management": [],
+  "Ecosystem Management and Restoration": [],
+  "Utilities (electricity, gas, telecommunications)": [],
+  "Conventional Energy Production - Land-based Oil & Gas": [],
+  "Rangeland Management": [],
+  "Laws, Policies, Regulations, and Guidance": [],
+  "Land Use or Forest Management Plan": []
+};
+
+const COVERAGE = [
+  { id: "ipac", name: "USFWS IPaC", state: "captured",
+    holds: "Species screening, field office, wetlands query, and critical habitat array.",
+    url: "https://ipac.ecosphere.fws.gov/location/api/resources",
+    depends: "ESA consultation, biological assessment, project footprint" },
+  { id: "ecfr", name: "eCFR", state: "captured",
+    holds: "Codified Title 43 implementing regulations.",
+    url: "https://www.ecfr.gov/current/title-43",
+    depends: "NEPA EA, NEPA decision, APD" },
+  { id: "fr", name: "Federal Register", state: "captured",
+    holds: "Recent Title 43 rules and proposed rules.",
+    url: "https://www.federalregister.gov/",
+    depends: "NEPA EA, NEPA decision" },
+  { id: "rapid", name: "OpenEI RAPID", state: "captured",
+    holds: "53-jurisdiction geothermal permitting narratives.",
+    url: "https://openei.org/wiki/RAPID/Geothermal",
+    depends: "Clocks, Nevada well permits" },
+  { id: "nepatec", name: "PNNL PermitAI", state: "extracted",
+    holds: "NEPATEC 2.0 extract of eight BLM geothermal Environmental Assessments. PermitTEC v0.1 litigation corpus.",
+    url: "https://www.pnnl.gov/projects/permitai",
+    depends: "Document corpus" },
+  { id: "compass", name: "INFRA-COMPASS", state: "extracted",
+    holds: "LLM-extracted state and local energy-infrastructure ordinances. Published datasets cover wind and solar only. Geothermal zoning, BLM resource management plans, and water ordinances are in the FY26 program scope.",
+    url: "https://github.com/NatLabRockies/COMPASS",
+    depends: "Local ordinances" },
+  { id: "nwi", name: "USFWS NWI", state: "captured",
+    holds: "Cowardin-classified wetland polygons.",
+    url: "https://www.fws.gov/program/national-wetlands-inventory",
+    depends: "Wetlands map layer" },
+  { id: "padus", name: "USGS PAD-US", state: "captured",
+    holds: "Protected areas, including Wilderness Study Areas.",
+    url: "https://www.usgs.gov/programs/gap-analysis-project/science/pad-us-data-overview",
+    depends: "Federal management layer" },
+  { id: "nhd", name: "USGS NHD", state: "captured",
+    holds: "Named flowline segments.",
+    url: "https://www.usgs.gov/national-hydrography/national-hydrography-dataset",
+    depends: "Hydrography map layer" },
+  { id: "tiger", name: "Census TIGERweb", state: "captured",
+    holds: "Federal American Indian reservations.",
+    url: "https://tigerweb.geo.census.gov/",
+    depends: "Tribal reservation layer" },
+  { id: "mlrs", name: "BLM MLRS", state: "captured",
+    holds: "Geothermal lease serial, disposition, acreage, effective date, and production status.",
+    url: "https://gis.blm.gov/nlsdb/rest/services/HUB/BLM_Natl_MLRS_Geothermal_Leases/FeatureServer/0",
+    depends: "Lease map layer, APD row, metadata strip" },
+  { id: "afmss", name: "SEPI · BLM AFMSS", state: "simulated",
+    holds: "Well records and authorization status.",
+    url: "",
+    depends: "APD row" },
+  { id: "eplanning", name: "BLM ePlanning", state: "none",
+    holds: "NEPA documents and project dockets.",
+    url: "https://eplanning.blm.gov/",
+    depends: "NEPA EA, NEPA decision" },
+  { id: "epa", name: "EPA UIC / SDWIS", state: "none",
+    holds: "Underground injection control permits.",
+    url: "https://www.epa.gov/uic",
+    depends: "UIC permit" },
+  { id: "ndwr", name: "Nevada Division of Water Resources", state: "none",
+    holds: "Water-right applications and decrees.",
+    url: "https://water.nv.gov/",
+    depends: "Nevada water right" },
+  { id: "ndep", name: "Nevada Division of Environmental Protection", state: "none",
+    holds: "State UIC and water-pollution permits.",
+    url: "https://ndep.nv.gov/",
+    depends: "UIC permit" },
+  { id: "shpo", name: "Nevada SHPO", state: "none",
+    holds: "Historic-property consultation under Section 106.",
+    url: "https://shpo.nv.gov/",
+    depends: "NHPA Section 106" },
+  { id: "ndom", name: "Nevada Division of Minerals", state: "none",
+    holds: "Permit to Drill, Geothermal Project Area Permit, Sundry Notice, well completion report.",
+    url: "https://minerals.nv.gov/",
+    depends: "GDP, project area permit, sundry, well completion" }
+];
+
+const IPAC = {
+  data: {
+    total_species_returned: 2,
+    section7_triggered: true,
+    triggering_species: [
+      { common_name: "Monarch butterfly", scientific_name: "Danaus plexippus",
+        group: "Insects", listing_status: "Proposed Threatened", listing_code: "PT",
+        population: "Wherever found" },
+      { common_name: "Dixie Valley Toad", scientific_name: "Anaxyrus williamsi",
+        group: "Amphibians", listing_status: "Endangered", listing_code: "E",
+        population: "There is only one population that exists in Dixie Meadows wetlands. Churchill County Nevada" }
+    ],
+    determination_basis: "16 U.S.C. 1536(a)(2); 50 CFR 402.14"
+  },
+  source: "USFWS IPaC Location API",
+  url: "https://ipac.ecosphere.fws.gov/location/api/resources",
+  retrieved: "2026-08-20T21:32:04.391Z"
+};
+
+const MLRS_LEASE = {
+  data: { found: true, lease: {
+    serial_number: "NVN-086890", case_type: "Geothermal Lease", status: "Authorized",
+    effective_date: "2009-09-01", expiration_date: "2032-04-30", acres: 3840,
+    county: "Churchill", state: "NV", admin_office: "Stillwater Field Office",
+    production_status: "Non-Producing" } },
+  source: "BLM MLRS",
+  url: "https://gis.blm.gov/nlsdb/rest/services/HUB/BLM_Natl_MLRS_Geothermal_Leases/FeatureServer/0",
+  retrieved: "2026-08-21T10:15:00.000Z"
+};
+
+const SEPI_WELLS = {
+  data: { serial_number: "NVN-086890", count: 2, wells: [
+    { api_number: "27-001-90001", well_name: "DV 21-14", type: "Production",
+      status: "APD Approved", apd_approved: "2024-06-11", spud_date: null },
+    { api_number: "27-001-90002", well_name: "DV 22-14", type: "Injection",
+      status: "APD Pending", apd_submitted: "2026-02-03", spud_date: null } ] },
+  source: "SEPI (simulated)",
+  disclaimer: "SIMULATED - represents AFMSS well-record response shape. Not authoritative.",
+  retrieved: "2026-08-20T21:30:52.110Z"
+};
+
+const FR = {
+  data: { cfr_title: 43, count: 20, documents: [
+    { title: "Natural Resource Damages for Hazardous Substances", type: "Rule", date: "2026-07-13",
+      url: "https://www.federalregister.gov/documents/2026/07/13/2026-14052/natural-resource-damages-for-hazardous-substances" },
+    { title: "Royalty for Oil and Gas Lost From Onshore Federal and Indian Leases", type: "Proposed Rule", date: "2026-06-24",
+      url: "https://www.federalregister.gov/documents/2026/06/24/2026-12738/royalty-for-oil-and-gas-lost-from-onshore-federal-and-indian-leases" },
+    { title: "Oil and Gas Leasing", type: "Proposed Rule", date: "2026-06-24",
+      url: "https://www.federalregister.gov/documents/2026/06/24/2026-12734/oil-and-gas-leasing" },
+    { title: "National Environmental Policy Act Implementing Regulations", type: "Rule", date: "2026-02-24",
+      url: "https://www.federalregister.gov/documents/2026/02/24/2026-03708/national-environmental-policy-act-implementing-regulations" },
+    { title: "Rescission of Conservation and Landscape Health Rule", type: "Rule", date: "2026-05-12",
+      url: "https://www.federalregister.gov/documents/2026/05/12/2026-09386/rescission-of-conservation-and-landscape-health-rule" }
+  ] },
+  source: "Federal Register",
+  url: "https://www.federalregister.gov/api/v1/documents.json?per_page=20&order=newest&conditions[cfr][title]=43&conditions[publication_date][gte]=2025-08-20",
+  retrieved: "2026-08-20T21:27:35.681Z"
+};
+
+const ECFR = {
+  data: { cfr_title: 43, note: "Pending Title 43 rulemaking was checked through the Federal Register API in this capture." },
+  source: "eCFR",
+  url: "https://www.ecfr.gov/current/title-43",
+  retrieved: "2026-08-20T21:27:35.681Z"
+};
+
+const ALL_TRUE = {
+  federal_action: true,
+  listed_species_present: true,
+  federal_nexus: true,
+  likely_to_adversely_affect: true,
+  federal_undertaking: true,
+  drilling_proposed: true,
+  injection_proposed: true,
+  water_use_proposed: true,
+  tribal_interest_present: true,
+  wsa_or_nlcs_proximity: true,
+  federal_land: true,
+  well_change_proposed: false,
+  multi_well_development: true,
+  state_jurisdiction_nv: true,
+  well_completed: false,
+  linear_facility_proposed: false,
+  waters_of_the_us_present: true,
+  resource_utilization_proposed: false,
+  ce_blm_2_13: false,
+  ce_blm_2_14: false
+};
+
+const DIXIE_STATUS = {
+  leasing_withdrawal_check: "complete",
+  wsa_nlcs_review: "complete",
+  biological_assessment: "complete",
+  nhpa_section106_shpo: "under_review",
+  nhpa_section106_tribal: "under_review",
+  esa_section7_informal: "under_review",
+  nepa_ea: "under_review",
+  esa_section7_formal: "not_started",
+  nepa_decision: "not_started",
+  apd_approval: "not_started",
+  uic_permit: "not_started",
+  nv_water_right: "under_review",
+  row_grant: "not_started",
+  cwa_404: "not_started",
+  plant_siting: "not_started",
+  sundry_notice: "not_started",
+  nv_project_area_permit: "not_started",
+  nv_well_completion_report: "not_started"
+};
+const DIXIE_COMMENTS = [
+  { agency: "USFWS", date: "12 August 2026", text: "Informal consultation is open. The biological assessment is in the file." },
+  { agency: "BLM", date: "8 August 2026", text: "EA scoping is complete. The decision document is contingent on ESA informal closeout." },
+  { agency: "Nevada SHPO", date: "1 August 2026", text: "Section 106 is under review." }
+];
+const HOME_TASKS = [
+  { projectId: "dixie", title: "ESA informal and Section 106", note: "USFWS and Nevada SHPO. NEPA decision is contingent on ESA informal closeout.", status: "under_review", goto: "file" },
+  { projectId: "elko", title: "APD pending", note: "EK 24-8. Submitted 15 January 2026.", status: "under_review", goto: "record" },
+  { projectId: "washoe", title: "Injection well APD", note: "WA 13-3. Submitted 21 March 2026.", status: "under_review", goto: "record" },
+  { projectId: "pershing", title: "No reviews initiated", note: "Lease authorized.", status: "not_started", goto: "record" }
+];
+const HOME_DEADLINES = [
+  { projectId: "dixie", agency: "USFWS", title: "ESA informal consultation", due: "2026-10-11", basis: "Typical · 60 days", goto: "file" },
+  { projectId: "elko", agency: "BLM", title: "APD EK 24-8", due: "2026-07-14", basis: "Typical · 180 days", goto: "record" },
+  { projectId: "washoe", agency: "BLM", title: "Injection well APD WA 13-3", due: "2026-09-17", basis: "Typical · 180 days", goto: "record" },
+  { projectId: "pershing", agency: "BLM", title: "No review period open", due: "", basis: "Lease authorized.", goto: "record" }
+];
+
+const PROJECTS = [
+  {
+    id: "dixie",
+    name: "Dixie Valley",
+    deck: "A closed basin in Nevada’s Basin and Range, between the Stillwater Range and the Clan Alpine Mountains. An authorized BLM geothermal lease, not producing, and the only home of the endangered Dixie Valley toad.",
+    conditions: Object.assign({}, ALL_TRUE),
+    lease: MLRS_LEASE,
+    wells: SEPI_WELLS,
+    species: IPAC
+  },
+  {
+    id: "pershing",
+    name: "Pershing County",
+    deck: "A simulated geothermal lease in the Humboldt Range. Authorized, not producing.",
+    conditions: Object.assign({}, ALL_TRUE, {
+      listed_species_present: false,
+      likely_to_adversely_affect: false
+    }),
+    lease: {
+      data: { found: true, lease: {
+        serial_number: "NVN-088401", case_type: "Geothermal Lease", status: "Authorized",
+        effective_date: "2020-07-01", expiration_date: "2030-06-30", acres: 1920,
+        county: "Pershing", state: "NV", admin_office: "Winnemucca Field Office",
+        lessee: "Humboldt Range Geothermal LLC" } },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents MLRS lease response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:40.245Z"
+    },
+    wells: {
+      data: { serial_number: "NVN-088401", count: 1, wells: [
+        { api_number: "27-027-90010", well_name: "PR 11-22", type: "Production",
+          status: "APD Approved", apd_approved: "2025-04-18", spud_date: null } ] },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents AFMSS well-record response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:52.110Z"
+    },
+    species: {
+      data: {
+        total_species_returned: 0,
+        section7_triggered: false,
+        triggering_species: [],
+        determination_basis: "16 U.S.C. 1536(a)(2); 50 CFR 402.14"
+      },
+      source: "USFWS IPaC Location API",
+      disclaimer: "SIMULATED - IPaC response shape. Not a live retrieval.",
+      url: "https://ipac.ecosphere.fws.gov/location/api/resources",
+      retrieved: "2026-08-20T21:32:04.391Z"
+    }
+  },
+  {
+    id: "elko",
+    name: "Elko County",
+    deck: "A simulated geothermal lease in Ruby Valley. Authorized, not producing.",
+    conditions: Object.assign({}, ALL_TRUE, { injection_proposed: false }),
+    lease: {
+      data: { found: true, lease: {
+        serial_number: "NVN-094112", case_type: "Geothermal Lease", status: "Authorized",
+        effective_date: "2018-11-01", expiration_date: "2028-10-31", acres: 3200,
+        county: "Elko", state: "NV", admin_office: "Tuscarora Field Office",
+        lessee: "Ruby Valley Geothermal LLC" } },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents MLRS lease response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:40.245Z"
+    },
+    wells: {
+      data: { serial_number: "NVN-094112", count: 1, wells: [
+        { api_number: "27-007-90040", well_name: "EK 24-8", type: "Production",
+          status: "APD Pending", apd_submitted: "2026-01-15", spud_date: null } ] },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents AFMSS well-record response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:52.110Z"
+    },
+    species: {
+      data: {
+        total_species_returned: 1,
+        section7_triggered: true,
+        triggering_species: [
+          { common_name: "Lahontan cutthroat trout", scientific_name: "Oncorhynchus clarkii henshawi",
+            group: "Fishes", listing_status: "Threatened", listing_code: "T",
+            population: "Lahontan basin, including Humboldt River tributaries in Elko County, Nevada" }
+        ],
+        determination_basis: "16 U.S.C. 1536(a)(2); 50 CFR 402.14"
+      },
+      source: "USFWS IPaC Location API",
+      disclaimer: "SIMULATED - IPaC response shape. Not a live retrieval.",
+      url: "https://ipac.ecosphere.fws.gov/location/api/resources",
+      retrieved: "2026-08-20T21:32:04.391Z"
+    }
+  },
+  {
+    id: "washoe",
+    name: "Washoe County",
+    deck: "A simulated geothermal lease at Steamboat Hills. Authorized, not producing.",
+    conditions: Object.assign({}, ALL_TRUE, { likely_to_adversely_affect: false }),
+    lease: {
+      data: { found: true, lease: {
+        serial_number: "NVN-090550", case_type: "Geothermal Lease", status: "Authorized",
+        effective_date: "2021-04-01", expiration_date: "2031-03-31", acres: 1440,
+        county: "Washoe", state: "NV",
+        admin_office: "Carson City Field Office / Nevada Division of State Lands",
+        lessee: "Steamboat Hills Operations LLC" } },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents MLRS lease response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:40.245Z"
+    },
+    wells: {
+      data: { serial_number: "NVN-090550", count: 2, wells: [
+        { api_number: "27-031-90007", well_name: "WA 12-3", type: "Production",
+          status: "APD Approved", apd_approved: "2023-09-09", spud_date: null },
+        { api_number: "27-031-90008", well_name: "WA 13-3", type: "Injection",
+          status: "APD Pending", apd_submitted: "2026-03-21", spud_date: null } ] },
+      source: "SEPI (simulated)",
+      disclaimer: "SIMULATED - represents AFMSS well-record response shape. Not authoritative.",
+      retrieved: "2026-08-20T21:30:52.110Z"
+    },
+    species: {
+      data: {
+        total_species_returned: 1,
+        section7_triggered: true,
+        triggering_species: [
+          { common_name: "Cui-ui", scientific_name: "Chasmistes cujus",
+            group: "Fishes", listing_status: "Endangered", listing_code: "E",
+            population: "Pyramid Lake, Washoe County, Nevada" }
+        ],
+        determination_basis: "16 U.S.C. 1536(a)(2); 50 CFR 402.14"
+      },
+      source: "USFWS IPaC Location API",
+      disclaimer: "SIMULATED - IPaC response shape. Not a live retrieval.",
+      url: "https://ipac.ecosphere.fws.gov/location/api/resources",
+      retrieved: "2026-08-20T21:32:04.391Z"
+    }
+  }
+];
+
+function normalizeCe(ce) {
+  return {
+    id: ce.id,
+    name: ce.name,
+    agency: ce.agency,
+    phase: ce.phase || "",
+    triggers: [],
+    prerequisites: [],
+    blocks: (ce.replaces || []).includes("nepa_decision") ? ["apd_approval"] : [],
+    duration: ce.duration_days,
+    origin: ORIGIN_FROM_BASIS[ce.duration_basis] || "assumption",
+    authority: ce.authority,
+    note: ce.covers || "",
+    suppressed_by_ce: []
+  };
+}
+
+function computeSchedule(rules, conditions, band, pack) {
+  if (!rules || !rules.length) {
+    return {
+      conditions_evaluated: [],
+      reviews_triggered: 0,
+      total_duration_days: 0,
+      total_duration_months: 0,
+      critical_path: [],
+      schedule: []
+    };
+  }
+  const ceRows = ((pack && pack.categorical_exclusions) || [])
+    .filter(ce => conditions[ce.id])
+    .map(normalizeCe);
+  const active = rules.filter(r => {
+    if (!(r.triggers || []).every(k => conditions[k])) return false;
+    if ((r.suppressed_by_ce || []).some(id => conditions[id])) return false;
+    return true;
+  }).concat(ceRows);
+  const byId = Object.fromEntries(active.map(r => [r.id, r]));
+  const preds = {};
+  active.forEach(r => {
+    preds[r.id] = new Set(r.prerequisites.filter(id => byId[id]));
+  });
+  active.forEach(r => {
+    r.blocks.forEach(b => { if (byId[b]) preds[b].add(r.id); });
+  });
+  const succs = {};
+  active.forEach(r => { succs[r.id] = new Set(); });
+  Object.keys(preds).forEach(id => {
+    preds[id].forEach(p => succs[p].add(id));
+  });
+
+  const earliest = {};
+  const visiting = new Set();
+  function forward(id) {
+    if (earliest[id]) return earliest[id];
+    if (visiting.has(id)) throw new Error("cycle " + id);
+    visiting.add(id);
+    let start = 0;
+    preds[id].forEach(p => { start = Math.max(start, forward(p).finish_day); });
+    visiting.delete(id);
+    const duration_days = byId[id].duration[band];
+    earliest[id] = { start_day: start, duration_days, finish_day: start + duration_days };
+    return earliest[id];
+  }
+  active.forEach(r => forward(r.id));
+  const total = active.length ? Math.max.apply(null, active.map(r => earliest[r.id].finish_day)) : 0;
+
+  const latest = {};
+  function backward(id) {
+    if (latest[id] != null) return latest[id];
+    const ss = Array.from(succs[id]);
+    const lf = ss.length === 0 ? total : Math.min.apply(null, ss.map(s => backward(s) - earliest[s].duration_days));
+    latest[id] = lf;
+    return lf;
+  }
+  active.forEach(r => backward(r.id));
+
+  const schedule = active.map(r => {
+    const e = earliest[r.id];
+    return {
+      id: r.id,
+      name: r.name,
+      agency: r.agency,
+      authority: r.authority,
+      origin: r.origin,
+      start_day: e.start_day,
+      duration_days: e.duration_days,
+      finish_day: e.finish_day,
+      blocks: r.blocks.filter(id => byId[id]),
+      on_critical_path: e.finish_day === latest[r.id]
+    };
+  }).sort((a, b) => a.start_day - b.start_day || a.finish_day - b.finish_day || a.name.localeCompare(b.name));
+
+  const critical_path = schedule.filter(s => s.on_critical_path).map(s => s.id);
+
+  return {
+    conditions_evaluated: CONDITION_KEYS.filter(k => conditions[k]),
+    reviews_triggered: schedule.length,
+    total_duration_days: total,
+    total_duration_months: Math.round(total / 30.44),
+    critical_path,
+    schedule
+  };
+}
+
+let dayRoll = 0;
+let dayWait = 0;
+
+function parseISODate(s) {
+  const p = (s || "2026-10-01").split("-").map(Number);
+  return new Date(p[0], p[1] - 1, p[2]);
+}
+function addDays(date, n) {
+  const d = new Date(date.getTime());
+  d.setDate(d.getDate() + n);
+  return d;
+}
+function fmtDate(d) {
+  const m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return d.getDate() + " " + m[d.getMonth()] + " " + d.getFullYear();
+}
+function section7Species(sp) {
+  const list = (sp && sp.triggering_species) || [];
+  const listed = { E: true, T: true, "E(S/A)": true, "T(S/A)": true };
+  return list.find(s => listed[s.listing_code] || /^(Endangered|Threatened)$/i.test(s.listing_status || "")) || null;
+}
+function payloadTier(payload) {
+  if (!payload) return "captured";
+  if (payload.tier) return payload.tier;
+  if (payload.disclaimer && /SIMULATED/i.test(payload.disclaimer)) return "simulated";
+  if (payload.disclaimer && /EXTRACTED/i.test(payload.disclaimer)) return "extracted";
+  return "captured";
+}
+function csvEscape(v) {
+  const s = String(v == null ? "" : v);
+  return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+function unwrap(x) {
+  if (x == null) return "";
+  if (Array.isArray(x)) return x.map(unwrap).filter(v => v !== "" && v != null);
+  if (typeof x === "object" && Object.prototype.hasOwnProperty.call(x, "value")) return unwrap(x.value);
+  return x;
+}
+function asText(x) {
+  const v = unwrap(x);
+  if (Array.isArray(v)) return v.join("; ");
+  return String(v || "");
+}
+function parseLocation(str) {
+  const m = String(str || "").match(/(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)/);
+  return m ? { lat: +m[1], lon: +m[2] } : null;
+}
+function wikiHref(page) {
+  return "https://openei.org/wiki/" + encodeURI(String(page || "").trim().replace(/ /g, "_"));
+}
+function wikiHtml(text) {
+  if (!text) return "";
+  const escaped = String(text)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return escaped
+    .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, function (_, p, lab) {
+      return '<a href="' + wikiHref(p) + '">' + lab + "</a>";
+    })
+    .replace(/\[\[([^\]]+)\]\]/g, function (_, p) {
+      return '<a href="' + wikiHref(p) + '">' + p + "</a>";
+    })
+    .replace(/\n\n/g, "</p><p>")
+    .replace(/\n/g, "<br>");
+}
+function fmtAcres(n) {
+  if (n == null || isNaN(n)) return "—";
+  return Math.round(n).toLocaleString("en-US") + " acres";
+}
+function fmtIsoDate(s) {
+  if (!s) return "—";
+  const iso = String(s).slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return String(s);
+  return fmtDate(parseISODate(iso));
+}
+async function loadCachedJSON(name) {
+  const url = "../data/" + name;
+  const key = "gpcp:" + name;
+  async function fromCache() {
+    try {
+      const cache = await caches.open(DATA_CACHE);
+      const hit = await cache.match(url);
+      if (hit) return await hit.json();
+    } catch (e) {}
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return null;
+  }
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    try {
+      const cache = await caches.open(DATA_CACHE);
+      await cache.put(url, new Response(JSON.stringify(data), { headers: { "Content-Type": "application/json" } }));
+    } catch (e) {}
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {}
+    return data;
+  } catch (e) {
+    const cached = await fromCache();
+    if (cached) return cached;
+    throw e;
+  }
+}
+
+const RAPID_TOPIC_TO_RULES = {
+  "Air Quality": [],
+  "Biological": ["biological_assessment", "esa_section7_informal", "esa_section7_formal"],
+  "Cultural": ["nhpa_section106_shpo", "nhpa_section106_tribal"],
+  "Drilling & Well Development": ["apd_approval", "sundry_notice", "nv_project_area_permit", "nv_well_completion_report"],
+  "Environment": ["nepa_ea", "nepa_decision"],
+  "Exploration": ["leasing_withdrawal_check", "apd_approval"],
+  "Land Access": ["row_grant", "wsa_nlcs_review"],
+  "Land Use": ["wsa_nlcs_review"],
+  "Power Plant": ["plant_siting"],
+  "Transmission": ["row_grant"],
+  "Waste": ["uic_permit"],
+  "Water Access & Rights": ["nv_water_right"],
+  "Water Quality": ["cwa_404"]
+};
+
+const MAP_LAYERS = [
+  { id: "positron", name: "Basemap", source: "CARTO Positron", url: "https://carto.com/basemaps/" },
+  { id: "hillshade", name: "Hillshade", source: "USGS 3DEP Elevation", url: "https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer" },
+  { id: "hydro", name: "Hydrography", source: "USGS National Hydrography Dataset", url: "https://www.usgs.gov/national-hydrography/national-hydrography-dataset" },
+  { id: "wetlands", name: "Wetlands", source: "USFWS National Wetlands Inventory", url: "https://www.fws.gov/program/national-wetlands-inventory" },
+  { id: "padus", name: "Federal management", source: "USGS PAD-US", url: "https://www.usgs.gov/programs/gap-analysis-project/science/pad-us-data-overview" },
+  { id: "tribal", name: "Tribal reservations", source: "Census TIGERweb", url: "https://tigerweb.geo.census.gov/" },
+  { id: "leases", name: "Geothermal leases", source: "BLM MLRS", url: "https://gis.blm.gov/nlsdb/rest/services/HUB/BLM_Natl_MLRS_Geothermal_Leases/FeatureServer/0", note: "Closed leases in navy; authorized, non-producing leases in gold." },
+  { id: "project", name: "Project area", source: "USFWS IPaC", url: "https://ipac.ecosphere.fws.gov/location/api/resources" },
+  { id: "crithab", name: "Critical habitat", finding: true, note: "No critical habitat is designated at this location.", source: "USFWS IPaC", url: "https://ipac.ecosphere.fws.gov/location/api/resources" }
+];
+
+const ID_SCHEMES = [
+  {
+    id: "mlrs",
+    name: "BLM MLRS case serial",
+    example: "NVNV105591070",
+    system: "BLM Mineral and Land Records System",
+    format: "NVNV followed by a numeric case id. Legacy serial NVN-######; this case is also NVN-029861.",
+    identifies: "A geothermal lease case: disposition, acreage, dates, production status, and polygon."
+  },
+  {
+    id: "ipac",
+    name: "IPaC location polygon",
+    example: "MultiPolygon −118.15, −118.05, 39.55, 39.65",
+    system: "USFWS IPaC Location API",
+    format: "GeoJSON MultiPolygon, WGS 84.",
+    identifies: "The query location used for species screening, field office, and wetlands."
+  },
+  {
+    id: "padus",
+    name: "PAD-US Source_PAID",
+    example: "NLCS000668",
+    system: "USGS PAD-US",
+    format: "NLCS plus six digits (National Landscape Conservation System unit id).",
+    identifies: "A protected-area unit. NLCS000668 is the Clan Alpine Mountains Wilderness Study Area."
+  },
+  {
+    id: "nepatec",
+    name: "NEPATEC project_ID",
+    example: "3bf7312730f4b45477fa9047b6afa042",
+    system: "PNNL NEPATEC 2.0",
+    format: "32-character hexadecimal hash.",
+    identifies: "An extracted NEPA project in the corpus. It does not encode lease serial, docket number, or location."
+  },
+  {
+    id: "rapid",
+    name: "RAPID jurisdiction/topic path",
+    example: "RAPID/Geothermal/Nevada/Drilling & Well Development",
+    system: "OpenEI RAPID Toolkit",
+    format: "RAPID/Geothermal/{jurisdiction}/{topic}.",
+    identifies: "A permitting narrative for one jurisdiction and one activity class."
+  },
+  {
+    id: "census",
+    name: "Census GEOID",
+    example: "GEOID (AIANNH). This extract stored NAME, not GEOID.",
+    system: "Census TIGERweb",
+    format: "GEOID for American Indian / Alaska Native / Native Hawaiian Areas.",
+    identifies: "A federal reservation polygon. Eight Nevada reservations are in the extract, keyed here by name."
+  },
+  {
+    id: "eplanning",
+    name: "ePlanning project number",
+    example: "DOI-BLM-ID-T020-2015-0016-EA",
+    system: "BLM ePlanning",
+    format: "DOI-BLM-{state}-{office}-{year}-{sequence}-{document type}.",
+    identifies: "A NEPA docket. The format appears inside NEPATEC documents. No ePlanning number exists for this location."
+  }
+];
+
+let mapInstance = null;
+const MAP_LAYER_IDS = {
+  positron: ["positron"],
+  hillshade: ["hillshade"],
+  hydro: ["nhd-line"],
+  wetlands: ["nwi-fill"],
+  padus: ["padus-fo-fill", "padus-fo-line", "padus-wsa-fill", "padus-wsa-line"],
+  tribal: ["tribal-fill", "tribal-line"],
+  leases: ["leases-closed-fill", "leases-closed-line", "leases-auth-fill", "leases-auth-line"],
+  project: ["project-line"],
+  nepatec: ["nepatec-circle"]
+};
+
+function app() {
+  return {
+    desk: "chooser",
+    as: (typeof GPCP_AS === "string" ? GPCP_AS : "reviewer"),
+    deskTaskTab: "all",
+    intake: {
+      name: "",
+      county: "",
+      state: "NV",
+      drilling: true,
+      listed: false,
+      ltaa: false,
+      tribal: false,
+      wsa: false,
+      injection: false,
+      water: false,
+      linear: false,
+      multi: false
+    },
+    projects: PROJECTS,
+    rules: [],
+    rulePack: null,
+    ruleVersion: "",
+    coverage: COVERAGE,
+    ORIGIN_LABEL: ORIGIN_LABEL,
+    ORIGIN_ABBR: ORIGIN_ABBR,
+    conditionKeys: CONDITION_KEYS,
+    conditionLabels: CONDITION_LABELS,
+    bands: ["high", "typical", "low"],
+    projectId: "dixie",
+    conditions: Object.assign({}, PROJECTS[0].conditions),
+    band: "typical",
+    startDate: "2026-10-01",
+    result: null,
+    shownDays: 0,
+    daysRolling: false,
+    range: { low: 0, high: 0 },
+    baseline: null,
+    pinned: false,
+    selectedReview: null,
+    selectedSource: null,
+    logActive: 0,
+    seqToken: 0,
+    rulesOpen: false,
+    files: {},
+    fileErrors: {},
+    corpusError: "",
+    selectedCorpusId: null,
+    rapidJur: "Nevada",
+    layersOn: { positron: true, hillshade: false, hydro: true, wetlands: true, padus: true, tribal: true, leases: true, project: true },
+    mapMode: "project",
+    mapPick: null,
+    layersOpen: false,
+    sepiChip: "",
+    sepiOk: true,
+    factsOpen: false,
+    openPanel: null,
+    openTopic: null,
+    stageView: "sequence",
+    idOpen: { calls: true, provenance: true, schemes: false, intersect: false, graph: false, unresolved: false },
+    _ro: null,
+    _mapBound: false,
+
+    get userName() {
+      return this.as === "applicant" ? "Adler Archer" : "Allison Andrews";
+    },
+    get project() {
+      return this.projects.find(p => p.id === this.projectId) || this.projects[0];
+    },
+    get otherRecords() {
+      return this.projects.filter(p => p.id !== "dixie");
+    },
+    get recentProjects() {
+      const own = this.projects.filter(p => String(p.id).startsWith("own-")).slice().reverse();
+      const rest = this.projects.filter(p => !String(p.id).startsWith("own-"));
+      const list = own.concat(rest);
+      if (this.as === "applicant") return list.filter(p => p.id === "dixie" || String(p.id).startsWith("own-"));
+      return list;
+    },
+    get pendingTasks() {
+      const named = HOME_TASKS.map(t => {
+        const p = this.projects.find(x => x.id === t.projectId);
+        return Object.assign({ key: t.projectId + ":" + t.title, project: p ? p.name : t.projectId }, t);
+      }).filter(t => this.as !== "applicant" || t.projectId === "dixie");
+      const own = this.projects.filter(p => String(p.id).startsWith("own-")).map(p => ({
+        key: p.id + ":closeout",
+        projectId: p.id,
+        project: p.name,
+        title: "Pre-application closeout",
+        note: "Screening is set from the intake. The clock starts after closeout.",
+        status: "not_started",
+        goto: "record"
+      }));
+      return own.concat(named);
+    },
+    get myWork() {
+      const rows = this.pendingTasks.map(t => {
+        const d = this.deadlineFor(t.projectId);
+        return Object.assign({}, t, {
+          due: d.due || "",
+          when: d.when || "",
+          late: this.isOverdue(d.due)
+        });
+      });
+      rows.sort((a, b) => {
+        if (a.late !== b.late) return a.late ? -1 : 1;
+        const ad = a.due || "9999-12-31";
+        const bd = b.due || "9999-12-31";
+        return ad < bd ? -1 : ad > bd ? 1 : 0;
+      });
+      return this.deskTaskTab === "overdue" ? rows.filter(t => t.late) : rows;
+    },
+    get homeDeadlines() {
+      const named = HOME_DEADLINES.map(d => {
+        const p = this.projects.find(x => x.id === d.projectId);
+        return Object.assign({
+          key: d.projectId + ":deadline",
+          project: p ? p.name : d.projectId,
+          when: d.due ? fmtDate(parseISODate(d.due)) : "—"
+        }, d);
+      }).filter(d => this.as !== "applicant" || d.projectId === "dixie");
+      const own = this.projects.filter(p => String(p.id).startsWith("own-")).map(p => ({
+        key: p.id + ":deadline",
+        projectId: p.id,
+        project: p.name,
+        agency: "GPCP",
+        title: "Pre-application closeout",
+        when: "—",
+        basis: "The review period begins after closeout.",
+        goto: "record"
+      }));
+      const rows = own.concat(named);
+      rows.sort((a, b) => {
+        const ad = a.due || "9999-12-31";
+        const bd = b.due || "9999-12-31";
+        return ad < bd ? -1 : ad > bd ? 1 : 0;
+      });
+      return rows;
+    },
+    get todayISO() {
+      const d = new Date();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return d.getFullYear() + "-" + m + "-" + day;
+    },
+    get overdueDeadlines() {
+      const today = this.todayISO;
+      return this.homeDeadlines.filter(d => d.due && d.due < today);
+    },
+    get upcomingDeadlines() {
+      const today = this.todayISO;
+      return this.homeDeadlines.filter(d => !d.due || d.due >= today);
+    },
+    get shownDeadlines() {
+      return this.deskTaskTab === "overdue" ? this.overdueDeadlines : this.upcomingDeadlines;
+    },
+    deadlineFor(id) {
+      return this.homeDeadlines.find(d => d.projectId === id) || {};
+    },
+    isOverdue(due) {
+      return !!(due && due < this.todayISO);
+    },
+    get incomingComments() {
+      return DIXIE_COMMENTS.map((c, i) => Object.assign({
+        key: "dixie-c-" + i,
+        projectId: "dixie",
+        project: "Dixie Valley",
+        goto: "file"
+      }, c, {
+        when: String(c.date || "").replace(/January|February|March|April|June|July|August|September|October|November|December/, function(m) {
+          return { January: "Jan", February: "Feb", March: "Mar", April: "Apr", June: "Jun", July: "Jul", August: "Aug", September: "Sep", October: "Oct", November: "Nov", December: "Dec" }[m];
+        })
+      }));
+    },
+    homeImage(p) {
+      return {
+        dixie: "../hero-dixie.png",
+        pershing: "../media/pershing.jpg",
+        elko: "../media/elko.jpg",
+        washoe: "../media/washoe.jpg"
+      }[p && p.id] || "";
+    },
+    homePlace(p) {
+      const L = p && p.lease && p.lease.data && p.lease.data.lease;
+      if (!L) return "";
+      const state = L.state === "NV" ? "Nevada" : (L.state || "");
+      if (L.county && state) return L.county + " County, " + state;
+      return [L.county, state].filter(Boolean).join(", ");
+    },
+    homePhase(p) {
+      if (p && String(p.id).startsWith("own-")) return "Pre-application";
+      if (p && p.id === "dixie") return "Under review";
+      return "Authorized";
+    },
+    get fileComments() {
+      if (this.projectId === "dixie") return DIXIE_COMMENTS;
+      return [{
+        agency: "GPCP",
+        date: "Today",
+        text: "No agency comments yet. Pre-application is open. The sequence is the estimate after closeout."
+      }];
+    },
+    statusLabel(s) {
+      return { complete: "Complete", under_review: "Under review", not_started: "Not started" }[s] || s;
+    },
+    reviewStatus(id) {
+      if (this.projectId === "dixie") return DIXIE_STATUS[id] || "not_started";
+      return "not_started";
+    },
+    goTop() {
+      window.scrollTo(0, 0);
+    },
+    showDesk() {
+      this.desk = "chooser";
+      document.title = "Projects · GPCP";
+      if (history.replaceState) history.replaceState(null, "", "#");
+      this.$nextTick(() => this.goTop());
+    },
+    openIntake() {
+      this.desk = "intake";
+      if (history.replaceState) history.replaceState(null, "", "#new");
+      this.$nextTick(() => this.goTop());
+    },
+    openRecord(id) {
+      this.selectProject(id);
+      this.desk = "record";
+      this.openPanel = null;
+      this.factsOpen = false;
+      document.title = this.project.name + " · GPCP";
+      if (id !== "dixie" && this.stageView === "map") this.stageView = "sequence";
+      if (history.replaceState) history.replaceState(null, "", "#" + id);
+      this.$nextTick(() => {
+        this.goTop();
+        this.drawChart();
+        this.rollDays();
+      });
+    },
+    openTask(task) {
+      this.openRecord(task.projectId);
+      this.$nextTick(() => {
+        if (task.goto === "file") this.jumpPanel("file");
+        else if (task.goto === "sequence") this.showStage("sequence");
+      });
+    },
+    submitOwn() {
+      const name = (this.intake.name || "Untitled").trim();
+      const county = (this.intake.county || "").trim();
+      const state = (this.intake.state || "NV").trim().toUpperCase();
+      const id = "own-" + Date.now();
+      const conditions = Object.assign({}, ALL_TRUE, {
+        listed_species_present: !!this.intake.listed,
+        likely_to_adversely_affect: !!this.intake.listed && !!this.intake.ltaa,
+        drilling_proposed: !!this.intake.drilling,
+        injection_proposed: !!this.intake.injection,
+        water_use_proposed: !!this.intake.water,
+        tribal_interest_present: !!this.intake.tribal,
+        wsa_or_nlcs_proximity: !!this.intake.wsa,
+        well_change_proposed: false,
+        multi_well_development: !!this.intake.multi,
+        linear_facility_proposed: !!this.intake.linear,
+        well_completed: false,
+        ce_blm_2_13: false,
+        ce_blm_2_14: false
+      });
+      const rec = {
+        id: id,
+        name: name,
+        deck: "Started here. The reviews below follow from what you marked as true.",
+        conditions: conditions,
+        lease: {
+          data: { found: true, lease: {
+            serial_number: "—", case_type: "Geothermal Lease", status: "Pre-application",
+            effective_date: "", expiration_date: "", acres: 0,
+            county: county, state: state, admin_office: "—", lessee: "—"
+          } },
+          source: "Intake",
+          disclaimer: "Started in this demonstration.",
+          retrieved: new Date().toISOString()
+        },
+        wells: {
+          data: { serial_number: "—", count: 0, wells: [] },
+          source: "Intake",
+          disclaimer: "Started in this demonstration.",
+          retrieved: new Date().toISOString()
+        },
+        species: {
+          data: {
+            total_species_returned: this.intake.listed ? 1 : 0,
+            section7_triggered: !!this.intake.listed,
+            triggering_species: this.intake.listed ? [{ common_name: "Listed species (intake)", scientific_name: "—", group: "—", listing_status: "Listed", listing_code: "T", population: "—" }] : [],
+            determination_basis: "Intake"
+          },
+          source: "Intake",
+          disclaimer: "Started in this demonstration.",
+          retrieved: new Date().toISOString()
+        }
+      };
+      this.projects = this.projects.concat([rec]);
+      this.openRecord(id);
+    },
+    bandCaption(b) {
+      return { low: "Faster", typical: "Typical", high: "Slower" }[b] || b;
+    },
+    paceMarks(b) {
+      const n = { low: 3, typical: 2, high: 1 }[b] || 1;
+      return Array.from({ length: n }, (_, i) => i);
+    },
+    projectLabel(p) {
+      const county = p.lease.data.lease.county;
+      if (p.name === county + " County") return p.name;
+      return p.name + ", " + county + " County";
+    },
+    caseTierClass(p) {
+      if (p && String(p.id).startsWith("own-")) return "sim";
+      return this.tierClass(payloadTier(p.species));
+    },
+    caseTierLabel(p) {
+      if (p && String(p.id).startsWith("own-")) return "New";
+      return this.tierLabel(payloadTier(p.species));
+    },
+    leaseSimulated(p) {
+      return payloadTier(p.lease) === "simulated";
+    },
+    get mastKind() {
+      const t = this.project.lease.data.lease.case_type || "Geothermal lease";
+      return "Federal " + t.replace(/^federal\s+/i, "").toLowerCase();
+    },
+    get mastPlace() {
+      const L = this.project.lease.data.lease;
+      const county = L.county || "";
+      const state = L.state === "NV" ? "Nevada" : (L.state || "");
+      if (county && state) return county + " County, " + state;
+      return [county, state].filter(Boolean).join(", ");
+    },
+    get mastFacts() {
+      const L = this.project.lease.data.lease;
+      const acres = L.acres ? Math.round(L.acres).toLocaleString("en-US") + " acres" : "";
+      return [L.serial_number, L.status, acres, L.admin_office]
+        .filter(v => v && v !== "—")
+        .join("  ·  ");
+    },
+    get metaFactLine() {
+      const L = this.project.lease.data.lease;
+      const acres = L.acres != null ? Math.round(L.acres).toLocaleString("en-US") + " acres" : "";
+      return [L.serial_number, L.status, acres, L.county + ", " + L.state, L.admin_office]
+        .filter(Boolean).join("  ·  ");
+    },
+    get steps() {
+      const p = this.project;
+      const L = p.lease.data.lease;
+      const wells = p.wells.data;
+      const sp = p.species.data;
+      const listed = section7Species(sp);
+      const spDetail = !sp.total_species_returned
+        ? "No listed species returned. Section 7 not triggered."
+        : listed
+          ? (sp.total_species_returned + " species returned — " + listed.common_name +
+              " (" + listed.listing_status + ") triggers Section 7.")
+          : (sp.total_species_returned + " species returned. None listed as endangered or threatened. Section 7 not triggered.");
+      const n = this.result ? this.result.reviews_triggered : 0;
+      const c = this.result ? this.result.conditions_evaluated.length : 0;
+      return [
+        { name: "sepi.get_authorization_status",
+          detail: L.serial_number + " — " + L.case_type + ", " + L.status + ", " + L.acres.toLocaleString("en-US") + " acres, " + L.admin_office,
+          src: "SEPI" },
+        { name: "sepi.get_well_records",
+          detail: wells.count + " well" + (wells.count === 1 ? "" : "s") + " — " + wells.wells.map(w => w.status).join(", "),
+          src: "SEPI" },
+        { name: "sepi.screen_location",
+          detail: spDetail,
+          src: "SEPI" },
+        { name: "sepi.get_regulations",
+          detail: "Title 43 — " + FR.data.count + " documents in the last 12 months, incl. NEPA implementing regulations",
+          src: "SEPI" },
+        { name: "gpcp.build_timeline",
+          detail: c + " conditions evaluated against rule set " + this.ruleVersion + " — " + n + " reviews triggered",
+          src: this.ruleVersion ? "rules " + this.ruleVersion : "rules" }
+      ];
+    },
+    get overlayRows() {
+      if (!this.result) return [];
+      const held = this.baseline ? this.baseline.schedule : [];
+      const ids = [];
+      const seen = {};
+      const catalog = this.rules.concat(((this.rulePack && this.rulePack.categorical_exclusions) || []).map(normalizeCe));
+      catalog.forEach(r => {
+        const current = this.result.schedule.find(s => s.id === r.id);
+        const h = held.find(s => s.id === r.id);
+        if (current || h) {
+          ids.push({ id: r.id, name: r.name, agency: r.agency, current: current || null, held: h || null });
+          seen[r.id] = true;
+        }
+      });
+      return ids;
+    },
+    get agencyCount() {
+      if (!this.result) return 0;
+      const set = new Set(this.result.schedule.map(s => s.agency.split(" / ")[0].replace(/^Applicant$/, "BLM")));
+      return set.size;
+    },
+    get selectedRow() {
+      if (!this.result || !this.selectedReview) return null;
+      return this.result.schedule.find(s => s.id === this.selectedReview) || null;
+    },
+    get domainDays() {
+      const a = this.result ? this.result.total_duration_days : 0;
+      const b = this.baseline ? this.baseline.total_duration_days : 0;
+      return Math.max(a, b, 1);
+    },
+    get deltaCopy() {
+      if (!this.baseline || !this.result) return "";
+      const d = this.result.total_duration_days - this.baseline.total_duration_days;
+      const abs = Math.abs(d);
+      const rel = d === 0 ? "unchanged" : (d < 0 ? abs + " days shorter" : abs + " days longer");
+      return "Current total is " + this.result.total_duration_days + " days. Compared schedule is " +
+        this.baseline.total_duration_days + " days. Difference: " + rel + ".";
+    },
+    get dayProgress() {
+      const t = this.result ? this.result.total_duration_days : 0;
+      if (!t) return 0;
+      return this.shownDays / t;
+    },
+    get spanStart() {
+      if (!this.result) return "";
+      return fmtDate(parseISODate(this.startDate));
+    },
+    get spanEnd() {
+      if (!this.result) return "";
+      return fmtDate(addDays(parseISODate(this.startDate), this.result.total_duration_days));
+    },
+    get spanDates() {
+      if (!this.result) return "";
+      return this.spanStart + " – " + this.spanEnd;
+    },
+    get pathSteps() {
+      if (!this.result) return [];
+      return this.result.schedule
+        .filter(s => s.on_critical_path)
+        .map(s => ({ id: s.id, name: REVIEW_SHORT[s.id] || s.name }));
+    },
+    get pathCopy() {
+      if (!this.pathSteps.length) return "No review sits on the critical path under the current conditions.";
+      return "Longest chain: " + this.pathSteps.map(s => s.name).join(" · ") + ".";
+    },
+    get corpusProjects() {
+      const raw = this.files["nepatec-blm-geothermal.json"];
+      const list = raw && raw.projects ? raw.projects : [];
+      return list.map(item => {
+        const pr = item.project || item;
+        const proc = item.process || {};
+        const docs = (item.documents || []).map(d => {
+          const fm = ((d.meta || {}).file_metadata) || {};
+          return {
+            file_name: asText(fm.file_name) || asText(d.file_name),
+            page_count: Number(unwrap(fm.total_pages)) || Number(d.page_count) || (d.pages ? d.pages.length : 0)
+          };
+        });
+        const loc = asText(pr.location);
+        const coords = parseLocation(loc);
+        const title = asText(pr.project_title);
+        const types = unwrap(pr.project_type);
+        return {
+          project_ID: asText(pr.project_ID) || title,
+          title: title,
+          sponsor: asText(pr.project_sponsor),
+          location: loc,
+          lead: asText(proc.lead_agency),
+          types: Array.isArray(types) ? types : (types ? [types] : []),
+          documents: docs,
+          docCount: docs.length,
+          pageCount: docs.reduce((n, d) => n + (Number(d.page_count) || 0), 0),
+          lat: coords ? coords.lat : null,
+          lon: coords ? coords.lon : null,
+          adjacent: /nevada/i.test(loc) && /oregon|malheur/i.test(title + loc + asText(pr.project_sponsor) + asText(proc.lead_agency))
+        };
+      });
+    },
+    get mapLayers() {
+      return MAP_LAYERS;
+    },
+    get idSchemes() {
+      return ID_SCHEMES;
+    },
+    get projectBBox() {
+      const ipac = this.files["ipac-dixie-valley-crithab.json"];
+      const fp = ipac && ipac.resources && ipac.resources.location && ipac.resources.location.footprint;
+      return fp ? this.geomBounds(fp) : [-118.15, 39.55, -118.05, 39.65];
+    },
+    bboxOverlap(a, b) {
+      return !(a[2] < b[0] || a[0] > b[2] || a[3] < b[1] || a[1] > b[3]);
+    },
+    intersectingFeatures(name) {
+      const fc = this.files[name];
+      const box = this.projectBBox;
+      if (!fc || !fc.features) return [];
+      return fc.features.filter(f => f.geometry && this.bboxOverlap(this.geomBounds(f.geometry), box));
+    },
+    get idResolved() {
+      const leases = this.intersectingFeatures("mlrs-geothermal-dixie-valley.geojson")
+        .concat(this.intersectingFeatures("mlrs-authorized-dixie.geojson"));
+      const leaseVals = leases.length
+        ? leases.map(f => {
+            const p = f.properties || {};
+            return (p.mlrs_id || p.case_serial) +
+              (p.case_serial && p.case_serial !== p.mlrs_id ? " (" + p.case_serial + ")" : "") +
+              (p.disposition ? ", " + p.disposition : "");
+          }).join("; ")
+        : "None intersect the project polygon.";
+      const pad = this.intersectingFeatures("padus-dixie-valley.geojson").map(f => {
+        const p = f.properties || {};
+        const nm = p.Unit_Nm || p.Loc_Nm || "Unnamed unit";
+        return p.Source_PAID ? nm + " (" + p.Source_PAID + ")" : nm;
+      });
+      const trib = this.intersectingFeatures("tribal-reservations-nv.geojson").map(f => (f.properties || {}).NAME);
+      const nwi = this.intersectingFeatures("nwi-dixie-valley.geojson");
+      const codes = [];
+      nwi.forEach(f => {
+        const c = (f.properties || {})["Wetlands.ATTRIBUTE"];
+        if (c && codes.indexOf(c) < 0) codes.push(c);
+      });
+      const ipac = this.files["ipac-dixie-valley-crithab.json"];
+      const offices = ipac && ipac.resources && ipac.resources.fieldOffices
+        ? ipac.resources.fieldOffices.map(o => o.officeName).filter(Boolean)
+        : [];
+      const loc = ipac && ipac.resources && ipac.resources.location;
+      const place = loc && loc.description ? loc.description.replace(/\s+/g, " ").trim() : "Churchill County, Nevada";
+      return [
+        {
+          id: "leases",
+          title: "MLRS leases",
+          values: leases.length
+            ? leases.length + " intersecting case" + (leases.length === 1 ? "" : "s") + ". " + leaseVals
+            : leaseVals
+        },
+        {
+          id: "padus",
+          title: "PAD-US managing units",
+          values: pad.length ? pad.join("; ") : "None intersect the project polygon."
+        },
+        {
+          id: "tribal",
+          title: "Tribal reservations",
+          values: trib.length ? trib.join("; ") : "None intersect the project polygon. Eight Nevada reservations are in the extract; consultation range is not a spatial join on this polygon."
+        },
+        {
+          id: "nwi",
+          title: "Wetlands",
+          values: nwi.length
+            ? nwi.length + " NWI polygon" + (nwi.length === 1 ? "" : "s") + (codes.length ? " · " + codes.join(", ") : "")
+            : "None intersect the project polygon."
+        },
+        {
+          id: "fws",
+          title: "USFWS field office",
+          values: offices.length ? offices.join("; ") : "Reno Fish And Wildlife Office"
+        },
+        {
+          id: "place",
+          title: "State and county",
+          values: place
+        },
+        {
+          id: "rapid",
+          title: "RAPID jurisdiction",
+          values: "RAPID/Geothermal/Nevada"
+        }
+      ];
+    },
+    get idUnresolved() {
+      return [
+        {
+          id: "mlrs-nepa",
+          title: "MLRS case serial → NEPA document",
+          detail: "NVNV105591070 does not appear in NEPATEC project_ID hashes, and NEPATEC hashes do not contain a lease serial. No ePlanning number exists for this location."
+        },
+        {
+          id: "mlrs-well",
+          title: "MLRS case serial → well record",
+          detail: "Well records arrive through SEPI. No published crosswalk from case serial to API number is available."
+        },
+        {
+          id: "eplan-mlrs",
+          title: "ePlanning project number → case serial",
+          detail: "The ePlanning number format is DOI-BLM-{state}-{office}-{year}-{sequence}-{type}. Nothing in that string is an MLRS serial, and nothing in an MLRS serial is an ePlanning number."
+        }
+      ];
+    },
+    get idGraphSub() {
+      const leases = this.intersectingFeatures("mlrs-geothermal-dixie-valley.geojson")
+        .concat(this.intersectingFeatures("mlrs-authorized-dixie.geojson"));
+      const pad = this.intersectingFeatures("padus-dixie-valley.geojson");
+      const trib = this.intersectingFeatures("tribal-reservations-nv.geojson");
+      const nwi = this.intersectingFeatures("nwi-dixie-valley.geojson");
+      const ipac = this.files["ipac-dixie-valley-crithab.json"];
+      const office = ipac && ipac.resources && ipac.resources.fieldOffices && ipac.resources.fieldOffices[0]
+        ? ipac.resources.fieldOffices[0].officeName.replace(/ Fish And Wildlife Office/i, " FWO")
+        : "Reno FWO";
+      return {
+        mlrs: leases.length ? leases.length + " intersecting" : "None intersecting",
+        padus: pad.length ? pad.length + " intersecting" : "None intersecting",
+        nwi: nwi.length ? nwi.length + " intersecting" : "None intersecting",
+        fws: office,
+        census: trib.length ? trib.length + " intersecting" : "None intersecting"
+      };
+    },
+    get rapidNames() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return c && c.data ? Object.keys(c.data) : [];
+    },
+    get rapidCount() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return (c && c.jurisdictions) || this.rapidNames.length || "—";
+    },
+    get rapidCurrent() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return c && c.data ? c.data[this.rapidJur] : null;
+    },
+    get rapidSummaryRows() {
+      const cur = this.rapidCurrent;
+      if (!cur || !cur.summary) return [];
+      const skip = { Tech: true, Jurisdiction: true, IsBulkTransmission: true };
+      return Object.keys(cur.summary)
+        .filter(k => !skip[k] && String(cur.summary[k] || "").trim())
+        .map(k => {
+          const inner = wikiHtml(String(cur.summary[k]));
+          return { k: k, html: inner ? "<p>" + inner + "</p>" : "" };
+        })
+        .filter(row => row.html);
+    },
+    get rapidIndexCount() {
+      const idx = this.files["rapid-geothermal-index.json"];
+      const pages = idx && idx.index && idx.index[this.rapidJur];
+      return pages ? pages.length : 0;
+    },
+    get rapidTopics() {
+      const cur = this.rapidCurrent;
+      const topics = cur && cur.topics ? cur.topics : {};
+      return Object.keys(topics).map(name => {
+        const t = topics[name] || {};
+        const mapped = RAPID_TOPIC_TO_RULES.hasOwnProperty(name) ? RAPID_TOPIC_TO_RULES[name] : [];
+        const inner = wikiHtml(t.text || "");
+        return {
+          name: name,
+          url: t.url || ("https://openei.org/wiki/RAPID/Geothermal/" + encodeURIComponent(this.rapidJur) + "/" + encodeURIComponent(name)),
+          html: inner ? "<p>" + inner + "</p>" : "",
+          inRules: mapped.length > 0,
+          nvDrill: this.rapidJur === "Nevada" && name === "Drilling & Well Development"
+        };
+      });
+    },
+    readHash() {
+      return (location.hash || "").replace(/^#/, "");
+    },
+    applyHash() {
+      const hash = this.readHash();
+      if (hash === "new") {
+        if (this.desk !== "intake") this.openIntake();
+        return;
+      }
+      if (hash && this.projects.some(p => p.id === hash)) {
+        if (this.desk !== "record" || this.projectId !== hash) this.openRecord(hash);
+        return;
+      }
+      if (this.desk !== "chooser") this.showDesk();
+      else document.title = "Projects · GPCP";
+    },
+    syncViewPick() {
+      const el = this.$refs.viewPick;
+      if (el && el.value !== this.viewSelect) el.value = this.viewSelect;
+    },
+    init() {
+      this.applyHash();
+      window.addEventListener("hashchange", () => this.applyHash());
+      this.$watch("viewSelect", () => this.$nextTick(() => this.syncViewPick()));
+      this.$nextTick(() => this.syncViewPick());
+      this.loadRules().then(() => {
+        this.recompute();
+        this.logActive = this.steps.length;
+        this.$nextTick(() => this.drawChart());
+      });
+      this.loadAllData();
+      this.loadSepiChip();
+      this.$nextTick(() => {
+        if (this.$refs.tracks && window.ResizeObserver) {
+          this._ro = new ResizeObserver(() => this.drawChart());
+          this._ro.observe(this.$refs.tracks);
+        }
+      });
+    },
+    async loadSepiChip() {
+      if (!window.sepiIndex) return;
+      try {
+        const data = await sepiIndex.load();
+        const list = data.connectors || [];
+        const go = list.filter(c => c.light === "go").length;
+        const hold = list.filter(c => c.light === "hold").length;
+        this.sepiOk = hold === 0;
+        this.sepiChip = hold ? hold + " interrupted" : go + " connected";
+      } catch (e) {
+        this.sepiOk = false;
+        this.sepiChip = "offline";
+      }
+    },
+    async loadRules() {
+      try {
+        const pack = await loadRulesPack();
+        this.rulePack = pack;
+        this.rules = normalizeReviews(pack);
+        this.ruleVersion = pack.version ? "v" + pack.version : "";
+      } catch (e) {
+        this.rules = [];
+        this.ruleVersion = "";
+      }
+    },
+    originLabel(id) {
+      const row = (this.result && this.result.schedule.find(x => x.id === id)) || this.rules.find(x => x.id === id);
+      return row ? ORIGIN_LABEL[row.origin] : "";
+    },
+    originAbbr(id) {
+      const row = (this.result && this.result.schedule.find(x => x.id === id)) || this.rules.find(x => x.id === id);
+      return row ? ORIGIN_ABBR[row.origin] : "";
+    },
+    tierClass(payload) {
+      const t = typeof payload === "string" ? payload : payloadTier(payload);
+      return { live: t === "live", captured: t === "captured", extract: t === "extracted", sim: t === "simulated", none: t === "none" };
+    },
+    tierLabel(payload) {
+      const t = typeof payload === "string" ? payload : payloadTier(payload);
+      return this.stateLabel(t);
+    },
+    stateClass(state) {
+      return { live: state === "live", captured: state === "captured", extract: state === "extracted", sim: state === "simulated", none: state === "none" };
+    },
+    stateLabel(state) {
+      return { live: "SEPI", captured: "SEPI", extracted: "Extracted", simulated: "SEPI", none: "SEPI" }[state] || state;
+    },
+    async loadAllData() {
+      await Promise.all(DATA_FILES.map(async name => {
+        try {
+          const data = await loadCachedJSON(name);
+          this.files = Object.assign({}, this.files, { [name]: data });
+        } catch (e) {
+          this.fileErrors[name] = true;
+          if (name === "nepatec-blm-geothermal.json") this.corpusError = "The NEPATEC extract could not be loaded.";
+        }
+      }));
+      this.loadMapSources();
+      if (this.stageView === "map") this.$nextTick(() => this.readyMap());
+    },
+    get viewOptions() {
+      const opts = [
+        { id: "sequence", name: "Reviews" }
+      ];
+      if (this.projectId === "dixie") opts.push({ id: "map", name: "Map" });
+      opts.push({ id: "file", name: "Materials" });
+      opts.push({ id: "identifiers", name: "Identifiers" });
+      return opts;
+    },
+    get viewSelect() {
+      if (this.openPanel === "file") return "file";
+      return this.stageView === "map" ? "map" : "sequence";
+    },
+    chooseView(id) {
+      if (id === "home") {
+        this.showDesk();
+        return;
+      }
+      if (id === "identifiers") {
+        location.assign("../identifiers/#" + this.projectId);
+        return;
+      }
+      if (id === "file") {
+        this.jumpPanel("file");
+        return;
+      }
+      this.openPanel = null;
+      this.showStage(id);
+    },
+    chooseTool(ev) {
+      const id = ev.target.value;
+      ev.target.value = "";
+      if (id === "reset") this.clearView();
+      else if (id === "hold") this.pinSchedule();
+      else if (id === "rules") this.rulesOpen = true;
+      else if (id === "csv") this.exportCsv();
+      else if (id === "json") this.exportJson();
+    },
+    showStage(id) {
+      this.stageView = id;
+      this.$nextTick(() => {
+        if (id === "map") this.readyMap();
+        else this.drawChart();
+        const el = document.getElementById("stage-main");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    },
+    jumpPanel(id) {
+      this.openPanel = id;
+      this.$nextTick(() => {
+        const el = document.getElementById("panel-" + id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    },
+    togglePanel(id) {
+      this.openPanel = this.openPanel === id ? null : id;
+    },
+    toggleId(name) {
+      const next = Object.assign({}, this.idOpen);
+      next[name] = !next[name];
+      this.idOpen = next;
+    },
+    toggleLayers() {
+      this.layersOpen = !this.layersOpen;
+    },
+    toggleTopic(name) {
+      this.openTopic = this.openTopic === name ? null : name;
+    },
+    readyMap() {
+      this.$nextTick(() => {
+        requestAnimationFrame(() => {
+          if (!this.$refs.map) return;
+          if (!mapInstance) this.initMap();
+          else mapInstance.resize();
+        });
+      });
+    },
+    selectCorpus(p) {
+      this.selectedCorpusId = this.selectedCorpusId === p.project_ID ? null : p.project_ID;
+      if (this.selectedCorpusId && p.lat != null) {
+        this.stageView = "map";
+        this.mapMode = "west";
+        this.readyMap();
+        this.$nextTick(() => { if (mapInstance) this.fitWest(); });
+      }
+    },
+    snapshot() {
+      if (this.pinned) return;
+      if (this.result) this.baseline = JSON.parse(JSON.stringify(this.result));
+    },
+    recompute() {
+      this.result = computeSchedule(this.rules, this.conditions, this.band, this.rulePack);
+      this.range = {
+        low: computeSchedule(this.rules, this.conditions, "low", this.rulePack).total_duration_days,
+        high: computeSchedule(this.rules, this.conditions, "high", this.rulePack).total_duration_days
+      };
+      if (this.selectedReview && !this.result.schedule.some(s => s.id === this.selectedReview)) {
+        this.selectedReview = null;
+      }
+      this.rollDays();
+      this.$nextTick(() => this.drawChart());
+    },
+    rollDays() {
+      const target = this.result ? this.result.total_duration_days : 0;
+      if (dayRoll) {
+        cancelAnimationFrame(dayRoll);
+        dayRoll = 0;
+      }
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) {
+        this.shownDays = target;
+        this.daysRolling = false;
+        return;
+      }
+      const loader = document.getElementById("site-loader");
+      if (loader && !loader.classList.contains("site-loader--exit")) {
+        this.shownDays = 0;
+        this.daysRolling = this.desk === "record" && target > 0;
+        if (!dayWait) {
+          dayWait = 1;
+          const resume = () => {
+            if (!dayWait) return;
+            dayWait = 0;
+            this.rollDays();
+          };
+          const obs = new MutationObserver(() => {
+            if (loader.classList.contains("site-loader--exit") || !document.contains(loader)) {
+              obs.disconnect();
+              resume();
+            }
+          });
+          obs.observe(loader, { attributes: true, attributeFilter: ["class"] });
+          setTimeout(() => { obs.disconnect(); resume(); }, 3600);
+        }
+        return;
+      }
+      if (this.desk !== "record") {
+        this.shownDays = target;
+        this.daysRolling = false;
+        return;
+      }
+      this.shownDays = 0;
+      this.daysRolling = target > 0;
+      if (!target) {
+        this.daysRolling = false;
+        return;
+      }
+      const start = performance.now();
+      const dur = Math.min(1680, 520 + target * 1.15);
+      const ease = t => 1 - Math.pow(1 - t, 3);
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / dur);
+        this.shownDays = Math.round(target * ease(t));
+        if (t < 1) {
+          dayRoll = requestAnimationFrame(tick);
+        } else {
+          this.shownDays = target;
+          this.daysRolling = false;
+          dayRoll = 0;
+        }
+      };
+      dayRoll = requestAnimationFrame(tick);
+    },
+    selectProject(id) {
+      if (id === this.projectId) {
+        this.recompute();
+        return;
+      }
+      this.snapshot();
+      this.projectId = id;
+      this.conditions = Object.assign({}, this.project.conditions);
+      this.selectedReview = null;
+      this.selectedSource = null;
+      if (id !== "dixie" && this.stageView === "map") this.stageView = "sequence";
+      this.recompute();
+    },
+    setCondition(key, val) {
+      this.snapshot();
+      this.conditions[key] = val;
+      this.recompute();
+    },
+    setBand(b) {
+      if (b === this.band) return;
+      this.snapshot();
+      this.band = b;
+      this.recompute();
+    },
+    pinSchedule() {
+      if (this.pinned) {
+        this.pinned = false;
+        return;
+      }
+      this.holdBaseline();
+    },
+    holdBaseline() {
+      if (this.pinned) return;
+      if (this.result) {
+        this.baseline = JSON.parse(JSON.stringify(this.result));
+        this.pinned = true;
+      }
+    },
+    clearView() {
+      this.projectId = "dixie";
+      this.conditions = Object.assign({}, PROJECTS[0].conditions);
+      this.band = "typical";
+      this.startDate = "2026-10-01";
+      this.baseline = null;
+      this.pinned = false;
+      this.selectedReview = null;
+      this.selectedSource = null;
+      this.recompute();
+    },
+    runSequence() {
+      this.recompute();
+      this.$nextTick(() => this.drawChart());
+    },
+    selectReview(id) {
+      this.selectedReview = this.selectedReview === id ? null : id;
+      if (this.selectedReview) {
+        const next = Object.assign({}, this.idOpen);
+        next.provenance = true;
+        this.idOpen = next;
+      }
+    },
+    rowClass(id) {
+      return { sel: this.selectedReview === id, dim: !!(this.selectedReview && this.selectedReview !== id) };
+    },
+    idx(i) {
+      return String(i + 1).padStart(2, "0");
+    },
+    chartName(row) {
+      return REVIEW_CHART[row.id] || row.name;
+    },
+    barFits(s) {
+      return !!(s && s.duration_days / this.domainDays >= 0.11);
+    },
+    endLabel(s) {
+      return fmtDate(addDays(parseISODate(this.startDate), s.finish_day));
+    },
+    dateStyle(s) {
+      if (!s) return "";
+      const pct = s.finish_day / this.domainDays * 100;
+      if (pct > 86) return "left:auto;right:" + (100 - pct).toFixed(2) + "%;margin-left:0;margin-right:10px";
+      return "left:" + pct.toFixed(3) + "%";
+    },
+    barStyle(s, agency) {
+      if (!s) return "";
+      const max = this.domainDays;
+      const left = (s.start_day / max * 100).toFixed(3);
+      const w = Math.max(s.duration_days / max * 100, 0.8).toFixed(3);
+      const bg = AGENCY_COLOR[agency] || "#8B9BC8";
+      return "left:" + left + "%;width:" + w + "%;background:" + bg + ";";
+    },
+    windowCopy(s) {
+      const start = parseISODate(this.startDate);
+      return s.start_day + "–" + s.finish_day + " days · " +
+        fmtDate(addDays(start, s.start_day)) + " to " + fmtDate(addDays(start, s.finish_day));
+    },
+    evidenceFor(id) {
+      const p = this.project;
+      const map = {
+        nepa_ea: [FR, ECFR],
+        nepa_decision: [FR],
+        biological_assessment: [p.species],
+        esa_section7_informal: [p.species],
+        esa_section7_formal: [p.species],
+        apd_approval: [p.lease, p.wells],
+        nhpa_section106_shpo: [],
+        nhpa_section106_tribal: [],
+        uic_permit: [],
+        nv_water_right: [],
+        wsa_nlcs_review: [],
+        leasing_withdrawal_check: [p.lease],
+        sundry_notice: [p.wells],
+        nv_project_area_permit: [p.wells],
+        nv_well_completion_report: [p.wells],
+        row_grant: [],
+        cwa_404: [],
+        plant_siting: []
+      };
+      return map[id] || [];
+    },
+    toggleLayer(id) {
+      this.layersOn[id] = !this.layersOn[id];
+      this.applyLayerVisibility();
+    },
+    applyLayerVisibility() {
+      if (!mapInstance) return;
+      Object.keys(MAP_LAYER_IDS).forEach(id => {
+        const on = id === "nepatec" ? this.mapMode === "west" : !!this.layersOn[id];
+        MAP_LAYER_IDS[id].forEach(lid => {
+          if (mapInstance.getLayer(lid)) mapInstance.setLayoutProperty(lid, "visibility", on ? "visible" : "none");
+        });
+      });
+    },
+    fitProject() {
+      this.mapMode = "project";
+      this.applyLayerVisibility();
+      if (!mapInstance) return;
+      const boxes = [];
+      const ipac = this.files["ipac-dixie-valley-crithab.json"];
+      const fp = ipac && ipac.resources && ipac.resources.location && ipac.resources.location.footprint;
+      if (fp) boxes.push(this.geomBounds(fp));
+      ["mlrs-geothermal-dixie-valley.geojson", "mlrs-authorized-dixie.geojson"].forEach(name => {
+        const fc = this.files[name];
+        (fc && fc.features || []).forEach(f => {
+          if (f.geometry) boxes.push(this.geomBounds(f.geometry));
+        });
+      });
+      const valid = boxes.filter(b => isFinite(b[0]) && isFinite(b[1]));
+      const b = valid.length ? [
+        Math.min.apply(null, valid.map(x => x[0])),
+        Math.min.apply(null, valid.map(x => x[1])),
+        Math.max.apply(null, valid.map(x => x[2])),
+        Math.max.apply(null, valid.map(x => x[3]))
+      ] : [-118.22, 39.48, -117.98, 39.72];
+      mapInstance.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: 36, duration: 600 });
+    },
+    fitWest() {
+      this.mapMode = "west";
+      this.applyLayerVisibility();
+      if (!mapInstance) return;
+      const pts = this.corpusProjects.filter(p => p.lat != null);
+      if (!pts.length) {
+        mapInstance.fitBounds([[-125, 31], [-108, 46]], { padding: 36, duration: 600 });
+        return;
+      }
+      const b = [
+        Math.min.apply(null, pts.map(p => p.lon)) - 1.2,
+        Math.min.apply(null, pts.map(p => p.lat)) - 1.2,
+        Math.max.apply(null, pts.map(p => p.lon)) + 1.2,
+        Math.max.apply(null, pts.map(p => p.lat)) + 1.2
+      ];
+      mapInstance.fitBounds([[b[0], b[1]], [b[2], b[3]]], { padding: 48, duration: 600 });
+    },
+    geomBounds(geom) {
+      const acc = [Infinity, Infinity, -Infinity, -Infinity];
+      const walk = node => {
+        if (!node) return;
+        if (typeof node[0] === "number") {
+          acc[0] = Math.min(acc[0], node[0]);
+          acc[1] = Math.min(acc[1], node[1]);
+          acc[2] = Math.max(acc[2], node[0]);
+          acc[3] = Math.max(acc[3], node[1]);
+          return;
+        }
+        node.forEach(walk);
+      };
+      walk(geom.coordinates);
+      return acc;
+    },
+    projectFeature() {
+      const ipac = this.files["ipac-dixie-valley-crithab.json"];
+      const fp = ipac && ipac.resources && ipac.resources.location && ipac.resources.location.footprint;
+      return {
+        type: "FeatureCollection",
+        features: fp ? [{ type: "Feature", properties: { name: "Dixie Valley project area" }, geometry: fp }] : []
+      };
+    },
+    nepatecCollection() {
+      return {
+        type: "FeatureCollection",
+        features: this.corpusProjects.filter(p => p.lat != null).map(p => ({
+          type: "Feature",
+          properties: { id: p.project_ID, name: p.title },
+          geometry: { type: "Point", coordinates: [p.lon, p.lat] }
+        }))
+      };
+    },
+    loadMapSources() {
+      if (!mapInstance) return;
+      const empty = { type: "FeatureCollection", features: [] };
+      this.ensureSource("nhd", this.files["nhd-named-dixie-valley.geojson"] || empty);
+      this.ensureSource("nwi", this.files["nwi-dixie-valley.geojson"] || empty);
+      this.ensureSource("padus", this.files["padus-dixie-valley.geojson"] || empty);
+      this.ensureSource("tribal", this.files["tribal-reservations-nv.geojson"] || empty);
+      this.ensureSource("leases-closed", this.files["mlrs-geothermal-dixie-valley.geojson"] || empty);
+      this.ensureSource("leases-auth", this.files["mlrs-authorized-dixie.geojson"] || empty);
+      this.ensureSource("project", this.projectFeature());
+      this.ensureSource("nepatec", this.nepatecCollection());
+    },
+    ensureSource(id, data) {
+      if (!mapInstance || !data) return;
+      const src = mapInstance.getSource(id);
+      if (src) src.setData(data);
+      else mapInstance.addSource(id, { type: "geojson", data: data });
+    },
+    bindMapClick(layer, kind) {
+      if (!mapInstance.getLayer(layer)) return;
+      mapInstance.on("click", layer, e => {
+        const f = e.features && e.features[0];
+        if (!f) return;
+        const p = f.properties || {};
+        if (kind === "wsa") {
+          this.mapPick = {
+            kind: "wsa",
+            name: p.Unit_Nm || p.Loc_Nm || "Wilderness Study Area",
+            agency: (p.Mang_Name || "BLM") + (p.Mang_Type ? " (" + p.Mang_Type + ")" : ""),
+            acres: fmtAcres(Number(p.GIS_Acres)),
+            source: "USGS PAD-US"
+          };
+        } else if (kind === "tribal") {
+          const m2 = Number(p.AREALAND);
+          this.mapPick = {
+            kind: "tribal",
+            name: p.NAME || p.BASENAME,
+            agency: "Bureau of Indian Affairs",
+            acres: fmtAcres(m2 * 0.000247105),
+            source: "Census TIGERweb"
+          };
+        } else if (kind === "nepatec") {
+          this.selectedCorpusId = p.id;
+          this.mapPick = {
+            kind: "nepatec",
+            name: p.name,
+            agency: "Bureau of Land Management",
+            acres: "—",
+            source: "PNNL NEPATEC 2.0"
+          };
+        } else if (kind === "lease") {
+          this.mapPick = {
+            kind: "lease",
+            serial: p.case_serial || p.mlrs_id || "—",
+            disposition: p.disposition || "—",
+            acres: fmtAcres(Number(p.acres)),
+            effective: fmtIsoDate(p.effective_date),
+            production: p.production_status || "—",
+            source: "BLM MLRS"
+          };
+        }
+      });
+      mapInstance.on("mouseenter", layer, () => { mapInstance.getCanvas().style.cursor = "pointer"; });
+      mapInstance.on("mouseleave", layer, () => { mapInstance.getCanvas().style.cursor = ""; });
+    },
+    initMap() {
+      if (!window.maplibregl || mapInstance || !this.$refs.map) return;
+      if (this.$refs.map.clientWidth < 8) return;
+      const self = this;
+      mapInstance = new maplibregl.Map({
+        container: this.$refs.map,
+        style: {
+          version: 8,
+          sources: {},
+          layers: [{ id: "bg", type: "background", paint: { "background-color": "#f2f0ea" } }]
+        },
+        attributionControl: false,
+        renderWorldCopies: false
+      });
+      mapInstance.addControl(new maplibregl.ScaleControl({ maxWidth: 140, unit: "imperial" }), "bottom-left");
+      mapInstance.on("load", () => {
+        if (!mapInstance.getSource("positron")) {
+          mapInstance.addSource("positron", {
+            type: "raster",
+            tiles: [
+              "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+              "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+              "https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+            ],
+            tileSize: 256,
+            attribution: "© CARTO © OpenStreetMap"
+          });
+        }
+        if (!mapInstance.getSource("hillshade")) {
+          mapInstance.addSource("hillshade", {
+            type: "raster",
+            tiles: ["https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/exportImage?bbox={bbox-epsg-3857}&bboxSR=3857&imageSR=3857&size=512,512&format=png32&renderingRule=%7B%22rasterFunction%22%3A%22Multi-Directional_Hillshade%22%7D&f=image"],
+            tileSize: 512
+          });
+        }
+        self.loadMapSources();
+        const layers = [
+          { id: "positron", type: "raster", source: "positron" },
+          { id: "hillshade", type: "raster", source: "hillshade", paint: { "raster-opacity": 0.22 } },
+          { id: "nhd-line", type: "line", source: "nhd", paint: { "line-color": "#0A1A4F", "line-width": 1 } },
+          { id: "nwi-fill", type: "fill", source: "nwi", paint: { "fill-color": "#0A1A4F", "fill-opacity": 0.16, "fill-outline-color": "#0A1A4F" } },
+          { id: "padus-fo-fill", type: "fill", source: "padus", filter: ["!=", ["get", "Des_Tp"], "WSA"],
+            paint: { "fill-color": "#0A1A4F", "fill-opacity": 0.06 } },
+          { id: "padus-fo-line", type: "line", source: "padus", filter: ["!=", ["get", "Des_Tp"], "WSA"],
+            paint: { "line-color": "#0A1A4F", "line-width": 1 } },
+          { id: "padus-wsa-fill", type: "fill", source: "padus", filter: ["==", ["get", "Des_Tp"], "WSA"],
+            paint: { "fill-color": "#F5B819", "fill-opacity": 0.12 } },
+          { id: "padus-wsa-line", type: "line", source: "padus", filter: ["==", ["get", "Des_Tp"], "WSA"],
+            paint: { "line-color": "#F5B819", "line-width": 2 } },
+          { id: "tribal-fill", type: "fill", source: "tribal", paint: { "fill-color": "#0A1A4F", "fill-opacity": 0.05 } },
+          { id: "tribal-line", type: "line", source: "tribal", paint: { "line-color": "#0A1A4F", "line-width": 1.6 } },
+          { id: "leases-closed-fill", type: "fill", source: "leases-closed",
+            paint: { "fill-color": "#0A1A4F", "fill-opacity": 0.14, "fill-outline-color": "#0A1A4F" } },
+          { id: "leases-closed-line", type: "line", source: "leases-closed",
+            paint: { "line-color": "#0A1A4F", "line-width": 1, "line-dasharray": [2, 2] } },
+          { id: "leases-auth-fill", type: "fill", source: "leases-auth",
+            paint: { "fill-color": "#F5B819", "fill-opacity": 0.22, "fill-outline-color": "#F5B819" } },
+          { id: "leases-auth-line", type: "line", source: "leases-auth",
+            paint: { "line-color": "#F5B819", "line-width": 2 } },
+          { id: "project-line", type: "line", source: "project",
+            paint: { "line-color": "#F5B819", "line-width": 3, "line-opacity": 1 } },
+          { id: "nepatec-circle", type: "circle", source: "nepatec",
+            paint: { "circle-radius": 6, "circle-color": "#F5B819", "circle-stroke-width": 1.5, "circle-stroke-color": "#0A1A4F" } }
+        ];
+        layers.forEach(ly => {
+          if (mapInstance.getSource(ly.source) && !mapInstance.getLayer(ly.id)) mapInstance.addLayer(ly);
+        });
+        self.bindMapClick("padus-wsa-fill", "wsa");
+        self.bindMapClick("padus-wsa-line", "wsa");
+        self.bindMapClick("tribal-fill", "tribal");
+        self.bindMapClick("tribal-line", "tribal");
+        self.bindMapClick("leases-closed-fill", "lease");
+        self.bindMapClick("leases-closed-line", "lease");
+        self.bindMapClick("leases-auth-fill", "lease");
+        self.bindMapClick("leases-auth-line", "lease");
+        self.bindMapClick("nepatec-circle", "nepatec");
+        self.applyLayerVisibility();
+        if (self.mapMode === "west") self.fitWest();
+        else self.fitProject();
+        mapInstance.resize();
+      });
+      if (window.ResizeObserver && this.$refs.map) {
+        new ResizeObserver(() => { if (mapInstance) mapInstance.resize(); }).observe(this.$refs.map.parentElement || this.$refs.map);
+      }
+    },
+    drawChart() {
+      const d3g = window.d3;
+      const tracks = this.$refs.tracks;
+      const grid = this.$refs.grid;
+      const axisEl = this.$refs.axis;
+      if (!d3g || !tracks || !grid || !axisEl || !this.result) return;
+      const width = tracks.clientWidth;
+      const height = tracks.clientHeight;
+      if (width < 8 || height < 8) return;
+      const start = parseISODate(this.startDate);
+      const end = addDays(start, this.domainDays);
+      const x = d3g.scaleTime().domain([start, end]).range([0, width]);
+      const ticks = x.ticks(d3g.timeMonth.every(3));
+
+      const fyBands = [];
+      let fyStart = new Date(start.getMonth() >= 9 ? start.getFullYear() : start.getFullYear() - 1, 9, 1);
+      while (fyStart < end) {
+        const next = new Date(fyStart.getFullYear() + 1, 9, 1);
+        const a = fyStart < start ? start : fyStart;
+        const b = next > end ? end : next;
+        if (a < b) fyBands.push({ start: a, end: b, year: fyStart.getFullYear() + 1, edge: fyStart });
+        fyStart = next;
+      }
+
+      const svg = d3g.select(grid);
+      svg.attr("width", width).attr("height", height);
+      svg.selectAll("*").remove();
+      svg.selectAll("rect.fyband").data(fyBands).join("rect")
+        .attr("x", d => x(d.start))
+        .attr("width", d => Math.max(0, x(d.end) - x(d.start)))
+        .attr("y", 0).attr("height", height)
+        .attr("fill", (d, i) => i % 2 ? "#F6F5F1" : "#ffffff");
+      svg.selectAll("line.tick").data(ticks).join("line")
+        .attr("x1", d => x(d)).attr("x2", d => x(d))
+        .attr("y1", 0).attr("y2", height)
+        .attr("stroke", "#0A1A4F").attr("stroke-opacity", 0.12).attr("stroke-width", 1);
+      const rowH = 56;
+      const nRows = this.overlayRows.length;
+      svg.selectAll("line.hrow").data(d3g.range(1, nRows)).join("line")
+        .attr("x1", 0).attr("x2", width)
+        .attr("y1", d => d * rowH).attr("y2", d => d * rowH)
+        .attr("stroke", "#0A1A4F").attr("stroke-opacity", 0.1).attr("stroke-width", 1);
+      svg.selectAll("line.fy").data(fyBands.filter(d => d.edge > start && d.edge < end)).join("line")
+        .attr("x1", d => x(d.edge)).attr("x2", d => x(d.edge))
+        .attr("y1", 0).attr("y2", height)
+        .attr("stroke", "#0A1A4F").attr("stroke-opacity", 0.28).attr("stroke-width", 1);
+
+      const axisSvg = d3g.select(axisEl);
+      axisSvg.attr("width", width).attr("height", 48);
+      axisSvg.selectAll("*").remove();
+      const axis = d3g.axisBottom(x).tickValues(ticks).tickFormat(d3g.timeFormat("%b %Y")).tickSize(0).tickPadding(8);
+      axisSvg.append("g").attr("transform", "translate(0,8)").call(axis);
+      axisSvg.selectAll(".tick text").attr("text-anchor", (d, i, nodes) => {
+        if (i === 0) return "start";
+        if (i === nodes.length - 1) return "end";
+        return "middle";
+      });
+      axisSvg.selectAll("text.fy").data(fyBands).join("text")
+        .attr("class", "fy-lab")
+        .attr("x", d => Math.min(width - 8, Math.max(8, x(d.start) + 8)))
+        .attr("y", 42)
+        .attr("text-anchor", "start")
+        .text(d => "FY " + d.year);
+    },
+    exportCsv() {
+      if (!this.result) return;
+      const start = parseISODate(this.startDate);
+      const cols = ["id","name","agency","start_day","finish_day","duration_days","start_date","finish_date","on_critical_path","authority"];
+      const lines = [cols.join(",")];
+      this.result.schedule.forEach(s => {
+        lines.push([
+          s.id, s.name, s.agency, s.start_day, s.finish_day, s.duration_days,
+          fmtDate(addDays(start, s.start_day)), fmtDate(addDays(start, s.finish_day)),
+          s.on_critical_path, s.authority
+        ].map(csvEscape).join(","));
+      });
+      this.downloadBlob(lines.join("\n"), "text/csv", this.project.id + "-schedule-" + this.band + ".csv");
+    },
+    exportJson() {
+      if (!this.result) return;
+      const payload = {
+        project: this.project.id,
+        project_name: this.project.name,
+        lease_serial: this.project.lease.data.lease.serial_number,
+        conditions: Object.assign({}, this.conditions),
+        band: this.band,
+        start_date: this.startDate,
+        schedule: this.result.schedule,
+        critical_path: this.result.critical_path,
+        total_duration_days: this.result.total_duration_days,
+        range_days: this.range,
+        rule_set_version: this.ruleVersion
+      };
+      this.downloadBlob(JSON.stringify(payload, null, 2), "application/json", this.project.id + "-state-" + this.band + ".json");
+    },
+    downloadBlob(text, type, name) {
+      const blob = new Blob([text], { type: type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+  };
+}
+
+document.addEventListener("alpine:init", () => {
+  Alpine.data("app", app);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb" crossorigin="anonymous"></script>
+<script>if (typeof Alpine === "undefined") { document.write('<script src="../vendor/alpine.min.js"><\/script>'); }</script>
+<script>
+(function () {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var mosaic = document.querySelector(".mast-mosaic");
+  var wash = document.querySelector(".mast-wash");
+  if (!mosaic) return;
+  var x = 0, y = 0, tx = 0, ty = 0;
+  document.addEventListener("pointermove", function (e) {
+    tx = (e.clientX / innerWidth - 0.5) * 22;
+    ty = (e.clientY / innerHeight - 0.5) * 12;
+  });
+  function tick() {
+    x += (tx - x) * 0.06;
+    y += (ty - y) * 0.06;
+    mosaic.style.transform = "translate3d(" + x + "px," + y + "px,0)";
+    if (wash) wash.style.transform = "translate3d(" + (x * 0.3) + "px," + (y * 0.3) + "px,0)";
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

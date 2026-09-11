@@ -1,0 +1,226 @@
+/* Fonts and navy/gold on interior SEPI pages. Source of truth: GPCP tu-override.css. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  --navy: #0A1A4F;
+  --gold: #F5B819;
+  --white: #ffffff;
+  --muted: #3D4A73;
+  --title: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Archivo", system-ui, sans-serif;
+  --label: "Space Mono", ui-monospace, monospace;
+  --mono: "Space Mono", ui-monospace, monospace;
+  --bg: #ffffff;
+  --ink: #0A1A4F;
+  --heat: #F5B819;
+  --accent: #F5B819;
+  --line: rgba(10, 26, 79, .12);
+  --panel: #ffffff;
+}
+
+body {
+  font-family: var(--body) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  background:
+    linear-gradient(180deg, rgba(245, 184, 25, .04) 0%, transparent 18%),
+    radial-gradient(ellipse 90% 55% at 50% -8%, rgba(10, 26, 79, .04), transparent 58%),
+    var(--bg) !important;
+}
+
+::selection { background: var(--gold) !important; color: var(--navy) !important; }
+a { color: var(--navy) !important; }
+.article a, table.dash a, footer a, .record a { color: var(--navy) !important; }
+.article a:hover, table.dash a:hover, footer a:hover { color: #8a6a10 !important; }
+
+h1, .mast-copy h1 {
+  font-family: var(--title) !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+}
+
+.site-nav nav a {
+  font-family: var(--title) !important;
+  font-weight: 300 !important;
+  font-size: 15px !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
+.brand-name i { color: var(--gold) !important; }
+
+.article h2, .widget-head h2, .fold-head h2 {
+  font-family: var(--title) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+}
+
+.demo-mark {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-family: var(--label) !important;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  background: #C8102E !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 3px 7px;
+  line-height: 1.2;
+  animation: demo-flash 2.8s ease-in-out infinite !important;
+}
+
+@keyframes demo-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-mark { animation: none !important; }
+}
+
+.site-nav-end {
+  display: flex;
+  align-items: center;
+  gap: 14px 22px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.profile-mark {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--navy);
+  text-decoration: none !important;
+  border: 2px solid var(--gold) !important;
+  padding: 0 !important;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.profile-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.profile-mark:hover,
+.profile-mark:focus-visible {
+  border-color: var(--white) !important;
+  outline: none;
+}
+
+.profile-mark[aria-current="page"] {
+  border-color: var(--white) !important;
+}
+
+/* Photo masts stay navy with white type */
+.mast {
+  background: var(--navy) !important;
+  color: var(--white) !important;
+}
+.mast::before {
+  background:
+    linear-gradient(180deg, rgba(10, 26, 79, .55) 0%, rgba(10, 26, 79, .72) 48%, rgba(10, 26, 79, .94) 100%),
+    radial-gradient(70% 80% at 50% 12%, rgba(245, 184, 25, .14), transparent 58%) !important;
+}
+.about .mast::before,
+.home .mast::before {
+  background:
+    linear-gradient(180deg, rgba(10, 26, 79, .32) 0%, rgba(10, 26, 79, .46) 48%, rgba(10, 26, 79, .9) 100%),
+    radial-gradient(70% 80% at 50% 12%, rgba(245, 184, 25, .12), transparent 58%) !important;
+}
+.mast .brand,
+.mast .lede,
+.mast h1 { color: var(--white) !important; }
+.mast h1 i,
+.mast .brand-name i { color: var(--gold) !important; }
+.mast .eyebrow,
+.mast .rule { color: var(--gold); }
+.mast .rule {
+  background: linear-gradient(90deg, transparent, rgba(245, 184, 25, .72), transparent) !important;
+  box-shadow: 0 0 18px rgba(245, 184, 25, .22) !important;
+}
+.site-nav .brand img { filter: none !important; }
+.site-nav nav a { color: var(--gold) !important; }
+.site-nav nav a:hover { color: var(--white) !important; }
+.site-nav nav a[aria-current="page"],
+.site-nav nav a[aria-current="true"] { color: var(--white) !important; }
+
+body.dash .mast.desk-mast:not(.desk-hero) {
+  background: var(--bg) !important;
+  color: var(--ink) !important;
+}
+body.dash .mast.desk-mast:not(.desk-hero) .brand,
+body.dash .mast.desk-mast:not(.desk-hero) h1 { color: var(--navy) !important; }
+body.dash .mast.desk-mast:not(.desk-hero) .site-nav nav a { color: var(--navy) !important; }
+body.dash .mast.desk-mast:not(.desk-hero) .site-nav nav a:hover,
+body.dash .mast.desk-mast:not(.desk-hero) .site-nav nav a[aria-current="page"] { color: var(--navy) !important; }
+body.dash .mast.desk-hero .brand,
+body.dash .mast.desk-hero h1 { color: var(--white) !important; }
+body.dash .mast.desk-hero .mast-line-name { color: var(--gold) !important; }
+body.dash .mast.desk-hero h1 { font-style: normal !important; }
+body.dash .mast.desk-hero .mast-line-name { font-style: italic !important; }
+
+.btn.primary { background: var(--gold) !important; color: var(--navy) !important; }
+.btn.primary:hover { background: #ffd056 !important; }
+.btn.ghost {
+  color: var(--gold) !important;
+  border-color: rgba(245, 184, 25, .55) !important;
+}
+.btn.ghost:hover { background: rgba(245, 184, 25, .12) !important; }
+
+.filters select,
+.widget-head .find input,
+.end-form input,
+.mail-compose textarea {
+  background: var(--white) !important;
+  color: var(--navy) !important;
+  border-color: var(--line) !important;
+}
+
+.status-grid button:hover { border-color: rgba(245, 184, 25, .55) !important; }
+.status-grid button.on {
+  border-color: var(--gold) !important;
+  background: rgba(245, 184, 25, .12) !important;
+}
+.widget.attention { border-color: rgba(245, 184, 25, .45) !important; }
+.alert-list button:hover { background: rgba(245, 184, 25, .1) !important; }
+tr.hit td { background: rgba(245, 184, 25, .1) !important; }
+.legend button.on,
+.proj-tile .phase.on,
+.res .st.now {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+  border-color: var(--gold) !important;
+}
+
+footer { border-top-color: rgba(245, 184, 25, .35) !important; }
+
+.site-loader { background: var(--navy) !important; color: var(--white) !important; }
+.site-loader::before {
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 48%, rgba(245, 184, 25, .16) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 30% 70%, rgba(255, 255, 255, .04) 0%, transparent 50%) !important;
+}
+.site-loader__bloom {
+  background: radial-gradient(circle, rgba(245, 184, 25, .42) 0%, transparent 68%) !important;
+}
+.site-loader__ring--a { border-color: rgba(245, 184, 25, .55) !important; }
+.site-loader__ring--b { border-top-color: rgba(245, 184, 25, .85) !important; }
+.site-loader__ring--c { border-color: rgba(245, 184, 25, .28) !important; }
+.site-loader__name { color: var(--white) !important; }
+.site-loader__lede { color: rgba(255, 255, 255, .7) !important; }

@@ -1,0 +1,569 @@
+{
+  "updated": "2026-08-27",
+  "source": "GPIC",
+  "url": "https://gpic.thermalunderground.org/work.json",
+  "inventory": "Year 1 WBS. Geothermal Permitting Innovation Collaborative sheet of the Proposed Permitting Funding Request FY27.",
+  "streams": [
+    {
+      "id": "1.0",
+      "name": "Program operations",
+      "note": "Charter, membership, public site, and measurement."
+    },
+    {
+      "id": "2.0",
+      "name": "Federal geothermal capacity",
+      "note": "Handbooks, categorical exclusions, rulemaking analysis, and field training, with BLM as design partner."
+    },
+    {
+      "id": "3.0",
+      "name": "Permitting Support Team",
+      "note": "Host-agency placements. Signed host commitments are required."
+    },
+    {
+      "id": "4.0",
+      "name": "State geothermal capacity",
+      "note": "Navigation assistance, regulatory programs, partner-state selection, and staff training."
+    },
+    {
+      "id": "5.0",
+      "name": "Tribal geothermal capacity",
+      "note": "Participation support and convening. Coordination only. Consultation stays with the responsible agency."
+    },
+    {
+      "id": "6.0",
+      "name": "Intergovernmental Geothermal Accelerator",
+      "note": "Cohorts, peer learning, technical assistance, and exchange sessions for intergovernmental geothermal permitting, plus Energy Determinants of Health pathway work."
+    },
+    {
+      "id": "7.0",
+      "name": "Permitting Innovation Exchange",
+      "note": "Hackathons, shark tanks, and challenge events that put industry, government, and applicants on the same permitting problems."
+    },
+    {
+      "id": "8.0",
+      "name": "Training and technical assistance",
+      "note": "Curriculum, federal and Tribal cohorts, applicant readiness, and published templates."
+    },
+    {
+      "id": "9.0",
+      "name": "Evidence and diffusion",
+      "note": "Practitioner participation, lab synthesis, and translation into briefs and sessions."
+    },
+    {
+      "id": "10.0",
+      "name": "Applied permitting research",
+      "note": "Multi-perspective case studies at PNNL, interviews, and observed durations for the GPCP rule set."
+    },
+    {
+      "id": "11.0",
+      "name": "Fellowship support",
+      "note": "Applied Permitting Research Fellow and Energy Determinants Fellow."
+    }
+  ],
+  "packages": [
+    {
+      "id": "1.1",
+      "stream": "1.0",
+      "stream_name": "Program operations",
+      "name": "Charter and operating model",
+      "quarter": "Q1",
+      "performer": "Intergovernmental fellow with Program",
+      "depends": "",
+      "capability": "Portfolio coherence",
+      "milestone": "Charter adopted covering purpose, membership, participation terms and the relationship to GPCP, SEPI and existing lab research.",
+      "basis": "Fellowship line and Program"
+    },
+    {
+      "id": "1.2",
+      "stream": "1.0",
+      "stream_name": "Program operations",
+      "name": "Membership map and convening cadence",
+      "quarter": "Q1",
+      "performer": "Intergovernmental fellow",
+      "depends": "1.1",
+      "capability": "Portfolio coherence",
+      "milestone": "Participating federal, state, Tribal and applicant organizations identified, with the recurring cadence attached to the existing Nevada monthly interagency call.",
+      "basis": "Fellowship line"
+    },
+    {
+      "id": "1.3",
+      "stream": "1.0",
+      "stream_name": "Program operations",
+      "name": "Digital presence and materials",
+      "quarter": "Q1–Q2",
+      "performer": "Contractor",
+      "depends": "1.1",
+      "capability": "Portfolio coherence",
+      "milestone": "Public-facing site, session materials and a shared workspace for participants, Section 508 conformant.",
+      "basis": "Contracted: build and content"
+    },
+    {
+      "id": "1.4",
+      "stream": "1.0",
+      "stream_name": "Program operations",
+      "name": "Participation and outcome measurement",
+      "quarter": "Q3–Q4",
+      "performer": "Contractor with Systems fellow",
+      "depends": "6.1, 7.2, 8.2",
+      "capability": "Portfolio evidence",
+      "milestone": "Participation, backlog contribution, cohort completion and technical assistance reach measured, each traced to the capability it advances.",
+      "basis": "Contracted: instrumentation"
+    },
+    {
+      "id": "2.1",
+      "stream": "2.0",
+      "stream_name": "Federal geothermal capacity",
+      "name": "Environmental review and categorical exclusion substantiation",
+      "quarter": "Q1–Q4",
+      "performer": "NLR",
+      "depends": "1.1",
+      "capability": "Federal capacity",
+      "milestone": "Substantiation analysis supporting proposed categorical exclusions for geothermal activities, prepared to the standard a Federal Register notice requires, scoped with BLM as design partner and accepted by BLM as usable in a proposal it decides whether to make.",
+      "basis": "Contracted: NLR"
+    },
+    {
+      "id": "2.2",
+      "stream": "2.0",
+      "stream_name": "Federal geothermal capacity",
+      "name": "Geothermal handbook development",
+      "quarter": "Q1–Q4",
+      "performer": "NLR",
+      "depends": "1.1",
+      "capability": "Federal capacity",
+      "milestone": "Draft handbooks for geothermal leasing, exploration, well field development, utilization and unitization brought to final form against requirements set by BLM as design partner, accepted by BLM for adoption, published, and reusable in state model framework work at 4.2.",
+      "basis": "Contracted: NLR"
+    },
+    {
+      "id": "2.3",
+      "stream": "2.0",
+      "stream_name": "Federal geothermal capacity",
+      "name": "Rulemaking technical analysis",
+      "quarter": "Q2–Q4",
+      "performer": "NLR",
+      "depends": "2.2",
+      "capability": "Federal capacity",
+      "milestone": "Technical analysis and options on administrative burden and clarity in updated geothermal regulations, responding to questions BLM poses as design partner. Analysis and options; BLM drafts regulatory text.",
+      "basis": "Contracted: NLR"
+    },
+    {
+      "id": "2.4",
+      "stream": "2.0",
+      "stream_name": "Federal geothermal capacity",
+      "name": "Training module updates",
+      "quarter": "Q2–Q4",
+      "performer": "NLR",
+      "depends": "2.2",
+      "capability": "Federal capacity",
+      "milestone": "Existing geothermal leasing, exploration, well field development and utilization training modules updated to align with the final handbooks, accepted by BLM as design partner for use with its field staff, and published as open modules usable by state regulators and the training cohorts at 8.2.",
+      "basis": "Contracted: NLR"
+    },
+    {
+      "id": "3.1",
+      "stream": "3.0",
+      "stream_name": "Permitting Support Team",
+      "name": "Team design and appointment vehicles",
+      "quarter": "Q2–Q3",
+      "performer": "Intergovernmental fellow with Program, OGC and HR",
+      "depends": "1.1",
+      "capability": "Federal capacity",
+      "milestone": "Team model settled: which partner agencies host, what fellows and scholars do while placed there, which appointment vehicle applies to each role, what the host agency provides, and draft position descriptions.",
+      "basis": "Fellowship line and Program"
+    },
+    {
+      "id": "3.2",
+      "stream": "3.0",
+      "stream_name": "Permitting Support Team",
+      "name": "Host agency commitments",
+      "quarter": "Q3–Q4",
+      "performer": "Intergovernmental fellow with Program",
+      "depends": "3.1",
+      "capability": "Federal capacity",
+      "milestone": "Written commitments from host agencies covering placement, supervision, workspace and return arrangements. Signed host commitments are required.",
+      "basis": "Fellowship line and Program"
+    },
+    {
+      "id": "3.3",
+      "stream": "3.0",
+      "stream_name": "Permitting Support Team",
+      "name": "Year 2 rollout plan",
+      "quarter": "Q4",
+      "performer": "Intergovernmental fellow with Program",
+      "depends": "3.2",
+      "capability": "Federal capacity",
+      "milestone": "Cohort size, recruitment timeline, placement sequence and a costed Year 2 rollout.",
+      "basis": "Fellowship line and Program"
+    },
+    {
+      "id": "4.1",
+      "stream": "4.0",
+      "stream_name": "State geothermal capacity",
+      "name": "Federal permitting navigation assistance",
+      "quarter": "Q2–Q4",
+      "performer": "NLR, LBNL and PNNL with NASEO, Intergovernmental fellow coordinates",
+      "depends": "1.1",
+      "capability": "State capacity",
+      "milestone": "Existing federal products delivered and translated for states: RAPID, PermitAI and NEPATEC, LBNL timelines work and GPCP. Completes the federal portions of state permitting roadmaps for requesting states.",
+      "basis": "Contracted: technical assistance"
+    },
+    {
+      "id": "4.2",
+      "stream": "4.0",
+      "stream_name": "State geothermal capacity",
+      "name": "State regulatory program and policy development",
+      "quarter": "Q2–Q4",
+      "performer": "NASEO and NLR with OG state partnership lead",
+      "depends": "4.3",
+      "capability": "State regulatory capacity",
+      "milestone": "Direct support to states standing up or adapting geothermal regulatory programs, including model regulatory frameworks, ownership and regulatory alignment analysis, lead regulatory agency designation, and the UIC Class V primacy pathway with the Groundwater Protection Council.",
+      "basis": "Contracted: regulatory analysis"
+    },
+    {
+      "id": "4.3",
+      "stream": "4.0",
+      "stream_name": "State geothermal capacity",
+      "name": "State convening, participation and partner state selection",
+      "quarter": "Q2–Q3",
+      "performer": "NASEO with OG state partnership lead",
+      "depends": "1.1",
+      "capability": "State capacity",
+      "milestone": "Convening of states with geothermal potential delivered, with travel and participation costs covered for state staff across all Collaborative sessions. Acceptance is a shortlist of partner states that have secured Governor-level commitment to advance geothermal through policy, permitting, procurement and partnership, following the NASEO first movers model.",
+      "basis": "Contracted: convening, travel and participation"
+    },
+    {
+      "id": "4.4",
+      "stream": "4.0",
+      "stream_name": "State geothermal capacity",
+      "name": "State-specific technical analyses",
+      "quarter": "Q3–Q4",
+      "performer": "National laboratories with NASEO",
+      "depends": "4.3",
+      "capability": "State capacity",
+      "milestone": "Analyses scoped to what a partner state will act on: novel technology evaluation, interconnection, surface and water resource protection including thermal features, and incentive design.",
+      "basis": "Contracted: analysis"
+    },
+    {
+      "id": "4.5",
+      "stream": "4.0",
+      "stream_name": "State geothermal capacity",
+      "name": "State regulatory staff training",
+      "quarter": "Q3–Q4",
+      "performer": "Training provider, Intergovernmental fellow recruits",
+      "depends": "4.1, 8.1",
+      "capability": "State capacity",
+      "milestone": "Federal permitting and regulatory training delivered to state regulatory and energy office staff, reusing the Collaborative curriculum.",
+      "basis": "Contracted: instruction and materials"
+    },
+    {
+      "id": "5.1",
+      "stream": "5.0",
+      "stream_name": "Tribal geothermal capacity",
+      "name": "Tribal participation support",
+      "quarter": "Q1–Q4",
+      "performer": "Contractor, Intergovernmental fellow coordinates",
+      "depends": "1.2",
+      "capability": "Tribal capacity",
+      "milestone": "Travel and participation costs covered for Tribal environmental and cultural staff. Coordination only. Consultation authority remains with the responsible federal agency.",
+      "basis": "Contracted: participation support"
+    },
+    {
+      "id": "5.2",
+      "stream": "5.0",
+      "stream_name": "Tribal geothermal capacity",
+      "name": "Tribal Government convening",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Intergovernmental fellow and Office of Indian Energy",
+      "depends": "1.2",
+      "capability": "Tribal capacity",
+      "milestone": "Two sessions co-designed with participating Tribal Governments and Tribal organizations around their stated geothermal and permitting priorities, held alongside existing venues such as the Indian Country Energy and Infrastructure Working Group or BIA regional Federal Partners meetings. Coordination only. Consultation stays with the responsible federal agency.",
+      "basis": "Contracted: convening and travel"
+    },
+    {
+      "id": "6.1",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Recurring permitting exchange sessions",
+      "quarter": "Q1–Q4",
+      "performer": "Contractor, Intergovernmental fellow convenes",
+      "depends": "1.2",
+      "capability": "Agency participation",
+      "milestone": "At least eight sessions held with documented participation from BLM, one state agency and one Tribal-facing office.",
+      "basis": "Contracted: facilitation and platform"
+    },
+    {
+      "id": "6.2",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Annual in-person exchange",
+      "quarter": "Q3",
+      "performer": "Contractor, Intergovernmental fellow convenes",
+      "depends": "6.1",
+      "capability": "Agency participation",
+      "milestone": "One multi-day exchange delivered, bringing federal, state, Tribal and applicant participants into the same room.",
+      "basis": "Contracted: venue and logistics"
+    },
+    {
+      "id": "6.3",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Regional sessions",
+      "quarter": "Q2, Q4",
+      "performer": "Contractor, Intergovernmental fellow convenes",
+      "depends": "6.1",
+      "capability": "Agency participation",
+      "milestone": "Two regional sessions held in geothermal-active states, at least one hosted by a BLM state or district office.",
+      "basis": "Contracted: venue and travel"
+    },
+    {
+      "id": "6.4",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Local and non-federal participation support",
+      "quarter": "Q1–Q4",
+      "performer": "Contractor, Intergovernmental fellow coordinates",
+      "depends": "1.2",
+      "capability": "Agency participation",
+      "milestone": "Travel and participation costs covered for local government, applicant and other non-federal participants whose organizations cannot fund attendance. State participation sits in 4.3 and Tribal participation in 5.1.",
+      "basis": "Contracted: participation support"
+    },
+    {
+      "id": "6.5",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Energy determinants pathway map and indicator inventory",
+      "quarter": "Q1–Q3",
+      "performer": "Energy Determinants fellow",
+      "depends": "1.2",
+      "capability": "Portfolio evidence",
+      "milestone": "Four pathways characterized under one structure: affordability and thermal conditions, reliability for medically vulnerable populations, exposures from production and heating technologies, and energy-sector employment and occupational conditions. Each entry names the energy condition, the affected population or workforce, the downstream mechanism, an existing indicator held by another agency, and whether the link is established or plausible and unverified. Pathways ranked by evidentiary maturity.",
+      "basis": "Fellowship line"
+    },
+    {
+      "id": "6.6",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Energy determinants interagency working group",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor, Energy Determinants fellow convenes",
+      "depends": "6.5",
+      "capability": "Agency participation",
+      "milestone": "At least six sessions with documented participation from HHS, the Indian Health Service, VA and DOL. Each session tests one pathway entry against the agency holding the indicator and produces either confirmation that the measure can be used as identified or a statement of what would be required. No pathway advances to Year 2 on the fellow's characterization alone.",
+      "basis": "Contracted: platform and logistics"
+    },
+    {
+      "id": "6.7",
+      "stream": "6.0",
+      "stream_name": "Intergovernmental Geothermal Accelerator",
+      "name": "Energy determinants convening",
+      "quarter": "Q3",
+      "performer": "Contractor, Energy Determinants fellow convenes",
+      "depends": "6.6",
+      "capability": "Agency participation",
+      "milestone": "One convening with community, Tribal, health-agency and workforce participation, structured around the ranked pathways, with travel support for participants whose organizations cannot fund attendance.",
+      "basis": "Contracted: venue, travel, logistics"
+    },
+    {
+      "id": "7.1",
+      "stream": "7.0",
+      "stream_name": "Permitting Innovation Exchange",
+      "name": "Challenge development and problem statements",
+      "quarter": "Q1–Q2",
+      "performer": "Contractor with Systems fellow",
+      "depends": "1.1",
+      "capability": "GPCP requirements",
+      "milestone": "Problem statements drawn from GPCP requirements and the pilot backlog, with judging criteria and data access arrangements settled.",
+      "basis": "Contracted: platform and design"
+    },
+    {
+      "id": "7.2",
+      "stream": "7.0",
+      "stream_name": "Permitting Innovation Exchange",
+      "name": "Three hackathon events",
+      "quarter": "Q2, Q3, Q4",
+      "performer": "Contractor, Systems fellow directs",
+      "depends": "7.1",
+      "capability": "GPCP adoption",
+      "milestone": "Three events delivered, with participation from outside DOE, including at least one non-federal team and one event co-hosted with a state agency.",
+      "basis": "Contracted: venue, platform, travel"
+    },
+    {
+      "id": "7.3",
+      "stream": "7.0",
+      "stream_name": "Permitting Innovation Exchange",
+      "name": "Output triage and technical assessment",
+      "quarter": "Q2–Q4",
+      "performer": "Systems fellow with NLR",
+      "depends": "7.2",
+      "capability": "GPCP requirements",
+      "milestone": "Every output assessed and dispositioned. Prototypes enter the backlog as candidate requirements.",
+      "basis": "Contracted: NLR sizing"
+    },
+    {
+      "id": "8.1",
+      "stream": "8.0",
+      "stream_name": "Training and technical assistance",
+      "name": "Curriculum development",
+      "quarter": "Q1–Q2",
+      "performer": "Training provider with Systems fellow",
+      "depends": "1.1",
+      "capability": "Federal capacity",
+      "milestone": "Curriculum covering permitting project management and applied AI for permitting staff, reviewed by practitioners.",
+      "basis": "Contracted: curriculum development"
+    },
+    {
+      "id": "8.2",
+      "stream": "8.0",
+      "stream_name": "Training and technical assistance",
+      "name": "Federal and Tribal training cohorts",
+      "quarter": "Q2–Q4",
+      "performer": "Training provider, Intergovernmental fellow recruits",
+      "depends": "8.1",
+      "capability": "GPCP adoption",
+      "milestone": "Cohorts completed for federal permitting staff and for Tribal environmental offices. Graduates form the recruitment pool for GPCP pilot onboarding.",
+      "basis": "Contracted: instruction and materials"
+    },
+    {
+      "id": "8.3",
+      "stream": "8.0",
+      "stream_name": "Training and technical assistance",
+      "name": "Applicant pre-application readiness support",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Systems fellow",
+      "depends": "1.1",
+      "capability": "Process improvement",
+      "milestone": "Direct assistance to at least eight project proponents, prioritizing developers without in-house permitting counsel. Assistance is readiness support.",
+      "basis": "Contracted: subject matter support"
+    },
+    {
+      "id": "8.4",
+      "stream": "8.0",
+      "stream_name": "Training and technical assistance",
+      "name": "Permitting guidance materials and templates",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Systems fellow",
+      "depends": "8.3",
+      "capability": "Process improvement",
+      "milestone": "Checklists, submission templates and process guidance published, cross-referenced to RAPID and BLM guidance.",
+      "basis": "Contracted: content development"
+    },
+    {
+      "id": "9.1",
+      "stream": "9.0",
+      "stream_name": "Evidence and diffusion",
+      "name": "Practitioner participation in applied research",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Applied Permitting Research fellow",
+      "depends": "1.2",
+      "capability": "Process improvement",
+      "milestone": "Collaborative membership supplies the sampling frame for the applied research program. Practitioners identified, recruited and scheduled for interviews and case reconstruction, with at least two sessions in which practitioners react to draft findings before they are finalized.",
+      "basis": "Contracted: recruitment and session support"
+    },
+    {
+      "id": "9.2",
+      "stream": "9.0",
+      "stream_name": "Evidence and diffusion",
+      "name": "Evidence synthesis from lab research",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Applied Permitting Research fellow",
+      "depends": "9.1",
+      "capability": "GPCP requirements",
+      "milestone": "Findings from LBNL timelines and PNNL applied permitting research synthesized into a form usable by the GPCP dependency rule set and instrumentation.",
+      "basis": "Contracted: analyst support"
+    },
+    {
+      "id": "9.3",
+      "stream": "9.0",
+      "stream_name": "Evidence and diffusion",
+      "name": "Applied research translation and diffusion",
+      "quarter": "Q2–Q4",
+      "performer": "Contractor with Applied Permitting Research fellow",
+      "depends": "9.1",
+      "capability": "Subsurface extension",
+      "milestone": "Case research turned into practitioner briefs, training cases and cross-domain lessons, and worked into Collaborative sessions.",
+      "basis": "Contracted: translation"
+    },
+    {
+      "id": "10.1",
+      "stream": "10.0",
+      "stream_name": "Applied permitting research",
+      "name": "Case selection, methods and records",
+      "quarter": "Q1–Q2",
+      "performer": "PNNL with Applied Permitting Research fellow",
+      "depends": "9.1",
+      "capability": "Process improvement",
+      "milestone": "Case selection logic, common case structure, protocols and records assembled, with the Paperwork Reduction Act question resolved before any non-federal respondent is approached.",
+      "basis": "PNNL annual operating plan"
+    },
+    {
+      "id": "10.2",
+      "stream": "10.0",
+      "stream_name": "Applied permitting research",
+      "name": "Four to six multi-perspective case studies",
+      "quarter": "Q2–Q4",
+      "performer": "PNNL",
+      "depends": "10.1",
+      "capability": "Process improvement",
+      "milestone": "Each case reconstructs the project chronology from initial development activity through agency reviews and decisions, across applicant, BLM, state, wildlife, cultural resource, Tribal-facing and cooperating agency perspectives. One or two cases carry the existing surface thermal features work.",
+      "basis": "PNNL annual operating plan"
+    },
+    {
+      "id": "10.3",
+      "stream": "10.0",
+      "stream_name": "Applied permitting research",
+      "name": "Permitting official and applicant interviews and field visits",
+      "quarter": "Q2–Q4",
+      "performer": "PNNL with Applied Permitting Research fellow",
+      "depends": "10.1",
+      "capability": "Process improvement",
+      "milestone": "What information was requested and when it became available, where handoffs occurred, what caused rework or waiting, which dependencies were understood in advance, and where written process differed from actual practice.",
+      "basis": "PNNL annual operating plan"
+    },
+    {
+      "id": "10.4",
+      "stream": "10.0",
+      "stream_name": "Applied permitting research",
+      "name": "Cross-case comparative analysis",
+      "quarter": "Q3–Q4",
+      "performer": "PNNL with Permitting Outcomes fellow",
+      "depends": "10.2, 10.3",
+      "capability": "GPCP requirements",
+      "milestone": "Recurring patterns identified across cases, with observed durations that replace stated assumptions in the GPCP rule set.",
+      "basis": "PNNL annual operating plan"
+    },
+    {
+      "id": "10.5",
+      "stream": "10.0",
+      "stream_name": "Applied permitting research",
+      "name": "Evidence products and research meeting",
+      "quarter": "Q3–Q4",
+      "performer": "PNNL, Applied Permitting Research fellow convenes",
+      "depends": "10.4",
+      "capability": "GPCP requirements",
+      "milestone": "Findings delivered in a form GPCP requirements, the SEPI data model, curriculum and state technical assistance can use. Includes venue, materials and participant travel for the annual OG permitting research meeting; agenda and synthesis are fellow work.",
+      "basis": "PNNL annual operating plan"
+    },
+    {
+      "id": "11.1",
+      "stream": "11.0",
+      "stream_name": "Fellowship support",
+      "name": "Applied Permitting Research Fellow",
+      "quarter": "Q1–Q4",
+      "performer": "Fellowship appointment",
+      "depends": "",
+      "capability": "Process improvement",
+      "milestone": "Research agenda, case selection, practitioner interviews, cross-lab inventory and the annual research meeting, transfer of findings into requirements.",
+      "basis": "Fellowship appointment"
+    },
+    {
+      "id": "11.2",
+      "stream": "11.0",
+      "stream_name": "Fellowship support",
+      "name": "Energy Determinants Fellow",
+      "quarter": "Q1–Q4",
+      "performer": "Fellowship appointment",
+      "depends": "",
+      "capability": "Portfolio evidence",
+      "milestone": "Energy affordability and thermal conditions, reliability for medically vulnerable populations, exposures from production and heating technologies, and energy-sector employment and occupational conditions. Workforce is treated as a mediated pathway.",
+      "basis": "Fellowship appointment"
+    }
+  ]
+}

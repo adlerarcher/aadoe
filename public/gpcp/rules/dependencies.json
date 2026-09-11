@@ -1,0 +1,307 @@
+{
+  "version": "0.3.0",
+  "updated": "2026-08-21",
+  "note": "Durations are planning estimates. Citations are statutory or regulatory. Each duration carries a basis marker: statutory_clock, agency_published, or stated_assumption.",
+  "phases": [
+    { "id": "exploration", "name": "Exploration", "note": "Pre-drilling geophysical work and resource confirmation. Geothermal does not always include a discovery phase." },
+    { "id": "drilling_operations", "name": "Drilling operations", "note": "Operations plan, drilling permits, downhole review, well completion." },
+    { "id": "utilization", "name": "Utilization", "note": "Power plant construction, interconnection, lifecycle monitoring." }
+  ],
+
+  "categorical_exclusions": [
+    {
+      "id": "ce_blm_2_13",
+      "structured_id": "BLM---2-13",
+      "name": "Geophysical exploration Notice of Intent",
+      "agency": "BLM",
+      "phase": "exploration",
+      "covers": "Approval of Notices of Intent to conduct geophysical exploration of oil, gas, or geothermal",
+      "authority": "43 CFR 3150; 43 CFR 3250",
+      "source": "DOI NEPA Appendix 2; CEQ CE Explorer v2.0.0 (2025-08-07)",
+      "gate_conditions": [
+        { "id": "no_new_road", "text": "No temporary or new road construction proposed", "testable": true }
+      ],
+      "duration_days": { "low": 14, "typical": 45, "high": 120 },
+      "duration_basis": "stated_assumption",
+      "replaces": ["nepa_ea", "nepa_decision"]
+    },
+    {
+      "id": "ce_blm_2_14",
+      "structured_id": "BLM---2-14",
+      "name": "Operations plan and Geothermal Drilling Permits, resource confirmation",
+      "agency": "BLM",
+      "phase": "drilling_operations",
+      "covers": "Approval of an operations plan and associated Geothermal Drilling Permits for a geothermal resource confirmation project",
+      "authority": "43 CFR part 3200, subpart 3260",
+      "source": "DOI NEPA Appendix 2; CEQ CE Explorer v2.0.0 (2025-08-07)",
+      "documentation_required": true,
+      "gate_conditions": [
+        { "id": "no_resource_utilization", "text": "Does not include resource utilization", "testable": true },
+        { "id": "under_20_acres", "text": "Does not exceed 20 acres of total surface disturbance, contiguous or noncontiguous", "testable": true },
+        { "id": "reclamation_required", "text": "Requires reclamation of all surface disturbances when their intended purpose has been fulfilled", "testable": true },
+        { "id": "temp_route_reclamation", "text": "Requires reclamation of temporary routes when purpose fulfilled, unless BLM designates the route as part of its transportation system", "testable": false },
+        { "id": "no_public_route_use", "text": "Does not make a temporary route available for public use unless specifically intended to accommodate public use", "testable": false },
+        { "id": "vegetative_cover_10yr", "text": "Requires temporary routes constructed to allow reclamation of vegetative cover within 10 years after approved reclamation commences", "testable": false },
+        { "id": "rmp_consistent", "text": "Includes design elements to protect resources and resource uses consistent with the applicable Resource Management Plan, laws, regulations, and lease terms", "testable": true, "screening_source": "BLM land use plans in ROI" }
+      ],
+      "duration_days": { "low": 30, "typical": 90, "high": 180 },
+      "duration_basis": "stated_assumption",
+      "replaces": ["nepa_ea", "nepa_decision"]
+    }
+  ],
+
+  "extraordinary_circumstances": {
+    "authority": "43 CFR 46.215",
+    "note": "Applicability is determined by the Responsible Official. If any circumstance is present, the categorical exclusion does not apply and the action routes to an environmental assessment.",
+    "criteria": [
+      { "id": "ec_a", "text": "Significant impacts on public health or safety", "screenable": false },
+      { "id": "ec_b", "text": "Significant impacts on historic or cultural resources; park, recreation or refuge lands; wilderness areas; wild or scenic rivers; national natural landmarks; sole or principal drinking water aquifers; prime farmlands; wetlands; floodplains; national monuments; migratory birds; and other ecologically significant or critical areas", "screenable": true, "screening_sources": ["padus", "blm", "fema_nfhl", "ipac", "nwi", "nrhp"] },
+      { "id": "ec_c", "text": "Highly uncertain and potentially significant environmental effects, or unique or unknown environmental risks", "screenable": false },
+      { "id": "ec_d", "text": "Establishes a precedent for future action or a decision in principle about future actions with potentially significant environmental effects", "screenable": false },
+      { "id": "ec_e", "text": "Direct relationship to other actions that implicate potentially significant environmental effects", "screenable": false },
+      { "id": "ec_f", "text": "Significant impacts on properties listed, or eligible for listing, on the National Register of Historic Places", "screenable": true, "screening_sources": ["nrhp"] },
+      { "id": "ec_g", "text": "Significant impacts on species listed or proposed to be listed, or on designated Critical Habitat", "screenable": true, "screening_sources": ["ipac", "esa_ranges"] },
+      { "id": "ec_h", "text": "Significantly limits access to and ceremonial use of Indian sacred sites, or adversely affects the physical integrity of such sites", "screenable": false, "note": "Requires consultation. Not determinable from spatial screening." },
+      { "id": "ec_i", "text": "Contributes to potentially significant effects from noxious weeds or non-native invasive species", "screenable": false }
+    ]
+  },
+
+  "reviews": [
+    {
+      "id": "nepa_ea",
+      "name": "NEPA Environmental Assessment",
+      "agency": "BLM",
+      "phase": "drilling_operations",
+      "triggered_by": ["federal_action"],
+      "suppressed_by_ce": ["ce_blm_2_13", "ce_blm_2_14"],
+      "requires": [],
+      "blocks": ["nepa_decision"],
+      "duration_days": { "low": 180, "typical": 365, "high": 730 },
+      "duration_basis": "agency_published",
+      "authority": "42 U.S.C. 4332; 43 CFR 46"
+    },
+    {
+      "id": "biological_assessment",
+      "name": "Biological assessment and survey seasons",
+      "agency": "Applicant / BLM",
+      "phase": "drilling_operations",
+      "triggered_by": ["listed_species_present"],
+      "requires": [],
+      "blocks": ["esa_section7_informal", "esa_section7_formal"],
+      "duration_days": { "low": 180, "typical": 365, "high": 730 },
+      "duration_basis": "stated_assumption",
+      "authority": "50 CFR 402.12",
+      "note": "Survey windows are seasonal. Duration reflects field season constraints, not a review clock."
+    },
+    {
+      "id": "esa_section7_informal",
+      "name": "ESA Section 7 informal consultation",
+      "agency": "USFWS",
+      "phase": "drilling_operations",
+      "triggered_by": ["listed_species_present", "federal_nexus"],
+      "requires": ["biological_assessment"],
+      "blocks": ["esa_section7_formal", "nepa_decision"],
+      "duration_days": { "low": 30, "typical": 60, "high": 135 },
+      "duration_basis": "agency_published",
+      "authority": "16 U.S.C. 1536(a)(2); 50 CFR 402.13"
+    },
+    {
+      "id": "esa_section7_formal",
+      "name": "ESA Section 7 formal consultation",
+      "agency": "USFWS",
+      "phase": "drilling_operations",
+      "triggered_by": ["likely_to_adversely_affect"],
+      "requires": ["biological_assessment", "esa_section7_informal"],
+      "blocks": ["nepa_decision"],
+      "duration_days": { "low": 90, "typical": 135, "high": 300 },
+      "duration_basis": "statutory_clock",
+      "authority": "16 U.S.C. 1536(a)(2); 50 CFR 402.14",
+      "note": "The 135-day figure is the statutory clock. Tolling and biological assessment revision routinely extend it."
+    },
+    {
+      "id": "nhpa_section106_shpo",
+      "name": "NHPA Section 106 review, SHPO",
+      "agency": "BLM / SHPO",
+      "phase": "drilling_operations",
+      "triggered_by": ["federal_undertaking"],
+      "requires": ["cultural_survey"],
+      "blocks": ["nepa_decision"],
+      "duration_days": { "low": 60, "typical": 120, "high": 365 },
+      "duration_basis": "stated_assumption",
+      "authority": "54 U.S.C. 306108; 36 CFR 800"
+    },
+    {
+      "id": "nhpa_section106_tribal",
+      "name": "NHPA Section 106 tribal consultation",
+      "agency": "BLM / Tribes",
+      "phase": "drilling_operations",
+      "triggered_by": ["federal_undertaking", "tribal_interest_present"],
+      "requires": [],
+      "blocks": ["nepa_decision"],
+      "duration_days": { "low": 90, "typical": 180, "high": 540 },
+      "duration_basis": "stated_assumption",
+      "authority": "54 U.S.C. 306108; 36 CFR 800.2(c)(2)",
+      "note": "Runs on its own clock with its own predecessors. Distinct from SHPO review. Tribal Historic Preservation Officers are frequently responsible for very large areas with limited staff."
+    },
+    {
+      "id": "wsa_nlcs_review",
+      "name": "Wilderness Study Area and NLCS unit review",
+      "agency": "BLM",
+      "phase": "drilling_operations",
+      "triggered_by": ["wsa_or_nlcs_proximity"],
+      "requires": [],
+      "blocks": ["nepa_decision"],
+      "duration_days": { "low": 60, "typical": 150, "high": 365 },
+      "duration_basis": "stated_assumption",
+      "authority": "43 U.S.C. 1782(c); BLM Manual 6330",
+      "note": "Non-impairment standards apply within WSAs. Proximity bears on visual resource management, route access, and analysis scope. Designation status must be current: several Nevada WSAs were reclassified by Pub. L. 117-263."
+    },
+    {
+      "id": "leasing_withdrawal_check",
+      "name": "Mineral and geothermal leasing withdrawal check",
+      "agency": "BLM",
+      "phase": "exploration",
+      "triggered_by": ["federal_land"],
+      "requires": [],
+      "blocks": ["lease_issuance"],
+      "duration_days": { "low": 1, "typical": 5, "high": 30 },
+      "duration_basis": "stated_assumption",
+      "authority": "varies by designation; e.g. 16 U.S.C. 460hhhh(6)(A)(iii)",
+      "note": "Some designations withdraw public land from disposition under all laws relating to mineral and geothermal leasing, subject to valid existing rights. A withdrawal is dispositive, not a delay. No buffer zone applies unless the designating statute creates one."
+    },
+    {
+      "id": "nepa_decision",
+      "name": "NEPA decision document, FONSI or ROD",
+      "agency": "BLM",
+      "phase": "drilling_operations",
+      "triggered_by": ["federal_action"],
+      "suppressed_by_ce": ["ce_blm_2_13", "ce_blm_2_14"],
+      "requires": [],
+      "blocks": ["apd_approval"],
+      "duration_days": { "low": 30, "typical": 60, "high": 120 },
+      "duration_basis": "stated_assumption",
+      "authority": "43 CFR 46.325"
+    },
+    {
+      "id": "apd_approval",
+      "name": "Geothermal Drilling Permit approval",
+      "agency": "BLM",
+      "phase": "drilling_operations",
+      "triggered_by": ["drilling_proposed"],
+      "requires": ["nepa_decision"],
+      "blocks": ["construction"],
+      "duration_days": { "low": 60, "typical": 180, "high": 400 },
+      "duration_basis": "agency_published",
+      "authority": "43 CFR 3261"
+    },
+    {
+      "id": "sundry_notice",
+      "name": "Sundry Notice",
+      "agency": "NV Division of Minerals",
+      "phase": "drilling_operations",
+      "triggered_by": ["well_change_proposed"],
+      "requires": [],
+      "blocks": [],
+      "duration_days": { "low": 14, "typical": 30, "high": 90 },
+      "duration_basis": "stated_assumption",
+      "authority": "NAC 534A",
+      "note": "Required for minor operational changes, temperature or pressure surveys, flow tests, and routine maintenance. Approval must precede the change."
+    },
+    {
+      "id": "nv_project_area_permit",
+      "name": "Nevada Geothermal Project Area Permit",
+      "agency": "NV Division of Minerals",
+      "phase": "drilling_operations",
+      "triggered_by": ["multi_well_development", "state_jurisdiction_nv"],
+      "requires": [],
+      "blocks": ["construction"],
+      "duration_days": { "low": 60, "typical": 150, "high": 365 },
+      "duration_basis": "stated_assumption",
+      "authority": "NRS 534A; NAC 534A",
+      "note": "Alternative to individual Permits to Drill where more than one well is proposed at a project location. Requires a plat, a complete drilling program, and equipment locations."
+    },
+    {
+      "id": "nv_well_completion_report",
+      "name": "Nevada Geothermal Well Completion Report",
+      "agency": "NV Division of Minerals",
+      "phase": "drilling_operations",
+      "triggered_by": ["well_completed", "state_jurisdiction_nv"],
+      "requires": ["apd_approval"],
+      "blocks": [],
+      "duration_days": { "low": 60, "typical": 60, "high": 60 },
+      "duration_basis": "statutory_clock",
+      "authority": "NAC 534A",
+      "note": "Due within 60 days after completion or cessation of drilling. A reporting obligation, not a gate."
+    },
+    {
+      "id": "uic_permit",
+      "name": "UIC Class V injection well permit",
+      "agency": "EPA or delegated state",
+      "phase": "drilling_operations",
+      "triggered_by": ["injection_proposed"],
+      "requires": [],
+      "blocks": ["injection_operations"],
+      "duration_days": { "low": 120, "typical": 270, "high": 540 },
+      "duration_basis": "stated_assumption",
+      "authority": "42 U.S.C. 300h; 40 CFR 144"
+    },
+    {
+      "id": "nv_water_right",
+      "name": "Nevada water right application",
+      "agency": "NDWR",
+      "phase": "drilling_operations",
+      "triggered_by": ["water_use_proposed", "state_jurisdiction_nv"],
+      "requires": [],
+      "blocks": ["construction"],
+      "duration_days": { "low": 180, "typical": 365, "high": 900 },
+      "duration_basis": "stated_assumption",
+      "authority": "NRS 533"
+    },
+    {
+      "id": "row_grant",
+      "name": "Right-of-way grant, roads, pipelines, transmission",
+      "agency": "BLM",
+      "phase": "utilization",
+      "triggered_by": ["linear_facility_proposed"],
+      "requires": ["nepa_decision"],
+      "blocks": ["construction"],
+      "duration_days": { "low": 120, "typical": 300, "high": 730 },
+      "duration_basis": "stated_assumption",
+      "authority": "43 U.S.C. 1761; 43 CFR 2800",
+      "note": "Real geothermal Environmental Assessments cover pipelines, electricity transmission, and surface transportation alongside production. A development is a set of co-located actions, not a single well."
+    },
+    {
+      "id": "cwa_404",
+      "name": "Clean Water Act Section 404 permit",
+      "agency": "USACE",
+      "phase": "drilling_operations",
+      "triggered_by": ["waters_of_the_us_present"],
+      "requires": [],
+      "blocks": ["construction"],
+      "duration_days": { "low": 90, "typical": 240, "high": 720 },
+      "duration_basis": "stated_assumption",
+      "authority": "33 U.S.C. 1344; 33 CFR 325"
+    },
+    {
+      "id": "plant_siting",
+      "name": "Power plant siting and utilization authorization",
+      "agency": "BLM / state",
+      "phase": "utilization",
+      "triggered_by": ["resource_utilization_proposed"],
+      "requires": ["apd_approval"],
+      "blocks": ["operations"],
+      "duration_days": { "low": 180, "typical": 450, "high": 1095 },
+      "duration_basis": "stated_assumption",
+      "authority": "43 CFR 3270",
+      "note": "Utilization is a distinct phase. A categorical exclusion for resource confirmation is unavailable once utilization is proposed."
+    }
+  ],
+
+  "known_gaps": [
+    "Vegetation and fuels management, and waste management, appear in real geothermal Environmental Assessments and are not modelled here.",
+    "Extraordinary circumstances (a), (c), (d), (e), and (i) are judgment determinations by the Responsible Official and cannot be screened.",
+    "Criterion (h), Indian sacred sites, requires consultation and is not determinable from spatial screening.",
+    "Local and county permits are not modelled. COMPASS geothermal ordinance data is in FY26 scope and not yet published.",
+    "Durations marked stated_assumption have no published basis and should be replaced with agency figures where they exist."
+  ]
+}

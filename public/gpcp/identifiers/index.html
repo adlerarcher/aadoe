@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Identifiers</title>
+<style>
+  :root {
+    --navy: #0A1A4F;
+    --gold: #F5B819;
+    --white: #ffffff;
+    --muted: #3D4A73;
+    --title: Cambria, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --body: Calibri, "Segoe UI", Candara, Arial, sans-serif;
+    --label: Figtree, Calibri, "Segoe UI", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  html { scroll-behavior: smooth; }
+  [x-cloak] { display: none !important; }
+  body {
+    background: var(--white);
+    color: var(--navy);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.42;
+  }
+  .page { padding: 0 88px 64px; }
+  .mast {
+    position: relative;
+    margin: 0 -88px;
+    background: var(--navy);
+    color: var(--white);
+    overflow: hidden;
+  }
+  .mast::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(90% 55% at 50% -8%, rgba(245, 184, 25, .08), transparent 58%);
+  }
+  .mast-copy {
+    position: relative;
+    z-index: 1;
+    padding: 28px 88px 56px;
+    max-width: 48em;
+  }
+  .site-nav {
+    position: relative;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 16px 88px;
+  }
+  .site-nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+    line-height: 1;
+  }
+  .site-nav .brand img { display: block; width: 44px; height: 44px; }
+  .demo-mark {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 3px 7px;
+    line-height: 1.2;
+    animation: demo-flash 2.8s ease-in-out infinite;
+  }
+  @keyframes demo-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .28; }
+  }
+  .brand-name {
+    font-family: var(--title);
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 14em;
+  }
+  .brand-name i { font-style: italic; color: var(--gold); }
+  .site-nav nav { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
+  .site-nav nav a {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    padding-bottom: 2px; border-bottom: 2px solid transparent;
+  }
+  .site-nav nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .eyebrow::before, .eyebrow::after {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    margin: 1rem 0 0;
+    font-family: var(--title); font-weight: 700;
+    font-style: italic;
+    font-size: clamp(3rem, 7vw, 5.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--gold);
+  }
+  .lede {
+    margin: 1.25rem 0 0;
+    max-width: 36em;
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.38;
+  }
+  .article { max-width: 64em; padding-top: 28px; }
+  .article > .place {
+    margin: 0 0 8px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .article > .sub { margin-bottom: 22px; }
+  .back {
+    margin: 0 0 22px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .back a {
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .back a:hover { color: var(--muted); }
+  .pick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 28px;
+  }
+  .pick button {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--white);
+    border: 1px solid var(--navy);
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+  .pick button.on, .pick button[aria-current="true"] {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .case {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(220px, .7fr);
+    gap: 28px 40px;
+    align-items: end;
+    margin: 0 0 36px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--navy);
+  }
+  .case h2 {
+    margin: 0 0 8px;
+    font-family: var(--title); font-weight: 700;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+  }
+  .case .place {
+    margin: 0 0 10px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .case p { margin: 0; max-width: 40em; }
+  .case-photo {
+    display: block;
+    height: 140px;
+    overflow: hidden;
+    background: var(--navy);
+    border: 1px solid var(--navy);
+  }
+  .case-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .counts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
+  }
+  .counts li { margin: 0; }
+  .counts b {
+    display: block;
+    font-family: var(--title);
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .counts span {
+    display: block;
+    margin-top: 5px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 36px;
+    align-items: start;
+  }
+  h3 {
+    margin: 0 0 6px;
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px;
+    line-height: 1.15;
+  }
+  .layer { margin-top: 40px; }
+  .sub {
+    margin: 0 0 14px;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 42em;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 11px 12px 11px 0;
+    border-bottom: 1px solid var(--navy);
+  }
+  th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  td.name { font-family: var(--title); font-style: italic; }
+  .schemes-wrap { overflow-x: auto; }
+  .schemes { min-width: 720px; }
+  .schemes .ex {
+    font-family: var(--mono);
+    font-size: 12px;
+    word-break: break-all;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 8px;
+    line-height: 1.2;
+  }
+  .tag.captured { background: var(--navy); color: var(--white); }
+  .tag.sim { background: var(--gold); color: var(--navy); }
+  .tag.extract { background: var(--white); color: var(--navy); border: 1px dashed var(--navy); }
+  .tag.none { background: var(--white); color: var(--muted); border: 1px solid var(--navy); }
+  .dash { min-width: 640px; }
+  .dash .tool { font-family: var(--mono); font-size: 12px; }
+  .wells ul { margin: 0; padding: 0; list-style: none; }
+  .wells li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    gap: 8px 16px;
+    padding: 12px 0;
+    border-top: 1px solid var(--navy);
+  }
+  .wells li:last-child { border-bottom: 1px solid var(--navy); }
+  .wells .api { font-family: var(--mono); font-size: 13px; }
+  .id-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 0 0 8px;
+  }
+  .id-item {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    padding: 16px 18px;
+  }
+  .id-item.miss {
+    border-style: dashed;
+    border-left-style: solid;
+  }
+  .id-item h4 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 17px; line-height: 1.12;
+    margin: 0 0 8px;
+  }
+  .id-item p { margin: 0 0 8px; font-size: 15px; }
+  .id-item p:last-child { margin-bottom: 0; }
+  .id-item .vals {
+    font-family: var(--mono); font-size: 12px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+  .id-item .kicker {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .id-grid.fail { grid-template-columns: 1fr 1fr 1fr; }
+  .id-arg {
+    margin: 16px 0 0;
+    padding: 14px 0 0;
+    border-top: 1px solid var(--navy);
+    max-width: 46em;
+  }
+  .id-arg p { margin: 0; }
+  .id-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 22px;
+    margin: 0 0 12px;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .id-legend i {
+    display: inline-block;
+    width: 22px;
+    height: 2px;
+    margin: 0 8px 3px 0;
+    background: var(--navy);
+    vertical-align: middle;
+  }
+  .id-legend i.dash {
+    background: repeating-linear-gradient(90deg, var(--gold) 0 7px, transparent 7px 12px);
+  }
+  .id-graph-wrap {
+    overflow-x: auto;
+    margin: 8px 0 0;
+    border: 1px solid var(--navy);
+    background: var(--white);
+  }
+  .id-graph { display: block; min-width: 920px; }
+  .id-graph .node-lab {
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    fill: var(--navy);
+  }
+  .id-graph .node-sub {
+    font-family: var(--body);
+    font-size: 12px;
+    fill: var(--navy);
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 5px solid var(--gold);
+    max-width: 52em;
+  }
+  footer p { margin: 0; }
+  footer p + p { margin-top: 4px; }
+  a { color: var(--navy); }
+  @media (max-width: 800px) {
+    .page { padding: 0 24px 48px; }
+    .mast { margin: 0 -24px; }
+    .site-nav { padding: 14px 24px; }
+    .mast-copy { padding: 16px 24px 40px; }
+    h1 { font-size: clamp(2.6rem, 12vw, 3.6rem); }
+    .case, .grid, .wells li, .id-grid, .id-grid.fail { grid-template-columns: 1fr; }
+    .case-photo { height: 160px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .demo-mark { animation: none; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body x-data="app">
+<div class="page" x-cloak>
+  <header class="mast">
+    <div class="site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Geothermal Permitting <i>Coordination Platform</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+      <nav aria-label="Site">
+        <a href="../gpcp/">Platform</a>
+        <a href="../about/">About</a>
+        <a href="../coverage/">Sources</a>
+        <a href="../glossary/">Glossary</a>
+      </nav>
+      <a class="profile-mark" data-user href="../profile/" aria-label="Allison Andrews">
+        <img src="../images/allison.jpg" alt="" width="96" height="96">
+      </a>
+      </div>
+    </div>
+    <div class="mast-copy">
+      <p class="eyebrow">Identifiers</p>
+      <h1 x-text="project.name">Identifiers</h1>
+      <p class="lede">Agency reads arrive through SEPI, the DOE index. Connections are made once. The rule set is computed here.</p>
+    </div>
+  </header>
+
+  <div class="article">
+    <p class="back"><a :href="'../gpcp/#' + projectId">Back to this project</a></p>
+    <p class="place" x-text="project.place"></p>
+    <p class="sub" x-text="project.deck"></p>
+
+    <ul class="counts">
+      <li><b x-text="systems.length"></b><span>Systems</span></li>
+      <li><b x-text="sepiCount"></b><span>SEPI</span></li>
+      <li><b x-text="gpcpCount"></b><span>GPCP</span></li>
+    </ul>
+
+    <section aria-labelledby="systems-heading">
+      <h3 id="systems-heading">Systems</h3>
+      <p class="sub">Each row is a system this record reads. Agency rows arrive through SEPI. The GPCP rule set is local.</p>
+      <p x-show="sepiError" class="sub" x-text="sepiError"></p>
+      <div class="schemes-wrap">
+        <table class="dash">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>System</th>
+              <th>Connector</th>
+              <th>Tool</th>
+              <th>This record</th>
+              <th>Path</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="row in systems" :key="row.id">
+              <tr>
+                <td>
+                  <span x-show="row.light" class="tag" :class="sepiTag(row.light)" x-text="sepiLight(row.light)"></span>
+                  <span x-show="!row.light">—</span>
+                </td>
+                <td class="name" x-text="row.system"></td>
+                <td x-text="row.connector"></td>
+                <td class="tool" x-text="row.tool"></td>
+                <td x-text="row.value"></td>
+                <td><span class="tag" :class="pathClass(row.path)" x-text="pathLabel(row.path)"></span></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="layer" aria-labelledby="schemes-heading">
+      <h3 id="schemes-heading">Identifier schemes</h3>
+      <p class="sub">Each system issues its own key. None of these keys is a join to the others.</p>
+      <div class="schemes-wrap">
+        <table class="schemes">
+          <thead>
+            <tr>
+              <th>Scheme</th>
+              <th>Example</th>
+              <th>Issuing system</th>
+              <th>Format</th>
+              <th>Identifies</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template x-for="s in schemes" :key="s.id">
+              <tr>
+                <td x-text="s.name"></td>
+                <td class="ex" x-text="s.example"></td>
+                <td x-text="s.system"></td>
+                <td x-text="s.format"></td>
+                <td x-text="s.identifies"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <template x-if="projectId === 'dixie'">
+    <section class="layer" aria-labelledby="intersect-heading">
+      <h3 id="intersect-heading">Records intersect</h3>
+      <p class="sub">Given the IPaC location polygon, the following records intersect it. Every resolved link uses the same join basis: spatial intersection.</p>
+      <div class="id-grid">
+        <template x-for="row in dixieResolved" :key="row.id">
+          <article class="id-item">
+            <h4 x-text="row.title"></h4>
+            <p class="vals" x-text="row.values"></p>
+            <p><span class="kicker">Join basis</span><br>Spatial intersection</p>
+          </article>
+        </template>
+      </div>
+    </section>
+    </template>
+
+    <template x-if="projectId === 'dixie'">
+    <section class="layer" aria-labelledby="graph-heading">
+      <h3 id="graph-heading">Join graph</h3>
+      <p class="sub">Solid navy lines are spatial intersections. Dashed gold lines are joins with no published crosswalk.</p>
+      <div class="id-legend">
+        <span><i></i>Resolved · spatial intersection</span>
+        <span><i class="dash"></i>Unresolved · no published crosswalk</span>
+      </div>
+      <div class="id-graph-wrap">
+        <svg class="id-graph" viewBox="0 0 960 500" role="img" aria-label="Identifier join graph. Solid navy lines are spatial intersections. Dashed gold lines are joins with no published crosswalk.">
+          <line x1="275" y1="84" x2="275" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="125" y1="84" x2="275" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="125" y1="244" x2="275" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="125" y1="404" x2="275" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="275" y1="404" x2="275" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="275" y1="244" x2="485" y2="244" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="275" y1="244" x2="485" y2="404" stroke="#0A1A4F" stroke-width="1.5"></line>
+          <line x1="485" y1="244" x2="810" y2="84" stroke="#F5B819" stroke-width="1.5" stroke-dasharray="7 5"></line>
+          <line x1="485" y1="244" x2="810" y2="244" stroke="#F5B819" stroke-width="1.5" stroke-dasharray="7 5"></line>
+          <line x1="485" y1="244" x2="810" y2="404" stroke="#F5B819" stroke-width="1.5" stroke-dasharray="7 5"></line>
+          <g>
+            <rect x="190" y="60" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="200" y="78">State / county</text>
+            <text class="node-sub" x="200" y="94">Churchill, Nevada</text>
+          </g>
+          <g>
+            <rect x="40" y="60" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="50" y="78">PAD-US Source_PAID</text>
+            <text class="node-sub" x="50" y="94">Clan Alpine WSA</text>
+          </g>
+          <g>
+            <rect x="40" y="220" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="50" y="238">NWI wetlands</text>
+            <text class="node-sub" x="50" y="254">11 polygons</text>
+          </g>
+          <g>
+            <rect x="40" y="380" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="50" y="398">USFWS field office</text>
+            <text class="node-sub" x="50" y="414">Reno FWO</text>
+          </g>
+          <g>
+            <rect x="190" y="220" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="200" y="238">IPaC polygon</text>
+            <text class="node-sub" x="200" y="254">Project location</text>
+          </g>
+          <g>
+            <rect x="190" y="380" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="200" y="398">RAPID path</text>
+            <text class="node-sub" x="200" y="414">Nevada</text>
+          </g>
+          <g>
+            <rect x="400" y="220" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="410" y="238">MLRS case serial</text>
+            <text class="node-sub" x="410" y="254">NVN-086890</text>
+          </g>
+          <g>
+            <rect x="400" y="380" width="170" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="410" y="398">Census GEOID</text>
+            <text class="node-sub" x="410" y="414">None intersecting</text>
+          </g>
+          <g>
+            <rect x="720" y="60" width="180" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="730" y="78">NEPATEC project_ID</text>
+            <text class="node-sub" x="730" y="94">No serial join</text>
+          </g>
+          <g>
+            <rect x="720" y="220" width="180" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="730" y="238">Well record</text>
+            <text class="node-sub" x="730" y="254">No serial join</text>
+          </g>
+          <g>
+            <rect x="720" y="380" width="180" height="48" fill="#ffffff" stroke="#0A1A4F"></rect>
+            <text class="node-lab" x="730" y="398">ePlanning number</text>
+            <text class="node-sub" x="730" y="414">No serial join</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+    </template>
+
+    <section class="layer" aria-labelledby="unresolved-heading">
+      <h3 id="unresolved-heading">Joins that do not resolve</h3>
+      <p class="sub">These pairs have equal standing with the spatial joins. They fail for the same reason: the identifiers do not point at each other.</p>
+      <div class="id-grid fail">
+        <template x-for="row in unresolved" :key="row.id">
+          <article class="id-item miss">
+            <h4 x-text="row.title"></h4>
+            <p x-text="row.detail"></p>
+            <p><span class="kicker">Join basis</span><br>None</p>
+          </article>
+        </template>
+      </div>
+      <div class="id-arg">
+        <p>No published crosswalk exists between these schemes in any direction. Spatial intersection is the only resolution method currently available.</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <p>Geothermal Permitting Coordination Platform - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+<script src="../js/sepi-index.js"></script>
+<script>
+const PROJECTS = [
+  {
+    id: "dixie",
+    name: "Dixie Valley",
+    place: "Churchill County, Nevada",
+    serial: "NVNV105591070",
+    image: "../hero-dixie.png",
+    deck: "Authorized BLM geothermal lease, not producing. Agency data arrives through SEPI, the DOE index. The schedule is computed from the encoded rule set.",
+    conditions: {
+      listed_species_present: true,
+      likely_to_adversely_affect: true,
+      injection_proposed: true,
+      water_use_proposed: true,
+      wsa_or_nlcs_proximity: true,
+      federal_undertaking: true,
+      drilling_proposed: true
+    },
+    facts: [
+      { source: "BLM MLRS", fact: "NVN-086890 · Authorized · 3,840 acres · Stillwater Field Office", path: "sepi" },
+      { source: "USFWS IPaC", fact: "Dixie Valley toad, endangered. Section 7 triggered.", path: "sepi" },
+      { source: "USGS PAD-US", fact: "Clan Alpine Mountains Wilderness Study Area · Stillwater Field Office", path: "sepi" },
+      { source: "USFWS NWI", fact: "11 wetland polygons · R4SBJ", path: "sepi" }
+    ],
+    wells: [
+      { api: "27-001-90001", name: "DV 21-14", type: "Production", status: "APD approved" },
+      { api: "27-001-90002", name: "DV 22-14", type: "Injection", status: "APD pending" }
+    ],
+    status: {
+      lease: "Authorized. Lease record arrives through SEPI.",
+      apd: "DV 22-14 pending. Submitted 3 February 2026.",
+      esa_informal: "Open. Biological assessment is in the file.",
+      esa_formal: "Not started. Contingent on informal closeout.",
+      nepa: "EA scoping complete. Decision waits on ESA informal.",
+      section106: "Under review at Nevada SHPO.",
+      uic: "Not started. Injection well is proposed.",
+      water: "Under review at NDWR.",
+      wsa: "Complete. Clan Alpine Mountains WSA intersects the polygon."
+    }
+  },
+  {
+    id: "pershing",
+    name: "Pershing County",
+    place: "Pershing County, Nevada",
+    serial: "NVN-088401",
+    image: "../media/pershing.jpg",
+    deck: "Authorized geothermal lease in the Humboldt Range, not producing. No listed species returned. No review period is open.",
+    conditions: {
+      listed_species_present: false,
+      likely_to_adversely_affect: false,
+      injection_proposed: true,
+      water_use_proposed: true,
+      wsa_or_nlcs_proximity: true,
+      federal_undertaking: true,
+      drilling_proposed: true
+    },
+    facts: [
+      { source: "BLM MLRS", fact: "NVN-088401 · Authorized · 1,920 acres · Winnemucca Field Office", path: "sepi" },
+      { source: "USFWS IPaC", fact: "No listed species returned. Section 7 not triggered.", path: "sepi" },
+      { source: "USGS PAD-US", fact: "Federal management units would be joined on the project polygon.", path: "sepi" },
+      { source: "USFWS NWI", fact: "Wetland intersection is not in this capture.", path: "sepi" }
+    ],
+    wells: [
+      { api: "27-027-90010", name: "PR 11-22", type: "Production", status: "APD approved" }
+    ],
+    status: {
+      lease: "Authorized. Lease record arrives through SEPI.",
+      apd: "PR 11-22 approved 18 April 2025.",
+      esa_informal: "",
+      esa_formal: "",
+      nepa: "No NEPA docket is open.",
+      section106: "No Section 106 review is open.",
+      uic: "Not started. Injection remains proposed on the lease.",
+      water: "Not started.",
+      wsa: "Not started. Spatial join is not in this capture."
+    }
+  },
+  {
+    id: "elko",
+    name: "Elko County",
+    place: "Elko County, Nevada",
+    serial: "NVN-094112",
+    image: "../media/elko.jpg",
+    deck: "Authorized geothermal lease in Ruby Valley, not producing. Listed fish present. No injection is proposed. APD EK 24-8 is pending.",
+    conditions: {
+      listed_species_present: true,
+      likely_to_adversely_affect: true,
+      injection_proposed: false,
+      water_use_proposed: true,
+      wsa_or_nlcs_proximity: true,
+      federal_undertaking: true,
+      drilling_proposed: true
+    },
+    facts: [
+      { source: "BLM MLRS", fact: "NVN-094112 · Authorized · 3,200 acres · Tuscarora Field Office", path: "sepi" },
+      { source: "USFWS IPaC", fact: "Lahontan cutthroat trout, threatened. Section 7 triggered.", path: "sepi" },
+      { source: "USGS PAD-US", fact: "Federal management units would be joined on the project polygon.", path: "sepi" },
+      { source: "USFWS NWI", fact: "Wetland intersection is not in this capture.", path: "sepi" }
+    ],
+    wells: [
+      { api: "27-007-90040", name: "EK 24-8", type: "Production", status: "APD pending" }
+    ],
+    status: {
+      lease: "Authorized. Lease record arrives through SEPI.",
+      apd: "EK 24-8 pending. Submitted 15 January 2026.",
+      esa_informal: "Required. Listed trout is present.",
+      esa_formal: "Not started. Contingent on informal.",
+      nepa: "No ePlanning number is published for this location.",
+      section106: "Required. Federal undertaking.",
+      uic: "",
+      water: "Not started.",
+      wsa: "Not started. Spatial join is not in this capture."
+    }
+  },
+  {
+    id: "washoe",
+    name: "Washoe County",
+    place: "Washoe County, Nevada",
+    serial: "NVN-090550",
+    image: "../media/washoe.jpg",
+    deck: "Authorized geothermal lease at Steamboat Hills, not producing. Listed fish present. Adverse effect is not assumed. Injection well APD is pending.",
+    conditions: {
+      listed_species_present: true,
+      likely_to_adversely_affect: false,
+      injection_proposed: true,
+      water_use_proposed: true,
+      wsa_or_nlcs_proximity: true,
+      federal_undertaking: true,
+      drilling_proposed: true
+    },
+    facts: [
+      { source: "BLM MLRS", fact: "NVN-090550 · Authorized · 1,440 acres · Carson City Field Office", path: "sepi" },
+      { source: "USFWS IPaC", fact: "Cui-ui, endangered. Section 7 triggered. Adverse effect is not assumed.", path: "sepi" },
+      { source: "USGS PAD-US", fact: "Federal management units would be joined on the project polygon.", path: "sepi" },
+      { source: "USFWS NWI", fact: "Wetland intersection is not in this capture.", path: "sepi" }
+    ],
+    wells: [
+      { api: "27-031-90007", name: "WA 12-3", type: "Production", status: "APD approved" },
+      { api: "27-031-90008", name: "WA 13-3", type: "Injection", status: "APD pending" }
+    ],
+    status: {
+      lease: "Authorized. Lease record arrives through SEPI.",
+      apd: "WA 13-3 pending. Submitted 21 March 2026.",
+      esa_informal: "Required. Listed cui-ui is present.",
+      esa_formal: "",
+      nepa: "No ePlanning number is published for this location.",
+      section106: "Required. Federal undertaking.",
+      uic: "Not started. Injection well is proposed.",
+      water: "Not started.",
+      wsa: "Not started. Spatial join is not in this capture."
+    }
+  }
+];
+
+const ID_SCHEMES = [
+  {
+    id: "mlrs",
+    name: "BLM MLRS case serial",
+    example: "NVNV105591070",
+    system: "BLM Mineral and Land Records System",
+    format: "NVNV followed by a numeric case id. Legacy serial NVN-######.",
+    identifies: "A geothermal lease case: disposition, acreage, dates, production status, and polygon."
+  },
+  {
+    id: "ipac",
+    name: "IPaC location polygon",
+    example: "MultiPolygon −118.15, −118.05, 39.55, 39.65",
+    system: "USFWS IPaC Location API",
+    format: "GeoJSON MultiPolygon, WGS 84.",
+    identifies: "The query location used for species screening, field office, and wetlands."
+  },
+  {
+    id: "padus",
+    name: "PAD-US Source_PAID",
+    example: "NLCS000668",
+    system: "USGS PAD-US",
+    format: "NLCS plus six digits (National Landscape Conservation System unit id).",
+    identifies: "A protected-area unit. NLCS000668 is the Clan Alpine Mountains Wilderness Study Area."
+  },
+  {
+    id: "nepatec",
+    name: "NEPATEC project_ID",
+    example: "3bf7312730f4b45477fa9047b6afa042",
+    system: "PNNL NEPATEC 2.0",
+    format: "32-character hexadecimal hash.",
+    identifies: "An extracted NEPA project in the corpus. It does not encode lease serial, docket number, or location."
+  },
+  {
+    id: "rapid",
+    name: "RAPID jurisdiction/topic path",
+    example: "RAPID/Geothermal/Nevada/Drilling & Well Development",
+    system: "OpenEI RAPID Toolkit",
+    format: "RAPID/Geothermal/{jurisdiction}/{topic}.",
+    identifies: "A permitting narrative for one jurisdiction and one activity class."
+  },
+  {
+    id: "census",
+    name: "Census GEOID",
+    example: "GEOID (AIANNH). This extract stored NAME, not GEOID.",
+    system: "Census TIGERweb",
+    format: "GEOID for American Indian / Alaska Native / Native Hawaiian Areas.",
+    identifies: "A federal reservation polygon. Eight Nevada reservations are in the extract, keyed here by name."
+  },
+  {
+    id: "eplanning",
+    name: "ePlanning project number",
+    example: "DOI-BLM-ID-T020-2015-0016-EA",
+    system: "BLM ePlanning",
+    format: "DOI-BLM-{state}-{office}-{year}-{sequence}-{document type}.",
+    identifies: "A NEPA docket. The format appears inside NEPATEC documents. No ePlanning number exists for this location."
+  }
+];
+
+const DIXIE_RESOLVED = [
+  { id: "leases", title: "MLRS leases", values: "NVN-086890 · Authorized · 3,840 acres · Stillwater Field Office" },
+  { id: "padus", title: "PAD-US managing units", values: "Clan Alpine Mountains Wilderness Study Area (NLCS000668)" },
+  { id: "tribal", title: "Tribal reservations", values: "None intersect the project polygon. Eight Nevada reservations are in the extract; consultation range is not a spatial join on this polygon." },
+  { id: "nwi", title: "Wetlands", values: "11 NWI polygons · R4SBJ" },
+  { id: "fws", title: "USFWS field office", values: "Reno Fish And Wildlife Office" },
+  { id: "place", title: "State and county", values: "Churchill County, Nevada" },
+  { id: "rapid", title: "RAPID jurisdiction", values: "RAPID/Geothermal/Nevada" }
+];
+
+function systemsFor(p) {
+  const c = p.conditions;
+  const s = p.status;
+  const wells = p.wells.map(w => w.name + " · " + w.status).join("; ");
+  const consult = [s.esa_informal, s.esa_formal].filter(Boolean).join(" ");
+  const rows = [
+    { id: "mlrs", system: "BLM MLRS", connector: "SEPI", tool: "sepi.get_authorization_status", value: p.facts[0].fact, path: "sepi" },
+    { id: "ipac", system: "USFWS IPaC", connector: "SEPI", tool: "sepi.screen_location", value: p.facts[1].fact, path: "sepi" },
+    { id: "padus", sepiId: "nlcs-wsa", system: "USGS PAD-US", connector: "SEPI", tool: "sepi.screen_location", value: p.facts[2].fact, path: "sepi" },
+    { id: "nwi", system: "USFWS NWI", connector: "SEPI", tool: "sepi.screen_location", value: p.facts[3].fact, path: "sepi" },
+    { id: "afmss", system: "BLM AFMSS", connector: "SEPI", tool: "sepi.get_well_records", value: wells, path: "sepi" },
+    { id: "eplanning", system: "BLM ePlanning", connector: "SEPI", tool: "sepi.get_authorization_status", value: s.nepa, path: "sepi" },
+    { id: "fws", sepiId: "tails", system: "USFWS consultation", connector: "SEPI", tool: "sepi.get_authorization_status", value: consult, path: "sepi", on: c.listed_species_present },
+    { id: "shpo", sepiId: "nv-shpo", system: "Nevada SHPO", connector: "SEPI", tool: "sepi.get_authorization_status", value: s.section106, path: "sepi", on: c.federal_undertaking },
+    { id: "uic", system: "EPA UIC", connector: "SEPI", tool: "sepi.get_authorization_status", value: s.uic, path: "sepi", on: c.injection_proposed },
+    { id: "ndwr", system: "NDWR", connector: "SEPI", tool: "sepi.get_authorization_status", value: s.water, path: "sepi", on: c.water_use_proposed },
+    { id: "ndom", system: "NDOM", connector: "SEPI", tool: "sepi.get_authorization_status", value: s.apd, path: "sepi", on: c.drilling_proposed },
+    { id: "ecfr", sepiId: "", system: "eCFR / Federal Register", connector: "SEPI", tool: "sepi.get_regulations", value: "Title 43 implementing rules.", path: "sepi" },
+    { id: "timeline", sepiId: "", system: "GPCP rule set", connector: "MCP", tool: "gpcp.build_timeline", value: "Reviews triggered from the encoded rule set.", path: "gpcp" },
+    { id: "nepatec", sepiId: "permitai", system: "NEPATEC 2.0", connector: "Extract", tool: "—", value: "No project_ID joins to this lease serial.", path: "extract" },
+    { id: "rapid", system: "OpenEI RAPID", connector: "Extract", tool: "—", value: "RAPID/Geothermal/Nevada", path: "extract" },
+    { id: "compass", sepiId: "", system: "INFRA-COMPASS", connector: "Extract", tool: "—", value: "Geothermal zoning is in the FY26 program scope.", path: "extract" }
+  ];
+  return rows.filter(r => r.on !== false);
+}
+
+function schemesFor(p) {
+  return ID_SCHEMES.map(function (s) {
+    if (s.id !== "mlrs") return s;
+    return Object.assign({}, s, {
+      example: p.serial,
+      format: p.id === "dixie"
+        ? "NVNV followed by a numeric case id. Legacy serial NVN-######; this case is also NVN-029861."
+        : s.format
+    });
+  });
+}
+
+function unresolvedFor(p) {
+  const serial = p.id === "dixie" ? p.serial + " (NVN-086890)" : p.serial;
+  return [
+    {
+      id: "mlrs-nepa",
+      title: "MLRS case serial → NEPA document",
+      detail: serial + " does not appear in NEPATEC project_ID hashes, and NEPATEC hashes do not contain a lease serial. No ePlanning number exists for this location."
+    },
+    {
+      id: "mlrs-well",
+      title: "MLRS case serial → well record",
+      detail: "Well records arrive through SEPI. No published crosswalk from case serial to API number is available."
+    },
+    {
+      id: "eplan-mlrs",
+      title: "ePlanning project number → case serial",
+      detail: "The ePlanning number format is DOI-BLM-{state}-{office}-{year}-{sequence}-{type}. Nothing in that string is an MLRS serial, and nothing in an MLRS serial is an ePlanning number."
+    }
+  ];
+}
+
+document.addEventListener("alpine:init", function () {
+  Alpine.data("app", function () {
+    return {
+      projectId: "dixie",
+      projects: PROJECTS,
+      dixieResolved: DIXIE_RESOLVED,
+      sepiById: {},
+      sepiError: "",
+      get project() {
+        return PROJECTS.find(p => p.id === this.projectId) || PROJECTS[0];
+      },
+      get systems() {
+        return systemsFor(this.project).map(row => {
+          const sid = row.sepiId === "" ? null : (row.sepiId || row.id);
+          const s = sid ? this.sepiById[sid] : null;
+          return Object.assign({}, row, { light: s ? s.light : "" });
+        });
+      },
+      get schemes() { return schemesFor(this.project); },
+      get unresolved() { return unresolvedFor(this.project); },
+      get sepiCount() {
+        return this.systems.filter(r => r.connector === "SEPI").length;
+      },
+      get gpcpCount() {
+        return this.systems.filter(r => r.path === "gpcp").length;
+      },
+      pathClass(path) {
+        return { captured: path === "gpcp", sim: path === "sepi", extract: path === "extract" };
+      },
+      pathLabel(path) {
+        return { gpcp: "GPCP", sepi: "SEPI", extract: "Extracted" }[path] || path;
+      },
+      sepiLight(light) {
+        return window.sepiIndex ? sepiIndex.lightLabel(light) : light;
+      },
+      sepiTag(light) {
+        return window.sepiIndex ? sepiIndex.lightTag(light) : "none";
+      },
+      readHash() {
+        return (location.hash || "").replace(/^#/, "");
+      },
+      applyHash() {
+        const hash = this.readHash();
+        if (PROJECTS.some(p => p.id === hash)) this.projectId = hash;
+        else location.replace("../gpcp/");
+      },
+      async init() {
+        this.applyHash();
+        window.addEventListener("hashchange", () => this.applyHash());
+        try {
+          const pack = await sepiIndex.load();
+          const byId = {};
+          pack.connectors.forEach(c => { byId[c.id] = c; });
+          this.sepiById = byId;
+        } catch (e) {
+          this.sepiError = "The SEPI index could not be loaded.";
+        }
+      }
+    };
+  });
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb" crossorigin="anonymous"></script>
+</body>
+</html>

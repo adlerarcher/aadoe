@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MDEV</title>
+    <!--
+      GitHub Pages serves this for any unknown path. We save the requested
+      path and bounce to the app root, where index.html restores it.
+    -->
+    <script>
+      sessionStorage.redirect = location.href;
+      location.replace(location.origin);
+    </script>
+  </head>
+  <body></body>
+</html>

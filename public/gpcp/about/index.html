@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>About</title>
+<style>
+  :root {
+    --navy: #0A1A4F;
+    --gold: #F5B819;
+    --white: #ffffff;
+    --muted: #3D4A73;
+    --title: Cambria, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --body: Calibri, "Segoe UI", Candara, Arial, sans-serif;
+    --label: Figtree, Calibri, "Segoe UI", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--navy);
+    font-family: var(--body);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.42;
+    font-variant-numeric: tabular-nums;
+  }
+  .page { padding: 0 88px 64px; }
+  .mast {
+    position: relative;
+    min-height: 0;
+    height: auto;
+    margin: 0 -88px;
+    background: var(--navy);
+    color: var(--white);
+    overflow: hidden;
+  }
+  .mast::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(90% 55% at 50% -8%, rgba(245, 184, 25, .08), transparent 58%);
+  }
+  .mast-copy {
+    position: relative;
+    z-index: 1;
+    padding: 28px 88px 56px;
+    max-width: 48em;
+  }
+  .site-nav {
+    position: relative;
+    top: 0; left: 0; right: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 16px 88px;
+    background: transparent;
+  }
+  .site-nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+    line-height: 1;
+  }
+  .site-nav .brand img { display: block; width: 44px; height: 44px; }
+  .demo-mark {
+    flex: 0 0 auto;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 3px 7px;
+    line-height: 1.2;
+    animation: demo-flash 2.8s ease-in-out infinite;
+  }
+  @keyframes demo-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .28; }
+  }
+  .brand-name {
+    font-family: var(--title);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 14em;
+  }
+  .brand-name i { font-style: italic; color: var(--gold); }
+  .site-nav nav { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
+  .site-nav nav a {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    padding-bottom: 2px; border-bottom: 2px solid transparent;
+  }
+  .site-nav nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+  .site-nav nav a[aria-current="page"] { color: var(--white); border-bottom-color: var(--gold); }
+  .mast-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-family: var(--label);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    animation: mastIn .55s .12s ease both;
+  }
+  .mast-kicker::before,
+  .mast-kicker::after {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    position: relative;
+    margin: 1rem 0 0;
+    font-family: var(--title); font-weight: 700;
+    font-style: italic;
+    font-size: clamp(3rem, 7vw, 5.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    max-width: 12em;
+    color: var(--gold);
+    animation: mastIn .7s .22s ease both;
+  }
+  .mast-kind {
+    margin: .35rem 0 0;
+    font-family: var(--title); font-weight: 700;
+    font-size: clamp(20px, 2.4vw, 28px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    animation: mastIn .55s .4s ease both;
+  }
+  .lede {
+    position: relative;
+    margin: 1.25rem 0 0;
+    max-width: 34em;
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.38;
+    color: var(--white);
+    animation: mastIn .6s .52s ease both;
+  }
+  .lede p { margin: 0; }
+  @keyframes mastIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes mastTitle {
+    from { transform: translateY(110%); }
+    to { transform: translateY(0); }
+  }
+  .article {
+    max-width: 46em;
+    padding-top: 48px;
+  }
+  .article h2 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 28px; line-height: 1.12;
+    margin: 42px 0 16px;
+    padding-left: 16px;
+    border-left: 5px solid var(--gold);
+  }
+  .article h2:first-child { margin-top: 0; }
+  .article h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1.12;
+    margin: 28px 0 12px;
+    scroll-margin-top: 24px;
+  }
+  .article p { margin: 0 0 14px; }
+  .article ul {
+    margin: 0 0 16px;
+    padding: 0 0 0 1.2em;
+    list-style: none;
+  }
+  .article li {
+    position: relative;
+    margin: 0 0 8px;
+    padding-left: 8px;
+  }
+  .article li::before {
+    content: "";
+    position: absolute;
+    left: -1.05em;
+    top: .55em;
+    width: 7px;
+    height: 7px;
+    background: var(--gold);
+  }
+  .article strong { font-weight: 700; }
+  .article code {
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .article a { color: var(--navy); }
+  .kicker {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--navy);
+    margin: 0 0 6px;
+  }
+  .tier {
+    margin: 0 0 14px;
+    padding-left: 16px;
+    border-left: 5px solid var(--gold);
+  }
+  .tier p { margin: 0; }
+  .implication {
+    position: relative;
+    margin: 0 0 22px;
+    padding: 21px 31px;
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    z-index: 1;
+  }
+  .implication::after {
+    content: "";
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: var(--gold);
+    z-index: -1;
+  }
+  .implication p { margin: 0; }
+  .source {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0 0 12px;
+  }
+  .null {
+    margin: 0 0 16px;
+    padding-left: 16px;
+    border-left: 5px solid var(--gold);
+  }
+  table.cov {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 0 18px;
+    font-size: 15px;
+  }
+  table.cov th, table.cov td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--navy);
+  }
+  table.cov th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .tag {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    border-radius: 15.5px;
+    padding: 3px 10px;
+    line-height: 1.2;
+  }
+  .tag.live { color: var(--navy); border: 1px solid var(--navy); background: var(--white); }
+  .tag.captured { background: var(--navy); color: var(--white); }
+  .tag.extract { background: var(--white); color: var(--navy); border: 1px dashed var(--navy); }
+  .tag.sim { background: var(--gold); color: var(--navy); }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin: 0 0 18px;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 5px solid var(--gold);
+    max-width: 46em;
+  }
+  footer p { margin: 0; font-size: 13px; color: var(--muted); }
+  footer p + p { margin-top: 4px; }
+  footer a { color: var(--navy); }
+  @media (max-width: 800px) {
+    .page { padding: 0 24px 48px; }
+    .mast { margin: 0 -24px; }
+    .site-nav { padding: 14px 24px; }
+    .mast-copy { padding: 16px 24px 40px; }
+    h1 { font-size: clamp(2.6rem, 12vw, 3.6rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1, .mast-kind, .mast-kicker, .lede, .demo-mark { animation: none; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body>
+<div class="page">
+  <header class="mast">
+    <div class="site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Geothermal Permitting <i>Coordination Platform</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+      <nav aria-label="Site">
+        <a href="../gpcp/">Platform</a>
+        <a href="./" aria-current="page">About</a>
+        <a href="../coverage/">Sources</a>
+        <a href="../glossary/">Glossary</a>
+      </nav>
+      <a class="profile-mark" data-user href="../profile/" aria-label="Allison Andrews">
+        <img src="../images/allison.jpg" alt="" width="96" height="96">
+      </a>
+      </div>
+    </div>
+    <div class="mast-copy">
+      <p class="mast-kicker">A demonstration</p>
+      <h1>About</h1>
+      <p class="mast-kind">Geothermal Permitting Coordination Platform</p>
+      <div class="lede" id="what-this-is">
+        <p>For a specified geothermal project it identifies applicable reviews, the responsible agency for each, the dependencies among them, and an estimated duration of the sequence.</p>
+      </div>
+    </div>
+  </header>
+
+  <article class="article">
+    <h2 id="how-it-was-assembled">What GPCP reads</h2>
+    <p>SEPI is the DOE index of agency systems. Those connections are made once. This platform is built on that index, so it reads the agencies’ own data rather than a copy. Connector status is read from SEPI. The schedule is computed from the encoded rule set.</p>
+    <p>Each server exposes read-only tools. Each response carries its source name, endpoint, and retrieval timestamp.</p>
+    <table class="cov">
+      <thead>
+        <tr><th>Server</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>sepi</code></td><td>Agency systems of record</td></tr>
+        <tr><td><code>gpcp-timeline</code></td><td>Encoded dependency rule set</td></tr>
+      </tbody>
+    </table>
+    <p>The schedule is computed from the rule set by topological sort. Same input, same output, every time.</p>
+    <p>MCP servers are local processes. A static host cannot run them. This site publishes what they produced.</p>
+
+    <h2 id="provenance-tiers">Provenance</h2>
+    <p>Every record carries a marker.</p>
+    <div class="legend">
+      <span><span class="tag sim">SEPI</span></span>
+      <span><span class="tag extract">Extracted</span></span>
+      <span><span class="tag captured">GPCP</span></span>
+    </div>
+    <div class="tier"><p class="kicker">SEPI</p><p>The DOE index of agency systems. Connections are made once. This platform reads those streams rather than holding a copy.</p></div>
+    <div class="tier"><p class="kicker">Extracted</p><p>Derived from a published dataset by a third party.</p></div>
+    <div class="tier"><p class="kicker">GPCP</p><p>Computed from the encoded rule set on this platform.</p></div>
+
+    <h2 id="sources">Sources</h2>
+    <p>USFWS IPaC · eCFR · Federal Register · USGS PAD-US · USFWS National Wetlands Inventory · USGS National Hydrography Dataset · USGS 3DEP · Census TIGERweb · BLM MLRS · SEPI · OpenEI RAPID Toolkit · INFRA-COMPASS · PNNL PermitAI</p>
+    <p>Rule set v0.3.0. Data captured 20–21 August 2026.</p>
+  </article>
+
+  <footer>
+    <p>Geothermal Permitting Coordination Platform - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+</body>
+</html>

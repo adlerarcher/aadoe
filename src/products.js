@@ -4,6 +4,8 @@
  * SEPI = permitting database (Subsurface Energy Permitting Index)
  * GPCP = coordination dashboard (Geothermal Permitting Coordination Platform)
  *
+ * All apps are nested same-origin under this site (aadoe).
+ *
  * Role query params:
  * - SEPI reads `?as=user|admin` (session-user.js).
  *   Hub labels: System user → as=user; System owner → as=admin.
@@ -19,8 +21,8 @@ export const PRODUCTS = [
     name: 'SEPI',
     fullName: 'Subsurface Energy Permitting Index',
     mark: 'SEPI',
-    host: 'sepi.thermalunderground.org',
-    base: 'https://sepi.thermalunderground.org/records/',
+    path: '/sepi/',
+    base: '/sepi/records/',
     blurb: 'Permitting database. Enter as system user or system owner.',
     roles: [
       {
@@ -43,8 +45,8 @@ export const PRODUCTS = [
     name: 'GPCP',
     fullName: 'Geothermal Permitting Coordination Platform',
     mark: 'GPCP',
-    host: 'gpcp.thermalunderground.org',
-    base: 'https://gpcp.thermalunderground.org/gpcp/',
+    path: '/gpcp/',
+    base: '/gpcp/gpcp/',
     blurb: 'Coordination dashboard. Enter as applicant or reviewer.',
     roles: [
       {
@@ -68,36 +70,36 @@ export const SECONDARY = [
     id: 'guide',
     label: 'Field guide',
     mark: 'TU',
-    href: 'https://thermalunderground.org/',
-    note: 'thermalunderground.org',
+    href: '/guide/',
+    note: '/guide/',
   },
   {
     id: 'gpic',
     label: 'GPIC',
     mark: 'GPIC',
-    href: 'https://gpic.thermalunderground.org/',
+    href: '/gpic/',
     note: 'Programs · community · resources',
   },
   {
     id: 'odev',
     label: 'Organization Development',
     mark: 'ODEV',
-    href: 'https://odev.thermalunderground.org/',
+    href: '/odev/',
     note: 'Cycle · model · groups',
   },
   {
     id: 'mdev',
     label: 'Market Development',
     mark: 'MDEV',
-    href: 'https://mdev.thermalunderground.org/',
+    href: '/mdev/',
     note: 'Country markets · deals · policy',
   },
 ]
 
 /** Build deep-link with both role= (hub contract) and as= (current target support). */
 export function entryUrl(product, role) {
-  const url = new URL(product.base)
+  const url = new URL(product.base, 'https://aadoe.thermalunderground.org')
   url.searchParams.set('role', role.role)
   url.searchParams.set('as', role.as)
-  return url.toString()
+  return `${url.pathname}${url.search}`
 }

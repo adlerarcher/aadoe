@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Sources</title>
+<style>
+  :root {
+    --navy: #0A1A4F;
+    --gold: #F5B819;
+    --white: #ffffff;
+    --muted: #3D4A73;
+    --title: Cambria, "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --body: Calibri, "Segoe UI", Candara, Arial, sans-serif;
+    --label: Figtree, Calibri, "Segoe UI", Arial, sans-serif;
+    --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  html { scroll-behavior: smooth; }
+  [x-cloak] { display: none !important; }
+  body {
+    background: var(--white);
+    color: var(--navy);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.42;
+  }
+  .page { padding: 0 88px 64px; }
+  .mast {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    margin: 0 -88px;
+    background: var(--navy);
+    color: var(--white);
+    overflow: hidden;
+  }
+  .mast::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(90% 55% at 50% -8%, rgba(245, 184, 25, .08), transparent 58%);
+  }
+  .mast-copy {
+    position: relative;
+    z-index: 1;
+    padding: 28px 88px 56px;
+    max-width: 48em;
+  }
+  .site-nav {
+    position: relative;
+    top: 0; left: 0; right: 0;
+    z-index: 6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 16px 88px;
+    background: transparent;
+  }
+  .site-nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+    line-height: 1;
+  }
+  .site-nav .brand img { display: block; width: 44px; height: 44px; }
+  .demo-mark {
+    flex: 0 0 auto;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--navy);
+    background: var(--gold);
+    padding: 3px 7px;
+    line-height: 1.2;
+    animation: demo-flash 2.8s ease-in-out infinite;
+  }
+  @keyframes demo-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .28; }
+  }
+  .brand-name {
+    font-family: var(--title);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 14em;
+  }
+  .brand-name i { font-style: italic; color: var(--gold); }
+  .site-nav nav { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
+  .site-nav nav a {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    padding-bottom: 2px; border-bottom: 2px solid transparent;
+  }
+  .site-nav nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+  .site-nav nav a[aria-current="page"] { color: var(--white); border-bottom-color: var(--gold); }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .28em; text-transform: uppercase;
+    color: var(--gold); line-height: 1;
+    z-index: 1;
+    animation: mastIn .55s .12s ease both;
+  }
+  .eyebrow::before,
+  .eyebrow::after {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--gold);
+  }
+  h1 {
+    position: relative;
+    margin: 1rem 0 0;
+    font-family: var(--title); font-weight: 700;
+    font-style: italic;
+    font-size: clamp(3rem, 7vw, 5.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    max-width: 14em;
+    z-index: 1;
+    color: var(--gold);
+    animation: mastIn .7s .22s ease both;
+  }
+  .lede {
+    position: relative;
+    margin: 1.25rem 0 0;
+    max-width: 34em;
+    font-family: var(--title);
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.38;
+    color: var(--white);
+    z-index: 1;
+    animation: mastIn .6s .4s ease both;
+  }
+  @keyframes mastIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+  .article { max-width: 52em; padding-top: 42px; }
+  .section {
+    border: 1px solid var(--navy);
+    border-left: 5px solid var(--gold);
+    margin: 0 0 14px;
+    background: var(--white);
+  }
+  .section > .fold-head {
+    grid-template-columns: minmax(0, 1fr) 18px;
+    padding: 18px 22px;
+    align-items: center;
+  }
+  .section > .fold-head h2 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1.12;
+    margin: 0;
+  }
+  .section-sub {
+    margin: 6px 0 0;
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .section-body {
+    padding: 16px 22px 22px;
+    border-top: 1px solid var(--navy);
+  }
+  .section-body > p { margin: 0 0 14px; max-width: 46em; }
+  .section-body > p:last-child { margin-bottom: 0; }
+  .compass-note {
+    margin: 0 0 18px;
+    padding: 16px 18px;
+    border: 1px dashed var(--navy);
+    border-left: 5px solid var(--gold);
+    max-width: 46em;
+  }
+  .compass-note p { margin: 0 0 10px; }
+  .compass-note p:last-child { margin-bottom: 0; }
+  .compass-sets { margin: 0 0 22px; padding: 0; list-style: none; }
+  .compass-sets li {
+    border-bottom: 1px solid var(--navy);
+    padding: 12px 0 12px 12px;
+  }
+  .compass-sets li:first-child { border-top: 1px solid var(--navy); }
+  .compass-sets p { margin: 0 0 6px; }
+  .compass-sets p:last-child { margin-bottom: 0; }
+  .compass-sets a { font-family: var(--mono); font-size: 13px; word-break: break-all; }
+  .kicker {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--navy); margin: 0 0 8px;
+    display: block;
+  }
+  .corpus-lede { margin: 0 0 16px; }
+  select.menu {
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--navy);
+    border: 1px solid var(--navy);
+    border-radius: 0;
+    padding: 8px 12px;
+    background: var(--white);
+    min-width: min(28em, 100%);
+    max-width: 100%;
+    margin: 0 0 22px;
+  }
+  .rapid-sum { margin: 0 0 14px; }
+  .rapid-sum .kicker { margin: 0 0 6px; }
+  .wiki { font-size: 15px; }
+  .wiki p { margin: 0 0 10px; }
+  .wiki p:last-child { margin-bottom: 0; }
+  .wiki p:empty { display: none; }
+  .tag {
+    display: inline-block;
+    font-family: var(--label); font-weight: 700;
+    font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    padding: 3px 10px; line-height: 1.2;
+    border-radius: 15.5px;
+  }
+  .tag.sim { background: var(--gold); color: var(--navy); }
+  .tag.live { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+  .tag.captured { background: var(--navy); color: var(--white); }
+  .tag.extract { background: var(--white); color: var(--navy); border: 1px dashed var(--navy); }
+  .tag.none { background: var(--white); color: var(--muted); border: 1px solid var(--navy); }
+  .tag.modelled { background: var(--navy); color: var(--white); }
+  .tag.gap { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+  .tier-legend { display: flex; gap: 16px; flex-wrap: wrap; margin: 0 0 18px; }
+  table.cov { width: 100%; border-collapse: collapse; font-size: 15px; margin: 0 0 8px; }
+  table.cov th, table.cov td {
+    text-align: left; vertical-align: top;
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--navy);
+  }
+  table.cov th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  table.cov .deps a { overflow-wrap: anywhere; }
+  .topic { border-top: 1px solid var(--navy); }
+  .fold-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 18px;
+    gap: 16px;
+    align-items: start;
+    text-align: left;
+    background: transparent;
+    color: var(--navy);
+    border: none;
+    padding: 14px 0;
+    cursor: pointer;
+  }
+  .fold-head::after { display: none; }
+  .topic .fold-head h3 {
+    font-family: var(--title); font-weight: 700;
+    font-size: 18px; line-height: 1.12; margin: 0;
+  }
+  .fold-sign {
+    font-family: var(--title); font-weight: 700;
+    font-size: 22px; line-height: 1;
+    color: var(--gold);
+    justify-self: end;
+  }
+  .topic-body { padding: 0 0 16px; }
+  .miss { margin-top: 10px; }
+  .gap-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+  .gap-table th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--navy);
+  }
+  .gap-table td { padding: 10px; border-bottom: 1px solid var(--navy); vertical-align: top; }
+  .origin-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    margin: 0 0 18px;
+  }
+  .clock-wrap { overflow-x: auto; margin: 0 0 18px; max-width: 52em; }
+  .clock-table { width: 100%; min-width: 40em; border-collapse: collapse; font-size: 14px; }
+  .clock-table th {
+    font-family: var(--label); font-weight: 700;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--navy);
+    white-space: nowrap;
+  }
+  .clock-table td { padding: 10px; border-bottom: 1px solid var(--navy); vertical-align: top; }
+  .clock-table .n {
+    font-variant-numeric: tabular-nums;
+    font-family: var(--mono);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .clock-table .cite { font-size: 13px; color: var(--muted); }
+  .tag.stat { background: var(--gold); color: var(--navy); }
+  .tag.agency { background: var(--navy); color: var(--white); }
+  .tag.assume { background: var(--white); color: var(--navy); border: 1px solid var(--navy); }
+  a { color: var(--navy); }
+  footer {
+    margin-top: 48px;
+    padding-top: 22px;
+    border-top: 5px solid var(--gold);
+    max-width: 52em;
+  }
+  footer p { margin: 0; font-size: 13px; color: var(--muted); }
+  footer p + p { margin-top: 4px; }
+  @media (max-width: 800px) {
+    .page { padding: 0 24px 48px; }
+    .mast { height: auto; min-height: 0; margin: 0 -24px; }
+    .site-nav { padding: 14px 24px; }
+    .mast-copy { padding: 16px 24px 40px; }
+    h1 { font-size: clamp(2.6rem, 12vw, 3.6rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow, h1, .lede, .demo-mark { animation: none; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body x-data="app">
+<div class="page" x-cloak>
+  <header class="mast">
+    <div class="site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Geothermal Permitting <i>Coordination Platform</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+      <nav aria-label="Site">
+        <a href="../gpcp/">Platform</a>
+        <a href="../about/">About</a>
+        <a href="./" aria-current="page">Sources</a>
+        <a href="../glossary/">Glossary</a>
+      </nav>
+      <a class="profile-mark" data-user href="../profile/" aria-label="Allison Andrews">
+        <img src="../images/allison.jpg" alt="" width="96" height="96">
+      </a>
+      </div>
+    </div>
+    <div class="mast-copy">
+      <p class="eyebrow">A demonstration</p>
+      <h1>Sources</h1>
+      <p class="lede">Agency reads arrive through SEPI, the DOE index. Connections are made once. Clocks, PNNL PermitAI, OpenEI RAPID, and INFRA-COMPASS sit beside it.</p>
+    </div>
+  </header>
+
+  <div class="article">
+    <article class="section" id="captured">
+      <button type="button" class="fold-head" @click="toggleSection('captured')" :aria-expanded="openSection === 'captured'">
+        <div>
+          <h2>Agency records</h2>
+          <p class="section-sub">Through SEPI</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'captured' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'captured'" x-cloak>
+    <p>These agency systems arrive through SEPI. The index holds the connections; this platform does not rebuild them.</p>
+    <ul class="compass-sets">
+      <li>
+        <p class="kicker">USFWS IPaC</p>
+        <p>Species screening, field office, wetlands query, and critical habitat. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">BLM MLRS</p>
+        <p>Lease serial, status, acreage, and the geothermal lease map layer. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">eCFR</p>
+        <p>Codified Title 43 implementing regulations. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">Federal Register</p>
+        <p>Recent Title 43 rules and proposed rules. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">USFWS NWI</p>
+        <p>Wetlands map layer. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">USGS PAD-US</p>
+        <p>Federal management layer. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">USGS NHD</p>
+        <p>Hydrography map layer. <span class="tag sim">SEPI</span></p>
+      </li>
+      <li>
+        <p class="kicker">Census TIGERweb</p>
+        <p>Tribal reservation layer. <span class="tag sim">SEPI</span></p>
+      </li>
+    </ul>
+      </div>
+    </article>
+
+    <article class="section" id="sepi">
+      <button type="button" class="fold-head" @click="toggleSection('sepi')" :aria-expanded="openSection === 'sepi'">
+        <div>
+          <h2>Subsurface Energy Permitting Index</h2>
+          <p class="section-sub">Live index from SEPI</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'sepi' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'sepi'" x-cloak>
+    <p>This platform reads agency systems through SEPI, the DOE index. The table is the published index. It updates when SEPI is updated. Source: <a href="/sepi/records/">sepi.thermalunderground.org</a>.</p>
+    <p x-show="sepiError" x-text="sepiError"></p>
+    <p x-show="sepiUpdated && !sepiError" class="corpus-lede">Index updated <span x-text="sepiUpdated"></span>.</p>
+    <div class="clock-wrap" x-show="sepiConnectors.length">
+      <table class="clock-table">
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>Connector</th>
+            <th>Method</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="row in sepiConnectors" :key="row.id">
+            <tr>
+              <td><span class="tag" :class="sepiTag(row.light)" x-text="sepiLight(row.light)"></span></td>
+              <td x-text="row.name"></td>
+              <td x-text="sepiMethod(row.method)"></td>
+              <td x-text="row.note"></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+      </div>
+    </article>
+
+    <article class="section" id="clocks">
+      <button type="button" class="fold-head" @click="toggleSection('clocks')" :aria-expanded="openSection === 'clocks'">
+        <div>
+          <h2>Permitting Timeline Estimates</h2>
+          <p class="section-sub"><span x-text="reviewCount"></span> reviews · statutory, agency, assumption</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'clocks' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'clocks'" x-cloak>
+    <p>The timeline’s Slower / Typical / Faster control does not pull live agency clocks. Each review in rule set <span x-text="ruleVersion || 'v0.3.0'"></span> carries three duration estimates, in days, and a tag for where that number came from. Faster uses the low column, Typical the middle, Slower the high. The large day count on the timeline is the longest path, not the sum of every row. Reviews that can run in parallel do.</p>
+
+    <div class="origin-key">
+      <span><span class="tag stat">Statutory clock</span> written into regulation</span>
+      <span><span class="tag agency">Agency figure</span> published by an agency, not a statutory maximum</span>
+      <span><span class="tag assume">Assumption</span> planning estimate encoded in the rule set</span>
+    </div>
+
+    <p><strong>Statutory clock.</strong> ESA Section 7 formal consultation is 90 / 135 / 300 days. The typical 135 is <a href="https://www.ecfr.gov/current/title-50/part-402/section-402.14">50 CFR 402.14</a> — 90 days to conclude consultation, 45 days to issue the biological opinion. The slow band (300) is the rule set’s allowance for tolling and biological assessment revision, not a second statutory number. Nevada’s well completion report is a 60-day filing clock, not a gate.</p>
+    <p><strong>Published agency figure.</strong> NEPA environmental assessment, ESA informal consultation, and geothermal drilling permit approval. These are numbers agencies publish, not scraped from a docket for Dixie Valley.</p>
+    <p><strong>Stated assumption.</strong> Citations on those rows name the statute or regulation that creates the review. They do not, by themselves, supply the days.</p>
+
+    <div class="clock-wrap">
+      <table class="clock-table">
+        <thead>
+          <tr>
+            <th>Review</th>
+            <th>Authority</th>
+            <th>Faster</th>
+            <th>Typical</th>
+            <th>Slower</th>
+            <th>Origin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="r in clockReviews" :key="r.id">
+            <tr>
+              <td x-text="r.name"></td>
+              <td class="cite" x-text="r.authority"></td>
+              <td class="n" x-text="r.duration_days.low"></td>
+              <td class="n" x-text="r.duration_days.typical"></td>
+              <td class="n" x-text="r.duration_days.high"></td>
+              <td><span class="tag" :class="originClass(r.duration_basis)" x-text="originName(r.duration_basis)"></span></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <p x-show="clockCes.length" style="margin-top:22px"><strong>Categorical exclusions.</strong> If a CE applies, it suppresses the NEPA environmental assessment and decision rows.</p>
+    <div class="clock-wrap" x-show="clockCes.length">
+      <table class="clock-table">
+        <thead>
+          <tr>
+            <th>Exclusion</th>
+            <th>Authority</th>
+            <th>Faster</th>
+            <th>Typical</th>
+            <th>Slower</th>
+            <th>Origin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="ce in clockCes" :key="ce.id">
+            <tr>
+              <td x-text="ce.name"></td>
+              <td class="cite" x-text="ce.authority"></td>
+              <td class="n" x-text="ce.duration_days.low"></td>
+              <td class="n" x-text="ce.duration_days.typical"></td>
+              <td class="n" x-text="ce.duration_days.high"></td>
+              <td><span class="tag" :class="originClass(ce.duration_basis)" x-text="originName(ce.duration_basis)"></span></td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+    <p>The same rows, with triggers and prerequisites, are on the timeline under Rule set. The range under the typical total is this table’s low and high columns run on the current conditions, not a confidence interval from a model.</p>
+      </div>
+    </article>
+
+    <article class="section" id="permitai">
+      <button type="button" class="fold-head" @click="toggleSection('permitai')" :aria-expanded="openSection === 'permitai'">
+        <div>
+          <h2>PNNL PermitAI</h2>
+          <p class="section-sub">NEPATEC 2.0 extract · PermitTEC v0.1</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'permitai' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'permitai'" x-cloak>
+    <p>Pacific Northwest National Laboratory program for federal environmental-review data and tools. Funded by the Department of Energy Office of Policy. <a href="https://www.pnnl.gov/projects/permitai">pnnl.gov/projects/permitai</a>.</p>
+    <p>This demonstration does not run PermitAI tools. It reads published extracts.</p>
+    <ul class="compass-sets">
+      <li>
+        <p class="kicker">NEPATEC 2.0</p>
+        <p>NEPA Text Corpus. Eight BLM geothermal Environmental Assessments. <span class="tag extract">Extracted</span> Source: <a href="https://huggingface.co/datasets/PNNL/NEPATEC2.0">huggingface.co/datasets/PNNL/NEPATEC2.0</a>.</p>
+        <p>No Nevada geothermal Environmental Assessment is in the extract. The one Nevada-adjacent record is a lease sale administered from the Malheur Field Office in Oregon.</p>
+      </li>
+      <li>
+        <p class="kicker">PermitTEC v0.1</p>
+        <p>NEPA litigation corpus. 761 cases. No Nevada geothermal litigation appears in it. Two geothermal-and-Nevada matches were false positives.</p>
+      </li>
+    </ul>
+    <div class="compass-note">
+      <p>Extracted metadata is marked Extracted and is not an authoritative agency record.</p>
+    </div>
+      </div>
+    </article>
+
+    <article class="section" id="compass">
+      <button type="button" class="fold-head" @click="toggleSection('compass')" :aria-expanded="openSection === 'compass'">
+        <div>
+          <h2>INFRA-COMPASS</h2>
+          <p class="section-sub">Wind and solar ordinances · geothermal not yet published</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'compass' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'compass'" x-cloak>
+    <p>LLM-based extraction of state and local codes and ordinances for energy infrastructure. National Laboratories of the Rockies. Open source at <a href="https://github.com/NatLabRockies/COMPASS">github.com/NatLabRockies/COMPASS</a>. Datasets publish annually to OpenEI.</p>
+    <p><span class="tag extract">Published, wind and solar only</span></p>
+    <ul class="compass-sets">
+      <li>
+        <p class="kicker">U.S. Wind Siting Regulation and Zoning Ordinances 2025</p>
+        <p>OEDI submission 8519. Jurisdiction geometry as GeoPackage. <a href="https://data.openei.org/submissions/8519">data.openei.org/submissions/8519</a></p>
+      </li>
+      <li>
+        <p class="kicker">U.S. Solar Siting Regulation and Zoning Ordinances 2025</p>
+        <p>OEDI submission 8602. Jurisdiction geometry as GeoPackage. <a href="https://data.openei.org/submissions/8602">data.openei.org/submissions/8602</a></p>
+      </li>
+    </ul>
+    <p>Geothermal electricity zoning ordinances, BLM resource management plans, and water ordinances are in the FY26 program scope and are not yet published.</p>
+    <p>Local ordinances would arrive through SEPI and COMPASS.</p>
+    <div class="compass-note">
+      <p>COMPASS records carry a source URL back to the original ordinance document and are marked as LLM-extracted, requiring validation for critical use. That is the same provenance discipline used on this site, from an existing DOE program.</p>
+    </div>
+      </div>
+    </article>
+
+    <article class="section" id="rapid">
+      <button type="button" class="fold-head" @click="toggleSection('rapid')" :aria-expanded="openSection === 'rapid'">
+        <div>
+          <h2>OpenEI RAPID</h2>
+          <p class="section-sub"><span x-text="rapidCount"></span> jurisdictions · published toolkit</p>
+        </div>
+        <span class="fold-sign" aria-hidden="true" x-text="openSection === 'rapid' ? '−' : '+'"></span>
+      </button>
+      <div class="section-body" x-show="openSection === 'rapid'" x-cloak>
+    <p class="corpus-lede">OpenEI RAPID geothermal toolkit. <span x-text="rapidCount"></span> jurisdictions. <span class="tag extract">Extracted</span> Source: <a href="https://openei.org/wiki/RAPID/Geothermal">openei.org/wiki/RAPID/Geothermal</a>.</p>
+    <label class="kicker" for="rapid-jur">Jurisdiction</label>
+    <select id="rapid-jur" class="menu" x-model="rapidJur" @change="openTopic = null">
+      <template x-for="name in rapidNames" :key="name">
+        <option :value="name" x-text="name"></option>
+      </template>
+    </select>
+    <div x-show="rapidCurrent">
+      <template x-for="row in rapidSummaryRows" :key="row.k">
+        <div class="rapid-sum">
+          <p class="kicker" x-text="row.k"></p>
+          <div class="wiki" x-html="row.html"></div>
+        </div>
+      </template>
+      <p class="kicker" style="margin-top:22px">Topic narratives</p>
+      <p class="corpus-lede" x-show="rapidTopics.length === 0">No topic narratives in this capture for this jurisdiction.<span x-show="rapidIndexCount"> The RAPID index lists <span x-text="rapidIndexCount"></span> pages.</span></p>
+      <template x-for="t in rapidTopics" :key="t.name">
+        <article class="topic">
+          <button type="button" class="fold-head" @click="toggleTopic(t.name)" :aria-expanded="openTopic === t.name">
+            <h3 x-text="t.name"></h3>
+            <span class="tag modelled" x-show="t.inRules">In the rule set</span>
+            <span class="fold-sign" aria-hidden="true" x-text="openTopic === t.name ? '−' : '+'"></span>
+          </button>
+          <div class="topic-body" x-show="openTopic === t.name" x-cloak>
+            <p class="corpus-lede"><a :href="t.url" x-text="t.url"></a></p>
+            <div class="wiki" x-html="t.html"></div>
+            <div class="miss" x-show="t.nvDrill">
+              <p class="kicker">Nevada drilling in the rule set</p>
+              <table class="gap-table">
+                <thead><tr><th>Named in RAPID</th><th>In the rule set</th></tr></thead>
+                <tbody>
+                  <tr><td>Geothermal Project Area Permit</td><td>Nevada Geothermal Project Area Permit</td></tr>
+                  <tr><td>Sundry Notice</td><td>Sundry Notice</td></tr>
+                  <tr><td>Well completion report due within 60 days</td><td>Nevada Geothermal Well Completion Report</td></tr>
+                  <tr><td>Permit to Drill</td><td>Geothermal Drilling Permit approval</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </article>
+      </template>
+    </div>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <p>Geothermal Permitting Coordination Platform - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+
+<script src="../js/sepi-index.js"></script>
+<script>
+const DATA_CACHE = "gpcp-data-v1";
+const RAPID_TOPIC_TO_RULES = {
+  "Air Quality": [],
+  "Biological": ["biological_assessment", "esa_section7_informal", "esa_section7_formal"],
+  "Cultural": ["nhpa_section106_shpo", "nhpa_section106_tribal"],
+  "Drilling & Well Development": ["apd_approval", "sundry_notice", "nv_project_area_permit", "nv_well_completion_report"],
+  "Environment": ["nepa_ea", "nepa_decision"],
+  "Exploration": ["leasing_withdrawal_check", "apd_approval"],
+  "Land Access": ["row_grant", "wsa_nlcs_review"],
+  "Land Use": ["wsa_nlcs_review"],
+  "Power Plant": ["plant_siting"],
+  "Transmission": ["row_grant"],
+  "Waste": ["uic_permit"],
+  "Water Access & Rights": ["nv_water_right"],
+  "Water Quality": ["cwa_404"]
+};
+function wikiHref(page) {
+  return "https://openei.org/wiki/" + encodeURI(String(page || "").trim().replace(/ /g, "_"));
+}
+function wikiHtml(text) {
+  if (!text) return "";
+  const escaped = String(text)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return escaped
+    .replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, function (_, p, lab) {
+      return '<a href="' + wikiHref(p) + '">' + lab + "</a>";
+    })
+    .replace(/\[\[([^\]]+)\]\]/g, function (_, p) {
+      return '<a href="' + wikiHref(p) + '">' + p + "</a>";
+    })
+    .replace(/\n\n/g, "</p><p>")
+    .replace(/\n/g, "<br>");
+}
+async function loadCachedJSON(name) {
+  const url = "../data/" + name;
+  const key = "gpcp:" + name;
+  async function fromCache() {
+    try {
+      const cache = await caches.open(DATA_CACHE);
+      const hit = await cache.match(url);
+      if (hit) return await hit.json();
+    } catch (e) {}
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return null;
+  }
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    try {
+      const cache = await caches.open(DATA_CACHE);
+      await cache.put(url, new Response(JSON.stringify(data), { headers: { "Content-Type": "application/json" } }));
+    } catch (e) {}
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {}
+    return data;
+  } catch (e) {
+    const cached = await fromCache();
+    if (cached) return cached;
+    throw e;
+  }
+}
+function app() {
+  return {
+    files: {},
+    rulePack: null,
+    ruleVersion: "",
+    rapidJur: "Nevada",
+    openTopic: null,
+    openSection: null,
+    sepiConnectors: [],
+    sepiUpdated: "",
+    sepiError: "",
+    toggleSection(id) {
+      this.openSection = this.openSection === id ? null : id;
+      if (history.replaceState) history.replaceState(null, "", this.openSection ? "#" + this.openSection : "#");
+    },
+    sepiLight(light) {
+      return window.sepiIndex ? sepiIndex.lightLabel(light) : light;
+    },
+    sepiTag(light) {
+      return window.sepiIndex ? sepiIndex.lightTag(light) : "none";
+    },
+    sepiMethod(method) {
+      return window.sepiIndex ? sepiIndex.methodLabel(method) : method;
+    },
+    get clockReviews() {
+      return (this.rulePack && this.rulePack.reviews) || [];
+    },
+    get clockCes() {
+      return (this.rulePack && this.rulePack.categorical_exclusions) || [];
+    },
+    get reviewCount() {
+      return this.clockReviews.length || "—";
+    },
+    originClass(basis) {
+      if (basis === "statutory_clock") return "stat";
+      if (basis === "agency_published") return "agency";
+      return "assume";
+    },
+    originName(basis) {
+      if (basis === "statutory_clock") return "Statutory clock";
+      if (basis === "agency_published") return "Agency figure";
+      return "Assumption";
+    },
+    get rapidNames() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return c && c.data ? Object.keys(c.data) : [];
+    },
+    get rapidCount() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return (c && c.jurisdictions) || this.rapidNames.length || "—";
+    },
+    get rapidCurrent() {
+      const c = this.files["rapid-geothermal-content.json"];
+      return c && c.data ? c.data[this.rapidJur] : null;
+    },
+    get rapidSummaryRows() {
+      const cur = this.rapidCurrent;
+      if (!cur || !cur.summary) return [];
+      const skip = { Tech: true, Jurisdiction: true, IsBulkTransmission: true };
+      return Object.keys(cur.summary)
+        .filter(k => !skip[k] && String(cur.summary[k] || "").trim())
+        .map(k => {
+          const inner = wikiHtml(String(cur.summary[k]));
+          return { k: k, html: inner ? "<p>" + inner + "</p>" : "" };
+        })
+        .filter(row => row.html);
+    },
+    get rapidIndexCount() {
+      const idx = this.files["rapid-geothermal-index.json"];
+      const pages = idx && idx.index && idx.index[this.rapidJur];
+      return pages ? pages.length : 0;
+    },
+    get rapidTopics() {
+      const cur = this.rapidCurrent;
+      const topics = cur && cur.topics ? cur.topics : {};
+      return Object.keys(topics).map(name => {
+        const t = topics[name] || {};
+        const mapped = RAPID_TOPIC_TO_RULES.hasOwnProperty(name) ? RAPID_TOPIC_TO_RULES[name] : [];
+        const inner = wikiHtml(t.text || "");
+        return {
+          name: name,
+          url: t.url || ("https://openei.org/wiki/RAPID/Geothermal/" + encodeURIComponent(this.rapidJur) + "/" + encodeURIComponent(name)),
+          html: inner ? "<p>" + inner + "</p>" : "",
+          inRules: mapped.length > 0,
+          nvDrill: this.rapidJur === "Nevada" && name === "Drilling & Well Development"
+        };
+      });
+    },
+    toggleTopic(name) {
+      this.openTopic = this.openTopic === name ? null : name;
+    },
+    async init() {
+      const hash = (location.hash || "").replace("#", "");
+      if (hash === "coverage" || hash === "sources") this.openSection = "captured";
+      else if (hash === "nepatec") this.openSection = "permitai";
+      else if (hash === "captured" || hash === "sepi" || hash === "clocks" || hash === "permitai" || hash === "compass" || hash === "rapid") this.openSection = hash;
+      else this.openSection = "sepi";
+      try {
+        const res = await fetch("../rules/dependencies.json");
+        if (res.ok) {
+          const pack = await res.json();
+          this.rulePack = pack;
+          this.ruleVersion = pack.version ? "v" + pack.version : "";
+        }
+      } catch (e) {}
+      const names = ["rapid-geothermal-content.json", "rapid-geothermal-index.json"];
+      await Promise.all(names.map(async name => {
+        try {
+          const data = await loadCachedJSON(name);
+          this.files = Object.assign({}, this.files, { [name]: data });
+        } catch (e) {}
+      }));
+      try {
+        const pack = await sepiIndex.load();
+        this.sepiConnectors = pack.connectors;
+        this.sepiUpdated = pack.updated;
+      } catch (e) {
+        this.sepiError = "The SEPI index could not be loaded.";
+      }
+    }
+  };
+}
+document.addEventListener("alpine:init", () => { Alpine.data("app", app); });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb" crossorigin="anonymous"></script>
+<script>if (typeof Alpine === "undefined") { document.write('<script src="../vendor/alpine.min.js"><\/script>'); }</script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SEPI · Messages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu.css">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body class="dash compact" x-data="app">
+<div class="page" x-cloak>
+  <header class="mast desk-mast">
+    <div class="wrap site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Subsurface Energy Permitting <i>Index</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+        <nav aria-label="Site">
+          <a href="../records/" data-as>Status</a>
+          <a href="./" data-as aria-current="page">Messages</a>
+          <a href="../about/">About</a>
+        </nav>
+        <a class="profile-mark" data-user href="../profile/" aria-label="Susan Smith">
+          <img src="../images/susan.jpg" alt="" width="96" height="96">
+        </a>
+      </div>
+    </div>
+    <div class="wrap mast-copy">
+      <p class="eyebrow" x-text="admin ? 'Administrator' : 'User'"></p>
+      <h1>Messages</h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="lede">Inbox.</p>
+    </div>
+  </header>
+
+  <div class="wrap article wide">
+    <div class="mail">
+      <ul class="mail-list">
+        <template x-for="m in items" :key="m.id">
+          <li>
+          <button type="button" class="mail-item" :class="{ on: selectedId === m.id, unread: m.unread }" @click="open(m)">
+            <span class="mail-from" x-text="m.from"></span>
+            <span class="mail-sub" x-text="m.subject"></span>
+            <span class="mail-when" x-text="m.date"></span>
+          </button>
+          </li>
+        </template>
+      </ul>
+      <div class="mail-pane">
+      <article class="mail-read" x-show="selected">
+        <h2 x-text="selected ? selected.subject : ''"></h2>
+        <dl class="mail-meta">
+          <div>
+            <dt>From</dt>
+            <dd x-text="selected ? selected.from : ''"></dd>
+          </div>
+          <div>
+            <dt>Office</dt>
+            <dd x-text="selected ? selected.office : ''"></dd>
+          </div>
+          <div>
+            <dt>Received</dt>
+            <dd x-text="selected ? selected.date : ''"></dd>
+          </div>
+        </dl>
+        <template x-for="p in (selected ? selected.body : [])" :key="p">
+          <p x-text="p"></p>
+        </template>
+        <template x-for="r in (selected ? selected.replies : [])" :key="r.at">
+          <p class="mail-reply"><b x-text="r.from"></b> · <span x-text="r.at"></span><span class="mail-reply-text" x-text="r.text"></span></p>
+        </template>
+        <form class="mail-compose" @submit.prevent="reply()">
+          <label>
+            <span>Reply</span>
+            <textarea x-model="draft" rows="4"></textarea>
+          </label>
+          <button type="submit" class="btn primary" :disabled="!draft.trim()">Send</button>
+        </form>
+      </article>
+      <p class="mail-empty" x-show="!selected">Select a message.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="wrap">
+    <p>Subsurface Energy Permitting Index - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+<script>
+const USER_MAIL = [
+  {
+    id: "u0",
+    unread: true,
+    from: "SEPI operations",
+    office: "DOE",
+    date: "28 Aug 2026",
+    subject: "OGRRE",
+    body: [
+      "OGRRE added under Energy.",
+      "Oil and Gas Regulatory Record digitizEr. CATALOG. catalog.energy.gov."
+    ],
+    replies: []
+  },
+  {
+    id: "u1",
+    unread: true,
+    from: "SEPI operations",
+    office: "DOE",
+    date: "24 Aug 2026",
+    subject: "Index updated",
+    body: [
+      "Index revised 24 August 2026.",
+      "25 connected. 3 interrupted. 3 no public surface. 73 not probed."
+    ],
+    replies: []
+  },
+  {
+    id: "u2",
+    unread: true,
+    from: "Brendon Berry",
+    office: "BLM National Operations Center",
+    date: "21 Aug 2026",
+    subject: "SMA withdrawals interrupted",
+    body: [
+      "Natl SMA Withdrawals FeatureServer returns 500.",
+      "Row remains interrupted until the host is restored."
+    ],
+    replies: []
+  },
+  {
+    id: "u3",
+    unread: false,
+    from: "Nevada DWR",
+    office: "Nevada Division of Water Resources",
+    date: "21 Aug 2026",
+    subject: "gis.water.nv.gov",
+    body: [
+      "The GIS host does not resolve.",
+      "Public page remains at water.nv.gov."
+    ],
+    replies: []
+  },
+  {
+    id: "u4",
+    unread: false,
+    from: "GSA",
+    office: "data.gov",
+    date: "18 Aug 2026",
+    subject: "CKAN catalog",
+    body: [
+      "catalog.data.gov/api/3 did not respond when requested.",
+      "Status set to interrupted."
+    ],
+    replies: []
+  }
+];
+const ADMIN_MAIL = [
+  {
+    id: "a1",
+    unread: true,
+    from: "Probe",
+    office: "SEPI",
+    date: "21 Aug 2026",
+    subject: "SMA withdrawals FeatureServer 500",
+    body: [
+      "Direct request to Natl SMA Withdrawals returned HTTP 500.",
+      "Replace the endpoint or mark the host restored."
+    ],
+    replies: []
+  },
+  {
+    id: "a2",
+    unread: true,
+    from: "Susan Smith",
+    office: "DOE",
+    date: "20 Aug 2026",
+    subject: "ePlanning OData",
+    body: [
+      "Public OData remains disabled. Document search only.",
+      "Advise if a public surface will return."
+    ],
+    replies: []
+  },
+  {
+    id: "a3",
+    unread: false,
+    from: "Probe",
+    office: "SEPI",
+    date: "24 Aug 2026",
+    subject: "MLRS geothermal leases verified",
+    body: [
+      "BLM MLRS geothermal leases FeatureServer responded.",
+      "Status: connected."
+    ],
+    replies: []
+  },
+  {
+    id: "a4",
+    unread: false,
+    from: "ICAM",
+    office: "DOI",
+    date: "12 Aug 2026",
+    subject: "AFMSS / MLRS case management",
+    body: [
+      "AFMSS and MLRS case management remain behind the DOI network.",
+      "No public surface."
+    ],
+    replies: []
+  }
+];
+function app() {
+  var as = window.SEPI_AS || "user";
+  var user = window.SEPI_USER || { name: "Susan Smith" };
+  var admin = as === "admin";
+  return {
+    as: as,
+    admin: admin,
+    userName: user.name,
+    items: (admin ? ADMIN_MAIL : USER_MAIL).map(function (m) {
+      return Object.assign({}, m, { replies: m.replies.slice() });
+    }),
+    selectedId: "",
+    draft: "",
+    get selected() {
+      return this.items.find(m => m.id === this.selectedId) || null;
+    },
+    open(m) {
+      this.selectedId = m.id;
+      m.unread = false;
+      this.draft = "";
+    },
+    reply() {
+      var text = (this.draft || "").trim();
+      if (!this.selected || !text) return;
+      var d = new Date();
+      this.selected.replies.push({
+        from: this.userName,
+        at: d.toISOString().slice(11, 16) + " UTC",
+        text: text
+      });
+      this.draft = "";
+    },
+    init() {
+      if (this.items[0]) this.open(this.items[0]);
+    }
+  };
+}
+document.addEventListener("alpine:init", () => {
+  Alpine.data("app", app);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb" crossorigin="anonymous"></script>
+<script>if (typeof Alpine === "undefined") { document.write('<script src="../vendor/alpine.min.js"><\/script>'); }</script>
+</body>
+</html>

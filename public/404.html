@@ -4,12 +4,26 @@
     <meta charset="utf-8" />
     <title>Thermal Underground</title>
     <!--
-      GitHub Pages serves this for any unknown path. We save the requested
-      path and bounce to the app root, where index.html restores it.
+      GitHub Pages serves root 404.html for unknown paths.
+      Nested static apps have real files. Nested SPAs (/mdev, /guide)
+      need their index restored with the requested deep link.
     -->
     <script>
-      sessionStorage.redirect = location.href;
-      location.replace(location.origin);
+      (function () {
+        var path = location.pathname || '/';
+        var nested = ['/mdev', '/guide'];
+        var i;
+        for (i = 0; i < nested.length; i++) {
+          var base = nested[i];
+          if (path === base || path.indexOf(base + '/') === 0) {
+            sessionStorage.redirect = location.href;
+            location.replace(location.origin + base + '/');
+            return;
+          }
+        }
+        sessionStorage.redirect = location.href;
+        location.replace(location.origin + '/');
+      })();
     </script>
   </head>
   <body></body>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SEPI · Status</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu.css">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<script src="../js/session-user.js"></script>
+</head>
+<body class="dash compact" x-data="app">
+<div id="site-loader" class="site-loader" aria-live="polite" aria-busy="true">
+  <div class="site-loader__inner">
+    <div class="site-loader__stage">
+      <span class="site-loader__bloom" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--a" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--b" aria-hidden="true"></span>
+      <span class="site-loader__ring site-loader__ring--c" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--1" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--2" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--3" aria-hidden="true"></span>
+      <span class="site-loader__spark site-loader__spark--4" aria-hidden="true"></span>
+      <div class="site-loader__logo-shell">
+        <img class="site-loader__logo" src="../thermal-underground-logo.png" alt="" width="256" height="256" decoding="async" fetchpriority="high">
+      </div>
+    </div>
+    <p class="site-loader__name">Subsurface Energy Permitting Index</p>
+    <p class="site-loader__lede">DOE index of agency systems that hold subsurface authorizations. Platforms read one file. Status is last verified request.</p>
+  </div>
+</div>
+<script>
+(function () {
+  var loader = document.getElementById("site-loader");
+  if (!loader) return;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var start = Date.now();
+  var minMs = reduce ? 1200 : 2800;
+  function finish() {
+    var wait = Math.max(0, minMs - (Date.now() - start));
+    window.setTimeout(function () {
+      loader.classList.add("site-loader--exit");
+      loader.setAttribute("aria-busy", "false");
+      window.setTimeout(function () { loader.remove(); }, 480);
+    }, wait);
+  }
+  if (document.readyState === "complete") finish();
+  else window.addEventListener("load", finish, { once: true });
+})();
+</script>
+<div class="page" x-cloak>
+  <header class="mast desk-mast desk-hero">
+    <div class="mast-wash" aria-hidden="true"><img src="../images/steam.jpg" alt=""></div>
+    <div class="mast-rays" aria-hidden="true"></div>
+    <div class="mast-wisps" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="mast-mosaic" aria-hidden="true">
+      <div class="mast-tile" style="--i:0"><img src="../images/basin.jpg" alt=""></div>
+      <div class="mast-tile" style="--i:1"><img src="../images/sinter.jpg" alt=""></div>
+      <div class="mast-tile" style="--i:2"><img src="../images/workshop.jpg" alt=""></div>
+      <div class="mast-tile portrait" style="--i:3"><img src="../images/gathering.jpg" alt=""></div>
+      <div class="mast-tile" style="--i:4"><img src="../images/maps.jpg" alt=""></div>
+      <div class="mast-tile" style="--i:5"><img src="../images/field.jpg" alt=""></div>
+    </div>
+    <div class="wrap site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Subsurface Energy Permitting <i>Index</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+        <nav aria-label="Site">
+          <a href="./" data-as aria-current="page">Status</a>
+          <a href="../messages/" data-as>Messages</a>
+          <a href="../about/">About</a>
+        </nav>
+        <a class="profile-mark" data-user href="../profile/" aria-label="Susan Smith">
+          <img src="../images/susan.jpg" alt="" width="96" height="96">
+        </a>
+      </div>
+    </div>
+    <div class="wrap mast-copy">
+      <a class="profile-mark mast-portrait" data-user href="../profile/" aria-label="Susan Smith">
+        <img src="../images/susan.jpg" alt="" width="96" height="96">
+      </a>
+      <h1>
+        <span class="mast-line"><span>Welcome</span></span>
+        <span class="mast-line mast-line-name"><span x-text="userName"></span></span>
+      </h1>
+    </div>
+  </header>
+
+  <div class="wrap article wide">
+    <ul class="status-grid" role="list">
+      <li>
+        <button type="button" :class="{ on: filter === 'go' }" @click="filter = filter === 'go' ? '' : 'go'">
+          <b x-text="count('go')"></b>
+          <span>Connected</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" :class="{ on: filter === 'hold' }" @click="filter = filter === 'hold' ? '' : 'hold'">
+          <b x-text="count('hold')"></b>
+          <span>Interrupted</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" :class="{ on: filter === 'syn' }" @click="filter = filter === 'syn' ? '' : 'syn'">
+          <b x-text="count('syn')"></b>
+          <span>No public surface</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" :class="{ on: filter === 'open' }" @click="filter = filter === 'open' ? '' : 'open'">
+          <b x-text="count('open')"></b>
+          <span>Not probed</span>
+        </button>
+      </li>
+    </ul>
+
+    <section class="widget attention" x-show="alerts.length" aria-labelledby="alert-heading">
+      <div class="widget-head">
+        <h2 id="alert-heading">Interrupted</h2>
+      </div>
+      <ul class="alert-list">
+        <template x-for="row in alerts" :key="row.id">
+          <li>
+            <button type="button" @click="select(row)">
+              <i class="lamp hold" aria-hidden="true"></i>
+              <span class="alert-name" x-text="row.name"></span>
+              <span class="alert-note" x-text="row.endpoint || row.status"></span>
+            </button>
+          </li>
+        </template>
+      </ul>
+    </section>
+
+    <div class="desk-grid" :class="{ admin: admin }">
+      <section class="widget systems" aria-labelledby="sys-heading">
+        <div class="widget-head">
+          <h2 id="sys-heading" x-text="admin ? 'Managed systems' : 'Systems'"></h2>
+          <label class="find">
+            <span>Find</span>
+            <input type="search" x-model="q" placeholder="">
+          </label>
+        </div>
+        <p x-show="error" x-text="error"></p>
+        <svg class="mark-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <symbol id="mark-federal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 5.2 13.7 9h4.2l-3.4 2.5 1.3 4.1L12 13.3 8.2 15.6 9.5 11.5 6.1 9h4.2z"/></symbol>
+          <symbol id="mark-interior" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M4.4 17.4 8.8 10.6 12 14.2 15.4 8.6 19.6 17.4Z"/></symbol>
+          <symbol id="mark-agriculture" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 4.8 7.6 14.2h2.6v5h3.6v-5h2.6Z"/></symbol>
+          <symbol id="mark-energy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><circle cx="12" cy="12" r="3.1" fill="#F5B819"/><path fill="#F5B819" d="M11.3 4.6h1.4v3.2h-1.4zm0 11.6h1.4v3.2h-1.4zM4.6 11.3h3.2v1.4H4.6zm11.6 0h3.2v1.4h-3.2zM7.1 6.4l1 .9-2.2 2.3-1-.9zm8.8 8.9 1 .9-2.3 2.2-1-.9zm-8.8 3.1-1-.9 2.2-2.3 1 .9zm8.8-8.9-1-.9 2.3-2.2 1 .9z"/></symbol>
+          <symbol id="mark-epa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M7.2 16.6c2.8-6.4 7.8-8.8 9.6-9.4-2.2 3.4-2 7.2-1.4 9.2-2.2-.4-5.4.2-8.2.2z"/></symbol>
+          <symbol id="mark-commerce" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 4.8 13.2 11 19.2 12 13.2 13 12 19.2 10.8 13 4.8 12 10.8 11Z"/></symbol>
+          <symbol id="mark-defense" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 5.2 18.4 9.8 15.9 17.4H8.1L5.6 9.8Z"/></symbol>
+          <symbol id="mark-dhs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 4.8 18 7.2v5.4c0 3.4-2.4 5.6-6 7.2-3.6-1.6-6-3.8-6-7.2V7.2Z"/></symbol>
+          <symbol id="mark-gsa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M6.4 17.4V10.2h2.2v7.2zm4.5 0V8.4h2.2v9zm4.5 0v-5.6h2.2v5.6zM6 18.6h12v1.2H6zM7.2 8.2 12 5.4l4.8 2.8H7.2z"/></symbol>
+          <symbol id="mark-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M6.2 8.2h7.2L11 5.8h3.2L19 12l-4.8 6.2H11l2.4-2.4H6.2v-2.4h8.2v-1.2H6.2z"/></symbol>
+          <symbol id="mark-labor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M8.4 6.2h3.2l1.4 3.4 3.8-1.4 1.2 2.2-3.6 1.8 3.4 6.2h-2.8l-3-5.4-1.2.6v4.8H8.4z"/></symbol>
+          <symbol id="mark-independent" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 5.4 13.6 10h4.6l-3.7 2.8 1.4 4.6L12 14.6 8.1 17.4 9.5 12.8 5.8 10h4.6z"/></symbol>
+          <symbol id="mark-state" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><circle cx="12" cy="12" r="7.2" fill="none" stroke="#F5B819" stroke-width="1.4"/><path fill="#F5B819" d="M12 7.2 13 10.2h3.1l-2.5 1.8.9 3.1L12 13.4 9.5 15.1l.9-3.1-2.5-1.8H11z"/></symbol>
+          <symbol id="mark-local" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M6.2 17.6V11h2v6.6zm4.8 0V9.2h2v8.4zm4.8 0V11h2v6.6zM5.6 18.6h12.8v1.2H5.6zM6.4 9.6 12 5.8l5.6 3.8z"/></symbol>
+          <symbol id="mark-tribal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 5.2 18.4 12 12 18.8 5.6 12Z"/></symbol>
+          <symbol id="mark-blm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><circle cx="16.2" cy="7.4" r="2" fill="#F5B819"/><path fill="#F5B819" d="M4.6 17.4 8.2 12.6 12 16.2 15.6 11.4 19.4 17.4Z"/></symbol>
+          <symbol id="mark-nps" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="none" stroke="#F5B819" stroke-width="1.6" d="M7 16.6c0-4.4 2.2-8 5-8s5 3.6 5 8"/><path fill="#F5B819" d="M11.2 16.6h1.6v2.2h-1.6z"/></symbol>
+          <symbol id="mark-fws" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M5.6 13.4c3.2-1.2 5.4-3.8 6.2-6.4 1.4 2.2 4.4 4.4 7 5.2-2.8.8-4.6 2.6-5.4 4.6-1.2-1.8-4.2-2.8-7.8-3.4z"/></symbol>
+          <symbol id="mark-usgs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="none" stroke="#F5B819" stroke-width="1.6" d="M5.4 14.2 8.4 10.6 11 15.2 14.2 8.8 18.6 14.2"/></symbol>
+          <symbol id="mark-bor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M12 5.4c2.8 3.4 5.2 6.2 5.2 8.6A5.2 5.2 0 0 1 12 19.2 5.2 5.2 0 0 1 6.8 14c0-2.4 2.4-5.2 5.2-8.6z"/></symbol>
+          <symbol id="mark-noaa" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="none" stroke="#F5B819" stroke-width="1.5" d="M5.2 10.4c2 .8 2.8.8 4.8 0s2.8-.8 4.8 0 2.8.8 4.8 0M5.2 13.6c2 .8 2.8.8 4.8 0s2.8-.8 4.8 0 2.8.8 4.8 0M5.2 16.8c2 .8 2.8.8 4.8 0s2.8-.8 4.8 0 2.8.8 4.8 0"/></symbol>
+          <symbol id="mark-census" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="none" stroke="#F5B819" stroke-width="1.4" d="M7.4 7.4h9.2v9.2H7.4zM12 7.4v9.2M7.4 12h9.2"/></symbol>
+          <symbol id="mark-usace" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M6.2 10.4h2V8.8h1.4V10.4h4.8V8.8H16V10.4h1.8v8H6.2z"/></symbol>
+          <symbol id="mark-fema" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11.5" fill="#0A1A4F"/><path fill="#F5B819" d="M5.8 12.2 12 6.4l6.2 5.8H16v6.2h-3.2v-3.6H11.2v3.6H8v-6.2z"/></symbol>
+        </svg>
+        <div class="sys-groups">
+          <template x-for="kind in grouped" :key="kind.key">
+            <section class="sys-kind">
+              <h3>
+                <button type="button" class="sys-fold kind" :aria-expanded="kindOpen(kind.key) ? 'true' : 'false'" :aria-controls="'kind-' + kind.key" @click="toggleKind(kind.key)">
+                  <svg class="sys-mark" aria-hidden="true"><use :href="'#mark-' + kind.mark"></use></svg>
+                  <span class="sys-fold-label" x-text="kind.label"></span>
+                  <span class="sys-count" x-text="kind.count"></span>
+                  <span class="sys-chevron" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <div class="sys-kind-body" :id="'kind-' + kind.key" x-show="kindOpen(kind.key)">
+                <template x-for="sec in kind.sections" :key="sec.label">
+                  <div class="sys-sec">
+                    <h4>
+                      <button type="button" class="sys-fold nested" :aria-expanded="secOpen(kind.key, sec.label) ? 'true' : 'false'" :aria-controls="'sec-' + kind.key + '-' + sec.slug" @click="toggleSec(kind.key, sec.label)">
+                        <svg class="sys-mark" aria-hidden="true"><use :href="'#mark-' + sec.mark"></use></svg>
+                        <span class="sys-fold-label" x-text="sec.label"></span>
+                        <span class="sys-count" x-text="sec.rows.length"></span>
+                        <span class="sys-chevron" aria-hidden="true"></span>
+                      </button>
+                    </h4>
+                    <div class="sys-sec-body" :id="'sec-' + kind.key + '-' + sec.slug" x-show="secOpen(kind.key, sec.label)">
+                      <div class="table-wrap">
+                        <table class="dash">
+                          <thead>
+                            <tr>
+                              <th>State</th>
+                              <th>System</th>
+                              <th>Owner</th>
+                              <th x-show="admin">Requests</th>
+                              <th>Endpoint</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <template x-for="row in sec.rows" :key="row.id">
+                              <tr :class="{ hit: selectedId === row.id, hold: row.light === 'hold' }" @click="admin && select(row)">
+                                <td>
+                                  <span class="state">
+                                    <i class="lamp" :class="row.light" aria-hidden="true"></i>
+                                    <span x-text="label(row.light)"></span>
+                                  </span>
+                                </td>
+                                <td class="name" x-text="row.name"></td>
+                                <td>
+                                  <span class="sys-id">
+                                    <svg class="sys-mark" aria-hidden="true"><use :href="'#mark-' + ownerMark(row.owner)"></use></svg>
+                                    <span x-text="row.owner"></span>
+                                  </span>
+                                </td>
+                                <td x-show="admin" class="pri" x-text="fmt(traffic(row).req)"></td>
+                                <td class="endpoint">
+                                  <a x-show="endpointUrl(row)" :href="endpointUrl(row)" x-text="endpointLabel(row)"></a>
+                                  <span x-show="!endpointUrl(row)" x-text="endpointLabel(row)"></span>
+                                </td>
+                              </tr>
+                            </template>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </section>
+          </template>
+        </div>
+        <p class="updated" x-show="updated">Index updated <span x-text="updated"></span>.</p>
+      </section>
+
+      <template x-if="admin">
+      <aside class="admin-pane">
+        <section class="widget" aria-labelledby="end-heading">
+          <div class="widget-head">
+            <h2 id="end-heading">Endpoint</h2>
+          </div>
+          <form class="end-form" @submit.prevent="saveEndpoint()">
+            <p class="end-sys" x-text="selected ? selected.name : 'Select a system.'"></p>
+            <label>
+              <span>URL</span>
+              <input type="text" x-model="draft" :disabled="!selected" autocomplete="off">
+            </label>
+            <button type="submit" class="btn primary" :disabled="!selected">Save</button>
+            <p class="end-saved" x-show="savedAt" x-text="'Saved ' + savedAt"></p>
+          </form>
+        </section>
+        <section class="widget" aria-labelledby="traf-heading">
+          <div class="widget-head">
+            <h2 id="traf-heading">Traffic · 24 h</h2>
+          </div>
+          <ul class="traf">
+            <template x-for="row in trafRows" :key="row.id">
+              <li :class="{ on: selectedId === row.id }" @click="select(row)">
+                <span class="traf-name" x-text="row.name"></span>
+                <span class="traf-bar" aria-hidden="true"><i :style="'width:' + row.pct + '%'"></i></span>
+                <span class="traf-n" x-text="fmt(row.req)"></span>
+              </li>
+            </template>
+          </ul>
+          <dl class="kv" x-show="selected">
+            <div>
+              <dt>Errors</dt>
+              <dd x-text="selected ? traffic(selected).err + '%' : '—'"></dd>
+            </div>
+            <div>
+              <dt>Latency</dt>
+              <dd x-text="selected ? (traffic(selected).ms ? traffic(selected).ms + ' ms' : '—') : '—'"></dd>
+            </div>
+            <div>
+              <dt>Last probe</dt>
+              <dd x-text="selected ? traffic(selected).last : '—'"></dd>
+            </div>
+          </dl>
+        </section>
+      </aside>
+      </template>
+    </div>
+  </div>
+
+  <footer class="wrap">
+    <p>Subsurface Energy Permitting Index - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+<script>
+function hash(id) {
+  var h = 2166136261;
+  for (var i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  return h >>> 0;
+}
+const STATE_OWNERS = {
+  "Nevada": "Nevada",
+  "California": "California",
+  "Utah": "Utah",
+  "Idaho": "Idaho",
+  "Oregon": "Oregon",
+  "Hawaii": "Hawaii",
+  "New Mexico": "New Mexico",
+  "Colorado": "Colorado",
+  "Texas": "Texas",
+  "Alaska": "Alaska",
+  "States": "States",
+  "EPA / delegated state": "Delegated states"
+};
+const LOCAL_OWNERS = {
+  "Nevada counties": "Nevada counties",
+  "States, counties": "Counties"
+};
+const TRIBAL_OWNERS = { "Tribes": "Tribes" };
+const DEPT_OWNERS = {
+  "BLM": "Interior",
+  "BLM / Tribes": "Interior",
+  "NPS": "Interior",
+  "NPS / Federal Register": "Interior",
+  "USFWS": "Interior",
+  "FWS via USGS": "Interior",
+  "BIA": "Interior",
+  "USGS": "Interior",
+  "BOR": "Interior",
+  "DOI": "Interior",
+  "USFS": "Agriculture",
+  "USDA": "Agriculture",
+  "NOAA": "Commerce",
+  "NOAA NMFS": "Commerce",
+  "NOAA NGDC": "Commerce",
+  "Census": "Commerce",
+  "EPA": "EPA",
+  "USACE": "Defense",
+  "DOD": "Defense",
+  "USCG": "Homeland Security",
+  "FEMA": "Homeland Security",
+  "DOE": "Energy",
+  "DOE / NLR": "Energy",
+  "DOE OG": "Energy",
+  "PNNL": "Energy",
+  "GSA": "GSA",
+  "GSA PIC": "GSA",
+  "FAA": "Transportation",
+  "DOT": "Transportation",
+  "DOL": "Labor",
+  "FERC": "Independent",
+  "ACHP": "Independent",
+  "FPISC": "Independent",
+  "OMB": "Independent",
+  "Hugging Face": "Independent",
+  "All agencies": "Independent",
+  "Agencies": "Independent"
+};
+const KIND_ORDER = ["department", "state", "local", "tribal"];
+const KIND_LABEL = { department: "Department", state: "State", local: "Local", tribal: "Tribal" };
+const KIND_MARK = { department: "federal", state: "state", local: "local", tribal: "tribal" };
+const DEPT_ORDER = ["Interior", "Agriculture", "Energy", "EPA", "Commerce", "Defense", "Homeland Security", "GSA", "Transportation", "Labor", "Independent"];
+const DEPT_MARK = {
+  Interior: "interior",
+  Agriculture: "agriculture",
+  Energy: "energy",
+  EPA: "epa",
+  Commerce: "commerce",
+  Defense: "defense",
+  "Homeland Security": "dhs",
+  GSA: "gsa",
+  Transportation: "dot",
+  Labor: "labor",
+  Independent: "independent"
+};
+const OWNER_MARK = {
+  BLM: "blm",
+  "BLM / Tribes": "blm",
+  NPS: "nps",
+  "NPS / Federal Register": "nps",
+  USFWS: "fws",
+  "FWS via USGS": "fws",
+  BIA: "interior",
+  USGS: "usgs",
+  BOR: "bor",
+  DOI: "interior",
+  USFS: "agriculture",
+  USDA: "agriculture",
+  NOAA: "noaa",
+  "NOAA NMFS": "noaa",
+  "NOAA NGDC": "noaa",
+  Census: "census",
+  EPA: "epa",
+  "EPA / delegated state": "epa",
+  USACE: "usace",
+  DOD: "defense",
+  USCG: "dhs",
+  FEMA: "fema",
+  DOE: "energy",
+  "DOE / NLR": "energy",
+  "DOE OG": "energy",
+  PNNL: "energy",
+  GSA: "gsa",
+  "GSA PIC": "gsa",
+  FAA: "dot",
+  DOT: "dot",
+  DOL: "labor",
+  FERC: "independent",
+  ACHP: "independent",
+  FPISC: "independent",
+  OMB: "independent",
+  "Hugging Face": "independent",
+  "All agencies": "independent",
+  Agencies: "independent",
+  Nevada: "state",
+  California: "state",
+  Utah: "state",
+  Idaho: "state",
+  Oregon: "state",
+  Hawaii: "state",
+  "New Mexico": "state",
+  Colorado: "state",
+  Texas: "state",
+  Alaska: "state",
+  States: "state",
+  "Nevada counties": "local",
+  "States, counties": "local",
+  Tribes: "tribal"
+};
+function ownerMark(owner) {
+  return OWNER_MARK[owner] || "independent";
+}
+function sectionMark(kind, label) {
+  if (kind === "department") return DEPT_MARK[label] || "independent";
+  return KIND_MARK[kind] || "independent";
+}
+function slug(label) {
+  return String(label || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "section";
+}
+function place(row) {
+  var o = row.owner || "";
+  if (STATE_OWNERS[o]) return { kind: "state", section: STATE_OWNERS[o] };
+  if (LOCAL_OWNERS[o]) return { kind: "local", section: LOCAL_OWNERS[o] };
+  if (TRIBAL_OWNERS[o]) return { kind: "tribal", section: TRIBAL_OWNERS[o] };
+  return { kind: "department", section: DEPT_OWNERS[o] || "Independent" };
+}
+function sortRows(rows) {
+  var order = { hold: 0, syn: 1, open: 2, go: 3 };
+  return rows.slice().sort((a, b) => {
+    var da = order[a.light] ?? 9;
+    var db = order[b.light] ?? 9;
+    if (da !== db) return da - db;
+    return (a.name || "").localeCompare(b.name || "", "en", { sensitivity: "base" });
+  });
+}
+function traffic(row) {
+  var h = hash(row.id);
+  var go = row.light === "go";
+  var hold = row.light === "hold";
+  var syn = row.light === "syn";
+  var req = go ? 820 + (h % 4180) : hold ? 18 + (h % 70) : syn ? 0 : 40 + (h % 180);
+  var err = hold ? 22 + (h % 36) : go ? (h % 4) : syn ? 0 : 2 + (h % 8);
+  var ms = go ? 70 + (h % 260) : 0;
+  var last = go ? "24 Aug 2026" : hold ? "21 Aug 2026" : syn ? "—" : "Not probed";
+  return { req: req, err: err, ms: ms, last: last };
+}
+function app() {
+  var as = window.SEPI_AS || "user";
+  var user = window.SEPI_USER || { name: "Susan Smith" };
+  return {
+    as: as,
+    admin: as === "admin",
+    userName: user.name,
+    filter: "",
+    q: "",
+    connectors: [],
+    updated: "",
+    error: "",
+    selectedId: "",
+    draft: "",
+    savedAt: "",
+    overrides: {},
+    openKinds: { department: true },
+    openSecs: { "department:Interior": true },
+    label(light) {
+      return { go: "Connected", hold: "Interrupted", stop: "Retired", syn: "No public surface", open: "Not probed" }[light] || light;
+    },
+    managed(row) {
+      var owner = row.owner || "";
+      return row.group === "BLM" || owner === "BLM" || owner.indexOf("BLM") === 0;
+    },
+    get scope() {
+      if (!this.admin) return this.connectors;
+      return this.connectors.filter(r => this.managed(r));
+    },
+    count(light) {
+      return this.scope.filter(r => r.light === light).length;
+    },
+    get alerts() {
+      return this.scope.filter(r => r.light === "hold");
+    },
+    get shown() {
+      var q = (this.q || "").trim().toLowerCase();
+      return this.scope.filter(r => {
+        if (this.filter && r.light !== this.filter) return false;
+        if (!q) return true;
+        var p = place(r);
+        var hay = [r.name, r.owner, r.endpoint || "", p.kind, p.section, KIND_LABEL[p.kind]].join(" ").toLowerCase();
+        return hay.indexOf(q) !== -1;
+      });
+    },
+    get grouped() {
+      var bins = {};
+      this.shown.forEach(r => {
+        var p = place(r);
+        if (!bins[p.kind]) bins[p.kind] = {};
+        if (!bins[p.kind][p.section]) bins[p.kind][p.section] = [];
+        bins[p.kind][p.section].push(r);
+      });
+      return KIND_ORDER.filter(k => bins[k]).map(k => {
+        var names = Object.keys(bins[k]);
+        if (k === "department") {
+          names.sort((a, b) => {
+            var ia = DEPT_ORDER.indexOf(a);
+            var ib = DEPT_ORDER.indexOf(b);
+            if (ia === -1) ia = 99;
+            if (ib === -1) ib = 99;
+            if (ia !== ib) return ia - ib;
+            return a.localeCompare(b, "en", { sensitivity: "base" });
+          });
+        } else {
+          names.sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+        }
+        return {
+          key: k,
+          label: KIND_LABEL[k],
+          mark: KIND_MARK[k],
+          count: names.reduce((n, s) => n + bins[k][s].length, 0),
+          sections: names.map(n => ({
+            label: n,
+            slug: slug(n),
+            mark: sectionMark(k, n),
+            rows: sortRows(bins[k][n])
+          }))
+        };
+      });
+    },
+    get selected() {
+      return this.scope.find(r => r.id === this.selectedId) || null;
+    },
+    get trafRows() {
+      var rows = this.scope.map(r => {
+        var t = traffic(r);
+        return { id: r.id, name: r.name, req: t.req, row: r };
+      });
+      var max = Math.max.apply(null, rows.map(r => r.req).concat([1]));
+      rows.forEach(r => { r.pct = Math.max(4, Math.round(r.req / max * 100)); });
+      rows.sort((a, b) => b.req - a.req);
+      return rows.slice(0, 8);
+    },
+    traffic(row) { return traffic(row); },
+    fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); },
+    ownerMark(owner) { return ownerMark(owner); },
+    kindOpen(key) {
+      if ((this.q || "").trim() || this.filter) return true;
+      return !!this.openKinds[key];
+    },
+    secOpen(kind, label) {
+      if ((this.q || "").trim() || this.filter) return true;
+      return !!this.openSecs[kind + ":" + label];
+    },
+    toggleKind(key) {
+      var next = !this.kindOpen(key);
+      this.openKinds = Object.assign({}, this.openKinds, { [key]: next });
+    },
+    toggleSec(kind, label) {
+      var id = kind + ":" + label;
+      var next = !this.secOpen(kind, label);
+      this.openSecs = Object.assign({}, this.openSecs, { [id]: next });
+    },
+    endpointUrl(row) {
+      if (this.overrides[row.id]) return this.overrides[row.id];
+      return row.url || "";
+    },
+    endpointLabel(row) {
+      if (this.overrides[row.id]) return this.overrides[row.id];
+      return row.endpoint || row.pointer || "—";
+    },
+    select(row) {
+      this.selectedId = row.id;
+      this.draft = this.endpointUrl(row) || row.url || "";
+      this.savedAt = "";
+    },
+    saveEndpoint() {
+      if (!this.selected) return;
+      var id = this.selected.id;
+      this.overrides[id] = this.draft.trim();
+      try { sessionStorage.setItem("sepi-endpoints", JSON.stringify(this.overrides)); } catch (e) {}
+      var d = new Date();
+      this.savedAt = d.toISOString().slice(11, 16) + " UTC";
+    },
+    async init() {
+      try {
+        var raw = sessionStorage.getItem("sepi-endpoints");
+        if (raw) this.overrides = JSON.parse(raw) || {};
+      } catch (e) {}
+      try {
+        const res = await fetch("../connectors.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        this.connectors = data.connectors || [];
+        this.updated = data.updated || "";
+        if (this.admin) {
+          var first = this.scope[0];
+          if (first) this.select(first);
+        }
+      } catch (e) {
+        this.error = "The index could not be loaded.";
+      }
+    }
+  };
+}
+document.addEventListener("alpine:init", () => {
+  Alpine.data("app", app);
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js" integrity="sha384-X9kJyAubVxnP0hcA+AMMs21U445qsnqhnUF8EBlEpP3a42Kh/JwWjlv2ZcvGfphb" crossorigin="anonymous"></script>
+<script>if (typeof Alpine === "undefined") { document.write('<script src="../vendor/alpine.min.js"><\/script>'); }</script>
+</body>
+</html>

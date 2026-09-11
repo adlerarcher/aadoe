@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../scripts/tu.css">
+<link rel="stylesheet" href="../scripts/tu-override.css">
+<style>
+  :root { --muted: #8B9BC8; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+  }
+  body::before, body::after { display: none; }
+  .page {
+    position: relative;
+    min-height: 100svh;
+    overflow: hidden;
+    padding: 0 0 56px;
+  }
+  .wash {
+    position: absolute;
+    inset: -6%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .42;
+    mask-image: radial-gradient(90% 70% at 50% 40%, #000 10%, transparent 78%);
+  }
+  .wash img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(.9) contrast(1.05);
+    animation: wash-ken 32s ease-in-out infinite;
+  }
+  @keyframes wash-ken {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.12) translate(-2%, 2%); }
+  }
+  .page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(70% 50% at 50% 42%, rgba(245, 184, 25, .14), transparent 62%),
+      linear-gradient(180deg, rgba(10, 26, 79, .35) 0%, rgba(10, 26, 79, .82) 100%);
+  }
+  .mast, .wrap, footer { position: relative; z-index: 2; }
+  .mast { background: transparent; }
+  .mast::before { display: none; }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px 28px;
+    flex-wrap: wrap;
+    padding: 16px 40px;
+  }
+  .site-nav .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--white);
+    line-height: 1;
+  }
+  .site-nav .brand img { display: block; width: 44px; height: 44px; filter: none; }
+  .demo-mark {
+    flex: 0 0 auto;
+    font-family: var(--label);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: #C8102E;
+    padding: 3px 7px;
+    line-height: 1.2;
+    animation: demo-flash 2.8s ease-in-out infinite;
+  }
+  @keyframes demo-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .28; }
+  }
+  .brand-name {
+    font-family: var(--title);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 14em;
+  }
+  .brand-name i { font-style: italic; color: var(--gold); }
+  .site-nav nav { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
+  .site-nav nav a {
+    font-family: var(--title);
+    font-weight: 300;
+    font-size: 15px;
+    color: var(--gold);
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+  }
+  .site-nav nav a:hover { color: var(--white); border-bottom-color: var(--gold); }
+  .wrap { width: min(48rem, 92vw); margin: 48px auto 0; animation: card-in .7s cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+  .record {
+    position: relative;
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    overflow: hidden;
+    background: linear-gradient(180deg, #fffdf6 0%, var(--white) 42%);
+    color: var(--navy);
+    border: 1px solid rgba(245, 184, 25, .95);
+    box-shadow:
+      0 0 0 1px rgba(10, 26, 79, .28),
+      0 32px 90px rgba(0, 0, 0, .45),
+      0 0 90px rgba(245, 184, 25, .16);
+    max-width: none;
+    padding: 0;
+    gap: 0;
+    align-items: stretch;
+  }
+  .record::before,
+  .record::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    z-index: 3;
+    pointer-events: none;
+    border: 2px solid var(--gold);
+  }
+  .record::before {
+    top: 10px;
+    left: 10px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .record::after {
+    bottom: 10px;
+    right: 10px;
+    border-left: 0;
+    border-top: 0;
+  }
+  .record[hidden] { display: none !important; }
+  .record-photo {
+    position: relative;
+    min-height: 340px;
+    background: var(--navy);
+    overflow: hidden;
+  }
+  .record-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 22%;
+    animation: photo-ken 22s ease-in-out infinite;
+    border: 0;
+  }
+  @keyframes photo-ken {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.04) translate(-1%, 1%); }
+  }
+  .record-photo::before {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 42%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(180deg, transparent, rgba(10, 26, 79, .55));
+  }
+  .record-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: inset 0 0 0 1px rgba(245, 184, 25, .45);
+  }
+  .record-body {
+    position: relative;
+    padding: 36px 40px 40px;
+  }
+  .record-body::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    box-shadow: inset 0 0 0 4px var(--navy), 0 0 0 1px rgba(245, 184, 25, .35);
+    background: radial-gradient(circle at 50% 42%, var(--gold) 0 28%, transparent 30%);
+  }
+  .record .kicker {
+    display: inline-block;
+    margin: 0 0 12px;
+    padding: 4px 10px;
+    font-family: var(--label);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: rgba(245, 184, 25, .18);
+    border: 1px solid rgba(245, 184, 25, .75);
+  }
+  .record h1 {
+    margin: 0 0 8px;
+    font-family: var(--title);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(2.3rem, 4.4vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--navy);
+    text-shadow: none;
+  }
+  .record .org {
+    margin: 0 0 18px;
+    color: #4a5c8a;
+    background: transparent;
+    font-size: 15px;
+    font-family: var(--body);
+  }
+  .record .rule {
+    display: block;
+    width: 64px;
+    height: 4px;
+    margin: 0 0 24px;
+    background: var(--gold);
+  }
+  .record dl {
+    margin: 0;
+    display: grid;
+    gap: 0;
+  }
+  .record dl > div {
+    padding: 12px 0 12px 14px;
+    border-left: 3px solid var(--gold);
+    margin: 0 0 4px;
+  }
+  .record dt {
+    font-family: var(--label);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #8a6a10;
+    margin: 0 0 4px;
+  }
+  .record dd { margin: 0; line-height: 1.5; font-size: 15px; }
+  .record a { color: var(--navy); text-decoration: none; border-bottom: 1px solid rgba(10, 26, 79, .2); }
+  .record a:hover { color: #8a6a10; border-bottom-color: var(--gold); }
+  footer {
+    width: min(44rem, 92vw);
+    margin: 28px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(245, 184, 25, .35);
+  }
+  footer p { margin: 0; font-size: 13px; color: rgba(255, 255, 255, .65); }
+  footer a { color: var(--gold); }
+  @media (max-width: 800px) {
+    .site-nav { padding: 14px 20px; }
+    .record { grid-template-columns: 1fr; }
+    .record-photo { min-height: 240px; max-height: 300px; }
+    .record-body { padding: 26px 24px 30px; }
+    .record-body::before { top: 16px; right: 16px; width: 22px; height: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .demo-mark, .wash img, .record-photo img, .wrap { animation: none !important; }
+    .wrap { opacity: 1; transform: none; }
+  }
+</style>
+<script src="../js/session-user.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="wash" aria-hidden="true"><img src="../images/basin.jpg" alt=""></div>
+  <header class="mast">
+    <div class="site-nav">
+      <a class="brand" href="../">
+        <img src="../thermal-underground-logo.png" width="256" height="256" alt="">
+        <span class="brand-name">Subsurface Energy Permitting <i>Index</i></span>
+        <span class="demo-mark">Demo</span>
+      </a>
+      <div class="site-nav-end">
+        <nav aria-label="Site">
+          <a href="../records/" data-as>Status</a>
+          <a href="../messages/" data-as>Messages</a>
+          <a href="../about/">About</a>
+        </nav>
+        <a class="profile-mark" data-user href="./" aria-current="page" aria-label="Susan Smith">
+          <img src="../images/susan.jpg" alt="" width="96" height="96">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <article class="record" data-record="user">
+      <div class="record-photo"><img src="../images/susan.jpg" alt="Susan Smith" width="480" height="480"></div>
+      <div class="record-body">
+        <p class="kicker">User</p>
+        <h1>Susan Smith</h1>
+        <p class="org">U.S. Department of Energy</p>
+        <span class="rule" aria-hidden="true"></span>
+        <dl>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:susan.smith@hq.doe.gov">susan.smith@hq.doe.gov</a></dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a href="tel:+12025865000">(202) 586-5000</a></dd>
+          </div>
+          <div>
+            <dt>Office</dt>
+            <dd>U.S. Department of Energy<br>Geothermal Technologies Office<br>1000 Independence Avenue SW<br>Washington, DC 20585</dd>
+          </div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="record" data-record="admin" hidden>
+      <div class="record-photo"><img src="../images/brendon.jpg" alt="Brendon Berry" width="480" height="480"></div>
+      <div class="record-body">
+        <p class="kicker">Administrator</p>
+        <h1>Brendon Berry</h1>
+        <p class="org">BLM National Operations Center</p>
+        <span class="rule" aria-hidden="true"></span>
+        <dl>
+          <div>
+            <dt>Email</dt>
+            <dd><a href="mailto:brendon.berry@blm.gov">brendon.berry@blm.gov</a></dd>
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a href="tel:+13032360100">(303) 236-0100</a></dd>
+          </div>
+          <div>
+            <dt>Office</dt>
+            <dd>BLM National Operations Center<br>Denver Federal Center, Building 50<br>Denver, CO 80225</dd>
+          </div>
+        </dl>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <p>Subsurface Energy Permitting Index - Unofficial Prototype</p>
+    <p>Thermal Underground © Adler Archer 2026</p>
+  </footer>
+</div>
+</body>
+</html>

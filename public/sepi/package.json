@@ -1,0 +1,7 @@
+{
+  "name": "sepi",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve -l 5174 --cors ."
+  }
+}

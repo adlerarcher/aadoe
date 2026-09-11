@@ -1,0 +1,104 @@
+/* Fonts and navy/gold on interior GPCP pages. Layout stays; colors are the original blue and gold. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  --navy: #0A1A4F;
+  --gold: #F5B819;
+  --white: #ffffff;
+  --muted: #3D4A73;
+  --title: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Archivo", system-ui, sans-serif;
+  --label: "Space Mono", ui-monospace, monospace;
+  --bg: #ffffff;
+  --ink: #0A1A4F;
+  --heat: #F5B819;
+  --line: rgba(10, 26, 79, .12);
+  --panel: #ffffff;
+}
+
+body {
+  font-family: var(--body) !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, .mast-copy h1 {
+  font-family: var(--title) !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+}
+
+.site-nav nav a {
+  font-family: var(--title) !important;
+  font-weight: 300 !important;
+  font-size: 15px !important;
+  letter-spacing: .01em !important;
+  text-transform: none !important;
+}
+
+.brand-name i { color: var(--gold) !important; }
+
+.article h2, .widget-head h2, .fold-head h2 {
+  font-family: var(--title) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+}
+
+.demo-mark {
+  background: #C8102E !important;
+  color: #ffffff !important;
+  animation: demo-flash 2.8s ease-in-out infinite !important;
+  font-family: var(--label) !important;
+}
+
+@keyframes demo-flash {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-mark { animation: none !important; }
+}
+
+.site-nav-end {
+  display: flex;
+  align-items: center;
+  gap: 14px 22px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.profile-mark {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--navy);
+  text-decoration: none !important;
+  border: 2px solid var(--gold) !important;
+  padding: 0 !important;
+  flex: 0 0 auto;
+  line-height: 0;
+}
+
+.profile-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.profile-mark:hover,
+.profile-mark:focus-visible {
+  border-color: var(--white) !important;
+  outline: none;
+}
+
+.profile-mark[aria-current="page"] {
+  border-color: var(--white) !important;
+}

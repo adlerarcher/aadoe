@@ -1,4 +1,4 @@
-# Deploys the Vite build to GitHub Pages on every push to main.
+# Deploys the full site (hub + nested apps) to GitHub Pages on push to main.
 # One-time setup in the repo: Settings -> Pages -> Source: "GitHub Actions".
 name: Deploy to GitHub Pages
 
@@ -25,8 +25,22 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
-      - run: npm run build
+      - name: Install hub
+        run: npm ci
+      - name: Install nested SPAs
+        run: |
+          npm ci --prefix apps/mdev
+          npm ci --prefix apps/guide
+      - name: Build all (hub + nested)
+        run: npm run build
+      - name: Verify nested apps in dist
+        run: |
+          set -e
+          for d in sepi gpcp gpic odev mdev guide; do
+            test -d "dist/$d" || { echo "missing dist/$d"; exit 1; }
+            echo "ok dist/$d"
+          done
+          ls -la dist
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
