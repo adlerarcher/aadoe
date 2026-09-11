@@ -10,8 +10,8 @@ Each card opens that product's landing page. Role pickers live on the product si
 
 | Hub card | CTA | Lands on |
 |---|---|---|
-| **SEPI** | Open | `/sepi/` |
-| **GPCP** | Open | `/gpcp/` |
+| **SEPI** | Enter | `/sepi/` |
+| **GPCP** | Enter | `/gpcp/` |
 | **Research and translation** | Field guide · Hackathons | `/guide/` · `/gpic/` |
 
 ## Layout

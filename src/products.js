@@ -15,7 +15,7 @@ export const PRODUCTS = [
     fullName: 'Subsurface Energy Permitting Index',
     mark: 'SEPI',
     href: '/sepi/',
-    enterLabel: 'Open',
+    enterLabel: 'Enter',
     blurb:
       'The permitting database. DOE index of the federal and state systems that hold subsurface energy authorizations: a lease serial, a well, a water right, a consultation, each in its home agency.',
   },
@@ -26,7 +26,7 @@ export const PRODUCTS = [
     fullName: 'Geothermal Permitting Coordination Platform',
     mark: 'GPCP',
     href: '/gpcp/',
-    enterLabel: 'Open',
+    enterLabel: 'Enter',
     blurb:
       'The coordination dashboard. For a specified geothermal project: applicable reviews, the responsible agency for each, the dependencies among them, and an estimated duration of the sequence. Built on the SEPI index.',
   },
@@ -41,13 +41,13 @@ export const PRODUCTS = [
       {
         id: 'guide',
         label: 'Field guide',
-        hint: 'Open',
+        hint: 'Enter',
         href: '/guide/',
       },
       {
         id: 'hackathons',
         label: 'Hackathons',
-        hint: 'Open',
+        hint: 'Enter',
         href: '/gpic/',
       },
     ],

@@ -57,7 +57,7 @@ function ProductPanel({ product, delayClass }) {
       : [
           {
             id: product.id,
-            label: product.enterLabel || 'Open',
+            label: product.enterLabel || 'Enter',
             hint: product.enterHint,
             href: product.href,
           },
