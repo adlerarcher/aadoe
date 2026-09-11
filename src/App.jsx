@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { PRODUCTS, SECONDARY, entryUrl } from './products.js'
+import { PRODUCTS, RESEARCH, entryUrl } from './products.js'
 
 const MOSAIC = [
   { src: '/mosaic-1.jpg', className: 'tile wide' },
@@ -45,7 +45,7 @@ function LogoShell() {
       <span className="logo-spark logo-spark--2" aria-hidden="true" />
       <span className="logo-spark logo-spark--3" aria-hidden="true" />
       <span className="logo-spark logo-spark--4" aria-hidden="true" />
-      <img src="/logo.png" width="256" height="256" alt="Thermal Underground" />
+      <img src="/logo.png" width="256" height="256" alt="" />
     </div>
   )
 }
@@ -75,7 +75,7 @@ function ProductPanel({ product, delayClass }) {
           ))}
         </div>
       ) : (
-        <div className="role-row role-row--single" role="group" aria-label={`Enter ${product.name}`}>
+        <div className="role-row role-row--single" role="group" aria-label={`Open ${product.name}`}>
           <a className="role-enter" href={product.href}>
             <span className="role-label">{product.enterLabel || 'Enter'}</span>
             <span className="role-hint">Go</span>
@@ -140,14 +140,14 @@ export default function App() {
       <main className="hub">
         <div className="intro">
           <LogoShell />
-          <p className="kicker rise d2">Databases · Dashboards</p>
           <h1>
-            <span className="title-line rise d3">Thermal Underground</span>
-            <span className="title-accent rise d4">Databases and dashboards</span>
+            <span className="title-line rise d2">White House</span>
+            <span className="title-accent rise d3">Presidential Innovation Initiatives</span>
+            <span className="title-place rise d4">at the Department of Energy</span>
           </h1>
           <span className="rule rise d5" aria-hidden="true" />
           <p className="lede rise d5">
-            The permitting database and the coordination dashboard. Enter SEPI or GPCP as the role you hold.
+            Authorizations for geothermal and other subsurface energy sit across federal, state, and local systems. These initiatives make those records usable for coordination and carry the findings into the field.
           </p>
         </div>
 
@@ -161,21 +161,17 @@ export default function App() {
           ))}
         </div>
 
-        <section className="secondary rise d9" aria-labelledby="more-heading">
-          <p className="secondary-kicker" id="more-heading">More on Thermal Underground</p>
-          <ul className="secondary-list">
-            {SECONDARY.map((item) => (
-              <li key={item.id}>
-                <a href={item.href}>
-                  <span className="sec-mark">{item.mark}</span>
-                  <span className="sec-copy">
-                    <span className="sec-label">{item.label}</span>
-                    <span className="sec-note">{item.note}</span>
-                  </span>
-                </a>
-              </li>
+        <section className="research rise d8" aria-labelledby="research-heading">
+          <p className="research-kicker" id="research-heading">Research and translation</p>
+          <div className="products">
+            {RESEARCH.map((product, i) => (
+              <ProductPanel
+                key={product.id}
+                product={product}
+                delayClass={`d${9 + i}`}
+              />
             ))}
-          </ul>
+          </div>
         </section>
       </main>
 

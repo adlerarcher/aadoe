@@ -1,6 +1,6 @@
-# Databases and dashboards
+# Presidential Innovation Initiatives at DOE
 
-Hub for The Thermal Underground: the permitting database (SEPI) and the coordination dashboard (GPCP), with role-based entry. Nested apps live on the same origin.
+Hub for White House Presidential Innovation Initiatives at the Department of Energy: the permitting database (SEPI), the coordination dashboard (GPCP), and research and translation (field guide, hackathons). Nested apps live on the same origin.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 
@@ -11,7 +11,7 @@ Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 | **SEPI** | System user · System owner | `/sepi/records/` |
 | **GPCP** | Applicant · Reviewer | `/gpcp/gpcp/` |
 
-Secondary: `/guide/`, `/gpic/`, `/odev/`, `/mdev/`.
+Research and translation: `/guide/` (field guide), `/gpic/` (hackathons with CEQ PIC and PNNL).
 
 ## Role mapping
 
@@ -34,10 +34,10 @@ Deep links pass both `role=` (hub contract) and `as=` (what each target already 
 ```
 public/sepi/     static SEPI site
 public/gpcp/     static GPCP site (dashboard at /gpcp/gpcp/)
-public/gpic/     static GPIC site
+public/gpic/     static hackathons site
 public/odev/     static ODEV site (paths rooted at /odev/)
-apps/mdev/       Vite SPA → dist/mdev (base /mdev/)
 apps/guide/      Vite SPA → dist/guide (base /guide/)
+apps/mdev/       Vite SPA → dist/mdev (base /mdev/)
 ```
 
 `npm run build` builds the hub, builds nested SPAs, and fails if any required nested folder is missing from `dist/`.

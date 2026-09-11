@@ -4,6 +4,10 @@
  * SEPI = permitting database (Subsurface Energy Permitting Index)
  * GPCP = coordination dashboard (Geothermal Permitting Coordination Platform)
  *
+ * Research and translation:
+ * - Field guide at /guide/
+ * - Hackathons at /gpic/ (CEQ PIC and PNNL)
+ *
  * All apps are nested same-origin under this site (aadoe).
  *
  * Role query params:
@@ -23,7 +27,8 @@ export const PRODUCTS = [
     mark: 'SEPI',
     path: '/sepi/',
     base: '/sepi/records/',
-    blurb: 'Permitting database. Enter as system user or system owner.',
+    blurb:
+      'The permitting database. DOE index of the federal and state systems that hold subsurface energy authorizations: a lease serial, a well, a water right, a consultation, each in its home agency. System user or system owner.',
     roles: [
       {
         id: 'user',
@@ -47,7 +52,8 @@ export const PRODUCTS = [
     mark: 'GPCP',
     path: '/gpcp/',
     base: '/gpcp/gpcp/',
-    blurb: 'Coordination dashboard. Enter as applicant or reviewer.',
+    blurb:
+      'The coordination dashboard. For a specified geothermal project: applicable reviews, the responsible agency for each, the dependencies among them, and an estimated duration of the sequence. Built on the SEPI index. Applicant or reviewer.',
     roles: [
       {
         id: 'applicant',
@@ -65,34 +71,26 @@ export const PRODUCTS = [
   },
 ]
 
-export const SECONDARY = [
+export const RESEARCH = [
   {
     id: 'guide',
-    label: 'Field guide',
-    mark: 'TU',
+    code: 'Guide',
+    name: 'Field guide',
+    fullName: 'Geothermal field guide',
     href: '/guide/',
-    note: '/guide/',
+    blurb:
+      'Primer, permitting, workforce, drilling, and projects. Written for people doing the work.',
+    enterLabel: 'Open the field guide',
   },
   {
-    id: 'gpic',
-    label: 'GPIC',
-    mark: 'GPIC',
+    id: 'hackathons',
+    code: 'CEQ PIC · PNNL',
+    name: 'Hackathons',
+    fullName: 'CEQ PIC and PNNL',
     href: '/gpic/',
-    note: 'Programs · community · resources',
-  },
-  {
-    id: 'odev',
-    label: 'Organization Development',
-    mark: 'ODEV',
-    href: '/odev/',
-    note: 'Cycle · model · groups',
-  },
-  {
-    id: 'mdev',
-    label: 'Market Development',
-    mark: 'MDEV',
-    href: '/mdev/',
-    note: 'Country markets · deals · policy',
+    blurb:
+      'Hackathons in partnership with the Council on Environmental Quality Presidential Innovation Fellows and Pacific Northwest National Laboratory. Timed builds on permitting data and coordination.',
+    enterLabel: 'Open hackathons',
   },
 ]
 
