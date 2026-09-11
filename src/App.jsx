@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { PRODUCTS, entryUrl } from './products.js'
+import { PRODUCTS } from './products.js'
 
 const MOSAIC = [
   { src: '/mosaic-1.jpg', className: 'tile wide' },
@@ -51,8 +51,17 @@ function LogoShell() {
 }
 
 function ProductPanel({ product, delayClass }) {
-  const hasRoles = Array.isArray(product.roles) && product.roles.length > 0
-  const hasLinks = Array.isArray(product.links) && product.links.length > 0
+  const links =
+    Array.isArray(product.links) && product.links.length > 0
+      ? product.links
+      : [
+          {
+            id: product.id,
+            label: product.enterLabel || 'Open',
+            hint: product.enterHint,
+            href: product.href,
+          },
+        ]
 
   return (
     <section className={`product rise ${delayClass}`} aria-labelledby={`product-${product.id}`}>
@@ -62,40 +71,18 @@ function ProductPanel({ product, delayClass }) {
         <p className="product-full">{product.fullName}</p>
         <p className="product-blurb">{product.blurb}</p>
       </div>
-      {hasRoles ? (
-        <div className="role-row" role="group" aria-label={`Enter ${product.name}`}>
-          {product.roles.map((role) => (
-            <a
-              key={role.id}
-              className="role-enter"
-              href={entryUrl(product, role)}
-            >
-              <span className="role-label">{role.label}</span>
-              <span className="role-hint">Enter</span>
-            </a>
-          ))}
-        </div>
-      ) : hasLinks ? (
-        <div className="role-row" role="group" aria-label={product.name}>
-          {product.links.map((link) => (
-            <a
-              key={link.id}
-              className="role-enter"
-              href={link.href}
-            >
-              <span className="role-label">{link.label}</span>
-              <span className="role-hint">{link.hint}</span>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div className="role-row role-row--single" role="group" aria-label={`Open ${product.name}`}>
-          <a className="role-enter" href={product.href}>
-            <span className="role-label">{product.enterLabel || 'Enter'}</span>
-            <span className="role-hint">Go</span>
+      <div
+        className={`entry-row${links.length === 1 ? ' entry-row--single' : ''}`}
+        role="group"
+        aria-label={product.name}
+      >
+        {links.map((link) => (
+          <a key={link.id} className="entry-link" href={link.href}>
+            <span className="entry-label">{link.label}</span>
+            {link.hint ? <span className="entry-hint">{link.hint}</span> : null}
           </a>
-        </div>
-      )}
+        ))}
+      </div>
     </section>
   )
 }

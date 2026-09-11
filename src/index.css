@@ -472,18 +472,18 @@ h1 {
   color: rgba(255, 255, 255, .9);
 }
 
-.role-row {
+.entry-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   width: 100%;
 }
 
-.role-row--single {
+.entry-row--single {
   grid-template-columns: 1fr;
 }
 
-.role-enter {
+.entry-link {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -499,7 +499,7 @@ h1 {
   animation: enter-pulse 2.4s ease-in-out infinite;
 }
 
-.role-enter:hover {
+.entry-link:hover {
   animation: none;
   background: #1f9d55;
   border-color: #1f9d55;
@@ -507,7 +507,7 @@ h1 {
   transform: translateY(-2px);
 }
 
-.role-label {
+.entry-label {
   font-family: var(--label);
   font-size: 12px;
   font-weight: 700;
@@ -515,7 +515,7 @@ h1 {
   text-transform: uppercase;
 }
 
-.role-hint {
+.entry-hint {
   font-family: var(--body);
   font-size: 13px;
   opacity: .78;
@@ -686,7 +686,7 @@ h1 {
 }
 
 @media (max-width: 560px) {
-  .role-row { grid-template-columns: 1fr; }
+  .entry-row { grid-template-columns: 1fr; }
   .brand-name { font-size: 15px; }
   .tile:nth-child(n+5) { display: none; }
   h1 { font-size: 1.85rem; width: 100%; }

@@ -6,28 +6,13 @@ Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 
 ## Entries
 
-| Hub label | Role | Lands on |
+Each card opens that product's landing page. Role pickers live on the product sites, not on this hub.
+
+| Hub card | CTA | Lands on |
 |---|---|---|
-| **SEPI** | System user · System owner | `/sepi/records/` |
-| **GPCP** | Applicant · Reviewer | `/gpcp/gpcp/` |
-
-Research and translation (box 3): Field guide `/guide/`, Hackathons `/gpic/` (CEQ PIC and PNNL).
-
-## Role mapping
-
-Deep links pass both `role=` (hub contract) and `as=` (what each target already reads):
-
-| Hub role | URL params | Lands on |
-|---|---|---|
-| System user | `?role=user&as=user` | `/sepi/records/` |
-| System owner | `?role=owner&as=admin` | `/sepi/records/` |
-| Applicant | `?role=applicant&as=applicant` | `/gpcp/gpcp/` |
-| Reviewer | `?role=reviewer&as=reviewer` | `/gpcp/gpcp/` |
-
-### What targets support today
-
-- **SEPI** reads `?as=user|admin` in `session-user.js`. Owner maps to `admin` until SEPI adds an `owner` alias.
-- **GPCP** reads `?as=applicant|reviewer` in `session-user.js`.
+| **SEPI** | Open | `/sepi/` |
+| **GPCP** | Open | `/gpcp/` |
+| **Research and translation** | Field guide · Hackathons | `/guide/` · `/gpic/` |
 
 ## Layout
 
