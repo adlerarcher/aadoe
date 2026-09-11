@@ -1,27 +1,28 @@
 /**
  * AADOE product map.
  *
- * Index  = SEPI (Subsurface Energy Permitting Index)
- * Permitting coordination = GPCP (Geothermal Permitting Coordination Platform)
+ * Permitting database = SEPI (Subsurface Energy Permitting Index)
+ * Dashboard = GPCP (Geothermal Permitting Coordination Platform)
+ * Discovery & innovation delivery = GPIC
  *
  * Role query params:
- * - SEPI already reads `?as=user|admin` (session-user.js).
+ * - SEPI reads `?as=user|admin` (session-user.js).
  *   Hub labels: System user → as=user; System owner → as=admin.
  *   Also passes `?role=user|owner` for future SEPI support of "owner" naming.
- * - GPCP already reads `?as=applicant|reviewer`.
+ * - GPCP reads `?as=applicant|reviewer`.
  *   Also passes `?role=applicant|reviewer`.
  */
 
 export const PRODUCTS = [
   {
-    id: 'index',
+    id: 'database',
     code: '01',
-    name: 'Index',
+    name: 'Permitting database',
     fullName: 'Subsurface Energy Permitting Index',
     mark: 'SEPI',
     host: 'sepi.thermalunderground.org',
     base: 'https://sepi.thermalunderground.org/records/',
-    blurb: 'Agency systems of record, coordinated once. Coordinating platforms read from here.',
+    blurb: 'Agency systems of record, indexed for reuse. Dashboards and coordination tools read from here.',
     roles: [
       {
         id: 'user',
@@ -38,14 +39,14 @@ export const PRODUCTS = [
     ],
   },
   {
-    id: 'permitting',
+    id: 'dashboard',
     code: '02',
-    name: 'Permitting coordination',
+    name: 'Dashboard',
     fullName: 'Geothermal Permitting Coordination Platform',
     mark: 'GPCP',
     host: 'gpcp.thermalunderground.org',
     base: 'https://gpcp.thermalunderground.org/gpcp/',
-    blurb: 'For a geothermal project: what applies, who runs each review, what waits on what, and how long it takes.',
+    blurb: 'Project coordination: what applies, who runs each review, what waits on what, and how long it takes.',
     roles: [
       {
         id: 'applicant',
@@ -61,6 +62,17 @@ export const PRODUCTS = [
       },
     ],
   },
+  {
+    id: 'discovery',
+    code: '03',
+    name: 'Discovery & innovation',
+    fullName: 'Geothermal Permitting Innovation Collaborative',
+    mark: 'GPIC',
+    host: 'gpic.thermalunderground.org',
+    href: 'https://gpic.thermalunderground.org/',
+    blurb: 'Programs, community, and resources that deliver the next round of permitting practice.',
+    enterLabel: 'Open GPIC',
+  },
 ]
 
 export const SECONDARY = [
@@ -70,13 +82,6 @@ export const SECONDARY = [
     mark: 'TU',
     href: 'https://thermalunderground.org/',
     note: 'thermalunderground.org',
-  },
-  {
-    id: 'gpic',
-    label: 'Innovation Collaborative',
-    mark: 'GPIC',
-    href: 'https://gpic.thermalunderground.org/',
-    note: 'Community · programs · resources',
   },
   {
     id: 'odev',

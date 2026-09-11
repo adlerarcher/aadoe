@@ -1,17 +1,18 @@
 # AADOE
 
-Adler DOE project dashboard for [The Thermal Underground](https://thermalunderground.org). One public front door for Index and Permitting coordination, with role-based entry.
+Adler DOE hub for [The Thermal Underground](https://thermalunderground.org): permitting database, coordination dashboards, and innovation delivery, with role-based entry.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 
 ## Products
 
-| Hub label | Target | Roles |
+| Hub label | Target | Roles / entry |
 |---|---|---|
-| **Index** | [SEPI](https://sepi.thermalunderground.org/) | System user · System owner |
-| **Permitting coordination** | [GPCP](https://gpcp.thermalunderground.org/) | Applicant · Reviewer |
+| **Permitting database** | [SEPI](https://sepi.thermalunderground.org/) | System user · System owner |
+| **Dashboard** | [GPCP](https://gpcp.thermalunderground.org/) | Applicant · Reviewer |
+| **Discovery & innovation** | [GPIC](https://gpic.thermalunderground.org/) | Open GPIC |
 
-Secondary links keep the rest of the estate reachable: Field guide, GPIC, ODEV, MDEV.
+Secondary links: Field guide, ODEV, MDEV.
 
 ## Role mapping
 
@@ -60,12 +61,10 @@ GitHub Pages custom domain: `aadoe.thermalunderground.org` with Enforce HTTPS. `
 
 ## Redirect candidates
 
-Once Adler points people at AADOE first, these CNAMEs can redirect into hub entry points:
-
 | Host | Suggested redirect |
 |---|---|
 | `sepi.thermalunderground.org` home | stay as product; hub links with roles |
 | `gpcp.thermalunderground.org` home | stay as product; hub links with roles |
-| Optional apex marketing | `thermalunderground.org` can link to AADOE as “Enter products” |
+| Optional apex marketing | `thermalunderground.org` can link to AADOE as product entry |
 
-Keep SEPI and GPCP hosts live for deep links and connectors. Use AADOE as the public chooser so fewer people need to remember subdomains.
+Keep SEPI, GPCP, and GPIC hosts live for deep links and connectors. Point people at AADOE for database, dashboard, and discovery entry.

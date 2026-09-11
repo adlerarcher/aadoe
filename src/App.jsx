@@ -51,6 +51,8 @@ function LogoShell() {
 }
 
 function ProductPanel({ product, delayClass }) {
+  const hasRoles = Array.isArray(product.roles) && product.roles.length > 0
+
   return (
     <section className={`product rise ${delayClass}`} aria-labelledby={`product-${product.id}`}>
       <div className="product-head">
@@ -59,18 +61,27 @@ function ProductPanel({ product, delayClass }) {
         <p className="product-full">{product.fullName}</p>
         <p className="product-blurb">{product.blurb}</p>
       </div>
-      <div className="role-row" role="group" aria-label={`Enter ${product.name}`}>
-        {product.roles.map((role) => (
-          <a
-            key={role.id}
-            className="role-enter"
-            href={entryUrl(product, role)}
-          >
-            <span className="role-label">{role.label}</span>
-            <span className="role-hint">Enter</span>
+      {hasRoles ? (
+        <div className="role-row" role="group" aria-label={`Enter ${product.name}`}>
+          {product.roles.map((role) => (
+            <a
+              key={role.id}
+              className="role-enter"
+              href={entryUrl(product, role)}
+            >
+              <span className="role-label">{role.label}</span>
+              <span className="role-hint">Enter</span>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div className="role-row role-row--single" role="group" aria-label={`Enter ${product.name}`}>
+          <a className="role-enter" href={product.href}>
+            <span className="role-label">{product.enterLabel || 'Enter'}</span>
+            <span className="role-hint">Go</span>
           </a>
-        ))}
-      </div>
+        </div>
+      )}
     </section>
   )
 }
@@ -129,14 +140,14 @@ export default function App() {
       <main className="hub">
         <div className="intro">
           <LogoShell />
-          <p className="kicker rise d2">Adler · DOE project dashboard</p>
+          <p className="kicker rise d2">Database · Dashboards · Discovery</p>
           <h1>
             <span className="title-line rise d3">Thermal Underground</span>
             <span className="title-accent rise d4">AADOE</span>
           </h1>
           <span className="rule rise d5" aria-hidden="true" />
           <p className="lede rise d5">
-            One front door. Choose Index or Permitting coordination, then enter in your role.
+            Permitting database, coordination dashboards, and innovation delivery. Enter by product and role.
           </p>
         </div>
 
@@ -145,13 +156,13 @@ export default function App() {
             <ProductPanel
               key={product.id}
               product={product}
-              delayClass={i === 0 ? 'd6' : 'd7'}
+              delayClass={`d${6 + i}`}
             />
           ))}
         </div>
 
-        <section className="secondary rise d8" aria-labelledby="more-heading">
-          <p className="secondary-kicker" id="more-heading">Also on Thermal Underground</p>
+        <section className="secondary rise d9" aria-labelledby="more-heading">
+          <p className="secondary-kicker" id="more-heading">More on Thermal Underground</p>
           <ul className="secondary-list">
             {SECONDARY.map((item) => (
               <li key={item.id}>
