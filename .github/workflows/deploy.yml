@@ -40,7 +40,12 @@ jobs:
             test -d "dist/$d" || { echo "missing dist/$d"; exit 1; }
             echo "ok dist/$d"
           done
-          ls -la dist
+          # Nested odev pages must ship as real files (Pages 404.html must not be the only hit)
+          for f in dist/odev/index.html dist/odev/resources/index.html dist/odev/programs/index.html; do
+            test -f "$f" || { echo "missing $f"; exit 1; }
+            echo "ok $f"
+          done
+          ls -la dist dist/odev
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
