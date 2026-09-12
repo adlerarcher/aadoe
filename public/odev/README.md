@@ -2,9 +2,11 @@
 
 Office of Geothermal Organizational Development. Companion to [The Thermal Underground](https://thermalunderground.org).
 
+This site is Organizational Development. SWG is IT Strategy Management.
+
 Live: [odev.thermalunderground.org](https://odev.thermalunderground.org)
 
-Source outline: `source/OG-Strategy-Management-2026.pptx` (Commercial Scale-Up redesign, 2026 strategy cycle, operating model, SWGs and initiatives).
+Source outline: `source/OG-Strategy-Management-2026.pptx` (filename is historical; the site is Organizational Development).
 
 ## Serve this site
 
@@ -25,7 +27,7 @@ Opens at `http://localhost:5176`.
 - `/programs/support/` Program Support (HR, Ops, Finance, Communications)
 - `/cycle/` Six-stage strategy cycle (infographic)
 - `/model/` Operating model (infographic)
-- `/groups/` Strategy Working Groups and Strategic Initiatives
+- `/groups/` Strategy Working Groups and Strategic Initiatives. SWG is IT Strategy Management, not the site name.
 
 ## Deploy
 
