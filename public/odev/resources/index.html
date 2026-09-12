@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../styles.css?v=3">
 </head>
 <body class="inner">
 <header class="mast">
@@ -39,7 +39,7 @@
     <div class="mast-copy">
       <p class="kicker">Reference library</p>
       <h1>Planning and project tools</h1>
-      <p class="lede">Twelve standard methods used in strategic planning and project management. Open an entry for the diagram, purpose, and typical use.</p>
+      <p class="lede">Eleven standard methods used in strategic planning and project management. Open an entry for the diagram, purpose, and typical use.</p>
     </div>
   </div>
 </header>
@@ -48,23 +48,25 @@
   <section class="section" style="padding-top:40px">
     <div class="section-intro">
       <p class="kicker">Catalog</p>
-      <h2>Twelve methods</h2>
+      <h2>Eleven methods</h2>
       <p>Strategy analysis, performance framing, and delivery control. Use with Strategy Working Groups and Strategic Initiatives as appropriate. Entries are closed until selected.</p>
     </div>
 
-    <nav class="tool-toc" aria-label="Tool index">
-      <a href="#porters">01 Porter</a>
-      <a href="#swot">02 SWOT</a>
-      <a href="#pestle">03 PESTLE</a>
-      <a href="#value-chain">04 Value chain</a>
-      <a href="#scorecard">05 Scorecard</a>
-      <a href="#okrs">06 OKRs</a>
-      <a href="#raci">07 RACI</a>
-      <a href="#stakeholders">08 Stakeholders</a>
-      <a href="#risk">09 Risk</a>
-      <a href="#wbs">10 WBS</a>
-      <a href="#cpm">11 Critical path</a>
-      <a href="#moscow">12 MoSCoW</a>
+    <nav class="tool-index" aria-label="Method index">
+      <p class="tool-index-head">Index <span>Select an entry to open it</span></p>
+      <div class="tool-index-grid">
+        <a class="tool-chip" href="#porters"><span class="chip-num">01</span><span class="chip-name">Porter's Five Forces</span><span class="chip-tag">Strategy</span></a>
+        <a class="tool-chip" href="#swot"><span class="chip-num">02</span><span class="chip-name">SWOT Analysis</span><span class="chip-tag">Strategy</span></a>
+        <a class="tool-chip" href="#pestle"><span class="chip-num">03</span><span class="chip-name">PESTLE</span><span class="chip-tag">Strategy</span></a>
+        <a class="tool-chip" href="#value-chain"><span class="chip-num">04</span><span class="chip-name">Value Chain Analysis</span><span class="chip-tag">Strategy</span></a>
+        <a class="tool-chip" href="#scorecard"><span class="chip-num">05</span><span class="chip-name">Balanced Scorecard</span><span class="chip-tag">Performance</span></a>
+        <a class="tool-chip" href="#okrs"><span class="chip-num">06</span><span class="chip-name">OKRs and KPIs</span><span class="chip-tag">Performance</span></a>
+        <a class="tool-chip" href="#raci"><span class="chip-num">07</span><span class="chip-name">RACI Matrix</span><span class="chip-tag">Delivery</span></a>
+        <a class="tool-chip" href="#stakeholders"><span class="chip-num">08</span><span class="chip-name">Stakeholder Map</span><span class="chip-tag">Delivery</span></a>
+        <a class="tool-chip" href="#risk"><span class="chip-num">09</span><span class="chip-name">Risk Matrix</span><span class="chip-tag">Delivery</span></a>
+        <a class="tool-chip" href="#wbs"><span class="chip-num">10</span><span class="chip-name">WBS and Gantt</span><span class="chip-tag">Delivery</span></a>
+        <a class="tool-chip" href="#cpm"><span class="chip-num">11</span><span class="chip-name">Critical Path Method</span><span class="chip-tag">Delivery</span></a>
+      </div>
     </nav>
 
     <div class="tool-list">
@@ -76,19 +78,38 @@
           <p class="tool-one">Industry structure across five competitive forces.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram diagram-draw">
-              <rect class="node-pulse" x="55" y="48" width="50" height="24" rx="1" fill="rgba(245,184,25,.12)" stroke="#F5B819" stroke-width="1.5"/>
-              <text x="80" y="63" text-anchor="middle" fill="#F5B819" font-size="8" font-family="Space Mono, monospace">FIRM</text>
-              <text x="80" y="18" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">RIVALRY</text>
-              <text x="80" y="112" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">BUYERS</text>
-              <text x="22" y="64" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">SUPPLIERS</text>
-              <text x="138" y="52" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">NEW</text>
-              <text x="138" y="62" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">ENTRANTS</text>
-              <text x="28" y="100" text-anchor="middle" fill="rgba(244,242,234,.75)" font-size="7" font-family="Space Mono, monospace">SUBSTITUTES</text>
-              <path d="M80 28v18M80 74v18M48 60H28M112 60h20M48 72L36 92" fill="none" stroke="rgba(245,184,25,.55)" stroke-width="1.2"/>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">FIVE FORCES ON INDUSTRY STRUCTURE</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:1"><rect class="bx" x="140" y="32" width="140" height="40"/></g>
+                <g class="dg-rise" style="--d:2"><rect class="bx" x="8" y="120" width="110" height="40"/></g>
+                <g class="dg-rise" style="--d:3"><rect class="bx" x="302" y="120" width="110" height="40"/></g>
+                <g class="dg-rise" style="--d:4"><rect class="bx" x="140" y="200" width="140" height="40"/></g>
+                <g class="dg-rise" style="--d:0"><rect class="bx-key" x="155" y="112" width="110" height="56"/></g>
+                <circle class="dg-halo" cx="210" cy="140" r="46" fill="none" stroke="rgba(245,184,25,.5)" stroke-width="1"/>
+                <path class="ln dg-draw" pathLength="1" style="--d:5" d="M210 72V99M210 200V181M118 140H140M302 140H280"/>
+                <g class="arrow dg-fade" style="--d:6">
+                  <polygon points="210,110 204,99 216,99"/>
+                  <polygon points="210,170 204,181 216,181"/>
+                  <polygon points="151,140 140,134 140,146"/>
+                  <polygon points="269,140 280,134 280,146"/>
+                </g>
+                <g class="dg-fade" style="--d:1">
+                  <text class="dg-t" x="210" y="56" text-anchor="middle">NEW ENTRANTS</text>
+                  <text class="dg-t" x="63" y="144" text-anchor="middle">SUPPLIER POWER</text>
+                  <text class="dg-t" x="357" y="144" text-anchor="middle">BUYER POWER</text>
+                  <text class="dg-t" x="210" y="224" text-anchor="middle">SUBSTITUTES</text>
+                </g>
+                <g class="dg-fade" style="--d:0">
+                  <text class="dg-k" x="210" y="135" text-anchor="middle">COMPETITIVE</text>
+                  <text class="dg-k" x="210" y="152" text-anchor="middle">RIVALRY</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>Figure 01. Four external forces bearing on competitive rivalry.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Industry structure analysis across rivalry, supplier power, buyer power, threat of new entrants, and threat of substitutes. Used to judge competitive pressure and where strategy must defend or advance.</p>
             <ul>
@@ -107,18 +128,32 @@
           <p class="tool-one">Internal and external factors in four quadrants.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <rect class="quad-fill" x="8" y="8" width="70" height="50" fill="rgba(245,184,25,.1)" stroke="rgba(245,184,25,.45)" stroke-width="1"/>
-              <rect class="quad-fill" x="82" y="8" width="70" height="50" fill="rgba(245,184,25,.04)" stroke="rgba(245,184,25,.45)" stroke-width="1" style="animation-delay:.15s"/>
-              <rect class="quad-fill" x="8" y="62" width="70" height="50" fill="rgba(245,184,25,.04)" stroke="rgba(245,184,25,.45)" stroke-width="1" style="animation-delay:.3s"/>
-              <rect class="quad-fill" x="82" y="62" width="70" height="50" fill="rgba(245,184,25,.1)" stroke="rgba(245,184,25,.45)" stroke-width="1" style="animation-delay:.45s"/>
-              <text x="43" y="36" text-anchor="middle" fill="#F5B819" font-size="11" font-family="Fraunces, serif">S</text>
-              <text x="117" y="36" text-anchor="middle" fill="#F5B819" font-size="11" font-family="Fraunces, serif">W</text>
-              <text x="43" y="90" text-anchor="middle" fill="#F5B819" font-size="11" font-family="Fraunces, serif">O</text>
-              <text x="117" y="90" text-anchor="middle" fill="#F5B819" font-size="11" font-family="Fraunces, serif">T</text>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">INTERNAL AND EXTERNAL FACTORS</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g>
+                  <rect class="dg-tint" style="--d:0" x="44" y="46" width="184" height="102" fill="rgba(245,184,25,.14)"/>
+                  <rect class="dg-tint" style="--d:2" x="228" y="46" width="184" height="102" fill="rgba(245,184,25,.06)"/>
+                  <rect class="dg-tint" style="--d:4" x="44" y="148" width="184" height="102" fill="rgba(245,184,25,.10)"/>
+                  <rect class="dg-tint" style="--d:6" x="228" y="148" width="184" height="102" fill="rgba(245,184,25,.05)"/>
+                </g>
+                <path class="ln dg-draw" pathLength="1" style="--d:1" d="M44 46H412V250H44ZM228 46V250M44 148H412"/>
+                <g class="dg-fade" style="--d:2">
+                  <text class="dg-a" x="136" y="38" text-anchor="middle">HELPFUL</text>
+                  <text class="dg-a" x="320" y="38" text-anchor="middle">HARMFUL</text>
+                  <text class="dg-a" x="18" y="97" text-anchor="middle" transform="rotate(-90 18 97)">INTERNAL</text>
+                  <text class="dg-a" x="18" y="199" text-anchor="middle" transform="rotate(-90 18 199)">EXTERNAL</text>
+                </g>
+                <g class="dg-rise" style="--d:0"><text class="dg-big" x="70" y="108">S</text><text class="dg-t" x="104" y="104">STRENGTHS</text></g>
+                <g class="dg-rise" style="--d:2"><text class="dg-big" x="254" y="108">W</text><text class="dg-t" x="290" y="104">WEAKNESSES</text></g>
+                <g class="dg-rise" style="--d:4"><text class="dg-big" x="70" y="210">O</text><text class="dg-t" x="104" y="206">OPPORTUNITIES</text></g>
+                <g class="dg-rise" style="--d:6"><text class="dg-big" x="254" y="210">T</text><text class="dg-t" x="290" y="206">THREATS</text></g>
+              </svg>
+            </div>
+            <figcaption>Figure 02. Four quadrants formed by origin and effect.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Organizes internal strengths and weaknesses against external opportunities and threats. Provides a shared baseline before choosing initiatives or portfolio adjustments.</p>
             <ul>
@@ -137,19 +172,28 @@
           <p class="tool-one">External scan across six operating conditions.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <g class="ring-spin" transform="translate(80 60)">
-                <circle r="42" fill="none" stroke="rgba(245,184,25,.25)" stroke-width="1"/>
-                <circle r="28" fill="none" stroke="rgba(245,184,25,.4)" stroke-width="1.2"/>
-                <circle r="4" fill="#F5B819"/>
-                <g fill="rgba(244,242,234,.8)" font-size="7" font-family="Space Mono, monospace" text-anchor="middle">
-                  <text y="-46">P</text><text x="40" y="-20">E</text><text x="40" y="24">S</text>
-                  <text y="52">T</text><text x="-40" y="24">L</text><text x="-40" y="-20">E</text>
-                </g>
-              </g>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">EXTERNAL CONDITIONS SCAN</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:0"><rect class="bx" x="8" y="36" width="132" height="104"/></g>
+                <g class="dg-rise" style="--d:1"><rect class="bx" x="144" y="36" width="132" height="104"/></g>
+                <g class="dg-rise" style="--d:2"><rect class="bx" x="280" y="36" width="132" height="104"/></g>
+                <g class="dg-rise" style="--d:3"><rect class="bx" x="8" y="148" width="132" height="104"/></g>
+                <g class="dg-rise" style="--d:4"><rect class="bx" x="144" y="148" width="132" height="104"/></g>
+                <g class="dg-rise" style="--d:5"><rect class="bx" x="280" y="148" width="132" height="104"/></g>
+                <rect class="dg-glow" x="144" y="36" width="132" height="104" fill="rgba(245,184,25,.12)"/>
+                <g class="dg-fade" style="--d:0"><text class="dg-big" x="74" y="92" text-anchor="middle">P</text><rect class="dg-bar" style="--d:0" x="54" y="100" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="74" y="122" text-anchor="middle">POLITICAL</text></g>
+                <g class="dg-fade" style="--d:1"><text class="dg-big" x="210" y="92" text-anchor="middle">E</text><rect class="dg-bar" style="--d:1" x="190" y="100" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="210" y="122" text-anchor="middle">ECONOMIC</text></g>
+                <g class="dg-fade" style="--d:2"><text class="dg-big" x="346" y="92" text-anchor="middle">S</text><rect class="dg-bar" style="--d:2" x="326" y="100" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="346" y="122" text-anchor="middle">SOCIAL</text></g>
+                <g class="dg-fade" style="--d:3"><text class="dg-big" x="74" y="204" text-anchor="middle">T</text><rect class="dg-bar" style="--d:3" x="54" y="212" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="74" y="234" text-anchor="middle">TECHNOLOGICAL</text></g>
+                <g class="dg-fade" style="--d:4"><text class="dg-big" x="210" y="204" text-anchor="middle">L</text><rect class="dg-bar" style="--d:4" x="190" y="212" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="210" y="234" text-anchor="middle">LEGAL</text></g>
+                <g class="dg-fade" style="--d:5"><text class="dg-big" x="346" y="204" text-anchor="middle">E</text><rect class="dg-bar" style="--d:5" x="326" y="212" width="40" height="3" fill="#F5B819"/><text class="dg-t" x="346" y="234" text-anchor="middle">ENVIRONMENTAL</text></g>
+              </svg>
+            </div>
+            <figcaption>Figure 03. Six external condition classes reviewed in sequence.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Scans political, economic, social, technological, legal, and environmental conditions that shape the operating environment. Complements SWOT by focusing on external drivers.</p>
             <ul>
@@ -168,19 +212,44 @@
           <p class="tool-one">Primary and support activities that create or consume value.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram diagram-draw">
-              <rect x="10" y="18" width="140" height="16" fill="rgba(245,184,25,.08)" stroke="rgba(245,184,25,.4)" stroke-width="1"/>
-              <text x="80" y="29" text-anchor="middle" fill="rgba(244,242,234,.7)" font-size="7" font-family="Space Mono, monospace">SUPPORT ACTIVITIES</text>
-              <rect x="10" y="42" width="26" height="50" fill="rgba(245,184,25,.12)" stroke="#F5B819" stroke-width="1"/>
-              <rect x="38" y="42" width="26" height="50" fill="rgba(245,184,25,.1)" stroke="#F5B819" stroke-width="1"/>
-              <rect x="66" y="42" width="26" height="50" fill="rgba(245,184,25,.12)" stroke="#F5B819" stroke-width="1"/>
-              <rect x="94" y="42" width="26" height="50" fill="rgba(245,184,25,.1)" stroke="#F5B819" stroke-width="1"/>
-              <rect x="122" y="42" width="28" height="50" fill="rgba(245,184,25,.14)" stroke="#F5B819" stroke-width="1"/>
-              <path class="flow-dash" d="M10 102h140" fill="none" stroke="#F5B819" stroke-width="2" stroke-dasharray="4 3"/>
-              <text x="80" y="116" text-anchor="middle" fill="rgba(244,242,234,.65)" font-size="7" font-family="Space Mono, monospace">PRIMARY → MARGIN</text>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">PRIMARY AND SUPPORT ACTIVITIES</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:0"><rect class="bx-soft" x="8" y="32" width="404" height="28"/></g>
+                <g class="dg-rise" style="--d:1"><rect class="bx-soft" x="8" y="62" width="404" height="28"/></g>
+                <g class="dg-fade" style="--d:1">
+                  <text class="dg-t" x="210" y="51" text-anchor="middle">FIRM INFRASTRUCTURE AND FINANCE</text>
+                  <text class="dg-t" x="210" y="81" text-anchor="middle">HUMAN RESOURCES · TECHNOLOGY · PROCUREMENT</text>
+                </g>
+                <g class="dg-rise" style="--d:2"><rect class="bx-key" x="6" y="104" width="78" height="86"/></g>
+                <g class="dg-rise" style="--d:3"><rect class="bx-key" x="88" y="104" width="78" height="86"/></g>
+                <g class="dg-rise" style="--d:4"><rect class="bx-key" x="170" y="104" width="78" height="86"/></g>
+                <g class="dg-rise" style="--d:5"><rect class="bx-key" x="252" y="104" width="78" height="86"/></g>
+                <g class="dg-rise" style="--d:6"><rect class="bx-key" x="334" y="104" width="78" height="86"/></g>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-n" x="45" y="128" text-anchor="middle">01</text><text class="dg-t" x="45" y="154" text-anchor="middle">INBOUND</text>
+                  <text class="dg-n" x="127" y="128" text-anchor="middle">02</text><text class="dg-t" x="127" y="154" text-anchor="middle">OPERATIONS</text>
+                  <text class="dg-n" x="209" y="128" text-anchor="middle">03</text><text class="dg-t" x="209" y="154" text-anchor="middle">OUTBOUND</text>
+                  <text class="dg-n" x="291" y="128" text-anchor="middle">04</text><text class="dg-t" x="291" y="154" text-anchor="middle">MARKETING</text>
+                  <text class="dg-n" x="373" y="128" text-anchor="middle">05</text><text class="dg-t" x="373" y="154" text-anchor="middle">SERVICE</text>
+                </g>
+                <g fill="#F5B819">
+                  <rect class="dg-bar" style="--d:0" x="20" y="170" width="50" height="4"/>
+                  <rect class="dg-bar" style="--d:1" x="102" y="170" width="50" height="4"/>
+                  <rect class="dg-bar" style="--d:2" x="184" y="170" width="50" height="4"/>
+                  <rect class="dg-bar" style="--d:3" x="266" y="170" width="50" height="4"/>
+                  <rect class="dg-bar" style="--d:4" x="348" y="170" width="50" height="4"/>
+                </g>
+                <path class="ln dg-draw" pathLength="1" style="--d:7" d="M6 208H378"/>
+                <g class="dg-fade" style="--d:8"><path class="ln-flow dg-flow" d="M6 208H378"/><polygon class="arrow" points="392,208 378,201 378,215"/></g>
+                <text class="dg-k dg-fade" style="--d:8" x="368" y="196" text-anchor="middle">MARGIN</text>
+                <text class="dg-f dg-fade" style="--d:9" x="6" y="234">MARGIN IS WHAT REMAINS AFTER ACTIVITY COST</text>
+              </svg>
+            </div>
+            <figcaption>Figure 04. Support activities above, primary activities in sequence.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Decomposes primary and support activities to locate where value is created, where cost accumulates, and where handoffs fail. Useful for process redesign and partnership design.</p>
             <ul>
@@ -199,22 +268,48 @@
           <p class="tool-one">Strategy measures across four performance perspectives.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <g fill="none" stroke="rgba(245,184,25,.45)" stroke-width="1.2">
-                <rect class="quad-fill" x="12" y="12" width="64" height="44"/>
-                <rect class="quad-fill" x="84" y="12" width="64" height="44" style="animation-delay:.2s"/>
-                <rect class="quad-fill" x="12" y="64" width="64" height="44" style="animation-delay:.4s"/>
-                <rect class="quad-fill" x="84" y="64" width="64" height="44" style="animation-delay:.6s"/>
-              </g>
-              <g fill="#F5B819" font-size="7" font-family="Space Mono, monospace" text-anchor="middle">
-                <text x="44" y="36">FINANCIAL</text>
-                <text x="116" y="36">CUSTOMER</text>
-                <text x="44" y="88">PROCESS</text>
-                <text x="116" y="88">LEARNING</text>
-              </g>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">FOUR PERSPECTIVES ON STRATEGY</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:0"><rect class="bx" x="8" y="32" width="200" height="108"/></g>
+                <g class="dg-rise" style="--d:1"><rect class="bx" x="212" y="32" width="200" height="108"/></g>
+                <g class="dg-rise" style="--d:2"><rect class="bx" x="8" y="144" width="200" height="108"/></g>
+                <g class="dg-rise" style="--d:3"><rect class="bx" x="212" y="144" width="200" height="108"/></g>
+                <g class="dg-fade" style="--d:2">
+                  <text class="dg-k" x="26" y="60">FINANCIAL</text>
+                  <text class="dg-k" x="394" y="60" text-anchor="end">STAKEHOLDER</text>
+                  <text class="dg-k" x="26" y="192">INTERNAL PROCESS</text>
+                  <text class="dg-k" x="394" y="192" text-anchor="end">LEARNING AND GROWTH</text>
+                </g>
+                <g>
+                  <rect class="track" x="26" y="72" width="140" height="9"/>
+                  <rect class="track" x="254" y="72" width="140" height="9"/>
+                  <rect class="track" x="26" y="200" width="140" height="9"/>
+                  <rect class="track" x="254" y="200" width="140" height="9"/>
+                </g>
+                <g fill="#F5B819">
+                  <rect class="dg-bar" style="--d:0" x="26" y="72" width="112" height="9"/>
+                  <rect class="dg-bar" style="--d:1" x="254" y="72" width="90" height="9"/>
+                  <rect class="dg-bar" style="--d:2" x="26" y="200" width="127" height="9"/>
+                  <rect class="dg-bar" style="--d:3" x="254" y="200" width="71" height="9"/>
+                </g>
+                <g class="dg-fade" style="--d:5">
+                  <text class="dg-f" x="26" y="97">COST PER UNIT</text>
+                  <text class="dg-f" x="394" y="97" text-anchor="end">SERVICE LEVEL</text>
+                  <text class="dg-f" x="26" y="225">CYCLE TIME</text>
+                  <text class="dg-f" x="394" y="225" text-anchor="end">STAFF CAPABILITY</text>
+                </g>
+                <circle class="dg-halo" cx="210" cy="142" r="34" fill="none" stroke="rgba(245,184,25,.45)" stroke-width="1"/>
+                <g class="dg-rise" style="--d:6">
+                  <circle cx="210" cy="142" r="34" fill="#061033" stroke="#F5B819" stroke-width="1.6"/>
+                  <text class="dg-hub" x="210" y="146" text-anchor="middle">STRATEGY</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>Figure 05. One measure set per perspective, linked to strategy.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Links strategy to measures across financial, customer or stakeholder, internal process, and learning perspectives. Prevents single-metric management.</p>
             <ul>
@@ -233,16 +328,42 @@
           <p class="tool-one">Period objectives with key results and standing indicators.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram diagram-draw">
-              <text x="16" y="28" fill="#F5B819" font-size="10" font-family="Fraunces, serif">Objective</text>
-              <rect x="16" y="36" width="128" height="14" fill="rgba(245,184,25,.12)" stroke="#F5B819" stroke-width="1"/>
-              <text x="16" y="70" fill="rgba(244,242,234,.7)" font-size="8" font-family="Space Mono, monospace">KEY RESULTS</text>
-              <rect class="bar-grow" x="16" y="78" width="100" height="8" fill="#F5B819" opacity=".85"/>
-              <rect class="bar-grow" x="16" y="92" width="72" height="8" fill="rgba(245,184,25,.55)" style="animation-delay:.25s"/>
-              <rect class="bar-grow" x="16" y="106" width="48" height="8" fill="rgba(245,184,25,.35)" style="animation-delay:.5s"/>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">OBJECTIVE, KEY RESULTS, INDICATORS</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:0"><rect class="bx-key" x="8" y="32" width="404" height="46"/></g>
+                <g class="dg-fade" style="--d:1">
+                  <text class="dg-n" x="22" y="52">OBJECTIVE</text>
+                  <text class="dg-t" x="22" y="68">RAISE PILOT THROUGHPUT WITHIN THE CYCLE</text>
+                </g>
+                <g class="dg-fade" style="--d:2">
+                  <text class="dg-t" x="8" y="92">THREE FIELD TESTS COMPLETED</text>
+                  <text class="dg-t" x="8" y="138">TWO PARTNERS UNDER AGREEMENT</text>
+                  <text class="dg-t" x="8" y="184">CYCLE TIME REDUCED BY A FIFTH</text>
+                </g>
+                <g>
+                  <rect class="track" x="8" y="100" width="344" height="13"/>
+                  <rect class="track" x="8" y="146" width="344" height="13"/>
+                  <rect class="track" x="8" y="192" width="344" height="13"/>
+                </g>
+                <g fill="#F5B819">
+                  <rect class="dg-bar" style="--d:0" x="8" y="100" width="241" height="13"/>
+                  <rect class="dg-bar" style="--d:1" x="8" y="146" width="155" height="13"/>
+                  <rect class="dg-bar" style="--d:2" x="8" y="192" width="86" height="13"/>
+                </g>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-k" x="412" y="111" text-anchor="end">70%</text>
+                  <text class="dg-k" x="412" y="157" text-anchor="end">45%</text>
+                  <text class="dg-k" x="412" y="203" text-anchor="end">25%</text>
+                </g>
+                <path class="ln dg-draw" pathLength="1" style="--d:6" d="M8 226H412"/>
+                <text class="dg-f dg-fade" style="--d:7" x="8" y="244">INDICATORS TRACK STANDING OPERATIONAL HEALTH</text>
+              </svg>
+            </div>
+            <figcaption>Figure 06. One objective, three key results, with indicators below.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Objectives and Key Results set directional aims with measurable outcomes. Key Performance Indicators track ongoing health. Used together to separate ambition from routine monitoring.</p>
             <ul>
@@ -261,24 +382,48 @@
           <p class="tool-one">Role assignment for each activity and decision.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <g font-family="Space Mono, monospace" font-size="8" text-anchor="middle">
-                <rect x="40" y="10" width="28" height="18" fill="rgba(245,184,25,.15)" stroke="#F5B819"/><text x="54" y="22" fill="#F5B819">R</text>
-                <rect x="72" y="10" width="28" height="18" fill="rgba(245,184,25,.1)" stroke="#F5B819"/><text x="86" y="22" fill="#F5B819">A</text>
-                <rect x="104" y="10" width="28" height="18" fill="rgba(245,184,25,.08)" stroke="#F5B819"/><text x="118" y="22" fill="#F5B819">C</text>
-                <rect x="136" y="10" width="18" height="18" fill="rgba(245,184,25,.06)" stroke="#F5B819"/><text x="145" y="22" fill="#F5B819">I</text>
-              </g>
-              <g class="cell-blink" fill="#F5B819">
-                <circle cx="54" cy="48" r="4"/><circle cx="86" cy="48" r="4" opacity=".4"/>
-                <circle cx="54" cy="72" r="4" opacity=".4"/><circle cx="86" cy="72" r="4"/>
-                <circle cx="118" cy="96" r="4"/><circle cx="145" cy="96" r="4" opacity=".35"/>
-              </g>
-              <g stroke="rgba(245,184,25,.25)" stroke-width="1">
-                <line x1="30" y1="40" x2="154" y2="40"/><line x1="30" y1="64" x2="154" y2="64"/><line x1="30" y1="88" x2="154" y2="88"/>
-              </g>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">ROLE ASSIGNMENT BY ACTIVITY</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-fade" style="--d:0">
+                  <text class="dg-a" x="199" y="46" text-anchor="middle">LEAD</text>
+                  <text class="dg-a" x="260" y="46" text-anchor="middle">OPS</text>
+                  <text class="dg-a" x="321" y="46" text-anchor="middle">PARTNER</text>
+                  <text class="dg-a" x="382" y="46" text-anchor="middle">BOARD</text>
+                </g>
+                <path class="ln dg-draw" pathLength="1" style="--d:1" d="M8 52H412M8 104H412M8 156H412M8 208H412M168 34V208M229 34V208M290 34V208M351 34V208"/>
+                <g class="dg-fade" style="--d:2">
+                  <text class="dg-t" x="8" y="82">SCOPE APPROVAL</text>
+                  <text class="dg-t" x="8" y="134">TEST EXECUTION</text>
+                  <text class="dg-t" x="8" y="186">STATUS REPORTING</text>
+                </g>
+                <g>
+                  <rect class="bx-key dg-tint" style="--d:0" x="183" y="64" width="32" height="26"/>
+                  <rect class="bx-key dg-tint" style="--d:2" x="244" y="116" width="32" height="26"/>
+                  <rect class="bx-key dg-tint" style="--d:4" x="366" y="168" width="32" height="26"/>
+                </g>
+                <rect class="dg-glow" x="183" y="64" width="32" height="26" fill="rgba(245,184,25,.16)"/>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-mid" x="199" y="86" text-anchor="middle">A</text>
+                  <text class="dg-mid" x="260" y="86" text-anchor="middle">R</text>
+                  <text class="dg-mid" x="321" y="86" text-anchor="middle">C</text>
+                  <text class="dg-mid" x="382" y="86" text-anchor="middle">I</text>
+                  <text class="dg-mid" x="199" y="138" text-anchor="middle">C</text>
+                  <text class="dg-mid" x="260" y="138" text-anchor="middle">A</text>
+                  <text class="dg-mid" x="321" y="138" text-anchor="middle">R</text>
+                  <text class="dg-mid" x="382" y="138" text-anchor="middle">I</text>
+                  <text class="dg-mid" x="199" y="190" text-anchor="middle">R</text>
+                  <text class="dg-mid" x="260" y="190" text-anchor="middle">C</text>
+                  <text class="dg-mid" x="321" y="190" text-anchor="middle">I</text>
+                  <text class="dg-mid" x="382" y="190" text-anchor="middle">A</text>
+                </g>
+                <text class="dg-f dg-fade" style="--d:6" x="8" y="238">R RESPONSIBLE · A ACCOUNTABLE · C CONSULTED · I INFORMED</text>
+              </svg>
+            </div>
+            <figcaption>Figure 07. Activities as rows, roles as columns, one accountable owner per row.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Assigns Responsible, Accountable, Consulted, and Informed roles for each activity. Clarifies ownership before work starts and reduces duplicate effort.</p>
             <ul>
@@ -297,18 +442,38 @@
           <p class="tool-one">Parties plotted by influence and interest.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <line x1="20" y1="100" x2="140" y2="100" stroke="rgba(245,184,25,.35)" stroke-width="1"/>
-              <line x1="20" y1="100" x2="20" y2="20" stroke="rgba(245,184,25,.35)" stroke-width="1"/>
-              <text x="80" y="116" text-anchor="middle" fill="rgba(244,242,234,.55)" font-size="6" font-family="Space Mono, monospace">INTEREST →</text>
-              <text x="10" y="60" transform="rotate(-90 10 60)" fill="rgba(244,242,234,.55)" font-size="6" font-family="Space Mono, monospace">INFLUENCE</text>
-              <circle class="node-pulse" cx="110" cy="40" r="10" fill="rgba(245,184,25,.35)" stroke="#F5B819"/>
-              <circle class="node-pulse" cx="70" cy="55" r="8" fill="rgba(245,184,25,.2)" stroke="#F5B819" style="animation-delay:.4s"/>
-              <circle class="node-pulse" cx="45" cy="78" r="7" fill="rgba(245,184,25,.15)" stroke="rgba(245,184,25,.7)" style="animation-delay:.8s"/>
-              <circle cx="95" cy="82" r="6" fill="rgba(245,184,25,.1)" stroke="rgba(245,184,25,.5)"/>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">INFLUENCE AND INTEREST</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <path class="ln dg-draw" pathLength="1" style="--d:1" d="M46 34V222H404"/>
+                <path class="ln-dash dg-fade" style="--d:3" d="M225 34V222M46 128H404"/>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-a" x="56" y="48">KEEP SATISFIED</text>
+                  <text class="dg-a" x="394" y="48" text-anchor="end">MANAGE CLOSELY</text>
+                  <text class="dg-a" x="56" y="146">MONITOR</text>
+                  <text class="dg-a" x="394" y="146" text-anchor="end">KEEP INFORMED</text>
+                </g>
+                <circle class="dg-halo" cx="318" cy="84" r="19" fill="none" stroke="rgba(245,184,25,.55)" stroke-width="1.2"/>
+                <g class="dg-rise" style="--d:0"><circle class="dg-pulse" cx="318" cy="84" r="19" fill="rgba(245,184,25,.34)" stroke="#F5B819" stroke-width="1.4"/></g>
+                <g class="dg-rise" style="--d:2"><circle cx="262" cy="160" r="15" fill="rgba(245,184,25,.2)" stroke="#F5B819" stroke-width="1.2"/></g>
+                <g class="dg-rise" style="--d:4"><circle cx="120" cy="82" r="13" fill="rgba(245,184,25,.16)" stroke="rgba(245,184,25,.7)" stroke-width="1.2"/></g>
+                <g class="dg-rise" style="--d:6"><circle cx="150" cy="186" r="11" fill="rgba(245,184,25,.1)" stroke="rgba(245,184,25,.55)" stroke-width="1.2"/></g>
+                <g class="dg-fade" style="--d:6">
+                  <text class="dg-t" x="318" y="118" text-anchor="middle">SPONSOR</text>
+                  <text class="dg-t" x="262" y="190" text-anchor="middle">PARTNERS</text>
+                  <text class="dg-t" x="120" y="110" text-anchor="middle">REGULATOR</text>
+                  <text class="dg-t" x="150" y="212" text-anchor="middle">VENDORS</text>
+                </g>
+                <g class="dg-fade" style="--d:8">
+                  <text class="dg-a" x="225" y="246" text-anchor="middle">INTEREST</text>
+                  <text class="dg-a" x="20" y="128" text-anchor="middle" transform="rotate(-90 20 128)">INFLUENCE</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>Figure 08. Engagement mode set by the quadrant a party falls in.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Plots parties by influence and interest to guide engagement cadence. Supports Strategy Working Groups that coordinate across offices and external partners.</p>
             <ul>
@@ -327,24 +492,64 @@
           <p class="tool-one">Likelihood and impact scoring for the register.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <g stroke="rgba(245,184,25,.3)" stroke-width="1">
-                <rect x="30" y="20" width="30" height="28" fill="rgba(245,184,25,.05)"/>
-                <rect x="60" y="20" width="30" height="28" fill="rgba(245,184,25,.1)"/>
-                <rect x="90" y="20" width="30" height="28" fill="rgba(245,184,25,.22)"/>
-                <rect x="30" y="48" width="30" height="28" fill="rgba(245,184,25,.05)"/>
-                <rect x="60" y="48" width="30" height="28" fill="rgba(245,184,25,.14)"/>
-                <rect x="90" y="48" width="30" height="28" fill="rgba(245,184,25,.2)"/>
-                <rect x="30" y="76" width="30" height="28" fill="rgba(245,184,25,.04)"/>
-                <rect x="60" y="76" width="30" height="28" fill="rgba(245,184,25,.08)"/>
-                <rect x="90" y="76" width="30" height="28" fill="rgba(245,184,25,.12)"/>
-              </g>
-              <circle class="node-pulse" cx="105" cy="34" r="5" fill="#F5B819"/>
-              <circle class="node-pulse" cx="75" cy="62" r="4" fill="rgba(245,184,25,.8)" style="animation-delay:.5s"/>
-              <text x="75" y="118" text-anchor="middle" fill="rgba(244,242,234,.55)" font-size="6" font-family="Space Mono, monospace">IMPACT × LIKELIHOOD</text>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">LIKELIHOOD AND IMPACT</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g>
+                  <rect class="dg-tint" style="--d:0" x="60" y="34" width="68" height="37" fill="rgba(245,184,25,.21)"/>
+                  <rect class="dg-tint" style="--d:1" x="128" y="34" width="68" height="37" fill="rgba(245,184,25,.25)"/>
+                  <rect class="dg-tint" style="--d:2" x="196" y="34" width="68" height="37" fill="rgba(245,184,25,.30)"/>
+                  <rect class="dg-tint" style="--d:3" x="264" y="34" width="68" height="37" fill="rgba(245,184,25,.34)"/>
+                  <rect class="dg-tint" style="--d:4" x="332" y="34" width="68" height="37" fill="rgba(245,184,25,.38)"/>
+                  <rect class="dg-tint" style="--d:1" x="60" y="71" width="68" height="37" fill="rgba(245,184,25,.17)"/>
+                  <rect class="dg-tint" style="--d:2" x="128" y="71" width="68" height="37" fill="rgba(245,184,25,.21)"/>
+                  <rect class="dg-tint" style="--d:3" x="196" y="71" width="68" height="37" fill="rgba(245,184,25,.25)"/>
+                  <rect class="dg-tint" style="--d:4" x="264" y="71" width="68" height="37" fill="rgba(245,184,25,.30)"/>
+                  <rect class="dg-tint" style="--d:5" x="332" y="71" width="68" height="37" fill="rgba(245,184,25,.34)"/>
+                  <rect class="dg-tint" style="--d:2" x="60" y="108" width="68" height="37" fill="rgba(245,184,25,.13)"/>
+                  <rect class="dg-tint" style="--d:3" x="128" y="108" width="68" height="37" fill="rgba(245,184,25,.17)"/>
+                  <rect class="dg-tint" style="--d:4" x="196" y="108" width="68" height="37" fill="rgba(245,184,25,.21)"/>
+                  <rect class="dg-tint" style="--d:5" x="264" y="108" width="68" height="37" fill="rgba(245,184,25,.25)"/>
+                  <rect class="dg-tint" style="--d:6" x="332" y="108" width="68" height="37" fill="rgba(245,184,25,.30)"/>
+                  <rect class="dg-tint" style="--d:3" x="60" y="145" width="68" height="37" fill="rgba(245,184,25,.09)"/>
+                  <rect class="dg-tint" style="--d:4" x="128" y="145" width="68" height="37" fill="rgba(245,184,25,.13)"/>
+                  <rect class="dg-tint" style="--d:5" x="196" y="145" width="68" height="37" fill="rgba(245,184,25,.17)"/>
+                  <rect class="dg-tint" style="--d:6" x="264" y="145" width="68" height="37" fill="rgba(245,184,25,.21)"/>
+                  <rect class="dg-tint" style="--d:7" x="332" y="145" width="68" height="37" fill="rgba(245,184,25,.25)"/>
+                  <rect class="dg-tint" style="--d:4" x="60" y="182" width="68" height="37" fill="rgba(245,184,25,.05)"/>
+                  <rect class="dg-tint" style="--d:5" x="128" y="182" width="68" height="37" fill="rgba(245,184,25,.09)"/>
+                  <rect class="dg-tint" style="--d:6" x="196" y="182" width="68" height="37" fill="rgba(245,184,25,.13)"/>
+                  <rect class="dg-tint" style="--d:7" x="264" y="182" width="68" height="37" fill="rgba(245,184,25,.17)"/>
+                  <rect class="dg-tint" style="--d:8" x="332" y="182" width="68" height="37" fill="rgba(245,184,25,.21)"/>
+                </g>
+                <path class="ln dg-draw" pathLength="1" style="--d:1" d="M60 34H400M60 71H400M60 108H400M60 145H400M60 182H400M60 219H400M60 34V219M128 34V219M196 34V219M264 34V219M332 34V219M400 34V219"/>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-f" x="52" y="56" text-anchor="end">HIGH</text>
+                  <text class="dg-f" x="52" y="205" text-anchor="end">LOW</text>
+                  <text class="dg-a" x="18" y="126" text-anchor="middle" transform="rotate(-90 18 126)">LIKELIHOOD</text>
+                  <text class="dg-f" x="94" y="236" text-anchor="middle">LOW</text>
+                  <text class="dg-f" x="366" y="236" text-anchor="middle">HIGH</text>
+                  <text class="dg-a" x="230" y="252" text-anchor="middle">IMPACT</text>
+                </g>
+                <circle class="dg-halo" cx="366" cy="52" r="11" fill="none" stroke="rgba(245,184,25,.6)" stroke-width="1.2"/>
+                <g class="dg-rise" style="--d:8">
+                  <circle class="dg-pulse" cx="366" cy="52" r="11" fill="#F5B819"/>
+                  <text class="dg-in" x="366" y="56" text-anchor="middle">R1</text>
+                </g>
+                <g class="dg-rise" style="--d:9">
+                  <circle cx="298" cy="126" r="10" fill="rgba(245,184,25,.88)"/>
+                  <text class="dg-in" x="298" y="130" text-anchor="middle">R2</text>
+                </g>
+                <g class="dg-rise" style="--d:10">
+                  <circle cx="162" cy="163" r="9" fill="rgba(245,184,25,.62)"/>
+                  <text class="dg-in" x="162" y="167" text-anchor="middle">R3</text>
+                </g>
+              </svg>
+            </div>
+            <figcaption>Figure 09. Register entries plotted on a five by five scale.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Rates risks by likelihood and impact so the register can prioritize response. Aligns with Tracking Register practice for status, risks, and dependencies.</p>
             <ul>
@@ -363,20 +568,51 @@
           <p class="tool-one">Scope packages placed on a timeline.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram diagram-draw">
-              <rect x="55" y="8" width="50" height="16" fill="rgba(245,184,25,.15)" stroke="#F5B819"/>
-              <path d="M80 24v12M30 36h100M30 36v10M80 36v10M130 36v10" fill="none" stroke="rgba(245,184,25,.55)" stroke-width="1.2"/>
-              <rect x="10" y="46" width="40" height="14" fill="rgba(245,184,25,.1)" stroke="#F5B819"/>
-              <rect x="60" y="46" width="40" height="14" fill="rgba(245,184,25,.1)" stroke="#F5B819"/>
-              <rect x="110" y="46" width="40" height="14" fill="rgba(245,184,25,.1)" stroke="#F5B819"/>
-              <g class="bar-grow" fill="#F5B819" opacity=".7">
-                <rect x="16" y="78" width="70" height="6"/>
-                <rect x="16" y="90" width="100" height="6" style="animation-delay:.2s"/>
-                <rect x="16" y="102" width="50" height="6" style="animation-delay:.4s"/>
-              </g>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">SCOPE PACKAGES ON A TIMELINE</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <g class="dg-rise" style="--d:0"><rect class="bx-key" x="160" y="32" width="100" height="28"/></g>
+                <text class="dg-k dg-fade" style="--d:1" x="210" y="50" text-anchor="middle">PROJECT</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:2" d="M210 60V74M64 74H356M64 74V86M210 74V86M356 74V86"/>
+                <g class="dg-rise" style="--d:3"><rect class="bx" x="14" y="86" width="100" height="28"/></g>
+                <g class="dg-rise" style="--d:4"><rect class="bx" x="160" y="86" width="100" height="28"/></g>
+                <g class="dg-rise" style="--d:5"><rect class="bx" x="306" y="86" width="100" height="28"/></g>
+                <g class="dg-fade" style="--d:5">
+                  <text class="dg-t" x="64" y="105" text-anchor="middle">WP 01</text>
+                  <text class="dg-t" x="210" y="105" text-anchor="middle">WP 02</text>
+                  <text class="dg-t" x="356" y="105" text-anchor="middle">WP 03</text>
+                </g>
+                <path class="ln-dash dg-fade" style="--d:6" d="M8 128H412"/>
+                <g class="dg-fade" style="--d:7">
+                  <text class="dg-f" x="132" y="150" text-anchor="middle">Q1</text>
+                  <text class="dg-f" x="212" y="150" text-anchor="middle">Q2</text>
+                  <text class="dg-f" x="292" y="150" text-anchor="middle">Q3</text>
+                  <text class="dg-f" x="372" y="150" text-anchor="middle">Q4</text>
+                </g>
+                <path class="ln-dash dg-fade" style="--d:8" d="M92 156V232M172 156V232M252 156V232M332 156V232M412 156V232"/>
+                <g class="dg-fade" style="--d:7">
+                  <text class="dg-n" x="8" y="169">WP 01</text>
+                  <text class="dg-n" x="8" y="195">WP 02</text>
+                  <text class="dg-n" x="8" y="221">WP 03</text>
+                </g>
+                <g>
+                  <rect class="track" x="92" y="160" width="320" height="12"/>
+                  <rect class="track" x="92" y="186" width="320" height="12"/>
+                  <rect class="track" x="92" y="212" width="320" height="12"/>
+                </g>
+                <g fill="#F5B819">
+                  <rect class="dg-bar" style="--d:0" x="92" y="160" width="112" height="12"/>
+                  <rect class="dg-bar" style="--d:1" x="172" y="186" width="160" height="12" opacity=".82"/>
+                  <rect class="dg-bar" style="--d:2" x="252" y="212" width="120" height="12" opacity=".64"/>
+                </g>
+                <g class="dg-fade" style="--d:10"><polygon class="arrow dg-pulse" points="380,209 389,218 380,227 371,218"/></g>
+                <text class="dg-f dg-fade" style="--d:11" x="8" y="248">MILESTONE MARKS PACKAGE EXIT FOR REVIEW</text>
+              </svg>
+            </div>
+            <figcaption>Figure 10. Work packages above, the same packages scheduled below.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>A Work Breakdown Structure decomposes scope into manageable packages. A Gantt chart places those packages on a timeline with dependencies and milestones.</p>
             <ul>
@@ -395,51 +631,42 @@
           <p class="tool-one">Longest dependent chain that sets duration.</p>
         </summary>
         <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram diagram-draw">
-              <circle cx="24" cy="60" r="10" fill="rgba(245,184,25,.15)" stroke="#F5B819" stroke-width="1.5"/>
-              <circle cx="70" cy="36" r="10" fill="rgba(245,184,25,.15)" stroke="#F5B819" stroke-width="1.5"/>
-              <circle cx="70" cy="84" r="10" fill="rgba(245,184,25,.08)" stroke="rgba(245,184,25,.5)" stroke-width="1.2"/>
-              <circle cx="116" cy="60" r="10" fill="rgba(245,184,25,.2)" stroke="#F5B819" stroke-width="1.5"/>
-              <path class="flow-dash" d="M34 60H60M80 36H106L116 50M80 84H100L116 70" fill="none" stroke="#F5B819" stroke-width="2"/>
-              <path d="M34 55L60 40" fill="none" stroke="rgba(245,184,25,.35)" stroke-width="1.2"/>
-              <text x="80" y="112" text-anchor="middle" fill="rgba(244,242,234,.55)" font-size="6" font-family="Space Mono, monospace">CRITICAL PATH HIGHLIGHTED</text>
-            </svg>
-          </div>
+          <figure class="tool-figure">
+            <div class="tool-viz">
+              <svg class="diagram" viewBox="0 0 420 260" aria-hidden="true">
+                <text class="dg-h" x="8" y="16">LONGEST DEPENDENT CHAIN</text>
+                <path class="ln dg-draw" pathLength="1" style="--d:0" d="M8 24H412"/>
+                <path class="ln-soft dg-draw" pathLength="1" style="--d:1" d="M68 146L98 186M156 195H186M244 186L274 146"/>
+                <path class="ln-key dg-draw" pathLength="1" style="--d:2" d="M68 128L98 88M156 79H186M244 88L274 128M332 137H352"/>
+                <g class="dg-fade" style="--d:8"><path class="ln-flow dg-flow" d="M68 128L98 88M156 79H186M244 88L274 128M332 137H352"/></g>
+                <g class="dg-rise" style="--d:0"><rect class="bx-key" x="10" y="118" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:1"><rect class="bx-key" x="98" y="60" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:2"><rect class="bx-key" x="186" y="60" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:3"><rect class="bx-key" x="274" y="118" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:4"><rect class="bx-key" x="352" y="118" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:5"><rect class="bx-soft" x="98" y="176" width="58" height="38" rx="2"/></g>
+                <g class="dg-rise" style="--d:6"><rect class="bx-soft" x="186" y="176" width="58" height="38" rx="2"/></g>
+                <rect class="dg-glow" x="186" y="60" width="58" height="38" rx="2" fill="rgba(245,184,25,.18)"/>
+                <g class="dg-fade" style="--d:4">
+                  <text class="dg-mid" x="39" y="136" text-anchor="middle">S</text><text class="dg-f" x="39" y="151" text-anchor="middle">START</text>
+                  <text class="dg-mid" x="127" y="78" text-anchor="middle">A</text><text class="dg-f" x="127" y="93" text-anchor="middle">6 DAYS</text>
+                  <text class="dg-mid" x="215" y="78" text-anchor="middle">C</text><text class="dg-f" x="215" y="93" text-anchor="middle">8 DAYS</text>
+                  <text class="dg-mid" x="303" y="136" text-anchor="middle">E</text><text class="dg-f" x="303" y="151" text-anchor="middle">5 DAYS</text>
+                  <text class="dg-mid" x="381" y="136" text-anchor="middle">F</text><text class="dg-f" x="381" y="151" text-anchor="middle">FINISH</text>
+                  <text class="dg-mid" x="127" y="194" text-anchor="middle">B</text><text class="dg-f" x="127" y="209" text-anchor="middle">3 DAYS</text>
+                  <text class="dg-mid" x="215" y="194" text-anchor="middle">D</text><text class="dg-f" x="215" y="209" text-anchor="middle">4 DAYS</text>
+                </g>
+                <text class="dg-f dg-fade" style="--d:9" x="8" y="250">CRITICAL PATH IS 19 DAYS · LOWER CHAIN HAS FLOAT</text>
+              </svg>
+            </div>
+            <figcaption>Figure 11. Upper chain is critical, lower chain carries float.</figcaption>
+          </figure>
           <div class="tool-copy">
             <p>Identifies the longest dependent chain of activities that determines project duration. Shows where delay is consequential and where float exists.</p>
             <ul>
               <li>List activities, durations, and predecessors</li>
               <li>Compute earliest and latest start and finish</li>
               <li>Protect the critical path with active oversight</li>
-            </ul>
-          </div>
-        </div>
-      </details>
-
-      <details class="tool-card" id="moscow" style="--i:11">
-        <summary>
-          <span class="tool-num">12 · Delivery</span>
-          <h3>MoSCoW Prioritization</h3>
-          <p class="tool-one">Must, Should, Could, and Will not for this cycle.</p>
-        </summary>
-        <div class="tool-body">
-          <div class="tool-viz" aria-hidden="true">
-            <svg viewBox="0 0 160 120" class="diagram">
-              <g font-family="Space Mono, monospace" font-size="8" fill="#F5B819">
-                <rect class="bar-grow" x="20" y="20" width="120" height="18" fill="rgba(245,184,25,.28)" stroke="#F5B819"/><text x="28" y="32">MUST</text>
-                <rect class="bar-grow" x="20" y="44" width="96" height="18" fill="rgba(245,184,25,.18)" stroke="#F5B819" style="animation-delay:.15s"/><text x="28" y="56">SHOULD</text>
-                <rect class="bar-grow" x="20" y="68" width="72" height="18" fill="rgba(245,184,25,.12)" stroke="#F5B819" style="animation-delay:.3s"/><text x="28" y="80">COULD</text>
-                <rect class="bar-grow" x="20" y="92" width="48" height="18" fill="rgba(245,184,25,.06)" stroke="rgba(245,184,25,.5)" style="animation-delay:.45s"/><text x="28" y="104" fill="rgba(244,242,234,.65)">WON'T</text>
-              </g>
-            </svg>
-          </div>
-          <div class="tool-copy">
-            <p>Sorts requirements into Must, Should, Could, and Will not for this cycle. Keeps scope negotiations explicit when capacity is fixed.</p>
-            <ul>
-              <li>Define the delivery window and capacity constraint</li>
-              <li>Classify each requirement with one owner</li>
-              <li>Revisit classifications at each planning gate</li>
             </ul>
           </div>
         </div>
@@ -466,14 +693,50 @@
 </main>
 <script>
 (function () {
-  function openFromHash() {
-    var id = location.hash.replace(/^#/, "");
-    if (!id) return;
-    var el = document.getElementById(id);
-    if (el && el.tagName === "DETAILS") {
-      el.open = true;
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var chips = Array.prototype.slice.call(document.querySelectorAll(".tool-chip"));
+
+  function markActive(id) {
+    chips.forEach(function (chip) {
+      var on = chip.getAttribute("href") === "#" + id;
+      chip.classList.toggle("is-active", on);
+      if (on) { chip.setAttribute("aria-current", "true"); }
+      else { chip.removeAttribute("aria-current"); }
+    });
+  }
+
+  function reveal(id, scroll) {
+    var card = document.getElementById(id);
+    if (!card || card.tagName !== "DETAILS") { return; }
+    card.open = true;
+    markActive(id);
+    if (scroll) {
+      card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
     }
   }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function (event) {
+      var id = chip.getAttribute("href").replace(/^#/, "");
+      if (!document.getElementById(id)) { return; }
+      event.preventDefault();
+      reveal(id, true);
+      if (history.replaceState) { history.replaceState(null, "", "#" + id); }
+    });
+  });
+
+  document.querySelectorAll(".tool-card").forEach(function (card) {
+    card.addEventListener("toggle", function () {
+      if (card.open) { markActive(card.id); }
+      else if (card.classList.contains("is-active")) { markActive(""); }
+    });
+  });
+
+  function openFromHash() {
+    var id = location.hash.replace(/^#/, "");
+    if (id) { reveal(id, false); }
+  }
+
   openFromHash();
   window.addEventListener("hashchange", openFromHash);
 })();
