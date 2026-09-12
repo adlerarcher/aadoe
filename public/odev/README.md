@@ -26,8 +26,9 @@ Opens at `http://localhost:5176`.
 - `/programs/csup/` Commercial Scale-Up structure
 - `/programs/support/` Program Support (HR, Ops, Finance, Communications)
 - `/cycle/` Six-stage strategy cycle (infographic)
-- `/model/` Operating model (infographic)
-- `/groups/` Strategy Working Groups and Strategic Initiatives. SWG is Strategy Management, not the site name.
+- `/model/` Operating model; Strategy Working Groups and Strategic Initiatives appear below the graphic
+- `/resources/` Twelve strategic planning and project management tools
+- `/groups/` Redirects to `/model/#working-groups`
 
 ## Deploy
 
