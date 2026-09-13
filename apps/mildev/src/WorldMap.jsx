@@ -192,6 +192,7 @@ export default function WorldMap({
     <svg
       className={zoomed ? 'world-map is-zoomed' : 'world-map'}
       viewBox={formatViewBox(viewBox)}
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label={
         zoomed

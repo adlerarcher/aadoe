@@ -148,7 +148,18 @@ function HomeMap({ onCountry }) {
 
   return (
     <main className="map-home">
-      <div className="map-home-copy">
+      <div className="map-stage">
+        <WorldMap
+          countries={countries}
+          ringCountries={ringCountries}
+          regions={regions}
+          focusRegion={focusRegion}
+          onFocusRegion={setFocusRegion}
+          onCountry={onCountry}
+          onZoomOut={zoomOut}
+        />
+      </div>
+      <aside className="map-home-copy">
         <p className="app-kicker">{SCOPE.kicker}</p>
         <h1>{SCOPE.title}</h1>
         <p className="map-home-lede">{SCOPE.lede}</p>
@@ -211,39 +222,29 @@ function HomeMap({ onCountry }) {
               </li>
             ))}
           </ul>
-        ) : (
-          <>
-            <h2 className="home-strip-title">Pacific Ring of Fire</h2>
-            <ol className="rank-strip">
-              {ringStrip.map((c) => (
-                <li key={c.slug}>
-                  <CountryLink
-                    slug={c.slug}
-                    className={c.hasInstallations ? undefined : 'rank-chip'}
-                    onOpen={onCountry}
-                  >
-                    <span className="rank-num">{c.rank}</span>
-                    <strong>{c.name}</strong>
-                    <em>{c.hasInstallations ? `${c.count} installations` : 'Geothermal host'}</em>
-                  </CountryLink>
-                </li>
-              ))}
-            </ol>
-            <p className="rank-source">{RANK_SOURCE}</p>
-          </>
-        )}
-      </div>
-      <div className="map-stage">
-        <WorldMap
-          countries={countries}
-          ringCountries={ringCountries}
-          regions={regions}
-          focusRegion={focusRegion}
-          onFocusRegion={setFocusRegion}
-          onCountry={onCountry}
-          onZoomOut={zoomOut}
-        />
-      </div>
+        ) : null}
+      </aside>
+      {!focusMeta ? (
+        <div className="map-home-strip">
+          <h2 className="home-strip-title">Pacific Ring of Fire</h2>
+          <ol className="rank-strip">
+            {ringStrip.map((c) => (
+              <li key={c.slug}>
+                <CountryLink
+                  slug={c.slug}
+                  className={c.hasInstallations ? undefined : 'rank-chip'}
+                  onOpen={onCountry}
+                >
+                  <span className="rank-num">{c.rank}</span>
+                  <strong>{c.name}</strong>
+                  <em>{c.hasInstallations ? `${c.count} installations` : 'Geothermal host'}</em>
+                </CountryLink>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+      <p className="map-home-disclosure">{DISCLOSURE}</p>
     </main>
   )
 }

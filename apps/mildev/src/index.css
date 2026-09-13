@@ -1769,35 +1769,57 @@ body:has(.app-shell) {
   .app-header-inner { padding: 12px 16px; }
 }
 
-/* Map home */
+/* Map home — full viewport; copy overlays the map */
 
-.map-home {
+.app-shell:has(.map-home) {
+  height: 100svh;
+  max-height: 100svh;
   display: flex;
   flex-direction: column;
-  min-height: calc(100svh - 140px);
+  overflow: hidden;
+}
+
+.app-shell:has(.map-home) > .app-header {
+  flex: 0 0 auto;
+}
+
+.app-shell:has(.map-home) > .app-footer {
+  display: none;
+}
+
+.map-home {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: block;
 }
 
 .map-home-copy {
-  max-width: 1120px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 28px 24px 0;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: min(22.5rem, calc(100% - 20px));
+  max-height: calc(100% - 88px);
+  overflow: auto;
+  padding: 16px 18px 28px;
+  background: linear-gradient(180deg, rgba(7, 16, 31, .82) 0%, rgba(7, 16, 31, .42) 62%, transparent 100%);
 }
 
 .map-home-copy h1 {
-  margin: 12px 0 0;
+  margin: 8px 0 0;
   font-family: var(--title);
   font-weight: 500;
-  font-size: clamp(2.2rem, 6vw, 3.6rem);
-  line-height: 1;
+  font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+  line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
 .map-home-lede {
-  margin: 12px 0 0;
-  max-width: 34em;
+  margin: 8px 0 0;
+  max-width: 28em;
   font-family: var(--title);
-  font-size: 18px;
+  font-size: 15px;
   line-height: 1.35;
   color: rgba(232, 235, 228, .78);
 }
@@ -1813,10 +1835,10 @@ body:has(.app-shell) {
 
 .home-facts {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 18px 0 0;
-  max-width: 720px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  margin: 14px 0 0;
+  max-width: none;
 }
 
 .home-facts > div {
@@ -1842,7 +1864,7 @@ body:has(.app-shell) {
 }
 
 .home-strip-title {
-  margin: 20px 0 0;
+  margin: 0;
   font-family: var(--label);
   font-size: 11px;
   font-weight: 400;
@@ -1856,9 +1878,10 @@ body:has(.app-shell) {
   margin: 14px 0 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
   gap: 8px;
-  max-width: 920px;
+  max-width: none;
 }
 
 .focus-country-list a,
@@ -1902,19 +1925,47 @@ body:has(.app-shell) {
 }
 
 .map-stage {
-  flex: 1;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 16px 24px;
+  padding: 0;
   min-height: 0;
+  overflow: hidden;
+  background: #07101f;
 }
 
 .world-map {
-  width: min(100%, 1280px);
-  height: auto;
-  max-height: calc(100svh - 220px);
-  overflow: visible;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  overflow: hidden;
+}
+
+.map-home-strip {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 16px 14px;
+  background: linear-gradient(0deg, rgba(7, 16, 31, .92) 0%, rgba(7, 16, 31, .5) 72%, transparent 100%);
+}
+
+.map-home-disclosure {
+  position: absolute;
+  z-index: 6;
+  right: 16px;
+  bottom: 10px;
+  margin: 0;
+  max-width: 16rem;
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.35;
+  color: rgba(232, 235, 228, .4);
+  pointer-events: none;
 }
 
 .map-ocean {
@@ -2135,11 +2186,16 @@ body:has(.app-shell) {
 
 .rank-strip {
   list-style: none;
-  margin: 16px 0 0;
-  padding: 0;
+  margin: 8px 0 0;
+  padding: 0 0 4px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
+  overflow-x: auto;
+}
+
+.rank-strip > li {
+  flex: 0 0 auto;
 }
 
 .rank-strip a,
@@ -2394,9 +2450,23 @@ body:has(.app-shell) {
 }
 
 @media (max-width: 800px) {
-  .map-home-copy { padding: 16px 16px 0; }
+  .map-home-copy {
+    width: 100%;
+    max-height: 42%;
+    padding: 10px 14px 16px;
+  }
+  .map-home-copy h1 { font-size: 1.3rem; }
+  .map-home-lede { display: none; }
+  .map-home-strip { padding: 14px 12px 12px; }
+  .map-home-disclosure { display: none; }
   .map-region-label { font-size: 9px; }
   .home-facts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .home-facts dt { font-size: 1.25rem; }
+  .focus-country-list {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
