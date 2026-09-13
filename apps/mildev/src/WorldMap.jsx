@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { withBase } from './basePath.js'
+import { RING_OF_FIRE_GEO } from './content/ranking.js'
+import { ringOfFirePathD } from './content/ringOfFirePath.js'
 import { WORLD_LAND_D } from './content/worldLand.js'
 
 const WIDTH = 1000
@@ -127,8 +129,24 @@ function useAnimatedViewBox(target) {
   return current
 }
 
+function useRingPathLength(pathRef, d) {
+  const [length, setLength] = useState(0)
+  useEffect(() => {
+    const el = pathRef.current
+    if (!el || typeof el.getTotalLength !== 'function') return
+    setLength(el.getTotalLength())
+  }, [d])
+  return length
+}
+
 const MERIDIANS = [-150, -90, -30, 30, 90, 150]
 const PARALLELS = [-60, -30, 0, 30, 60]
+
+const ROF_HOST_HIGHLIGHTS = Object.entries(RING_OF_FIRE_GEO).map(([name, geo]) => ({
+  name,
+  ...geo,
+  ...project(geo.lon, geo.lat),
+}))
 
 export default function WorldMap({
   countries,
@@ -157,6 +175,19 @@ export default function WorldMap({
   // Keep labels readable under zoom by scaling with viewBox width.
   const labelSize = zoomed ? Math.max(7, Math.min(14, viewBox.w * 0.045)) : 9
 
+  const ringPathD = useMemo(() => ringOfFirePathD(project), [])
+  const ringPathRef = useRef(null)
+  const ringLen = useRingPathLength(ringPathRef, ringPathD)
+
+  const ringOpacity = zoomed ? 0.42 : 1
+  const ringStroke = zoomed ? 1.35 * strokeScale : 1.8
+  const ringGlowStroke = zoomed ? 5.5 * strokeScale : 7.5
+
+  const hostHighlights = useMemo(() => {
+    if (!focusRegion) return ROF_HOST_HIGHLIGHTS
+    return ROF_HOST_HIGHLIGHTS.filter((h) => h.region === focusRegion)
+  }, [focusRegion])
+
   return (
     <svg
       className={zoomed ? 'world-map is-zoomed' : 'world-map'}
@@ -168,6 +199,19 @@ export default function WorldMap({
           : 'Overseas U.S. military installations by country and region'
       }
     >
+      <defs>
+        <radialGradient id="rof-host-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#F5B819" stopOpacity="0.28" />
+          <stop offset="55%" stopColor="#F5B819" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#F5B819" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="map-sweep" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#F5B819" stopOpacity="0" />
+          <stop offset="45%" stopColor="#F5B819" stopOpacity="0.07" />
+          <stop offset="55%" stopColor="#E8EBE4" stopOpacity="0.05" />
+          <stop offset="100%" stopColor="#F5B819" stopOpacity="0" />
+        </linearGradient>
+      </defs>
       <rect
         className="map-ocean"
         x={viewBox.x - viewBox.w}
@@ -216,6 +260,18 @@ export default function WorldMap({
           )
         })}
       </g>
+      {!zoomed ? (
+        <rect
+          className="map-light-sweep"
+          x={0}
+          y={0}
+          width={WIDTH}
+          height={HEIGHT}
+          fill="url(#map-sweep)"
+          pointerEvents="none"
+          aria-hidden="true"
+        />
+      ) : null}
       <path
         className="map-land"
         d={WORLD_LAND_D}
@@ -224,6 +280,64 @@ export default function WorldMap({
           if (zoomed) onZoomOut?.()
         }}
       />
+      <g className="map-rof-hosts" aria-hidden="true" pointerEvents="none">
+        {hostHighlights.map((h) => (
+          <circle
+            key={h.name}
+            className="map-rof-host-glow"
+            cx={h.x.toFixed(1)}
+            cy={h.y.toFixed(1)}
+            r={zoomed ? 28 * strokeScale : 22}
+            fill="url(#rof-host-glow)"
+          />
+        ))}
+      </g>
+      <g
+        className={[
+          'map-ring-of-fire',
+          zoomed ? 'is-zoomed' : '',
+          ringLen ? 'is-measured' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        style={{ opacity: ringOpacity }}
+        aria-hidden="true"
+        pointerEvents="none"
+      >
+        <path
+          className="map-ring-glow"
+          d={ringPathD}
+          fill="none"
+          strokeWidth={ringGlowStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          ref={ringPathRef}
+          className="map-ring-path"
+          d={ringPathD}
+          fill="none"
+          strokeWidth={ringStroke}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={
+            ringLen
+              ? {
+                  strokeDasharray: ringLen,
+                  '--ring-len': ringLen,
+                }
+              : undefined
+          }
+        />
+        <path
+          className="map-ring-flow"
+          d={ringPathD}
+          fill="none"
+          strokeWidth={Math.max(0.9, ringStroke * 0.55)}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
       {!zoomed ? (
         <g className="map-regions">
           {regions.map((r) => {
