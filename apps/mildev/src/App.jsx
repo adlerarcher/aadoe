@@ -91,14 +91,34 @@ function SiteChrome({ routeId, onNavigate, children }) {
   )
 }
 
-function HomeMap({ onCountry, onRegion }) {
+function HomeMap({ onCountry }) {
   const countries = useMemo(() => countryMarkers(), [])
   const regions = useMemo(() => regionMarkers(), [])
+  const [focusRegion, setFocusRegion] = useState(null)
   const stats = inventoryStats()
   const rankedHere = useMemo(
     () => countries.filter((c) => c.ranked),
     [countries],
   )
+  const focusMeta = useMemo(
+    () => (focusRegion ? regions.find((r) => r.id === focusRegion) : null),
+    [focusRegion, regions],
+  )
+  const focusCountries = useMemo(
+    () => (focusRegion ? countries.filter((c) => c.region === focusRegion) : []),
+    [countries, focusRegion],
+  )
+
+  const zoomOut = () => setFocusRegion(null)
+
+  useEffect(() => {
+    if (!focusRegion) return undefined
+    const onKey = (e) => {
+      if (e.key === 'Escape') zoomOut()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [focusRegion])
 
   return (
     <main className="map-home">
@@ -107,9 +127,19 @@ function HomeMap({ onCountry, onRegion }) {
         <h1>{SCOPE.title}</h1>
         <p className="map-home-lede">{SCOPE.lede}</p>
         <p className="map-home-meta">
-          {stats.total} installations · {stats.countries} countries · geothermal priority markers emphasized
+          {focusMeta
+            ? `${focusMeta.label}: select a country · ${focusCountries.length} host countries`
+            : `${stats.total} installations · ${stats.countries} countries · click a region to zoom`}
         </p>
-        {rankedHere.length > 0 ? (
+        {focusMeta ? (
+          <div className="map-zoom-bar">
+            <button type="button" className="map-zoom-out" onClick={zoomOut}>
+              World map
+            </button>
+            <span className="map-zoom-label">{focusMeta.label}</span>
+          </div>
+        ) : null}
+        {!focusRegion && rankedHere.length > 0 ? (
           <ol className="rank-strip">
             {rankedHere.map((c) => (
               <li key={c.slug}>
@@ -122,14 +152,16 @@ function HomeMap({ onCountry, onRegion }) {
             ))}
           </ol>
         ) : null}
-        <p className="rank-source">{RANK_SOURCE}</p>
+        {!focusRegion ? <p className="rank-source">{RANK_SOURCE}</p> : null}
       </div>
       <div className="map-stage">
         <WorldMap
           countries={countries}
           regions={regions}
+          focusRegion={focusRegion}
+          onFocusRegion={setFocusRegion}
           onCountry={onCountry}
-          onRegion={onRegion}
+          onZoomOut={zoomOut}
         />
       </div>
     </main>
@@ -502,7 +534,7 @@ export default function App() {
   return (
     <SiteChrome routeId={routeId} onNavigate={goNav}>
       {route.id === 'home' && (
-        <HomeMap onCountry={goCountry} onRegion={goRegion} />
+        <HomeMap onCountry={goCountry} />
       )}
       {route.id === 'country' && (
         <CountryPage slug={route.slug} onRegion={goRegion} onHome={goHome} />

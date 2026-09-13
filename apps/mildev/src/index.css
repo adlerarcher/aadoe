@@ -1831,6 +1831,11 @@ body:has(.app-shell) {
   fill: #07101f;
 }
 
+.world-map.is-zoomed .map-ocean,
+.world-map.is-zoomed .map-land {
+  cursor: zoom-out;
+}
+
 .map-land {
   fill: #1a2d5c;
   stroke: rgba(245, 184, 25, .18);
@@ -1857,6 +1862,53 @@ body:has(.app-shell) {
 .map-region-label:focus {
   opacity: 1;
   outline: none;
+}
+
+.map-country-label {
+  fill: rgba(232, 235, 228, .92);
+  font-family: var(--label);
+  font-size: 9px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: #07101f;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.map-zoom-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 0;
+}
+
+.map-zoom-out {
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  color: var(--navy);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  cursor: pointer;
+}
+
+.map-zoom-out:hover,
+.map-zoom-out:focus {
+  background: #fff;
+  border-color: #fff;
+  outline: none;
+}
+
+.map-zoom-label {
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(232, 235, 228, .55);
 }
 
 .map-pin {
@@ -2074,6 +2126,10 @@ body:has(.app-shell) {
   .map-pin,
   .map-pin-halo {
     animation: none !important;
+  }
+
+  .world-map {
+    transition: none !important;
   }
 }
 
