@@ -25,6 +25,20 @@ export const COUNTRY_SLUGS = {
   'Greenland (Denmark)': 'greenland',
   Honduras: 'honduras',
   Cuba: 'cuba',
+  Indonesia: 'indonesia',
+  Philippines: 'philippines',
+  'New Zealand': 'new-zealand',
+  Mexico: 'mexico',
+  Chile: 'chile',
+  'El Salvador': 'el-salvador',
+  'Costa Rica': 'costa-rica',
+  'Papua New Guinea': 'papua-new-guinea',
+  Taiwan: 'taiwan',
+  Peru: 'peru',
+  Guatemala: 'guatemala',
+  Nicaragua: 'nicaragua',
+  Ecuador: 'ecuador',
+  Colombia: 'colombia',
 }
 
 const COUNTRY_PAGES = {
@@ -200,6 +214,136 @@ const COUNTRY_PAGES = {
       { office: 'Naval Station Guantanamo Bay Public Affairs', url: 'https://cnrse.cnic.navy.mil/Installations/NS-Guantanamo-Bay/' },
     ],
   },
+  indonesia: {
+    energy: [
+      'Indonesia is among the largest geothermal electricity producers. The Ministry of Energy and Mineral Resources administers geothermal policy.',
+      'This inventory records no named U.S. installation in Indonesia.',
+    ],
+    pocs: [
+      { office: 'Ministry of Energy and Mineral Resources', url: 'https://www.esdm.go.id/' },
+      { office: 'U.S. Embassy Jakarta', url: 'https://id.usembassy.gov/' },
+    ],
+  },
+  philippines: {
+    energy: [
+      'The Philippines operates a large conventional geothermal electricity fleet. The Department of Energy publishes installed-capacity statistics.',
+      'This inventory records no named U.S. installation in the Philippines.',
+    ],
+    pocs: [
+      { office: 'Department of Energy', url: 'https://www.doe.gov.ph/' },
+      { office: 'U.S. Embassy Manila', url: 'https://ph.usembassy.gov/' },
+    ],
+  },
+  'new-zealand': {
+    energy: [
+      'New Zealand operates high-temperature geothermal fields for electricity and direct heat. The Ministry of Business, Innovation and Employment publishes geothermal strategy.',
+      'This inventory records no named U.S. installation in New Zealand.',
+    ],
+    pocs: [
+      { office: 'Ministry of Business, Innovation and Employment', url: 'https://www.mbie.govt.nz/' },
+      { office: 'U.S. Embassy Wellington', url: 'https://nz.usembassy.gov/' },
+    ],
+  },
+  mexico: {
+    energy: [
+      'Mexico produces geothermal electricity from long-running public and utility-owned fields. Implementing regulations issued in 2025 govern geothermal activity.',
+      'This inventory records no named U.S. installation in Mexico.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Mexico City', url: 'https://mx.usembassy.gov/' },
+    ],
+  },
+  chile: {
+    energy: [
+      'Chile sits on the Andean volcanic arc. Law 21.711 amends the geothermal concessions framework, including a simplified path for shallow heat projects.',
+      'This inventory records no named U.S. installation in Chile.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Santiago', url: 'https://cl.usembassy.gov/' },
+    ],
+  },
+  'el-salvador': {
+    energy: [
+      'El Salvador operates a public geothermal electricity program through LaGeo.',
+      'This inventory records no named U.S. installation in El Salvador.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy San Salvador', url: 'https://sv.usembassy.gov/' },
+    ],
+  },
+  'costa-rica': {
+    energy: [
+      'Instituto Costarricense de Electricidad operates geothermal plants on the volcanic cordillera, including Miravalles.',
+      'This inventory records no named U.S. installation in Costa Rica.',
+    ],
+    pocs: [
+      { office: 'Instituto Costarricense de Electricidad', url: 'https://www.grupoice.com/' },
+      { office: 'U.S. Embassy San José', url: 'https://cr.usembassy.gov/' },
+    ],
+  },
+  'papua-new-guinea': {
+    energy: [
+      'Lihir Island hosts a geothermal power plant that serves the mine. The Mineral Resources Authority lists geothermal among Geological Survey energy activities.',
+      'This inventory records no named U.S. installation in Papua New Guinea.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Port Moresby', url: 'https://pg.usembassy.gov/' },
+    ],
+  },
+  taiwan: {
+    energy: [
+      'The Ministry of Economic Affairs maintains geothermal exploration and development regulations.',
+      'This inventory records no named U.S. installation in Taiwan.',
+    ],
+    pocs: [
+      { office: 'American Institute in Taiwan', url: 'https://www.ait.org.tw/' },
+    ],
+  },
+  peru: {
+    energy: [
+      'Peru sits on the Andean volcanic arc. The Ministry of Energy and Mines administers geothermal concessions.',
+      'This inventory records no named U.S. installation in Peru.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Lima', url: 'https://pe.usembassy.gov/' },
+    ],
+  },
+  guatemala: {
+    energy: [
+      'Guatemala produces geothermal electricity on the Central American volcanic arc, including the Amatitlán and Zunil fields.',
+      'This inventory records no named U.S. installation in Guatemala.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Guatemala City', url: 'https://gt.usembassy.gov/' },
+    ],
+  },
+  nicaragua: {
+    energy: [
+      'Nicaragua produces geothermal electricity at Momotombo and San Jacinto-Tizate.',
+      'This inventory records no named U.S. installation in Nicaragua.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Managua', url: 'https://ni.usembassy.gov/' },
+    ],
+  },
+  ecuador: {
+    energy: [
+      'Ecuador sits on the Andean volcanic arc. CELEC EP publishes geothermal development work.',
+      'This inventory records no named U.S. installation in Ecuador.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Quito', url: 'https://ec.usembassy.gov/' },
+    ],
+  },
+  colombia: {
+    energy: [
+      'Colombia sits on the Andean volcanic arc. Public energy planning includes geothermal resource areas.',
+      'This inventory records no named U.S. installation in Colombia.',
+    ],
+    pocs: [
+      { office: 'U.S. Embassy Bogotá', url: 'https://co.usembassy.gov/' },
+    ],
+  },
 }
 
 const REGION_PAGES = {
@@ -247,6 +391,17 @@ export function countrySlug(name) {
   return COUNTRY_SLUGS[name] || String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 }
 
+export function nameForSlug(slug) {
+  const key = decodeURIComponent(String(slug || '')).toLowerCase()
+  const fromMap = Object.keys(COUNTRY_SLUGS).find((n) => COUNTRY_SLUGS[n] === key)
+  if (fromMap) return fromMap
+  const names = new Set([
+    ...CANDIDATES.map((c) => c.hostCountry),
+    ...GEOTHERMAL_RANK,
+  ])
+  return [...names].find((n) => countrySlug(n) === key) || null
+}
+
 export function basesForCountry(name) {
   return CANDIDATES.filter((c) => c.hostCountry === name)
 }
@@ -256,18 +411,19 @@ export function basesForRegion(regionId) {
 }
 
 export function getCountry(slug) {
-  const name = Object.keys(COUNTRY_SLUGS).find((n) => COUNTRY_SLUGS[n] === slug)
+  const name = nameForSlug(slug)
   if (!name) return null
   const bases = basesForCountry(name)
-  if (!bases.length) return null
-  const page = COUNTRY_PAGES[slug] || { energy: [], pocs: [] }
-  const region = REGIONS.find((r) => r.id === bases[0].region)
+  const resolved = countrySlug(name)
+  const page = COUNTRY_PAGES[resolved] || { energy: [], pocs: [] }
+  const regionId = bases[0]?.region || RING_OF_FIRE_GEO[name]?.region
+  const region = REGIONS.find((r) => r.id === regionId)
   const rank = geothermalRank(name)
   return {
-    slug,
+    slug: resolved,
     name,
-    regionId: bases[0].region,
-    regionLabel: region?.label || bases[0].region,
+    regionId: regionId || '',
+    regionLabel: region?.label || regionId || '',
     energy: page.energy,
     pocs: page.pocs || [],
     bases,
@@ -275,6 +431,21 @@ export function getCountry(slug) {
     ranked: rank != null,
     ringOfFire: isRingOfFire(name),
   }
+}
+
+/** Static HTML copies so GitHub Pages and vite preview return 200 for nested routes. */
+export function deepLinkPaths() {
+  const slugs = new Set()
+  for (const name of Object.keys(COUNTRY_SLUGS)) slugs.add(COUNTRY_SLUGS[name])
+  for (const c of CANDIDATES) slugs.add(countrySlug(c.hostCountry))
+  for (const name of GEOTHERMAL_RANK) slugs.add(countrySlug(name))
+  return [
+    'inventory',
+    'sources',
+    'method',
+    ...[...slugs].sort().map((s) => `country/${s}`),
+    ...REGIONS.map((r) => `region/${r.id}`),
+  ]
 }
 
 export function getRegion(id) {

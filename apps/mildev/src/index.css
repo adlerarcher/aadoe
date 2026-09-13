@@ -1861,8 +1861,8 @@ body:has(.app-shell) {
   max-width: 920px;
 }
 
-.focus-country-list button,
-.focus-country-list > li > span {
+.focus-country-list a,
+.focus-country-list button {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1872,15 +1872,16 @@ body:has(.app-shell) {
   border: 1px solid rgba(245, 184, 25, .35);
   color: inherit;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.focus-country-list > li > span {
-  cursor: default;
+.focus-country-list .is-ring-only a {
   background: rgba(232, 235, 228, .04);
   border-color: rgba(232, 235, 228, .18);
 }
 
+.focus-country-list a:hover,
 .focus-country-list button:hover {
   border-color: var(--gold);
 }
@@ -1953,12 +1954,16 @@ body:has(.app-shell) {
   outline: none;
 }
 
+.map-country-link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .map-country-label {
   fill: rgba(232, 235, 228, .96);
   font-family: var(--label);
   letter-spacing: .06em;
   text-transform: uppercase;
-  pointer-events: none;
   paint-order: stroke;
   stroke: #07101f;
   stroke-width: 3.5px;
@@ -2045,7 +2050,7 @@ body:has(.app-shell) {
   fill: transparent;
   stroke: var(--gold);
   stroke-width: 1.6;
-  cursor: default;
+  cursor: pointer;
 }
 
 .map-pin.is-ring-only .map-pin-halo {
@@ -2062,6 +2067,7 @@ body:has(.app-shell) {
   gap: 8px;
 }
 
+.rank-strip a,
 .rank-strip button {
   display: flex;
   align-items: baseline;
@@ -2072,8 +2078,10 @@ body:has(.app-shell) {
   color: inherit;
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
 }
 
+.rank-strip a:hover,
 .rank-strip button:hover {
   border-color: var(--gold);
 }
@@ -2099,6 +2107,12 @@ body:has(.app-shell) {
   padding: 8px 12px;
   background: rgba(232, 235, 228, .04);
   border: 1px solid rgba(232, 235, 228, .18);
+  color: inherit;
+  text-decoration: none;
+}
+
+.rank-chip:hover {
+  border-color: var(--gold);
 }
 
 .rank-strip em,
@@ -2188,6 +2202,7 @@ body:has(.app-shell) {
   gap: 10px;
 }
 
+.country-index a,
 .country-index button {
   width: 100%;
   display: flex;
@@ -2200,8 +2215,10 @@ body:has(.app-shell) {
   font: inherit;
   cursor: pointer;
   text-align: left;
+  text-decoration: none;
 }
 
+.country-index a:hover,
 .country-index button:hover {
   border-color: var(--gold);
 }

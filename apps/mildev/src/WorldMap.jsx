@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { withBase } from './basePath.js'
 import { WORLD_LAND_D } from './content/worldLand.js'
 
 const WIDTH = 1000
@@ -283,19 +284,9 @@ export default function WorldMap({
               style={{ '--i': i }}
               transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
             >
-              <circle className="map-pin-halo" r={r + (c.ranked ? 10 : 7)} />
-              <title>
-                {c.hasInstallations
-                  ? c.ranked
-                    ? `${c.name} (Ring of Fire ${c.rank}, ${c.count} installations)`
-                    : `${c.name} (${c.count} installations)`
-                  : `${c.name} (Ring of Fire ${c.rank})`}
-              </title>
-              <circle
-                className="map-pin-dot"
-                r={r}
-                role="button"
-                tabIndex={0}
+              <a
+                className="map-country-link"
+                href={withBase(`/country/${encodeURIComponent(c.slug)}`)}
                 aria-label={
                   c.hasInstallations
                     ? c.ranked
@@ -305,27 +296,31 @@ export default function WorldMap({
                 }
                 onClick={(e) => {
                   e.stopPropagation()
-                  if (c.hasInstallations) onCountry(c.slug)
+                  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+                  e.preventDefault()
+                  onCountry?.(c.slug)
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    if (c.hasInstallations) onCountry(c.slug)
-                  }
-                }}
-              />
-              {zoomed ? (
-                <text
-                  className="map-country-label"
-                  y={-(r + 8)}
-                  textAnchor="middle"
-                  fontSize={labelSize}
-                  role="presentation"
-                >
-                  {c.name}
-                </text>
-              ) : null}
+              >
+                <circle className="map-pin-halo" r={r + (c.ranked ? 10 : 7)} />
+                <title>
+                  {c.hasInstallations
+                    ? c.ranked
+                      ? `${c.name} (Ring of Fire ${c.rank}, ${c.count} installations)`
+                      : `${c.name} (${c.count} installations)`
+                    : `${c.name} (Ring of Fire ${c.rank})`}
+                </title>
+                <circle className="map-pin-dot" r={r} />
+                {zoomed ? (
+                  <text
+                    className="map-country-label"
+                    y={-(r + 8)}
+                    textAnchor="middle"
+                    fontSize={labelSize}
+                  >
+                    {c.name}
+                  </text>
+                ) : null}
+              </a>
             </g>
           )
         })}

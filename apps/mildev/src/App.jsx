@@ -30,15 +30,33 @@ const NAV = [
 ]
 
 function parseRoute() {
-  const path = stripBase(window.location.pathname).replace(/\/+$/, '') || '/'
+  let path = stripBase(window.location.pathname)
+  path = path.replace(/\/index\.html$/i, '')
+  path = path.replace(/\/+$/, '') || '/'
   if (path === '/') return { id: 'home' }
   if (path === '/inventory') return { id: 'inventory' }
   if (path === '/sources' || path === '/method') return { id: 'sources' }
   const country = path.match(/^\/country\/([^/]+)$/)
-  if (country) return { id: 'country', slug: decodeURIComponent(country[1]) }
+  if (country) return { id: 'country', slug: decodeURIComponent(country[1]).toLowerCase() }
   const region = path.match(/^\/region\/([^/]+)$/)
   if (region) return { id: 'region', regionId: decodeURIComponent(region[1]) }
   return { id: 'home' }
+}
+
+function CountryLink({ slug, className, onOpen, children }) {
+  return (
+    <a
+      href={withBase(`/country/${encodeURIComponent(slug)}`)}
+      className={className}
+      onClick={(e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+        e.preventDefault()
+        onOpen(slug)
+      }}
+    >
+      {children}
+    </a>
+  )
 }
 
 function pushRoute(path) {
@@ -175,21 +193,21 @@ function HomeMap({ onCountry }) {
           <ul className="focus-country-list">
             {focusCountries.map((c) => (
               <li key={c.slug}>
-                <button type="button" onClick={() => onCountry(c.slug)}>
+                <CountryLink slug={c.slug} onOpen={onCountry}>
                   <strong>{c.name}</strong>
                   <em>
                     {c.count} installations
                     {c.ranked ? ` · Ring of Fire ${c.rank}` : ''}
                   </em>
-                </button>
+                </CountryLink>
               </li>
             ))}
             {focusRing.map((c) => (
               <li key={`ring-${c.slug}`} className="is-ring-only">
-                <span>
+                <CountryLink slug={c.slug} onOpen={onCountry}>
                   <strong>{c.name}</strong>
                   <em>Ring of Fire {c.rank}</em>
-                </span>
+                </CountryLink>
               </li>
             ))}
           </ul>
@@ -199,19 +217,15 @@ function HomeMap({ onCountry }) {
             <ol className="rank-strip">
               {ringStrip.map((c) => (
                 <li key={c.slug}>
-                  {c.hasInstallations ? (
-                    <button type="button" onClick={() => onCountry(c.slug)}>
-                      <span className="rank-num">{c.rank}</span>
-                      <strong>{c.name}</strong>
-                      <em>{c.count} installations</em>
-                    </button>
-                  ) : (
-                    <span className="rank-chip">
-                      <span className="rank-num">{c.rank}</span>
-                      <strong>{c.name}</strong>
-                      <em>Geothermal host</em>
-                    </span>
-                  )}
+                  <CountryLink
+                    slug={c.slug}
+                    className={c.hasInstallations ? undefined : 'rank-chip'}
+                    onOpen={onCountry}
+                  >
+                    <span className="rank-num">{c.rank}</span>
+                    <strong>{c.name}</strong>
+                    <em>{c.hasInstallations ? `${c.count} installations` : 'Geothermal host'}</em>
+                  </CountryLink>
                 </li>
               ))}
             </ol>
@@ -360,7 +374,11 @@ function CountryPage({ slug, onRegion, onHome }) {
           </ul>
 
           <h2 className="section-title" style={{ marginTop: 48 }}>Installations</h2>
-          <BaseList bases={place.bases} />
+          {place.bases.length ? (
+            <BaseList bases={place.bases} />
+          ) : (
+            <p className="empty">No named U.S. installations in this inventory.</p>
+          )}
           <PocList pocs={place.pocs} />
         </div>
       </section>
@@ -430,13 +448,13 @@ function RegionPage({ regionId, onCountry, onHome }) {
           <ul className="country-index">
             {place.countries.map((c) => (
               <li key={c.slug}>
-                <button type="button" onClick={() => onCountry(c.slug)}>
+                <CountryLink slug={c.slug} onOpen={onCountry}>
                   <strong>{c.name}</strong>
                   <span>
                     {c.count} installations
                     {c.ranked ? ` · Ring of Fire ${c.rank}` : ''}
                   </span>
-                </button>
+                </CountryLink>
               </li>
             ))}
           </ul>
@@ -449,10 +467,10 @@ function RegionPage({ regionId, onCountry, onHome }) {
                   .filter((c) => !c.hasInstallations)
                   .map((c) => (
                     <li key={`ring-${c.slug}`}>
-                      <span>
+                      <CountryLink slug={c.slug} onOpen={onCountry}>
                         <strong>{c.name}</strong>
                         <span>Ring of Fire {c.rank}</span>
-                      </span>
+                      </CountryLink>
                     </li>
                   ))}
               </ul>
@@ -540,13 +558,13 @@ function InventoryPage({ onCountry }) {
             grouped.map(([host, items]) => (
               <div key={host} className="country-block">
                 <h2>
-                  <button
-                    type="button"
+                  <CountryLink
+                    slug={countrySlug(host)}
                     className="text-link country-heading"
-                    onClick={() => onCountry(countrySlug(host))}
+                    onOpen={onCountry}
                   >
                     {host}
-                  </button>
+                  </CountryLink>
                 </h2>
                 <BaseList bases={items} />
               </div>
@@ -618,8 +636,9 @@ export default function App() {
   }
 
   const goCountry = (slug) => {
-    pushRoute(`/country/${slug}`)
-    setRoute({ id: 'country', slug })
+    const id = String(slug || '').toLowerCase()
+    pushRoute(`/country/${encodeURIComponent(id)}`)
+    setRoute({ id: 'country', slug: id })
   }
 
   const goRegion = (regionId) => {
