@@ -131,7 +131,7 @@ function Landing({ onEnter }) {
           ))}
         </div>
         <p className="cross-cut-note rise d6">
-          Overseas U.S. military energy development (geothermal + SMR) lives in <a href="/mildev/">MILDEV</a>.
+          Overseas installation energy: <a href="/mildev/">MILDEV</a>.
         </p>
       </div>
     </main>

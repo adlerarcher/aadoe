@@ -1,221 +1,318 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { asset, stripBase, withBase } from './basePath.js'
+import WorldMap from './WorldMap.jsx'
 import {
   CANDIDATES,
   REGIONS,
   filterCandidates,
   hostCountries,
   inventoryStats,
-  regionLabel,
 } from './content/candidates.js'
+import { DISCLOSURE, METHOD, SCOPE, SOURCES } from './content/method.js'
 import {
-  COUNT_FRAMING,
-  DISCLOSURE,
-  GEOTHERMAL_LENS,
-  METHOD,
-  SCOPE,
-  SMR_LENS,
-  SOURCES,
-} from './content/method.js'
+  countryMarkers,
+  countrySlug,
+  getCountry,
+  getRegion,
+  regionMarkers,
+} from './content/places.js'
 
 const NAV = [
-  { id: 'home', path: '/', label: 'Home' },
+  { id: 'home', path: '/', label: 'Map' },
   { id: 'inventory', path: '/inventory', label: 'Inventory' },
-  { id: 'geothermal', path: '/geothermal', label: 'Geothermal' },
-  { id: 'smr', path: '/smr', label: 'SMR' },
   { id: 'sources', path: '/sources', label: 'Sources' },
 ]
 
-const MOSAIC = [
-  { src: asset('mosaic-1.jpg'), className: 'tile wide' },
-  { src: asset('mosaic-2.jpg'), className: 'tile' },
-  { src: asset('mosaic-3.jpg'), className: 'tile portrait' },
-  { src: asset('mosaic-4.jpg'), className: 'tile' },
-  { src: asset('mosaic-5.jpg'), className: 'tile' },
-  { src: asset('mosaic-6.jpg'), className: 'tile' },
-  { src: asset('mosaic-7.jpg'), className: 'tile wide' },
-  { src: asset('mosaic-8.jpg'), className: 'tile' },
-]
-
-function routeFromPath() {
+function parseRoute() {
   const path = stripBase(window.location.pathname).replace(/\/+$/, '') || '/'
-  if (path === '/') return 'home'
-  if (path === '/inventory') return 'inventory'
-  if (path === '/geothermal') return 'geothermal'
-  if (path === '/smr') return 'smr'
-  if (path === '/sources' || path === '/method') return 'sources'
-  return 'home'
+  if (path === '/') return { id: 'home' }
+  if (path === '/inventory') return { id: 'inventory' }
+  if (path === '/sources' || path === '/method') return { id: 'sources' }
+  const country = path.match(/^\/country\/([^/]+)$/)
+  if (country) return { id: 'country', slug: decodeURIComponent(country[1]) }
+  const region = path.match(/^\/region\/([^/]+)$/)
+  if (region) return { id: 'region', regionId: decodeURIComponent(region[1]) }
+  return { id: 'home' }
 }
 
-function Atmosphere({ mosaicRef, washRef }) {
-  return (
-    <>
-      <div className="wash" aria-hidden="true" ref={washRef}>
-        <img src={asset('wash.jpg')} alt="" />
-      </div>
-      <div className="rays" aria-hidden="true" />
-      <div className="wisps" aria-hidden="true">
-        <span /><span /><span /><span />
-      </div>
-      <div className="mosaic" aria-hidden="true" ref={mosaicRef}>
-        {MOSAIC.map((tile) => (
-          <div key={tile.src} className={tile.className}>
-            <img src={tile.src} alt="" loading="eager" decoding="async" />
-          </div>
-        ))}
-      </div>
-    </>
-  )
+function pushRoute(path) {
+  window.history.pushState({}, '', withBase(path))
+  window.scrollTo(0, 0)
 }
 
-function SiteNav({ route, onNavigate }) {
+function SiteChrome({ routeId, onNavigate, children }) {
   return (
-    <header className="site-nav">
-      <a
-        className="brand"
-        href={withBase('/')}
-        onClick={(e) => {
-          e.preventDefault()
-          onNavigate('home')
-        }}
-      >
-        <img src={asset('logo.png')} width="256" height="256" alt="" />
-        <span className="brand-name">
-          The Thermal Underground <i>MILDEV</i>
-        </span>
-        <span className="demo-mark">Demo</span>
-      </a>
-      <nav className="top-links" aria-label="MILDEV">
-        {NAV.map((item) => (
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="app-header-inner">
           <a
-            key={item.id}
-            href={withBase(item.path)}
-            className={route === item.id ? 'is-active' : undefined}
+            className="app-brand"
+            href={withBase('/')}
             onClick={(e) => {
               e.preventDefault()
-              onNavigate(item.id)
+              onNavigate('home')
             }}
           >
-            {item.label}
+            <img src={asset('logo.png')} width="256" height="256" alt="" />
+            <span>
+              <strong>MILDEV</strong>
+              <em>Thermal Underground</em>
+            </span>
           </a>
-        ))}
-      </nav>
-    </header>
+          <nav className="app-nav" aria-label="MILDEV">
+            {NAV.map((item) => (
+              <a
+                key={item.id}
+                href={withBase(item.path)}
+                className={routeId === item.id ? 'is-active' : undefined}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onNavigate(item.id)
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </header>
+      {children}
+      <footer className="app-footer">
+        <div>
+          <p>Thermal Underground © Adler Archer · MILDEV</p>
+          <p style={{ marginTop: 6 }}>{DISCLOSURE}</p>
+        </div>
+        <p>
+          Country markets: <a href="/mdev/">MDEV</a>
+        </p>
+      </footer>
+    </div>
   )
 }
 
-function LandingFooter() {
-  return (
-    <footer className="page-footer">
-      <p>Thermal Underground © Adler Archer.</p>
-      <p className="page-footer-note disclosure-glow">{DISCLOSURE}</p>
-    </footer>
-  )
-}
+function HomeMap({ onCountry, onRegion }) {
+  const countries = useMemo(() => countryMarkers(), [])
+  const regions = useMemo(() => regionMarkers(), [])
+  const stats = inventoryStats()
 
-function HomeLanding({ onNavigate }) {
   return (
-    <main className="hero">
-      <div className="stack">
-        <div className="logo-shell rise d1">
-          <span className="logo-glow" aria-hidden="true" />
-          <span className="logo-glow-outer" aria-hidden="true" />
-          <span className="logo-ring logo-ring--a" aria-hidden="true" />
-          <span className="logo-ring logo-ring--b" aria-hidden="true" />
-          <span className="logo-ring logo-ring--c" aria-hidden="true" />
-          <span className="logo-spark logo-spark--1" aria-hidden="true" />
-          <span className="logo-spark logo-spark--2" aria-hidden="true" />
-          <span className="logo-spark logo-spark--3" aria-hidden="true" />
-          <span className="logo-spark logo-spark--4" aria-hidden="true" />
-          <img src={asset('logo.png')} width="256" height="256" alt="Thermal Underground" />
-        </div>
-        <p className="kicker rise d2">{SCOPE.kicker}</p>
-        <h1>
-          <span className="title-line rise d3">{SCOPE.titleLine}</span>
-          <span className="title-accent rise d4">{SCOPE.titleAccent}</span>
-        </h1>
-        <span className="rule rise d5" aria-hidden="true" />
-        <p className="lede rise d5">{SCOPE.lede}</p>
-        <div className="home-actions rise d6">
-          <button type="button" className="enter enter--live" onClick={() => onNavigate('inventory')}>
-            <span className="enter-label">Open inventory</span>
-          </button>
-          <button type="button" className="enter enter--ghost" onClick={() => onNavigate('sources')}>
-            <span className="enter-label">Sources & method</span>
-          </button>
-        </div>
-        <ul className="scope-points rise d6">
-          {SCOPE.points.map((p) => (
-            <li key={p}>{p}</li>
-          ))}
-        </ul>
+    <main className="map-home">
+      <div className="map-home-copy">
+        <p className="app-kicker">{SCOPE.kicker}</p>
+        <h1>{SCOPE.title}</h1>
+        <p className="map-home-lede">{SCOPE.lede}</p>
+        <p className="map-home-meta">{stats.total} installations · {stats.countries} countries</p>
+      </div>
+      <div className="map-stage">
+        <WorldMap
+          countries={countries}
+          regions={regions}
+          onCountry={onCountry}
+          onRegion={onRegion}
+        />
       </div>
     </main>
   )
 }
 
-function AppHeader({ route, onNavigate }) {
+function BaseList({ bases }) {
   return (
-    <header className="app-header">
-      <div className="app-header-inner">
-        <a
-          className="app-brand"
-          href={withBase('/')}
-          onClick={(e) => {
-            e.preventDefault()
-            onNavigate('home')
-          }}
-        >
-          <img src={asset('logo.png')} width="256" height="256" alt="" />
-          <span>
-            <strong>MILDEV</strong>
-            <em>Thermal Underground</em>
-          </span>
-        </a>
-        <nav className="app-nav" aria-label="Sections">
-          {NAV.filter((n) => n.id !== 'home').map((item) => (
-            <a
-              key={item.id}
-              href={withBase(item.path)}
-              className={route === item.id ? 'is-active' : undefined}
-              onClick={(e) => {
-                e.preventDefault()
-                onNavigate(item.id)
-              }}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-    </header>
+    <ul className="candidate-list">
+      {bases.map((b) => (
+        <li key={b.id} className="candidate-card">
+          <div className="candidate-top">
+            <h3>{b.name}</h3>
+            <div className="tags">
+              <span className="tag">{b.service}</span>
+              {b.command ? <span className="tag">{b.command}</span> : null}
+            </div>
+          </div>
+          <p className="service">{b.role}</p>
+          <p>{b.energy}</p>
+          {b.paUrl ? (
+            <p className="src-line">
+              <a href={b.paUrl} target="_blank" rel="noopener noreferrer">
+                Public affairs ↗
+              </a>
+            </p>
+          ) : null}
+        </li>
+      ))}
+    </ul>
   )
 }
 
-function AppFooter() {
+function PocList({ pocs }) {
+  if (!pocs?.length) return null
   return (
-    <footer className="app-footer">
-      <div>
-        <p>Thermal Underground © Adler Archer · MILDEV</p>
-        <p className="disclosure-glow" style={{ marginTop: 6 }}>{DISCLOSURE}</p>
-      </div>
-      <p>
-        Country markets: <a href="/mdev/">MDEV</a>
-      </p>
-    </footer>
+    <>
+      <h2 className="section-title" style={{ marginTop: 48 }}>Public points of contact</h2>
+      <ul className="poc-list">
+        {pocs.map((p) => (
+          <li key={`${p.office}-${p.url || ''}`}>
+            {p.url ? (
+              <a href={p.url} target="_blank" rel="noopener noreferrer">
+                {p.office} ↗
+              </a>
+            ) : (
+              <span>{p.office}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 
-function InventoryPage() {
+function CountryPage({ slug, onRegion, onHome }) {
+  const place = getCountry(slug)
+  if (!place) {
+    return (
+      <main>
+        <section className="app-hero">
+          <div className="app-hero-copy">
+            <p className="app-kicker">Country</p>
+            <h1>Not found</h1>
+            <p className="app-lede">
+              <button type="button" className="text-link" onClick={onHome}>Return to map</button>
+            </p>
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+  const services = [...new Set(place.bases.map((b) => b.service))]
+
+  return (
+    <main>
+      <section className="app-hero">
+        <div className="app-hero-copy">
+          <p className="app-kicker">
+            <button type="button" className="text-link" onClick={onHome}>Map</button>
+            {' · '}
+            <button type="button" className="text-link" onClick={() => onRegion(place.regionId)}>
+              {place.regionLabel}
+            </button>
+          </p>
+          <h1>{place.name}</h1>
+          <p className="app-lede">{place.bases.length} installations.</p>
+        </div>
+      </section>
+      <section className="app-section">
+        <div className="app-section-inner">
+          <div className="stat-row">
+            <div className="stat">
+              <strong>{place.bases.length}</strong>
+              <span>Installations</span>
+            </div>
+            <div className="stat">
+              <strong>{services.length}</strong>
+              <span>Services</span>
+            </div>
+            <div className="stat">
+              <strong>{place.pocs.length}</strong>
+              <span>Public offices</span>
+            </div>
+          </div>
+
+          <h2 className="section-title">Energy program</h2>
+          <ul className="energy-points">
+            {place.energy.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+
+          <h2 className="section-title" style={{ marginTop: 48 }}>Installations</h2>
+          <BaseList bases={place.bases} />
+          <PocList pocs={place.pocs} />
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function RegionPage({ regionId, onCountry, onHome }) {
+  const place = getRegion(regionId)
+  if (!place) {
+    return (
+      <main>
+        <section className="app-hero">
+          <div className="app-hero-copy">
+            <p className="app-kicker">Region</p>
+            <h1>Not found</h1>
+            <p className="app-lede">
+              <button type="button" className="text-link" onClick={onHome}>Return to map</button>
+            </p>
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+  return (
+    <main>
+      <section className="app-hero">
+        <div className="app-hero-copy">
+          <p className="app-kicker">
+            <button type="button" className="text-link" onClick={onHome}>Map</button>
+            {' · Region'}
+          </p>
+          <h1>{place.label}</h1>
+          <p className="app-lede">
+            {place.bases.length} installations across {place.countries.length} host countries.
+          </p>
+        </div>
+      </section>
+      <section className="app-section">
+        <div className="app-section-inner">
+          <div className="stat-row">
+            <div className="stat">
+              <strong>{place.bases.length}</strong>
+              <span>Installations</span>
+            </div>
+            <div className="stat">
+              <strong>{place.countries.length}</strong>
+              <span>Host countries</span>
+            </div>
+          </div>
+
+          <h2 className="section-title">Energy program</h2>
+          <ul className="energy-points">
+            {place.energy.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+
+          <h2 className="section-title" style={{ marginTop: 48 }}>Host countries</h2>
+          <ul className="country-index">
+            {place.countries.map((c) => (
+              <li key={c.slug}>
+                <button type="button" onClick={() => onCountry(c.slug)}>
+                  <strong>{c.name}</strong>
+                  <span>{c.count} installations</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <h2 className="section-title" style={{ marginTop: 48 }}>Installations</h2>
+          <BaseList bases={place.bases} />
+        </div>
+      </section>
+    </main>
+  )
+}
+
+function InventoryPage({ onCountry }) {
   const stats = inventoryStats()
   const countries = useMemo(() => hostCountries(), [])
   const [region, setRegion] = useState('all')
   const [country, setCountry] = useState('all')
-  const [lens, setLens] = useState('all')
   const [q, setQ] = useState('')
   const rows = useMemo(
-    () => filterCandidates({ region, country, lens, q }),
-    [region, country, lens, q],
+    () => filterCandidates({ region, country, q }),
+    [region, country, q],
   )
 
   const grouped = useMemo(() => {
@@ -232,40 +329,16 @@ function InventoryPage() {
     <main>
       <section className="app-hero">
         <div className="app-hero-copy">
-          <p className="app-kicker">Candidate inventory</p>
-          <h1>
-            Public <span>starter set</span>
-          </h1>
+          <p className="app-kicker">Inventory</p>
+          <h1>Inventory</h1>
           <p className="app-lede">
-            {stats.total} named installations across {stats.countries} host countries.
-            Broad public site tallies run near {COUNT_FRAMING.sitesBallpark}; CRS-style major-base tallies near {COUNT_FRAMING.basesBallpark}.
-            This list is a curated subset for energy screening, not a complete force map.
+            {stats.total} installations across {stats.countries} host countries.
           </p>
-          <p className="draft-note">{COUNT_FRAMING.starterNote}</p>
         </div>
       </section>
 
       <section className="app-section">
         <div className="app-section-inner">
-          <div className="stat-row">
-            <div className="stat">
-              <strong>{stats.total}</strong>
-              <span>Seeded candidates</span>
-            </div>
-            <div className="stat">
-              <strong>{stats.geothermal}</strong>
-              <span>Geothermal lens</span>
-            </div>
-            <div className="stat">
-              <strong>{stats.smr}</strong>
-              <span>SMR lens</span>
-            </div>
-            <div className="stat">
-              <strong>{stats.countries}</strong>
-              <span>Host countries</span>
-            </div>
-          </div>
-
           <div className="filters">
             <label>
               Region
@@ -286,80 +359,36 @@ function InventoryPage() {
               </select>
             </label>
             <label>
-              Lens
-              <select value={lens} onChange={(e) => setLens(e.target.value)}>
-                <option value="all">Any</option>
-                <option value="geothermal">Geothermal</option>
-                <option value="smr">SMR</option>
-              </select>
-            </label>
-            <label>
               Search
               <input
                 type="search"
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
-                placeholder="Name or note"
+                placeholder="Name or service"
               />
             </label>
           </div>
 
-          <p className="result-count">{rows.length} shown · incomplete by design</p>
+          <p className="result-count">{rows.length} shown</p>
 
           {grouped.length === 0 ? (
-            <p className="empty">No candidates match these filters.</p>
+            <p className="empty">No installations match these filters.</p>
           ) : (
             grouped.map(([host, items]) => (
               <div key={host} className="country-block">
-                <h2>{host}</h2>
-                <ul className="candidate-list">
-                  {items.map((c) => (
-                    <li key={c.id} className="candidate-card">
-                      <div className="candidate-top">
-                        <h3>{c.name}</h3>
-                        <div className="tags">
-                          <span className="tag">{regionLabel(c.region)}</span>
-                          {c.geothermalLens && <span className="tag tag-geo">Geothermal</span>}
-                          {c.smrLens && <span className="tag tag-smr">SMR</span>}
-                        </div>
-                      </div>
-                      <p className="service">{c.serviceNote}</p>
-                      <p>{c.note}</p>
-                      <p className="src-line">Sources: {c.sources.join(' · ')}</p>
-                    </li>
-                  ))}
-                </ul>
+                <h2>
+                  <button
+                    type="button"
+                    className="text-link country-heading"
+                    onClick={() => onCountry(countrySlug(host))}
+                  >
+                    {host}
+                  </button>
+                </h2>
+                <BaseList bases={items} />
               </div>
             ))
           )}
-        </div>
-      </section>
-    </main>
-  )
-}
-
-function LensPage({ content, accent }) {
-  return (
-    <main>
-      <section className="app-hero">
-        <div className="app-hero-copy">
-          <p className="app-kicker">Opportunity lens</p>
-          <h1>
-            {content.title.split(' ')[0]} <span>{content.title.split(' ').slice(1).join(' ')}</span>
-          </h1>
-          <p className="app-lede">{content.lede}</p>
-        </div>
-      </section>
-      <section className="app-section">
-        <div className="app-section-inner">
-          <ul className={`lens-points lens-points--${accent}`}>
-            {content.points.map((p) => (
-              <li key={p}>{p}</li>
-            ))}
-          </ul>
-          <p className="draft-note">
-            Lens tags on inventory rows mark screening relevance. They do not mean a project exists, is funded, or is approved.
-          </p>
         </div>
       </section>
     </main>
@@ -372,24 +401,19 @@ function SourcesPage() {
       <section className="app-hero">
         <div className="app-hero-copy">
           <p className="app-kicker">Method</p>
-          <h1>
-            Sources & <span>limits</span>
-          </h1>
-          <p className="app-lede">
-            MILDEV is built from public open sources. It is a venture research product of Thermal Underground, not a government release.
-          </p>
+          <h1>Sources</h1>
         </div>
       </section>
       <section className="app-section">
         <div className="app-section-inner">
-          <h2 className="section-title">How rows are chosen</h2>
+          <h2 className="section-title">Method</h2>
           <ol className="method-list">
             {METHOD.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ol>
 
-          <h2 className="section-title" style={{ marginTop: 48 }}>Public source classes</h2>
+          <h2 className="section-title" style={{ marginTop: 48 }}>Sources</h2>
           <ul className="source-cards">
             {SOURCES.map((s) => (
               <li key={s.id} className="source-card">
@@ -397,17 +421,12 @@ function SourcesPage() {
                 <p>{s.note}</p>
                 {s.url ? (
                   <a href={s.url} target="_blank" rel="noopener noreferrer">
-                    Open source class ↗
+                    Open source ↗
                   </a>
                 ) : null}
               </li>
             ))}
           </ul>
-
-          <p className="draft-note" style={{ marginTop: 36 }}>
-            Starter inventory size: {CANDIDATES.length} named installations.
-            Do not treat this as the {COUNT_FRAMING.basesBallpark} base figure or the {COUNT_FRAMING.sitesBallpark} site figure.
-          </p>
         </div>
       </section>
     </main>
@@ -415,73 +434,50 @@ function SourcesPage() {
 }
 
 export default function App() {
-  const [route, setRoute] = useState(() => (typeof window !== 'undefined' ? routeFromPath() : 'home'))
-  const mosaicRef = useRef(null)
-  const washRef = useRef(null)
-  const onLanding = route === 'home'
+  const [route, setRoute] = useState(() => (typeof window !== 'undefined' ? parseRoute() : { id: 'home' }))
 
   useEffect(() => {
-    const onPop = () => setRoute(routeFromPath())
+    const onPop = () => setRoute(parseRoute())
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  useEffect(() => {
-    if (!onLanding) return undefined
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-    const mosaic = mosaicRef.current
-    const wash = washRef.current
-    if (!mosaic) return undefined
-    let x = 0
-    let y = 0
-    let tx = 0
-    let ty = 0
-    let raf = 0
-    const onMove = (e) => {
-      tx = (e.clientX / window.innerWidth - 0.5) * 28
-      ty = (e.clientY / window.innerHeight - 0.5) * 18
-    }
-    const tick = () => {
-      x += (tx - x) * 0.06
-      y += (ty - y) * 0.06
-      mosaic.style.transform = `translate3d(${x}px,${y}px,0)`
-      if (wash) wash.style.transform = `translate3d(${x * 0.35}px,${y * 0.35}px,0)`
-      raf = requestAnimationFrame(tick)
-    }
-    document.addEventListener('pointermove', onMove)
-    raf = requestAnimationFrame(tick)
-    return () => {
-      document.removeEventListener('pointermove', onMove)
-      cancelAnimationFrame(raf)
-    }
-  }, [onLanding])
+  const goHome = () => {
+    pushRoute('/')
+    setRoute({ id: 'home' })
+  }
 
-  const navigate = (id) => {
+  const goNav = (id) => {
     const item = NAV.find((n) => n.id === id) || NAV[0]
-    setRoute(item.id)
-    window.history.pushState({}, '', withBase(item.path))
-    window.scrollTo(0, 0)
+    pushRoute(item.path)
+    setRoute({ id: item.id })
   }
 
-  if (onLanding) {
-    return (
-      <div className="page">
-        <Atmosphere mosaicRef={mosaicRef} washRef={washRef} />
-        <SiteNav route={route} onNavigate={navigate} />
-        <HomeLanding onNavigate={navigate} />
-        <LandingFooter />
-      </div>
-    )
+  const goCountry = (slug) => {
+    pushRoute(`/country/${slug}`)
+    setRoute({ id: 'country', slug })
   }
+
+  const goRegion = (regionId) => {
+    pushRoute(`/region/${regionId}`)
+    setRoute({ id: 'region', regionId })
+  }
+
+  const routeId = route.id === 'country' || route.id === 'region' ? 'home' : route.id
 
   return (
-    <div className="app-shell">
-      <AppHeader route={route} onNavigate={navigate} />
-      {route === 'inventory' && <InventoryPage />}
-      {route === 'geothermal' && <LensPage content={GEOTHERMAL_LENS} accent="geo" />}
-      {route === 'smr' && <LensPage content={SMR_LENS} accent="smr" />}
-      {route === 'sources' && <SourcesPage />}
-      <AppFooter />
-    </div>
+    <SiteChrome routeId={routeId} onNavigate={goNav}>
+      {route.id === 'home' && (
+        <HomeMap onCountry={goCountry} onRegion={goRegion} />
+      )}
+      {route.id === 'country' && (
+        <CountryPage slug={route.slug} onRegion={goRegion} onHome={goHome} />
+      )}
+      {route.id === 'region' && (
+        <RegionPage regionId={route.regionId} onCountry={goCountry} onHome={goHome} />
+      )}
+      {route.id === 'inventory' && <InventoryPage onCountry={goCountry} />}
+      {route.id === 'sources' && <SourcesPage />}
+    </SiteChrome>
   )
 }

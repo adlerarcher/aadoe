@@ -485,7 +485,7 @@ function MarketsPage({ navigate }) {
         <p className="app-kicker">Markets</p>
         <h1 className="geo-page-title">Country profiles</h1>
         <p className="app-lede geo-page-lede">
-          Fifteen markets across Asia and Pacific, Africa, and the Americas. Open a profile for sourced applications, buyers, and developments. Installation-facing energy work sits in MILDEV.
+          Fifteen markets across Asia and Pacific, Africa, and the Americas. Open a profile for sourced applications, buyers, and developments.
         </p>
 
         <div className="geo-filters">
@@ -731,7 +731,7 @@ function MethodologyPage() {
             This reference covers fifteen published country markets across Asia and Pacific, Africa, and the Americas. Profiles show only sections supported by linked sources.
           </p>
           <p>
-            Overseas U.S. military installation energy development is maintained in MILDEV, not as a country filter here.
+            Overseas installation energy: MILDEV.
           </p>
           <h2>Sourcing</h2>
           <p>
