@@ -130,6 +130,9 @@ function Landing({ onEnter }) {
             <EnterButton key={program.id} program={program} onEnter={onEnter} />
           ))}
         </div>
+        <p className="cross-cut-note rise d6">
+          Across programs, overseas U.S. military installations are a candidate class of host sites and load centers for geothermal and small modular reactors. Geothermal coverage is live. Nuclear, including SMR framing for those locations, is coming soon.
+        </p>
       </div>
     </main>
   )

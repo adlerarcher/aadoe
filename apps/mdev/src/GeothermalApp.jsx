@@ -11,6 +11,7 @@ import {
   docsFor,
   formatDate,
   regionLabel,
+  CROSS_CUTTING,
 } from './content/geothermal.js'
 import { asset, stripBase, withBase } from './basePath.js'
 
@@ -329,6 +330,24 @@ function Footer({ onHome }) {
   )
 }
 
+
+function OverseasInstallationsSection() {
+  const theme = CROSS_CUTTING.overseasInstallations
+  const [ref, shown] = useReveal(0.1)
+  return (
+    <section className="app-section geo-cross-section" ref={ref}>
+      <div className={`app-section-inner geo-cross-panel${shown ? ' is-shown' : ''}`}>
+        <div className="editorial-kicker">{theme.kicker}</div>
+        <h2 className="geo-section-title">{theme.title}</h2>
+        <hr className="editorial-rule" />
+        {theme.body.map((p) => (
+          <p key={p}>{p}</p>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 function HomePage({ navigate }) {
   const recent = [...DEVELOPMENTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6)
   const [feedRef, feedShown] = useReveal(0.1)
@@ -402,6 +421,8 @@ function HomePage({ navigate }) {
         </div>
       </section>
 
+      <OverseasInstallationsSection />
+
       <section className="app-section">
         <div className="app-section-inner">
           <p className="app-kicker">Feed</p>
@@ -461,7 +482,7 @@ function MarketsPage({ navigate }) {
         <p className="app-kicker">Markets</p>
         <h1 className="geo-page-title">Country profiles</h1>
         <p className="app-lede geo-page-lede">
-          Fifteen markets across Asia and Pacific, Africa, and the Americas. Open a profile for sourced applications, buyers, and developments.
+          Fifteen markets across Asia and Pacific, Africa, and the Americas. Open a profile for sourced applications, buyers, and developments. Overseas U.S. military installations are framed as a cross-cutting class of potential host sites, not as a country filter.
         </p>
 
         <div className="geo-filters">
@@ -705,6 +726,9 @@ function MethodologyPage() {
           <h2>Coverage</h2>
           <p>
             This reference covers fifteen published country markets across Asia and Pacific, Africa, and the Americas. Profiles show only sections supported by linked sources.
+          </p>
+          <p>
+            Cross-cutting opportunity lenses, including overseas U.S. military installations as a class of potential host sites for geothermal and small modular reactors, are thematic. They are not facility inventories and do not claim specific base projects unless a linked public source supports the claim.
           </p>
           <h2>Sourcing</h2>
           <p>
