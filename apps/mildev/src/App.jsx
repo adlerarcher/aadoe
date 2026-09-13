@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { asset, stripBase, withBase } from './basePath.js'
 import WorldMap from './WorldMap.jsx'
 import {
-  CANDIDATES,
   REGIONS,
   filterCandidates,
   hostCountries,
@@ -15,8 +14,14 @@ import {
   getCountry,
   getRegion,
   regionMarkers,
+  ringOfFireMarkers,
+  ringOfFireStrip,
 } from './content/places.js'
-import { RANK_SOURCE, compareByGeothermalRank } from './content/ranking.js'
+import {
+  GEOTHERMAL_RANK,
+  RANK_SOURCE,
+  compareByGeothermalRank,
+} from './content/ranking.js'
 
 const NAV = [
   { id: 'home', path: '/', label: 'Map' },
@@ -84,7 +89,7 @@ function SiteChrome({ routeId, onNavigate, children }) {
           <p style={{ marginTop: 6 }}>{DISCLOSURE}</p>
         </div>
         <p>
-          Country markets: <a href="/mdev/">MDEV</a>
+          Market profiles: <a href="/mdev/">MDEV</a>
         </p>
       </footer>
     </div>
@@ -93,13 +98,12 @@ function SiteChrome({ routeId, onNavigate, children }) {
 
 function HomeMap({ onCountry }) {
   const countries = useMemo(() => countryMarkers(), [])
+  const ringCountries = useMemo(() => ringOfFireMarkers(), [])
   const regions = useMemo(() => regionMarkers(), [])
+  const ringStrip = useMemo(() => ringOfFireStrip(), [])
   const [focusRegion, setFocusRegion] = useState(null)
   const stats = inventoryStats()
-  const rankedHere = useMemo(
-    () => countries.filter((c) => c.ranked),
-    [countries],
-  )
+
   const focusMeta = useMemo(
     () => (focusRegion ? regions.find((r) => r.id === focusRegion) : null),
     [focusRegion, regions],
@@ -107,6 +111,10 @@ function HomeMap({ onCountry }) {
   const focusCountries = useMemo(
     () => (focusRegion ? countries.filter((c) => c.region === focusRegion) : []),
     [countries, focusRegion],
+  )
+  const focusRing = useMemo(
+    () => (focusRegion ? ringCountries.filter((c) => c.region === focusRegion) : []),
+    [ringCountries, focusRegion],
   )
 
   const zoomOut = () => setFocusRegion(null)
@@ -126,11 +134,34 @@ function HomeMap({ onCountry }) {
         <p className="app-kicker">{SCOPE.kicker}</p>
         <h1>{SCOPE.title}</h1>
         <p className="map-home-lede">{SCOPE.lede}</p>
+
+        {!focusRegion ? (
+          <dl className="home-facts">
+            <div>
+              <dt>{stats.total}</dt>
+              <dd>Installations</dd>
+            </div>
+            <div>
+              <dt>{stats.countries}</dt>
+              <dd>Host countries</dd>
+            </div>
+            <div>
+              <dt>{GEOTHERMAL_RANK.length}</dt>
+              <dd>Ring of Fire hosts</dd>
+            </div>
+            <div>
+              <dt>{regions.length}</dt>
+              <dd>Regions</dd>
+            </div>
+          </dl>
+        ) : null}
+
         <p className="map-home-meta">
           {focusMeta
-            ? `${focusMeta.label}: select a country · ${focusCountries.length} host countries`
-            : `${stats.total} installations · ${stats.countries} countries · click a region to zoom`}
+            ? `${focusMeta.label}: select a country · ${focusCountries.length} with installations${focusRing.length ? ` · ${focusRing.length} Ring of Fire hosts` : ''}`
+            : `${stats.total} installations · click a region, then a country`}
         </p>
+
         {focusMeta ? (
           <div className="map-zoom-bar">
             <button type="button" className="map-zoom-out" onClick={zoomOut}>
@@ -139,24 +170,59 @@ function HomeMap({ onCountry }) {
             <span className="map-zoom-label">{focusMeta.label}</span>
           </div>
         ) : null}
-        {!focusRegion && rankedHere.length > 0 ? (
-          <ol className="rank-strip">
-            {rankedHere.map((c) => (
+
+        {focusMeta ? (
+          <ul className="focus-country-list">
+            {focusCountries.map((c) => (
               <li key={c.slug}>
                 <button type="button" onClick={() => onCountry(c.slug)}>
-                  <span className="rank-num">{c.rank}</span>
                   <strong>{c.name}</strong>
-                  <em>{c.count} installations</em>
+                  <em>
+                    {c.count} installations
+                    {c.ranked ? ` · Ring of Fire ${c.rank}` : ''}
+                  </em>
                 </button>
               </li>
             ))}
-          </ol>
-        ) : null}
-        {!focusRegion ? <p className="rank-source">{RANK_SOURCE}</p> : null}
+            {focusRing.map((c) => (
+              <li key={`ring-${c.slug}`} className="is-ring-only">
+                <span>
+                  <strong>{c.name}</strong>
+                  <em>Ring of Fire {c.rank}</em>
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <>
+            <h2 className="home-strip-title">Pacific Ring of Fire</h2>
+            <ol className="rank-strip">
+              {ringStrip.map((c) => (
+                <li key={c.slug}>
+                  {c.hasInstallations ? (
+                    <button type="button" onClick={() => onCountry(c.slug)}>
+                      <span className="rank-num">{c.rank}</span>
+                      <strong>{c.name}</strong>
+                      <em>{c.count} installations</em>
+                    </button>
+                  ) : (
+                    <span className="rank-chip">
+                      <span className="rank-num">{c.rank}</span>
+                      <strong>{c.name}</strong>
+                      <em>Geothermal host</em>
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+            <p className="rank-source">{RANK_SOURCE}</p>
+          </>
+        )}
       </div>
       <div className="map-stage">
         <WorldMap
           countries={countries}
+          ringCountries={ringCountries}
           regions={regions}
           focusRegion={focusRegion}
           onFocusRegion={setFocusRegion}
@@ -174,7 +240,15 @@ function BaseList({ bases }) {
       {bases.map((b) => (
         <li key={b.id} className="candidate-card">
           <div className="candidate-top">
-            <h3>{b.name}</h3>
+            <h3>
+              {b.paUrl ? (
+                <a href={b.paUrl} target="_blank" rel="noopener noreferrer">
+                  {b.name} ↗
+                </a>
+              ) : (
+                b.name
+              )}
+            </h3>
             <div className="tags">
               <span className="tag">{b.service}</span>
               {b.command ? <span className="tag">{b.command}</span> : null}
@@ -185,7 +259,7 @@ function BaseList({ bases }) {
           {b.paUrl ? (
             <p className="src-line">
               <a href={b.paUrl} target="_blank" rel="noopener noreferrer">
-                Public affairs ↗
+                Official page ↗
               </a>
             </p>
           ) : null}
@@ -251,7 +325,7 @@ function CountryPage({ slug, onRegion, onHome }) {
           <h1>{place.name}</h1>
           <p className="app-lede">
             {place.bases.length} installations.
-            {place.ranked ? ` Geothermal priority ${place.rank}.` : ''}
+            {place.ranked ? ` Ring of Fire ${place.rank}.` : ''}
           </p>
         </div>
       </section>
@@ -273,7 +347,7 @@ function CountryPage({ slug, onRegion, onHome }) {
             {place.ranked ? (
               <div className="stat">
                 <strong>{place.rank}</strong>
-                <span>Geothermal priority</span>
+                <span>Ring of Fire</span>
               </div>
             ) : null}
           </div>
@@ -337,6 +411,12 @@ function RegionPage({ regionId, onCountry, onHome }) {
               <strong>{place.countries.length}</strong>
               <span>Host countries</span>
             </div>
+            {place.ringCountries.length ? (
+              <div className="stat">
+                <strong>{place.ringCountries.length}</strong>
+                <span>Ring of Fire</span>
+              </div>
+            ) : null}
           </div>
 
           <h2 className="section-title">Geothermal program</h2>
@@ -354,12 +434,30 @@ function RegionPage({ regionId, onCountry, onHome }) {
                   <strong>{c.name}</strong>
                   <span>
                     {c.count} installations
-                    {c.ranked ? ` · priority ${c.rank}` : ''}
+                    {c.ranked ? ` · Ring of Fire ${c.rank}` : ''}
                   </span>
                 </button>
               </li>
             ))}
           </ul>
+
+          {place.ringCountries.some((c) => !c.hasInstallations) ? (
+            <>
+              <h2 className="section-title" style={{ marginTop: 48 }}>Ring of Fire hosts</h2>
+              <ul className="country-index">
+                {place.ringCountries
+                  .filter((c) => !c.hasInstallations)
+                  .map((c) => (
+                    <li key={`ring-${c.slug}`}>
+                      <span>
+                        <strong>{c.name}</strong>
+                        <span>Ring of Fire {c.rank}</span>
+                      </span>
+                    </li>
+                  ))}
+              </ul>
+            </>
+          ) : null}
 
           <h2 className="section-title" style={{ marginTop: 48 }}>Installations</h2>
           <BaseList bases={place.bases} />

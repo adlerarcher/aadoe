@@ -39,7 +39,7 @@ function regionViewBox(regionId, countries) {
     maxY = Math.max(maxY, y)
   }
 
-  const pad = Math.max(28, 0.18 * Math.max(maxX - minX, maxY - minY, 40))
+  const pad = Math.max(36, 0.22 * Math.max(maxX - minX, maxY - minY, 40))
   minX -= pad
   maxX += pad
   minY -= pad
@@ -56,8 +56,8 @@ function regionViewBox(regionId, countries) {
     w = h * ASPECT
   }
 
-  // Single-country regions need a readable floor; dense clusters can go tighter.
-  const minW = pts.length <= 2 ? 160 : 110
+  // Keep region zooms readable; avoid empty-looking silhouettes.
+  const minW = pts.length <= 2 ? 200 : pts.length <= 5 ? 160 : 130
   if (w < minW) {
     w = minW
     h = minW / ASPECT
@@ -131,20 +131,30 @@ const PARALLELS = [-60, -30, 0, 30, 60]
 
 export default function WorldMap({
   countries,
+  ringCountries = [],
   regions,
   focusRegion,
   onFocusRegion,
   onCountry,
   onZoomOut,
 }) {
+  const focusPoints = useMemo(() => {
+    if (!focusRegion) return countries
+    const host = countries.filter((c) => c.region === focusRegion)
+    const ring = ringCountries.filter((c) => c.region === focusRegion)
+    return [...host, ...ring]
+  }, [countries, ringCountries, focusRegion])
+
   const targetVb = useMemo(() => {
     if (!focusRegion) return WORLD_VB
-    return regionViewBox(focusRegion, countries)
-  }, [focusRegion, countries])
+    return regionViewBox(focusRegion, focusPoints)
+  }, [focusRegion, focusPoints])
 
   const viewBox = useAnimatedViewBox(targetVb)
   const zoomed = Boolean(focusRegion)
   const strokeScale = Math.max(viewBox.w / WIDTH, 0.35)
+  // Keep labels readable under zoom by scaling with viewBox width.
+  const labelSize = zoomed ? Math.max(7, Math.min(14, viewBox.w * 0.045)) : 9
 
   return (
     <svg
@@ -153,7 +163,7 @@ export default function WorldMap({
       role="img"
       aria-label={
         zoomed
-          ? `Region map. Select a country.`
+          ? 'Region map. Select a country.'
           : 'Overseas U.S. military installations by country and region'
       }
     >
@@ -245,24 +255,41 @@ export default function WorldMap({
         </g>
       ) : null}
       <g className="map-pins">
-        {countries.map((c, i) => {
-          const inFocus = !zoomed || c.region === focusRegion
-          if (zoomed && !inFocus) return null
+        {focusPoints.map((c, i) => {
+          if (zoomed && c.region !== focusRegion) return null
+          if (!zoomed && !c.hasInstallations) return null
           const { x, y } = project(c.lon, c.lat)
-          const base = c.ranked ? 6.2 : c.count > 4 ? 4.4 : c.count > 2 ? 3.6 : 3
-          const r = zoomed ? base * 1.35 : base
+          const base = c.hasInstallations
+            ? c.ranked
+              ? 6.2
+              : c.count > 4
+                ? 4.4
+                : c.count > 2
+                  ? 3.6
+                  : 3.2
+            : 4.2
+          const r = zoomed ? base * 1.5 : base
+          const pinClass = [
+            'map-pin',
+            c.ranked ? 'is-ranked' : '',
+            !c.hasInstallations ? 'is-ring-only' : '',
+          ]
+            .filter(Boolean)
+            .join(' ')
           return (
             <g
-              key={c.slug}
-              className={c.ranked ? 'map-pin is-ranked' : 'map-pin'}
+              key={`${c.slug}-${c.hasInstallations ? 'host' : 'ring'}`}
+              className={pinClass}
               style={{ '--i': i }}
               transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
             >
               <circle className="map-pin-halo" r={r + (c.ranked ? 10 : 7)} />
               <title>
-                {c.ranked
-                  ? `${c.name} (geothermal priority ${c.rank})`
-                  : `${c.name} (${c.count})`}
+                {c.hasInstallations
+                  ? c.ranked
+                    ? `${c.name} (Ring of Fire ${c.rank}, ${c.count} installations)`
+                    : `${c.name} (${c.count} installations)`
+                  : `${c.name} (Ring of Fire ${c.rank})`}
               </title>
               <circle
                 className="map-pin-dot"
@@ -270,27 +297,30 @@ export default function WorldMap({
                 role="button"
                 tabIndex={0}
                 aria-label={
-                  c.ranked
-                    ? `${c.name}, geothermal priority ${c.rank}, ${c.count} installations`
-                    : `${c.name}, ${c.count} installations`
+                  c.hasInstallations
+                    ? c.ranked
+                      ? `${c.name}, Ring of Fire ${c.rank}, ${c.count} installations`
+                      : `${c.name}, ${c.count} installations`
+                    : `${c.name}, Ring of Fire geothermal host`
                 }
                 onClick={(e) => {
                   e.stopPropagation()
-                  onCountry(c.slug)
+                  if (c.hasInstallations) onCountry(c.slug)
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
                     e.stopPropagation()
-                    onCountry(c.slug)
+                    if (c.hasInstallations) onCountry(c.slug)
                   }
                 }}
               />
               {zoomed ? (
                 <text
                   className="map-country-label"
-                  y={-(r + 10)}
+                  y={-(r + 8)}
                   textAnchor="middle"
+                  fontSize={labelSize}
                   role="presentation"
                 >
                   {c.name}

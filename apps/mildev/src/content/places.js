@@ -1,5 +1,11 @@
 import { CANDIDATES, REGIONS } from './candidates.js'
-import { compareByGeothermalRank, geothermalRank } from './ranking.js'
+import {
+  GEOTHERMAL_RANK,
+  RING_OF_FIRE_GEO,
+  compareByGeothermalRank,
+  geothermalRank,
+  isRingOfFire,
+} from './ranking.js'
 
 export const COUNTRY_SLUGS = {
   Germany: 'germany',
@@ -25,7 +31,7 @@ const COUNTRY_PAGES = {
   germany: {
     energy: [
       'Germany produces geothermal electricity and district heat under federal mining and renewable-energy law.',
-      'U.S. Army and Air Force garrisons in Rhineland-Palatinate, Bavaria, Baden-Württemberg, and Hesse are enduring load centers.',
+      'U.S. Army and Air Force garrisons operate in Rhineland-Palatinate, Bavaria, Baden-Württemberg, and Hesse.',
     ],
     pocs: [
       { office: 'Federal Ministry for Economic Affairs and Climate Action', url: 'https://www.bmwk.de/Navigation/EN/Home/home.html' },
@@ -36,7 +42,7 @@ const COUNTRY_PAGES = {
   'united-kingdom': {
     energy: [
       'The Department for Energy Security and Net Zero administers UK energy and heat policy.',
-      'RAF Lakenheath and RAF Mildenhall are dense U.S. Air Force loads in East Anglia.',
+      'RAF Lakenheath and RAF Mildenhall are major U.S. Air Force installations in East Anglia.',
     ],
     pocs: [
       { office: 'Department for Energy Security and Net Zero', url: 'https://www.gov.uk/government/organisations/department-for-energy-security-and-net-zero' },
@@ -47,7 +53,7 @@ const COUNTRY_PAGES = {
   italy: {
     energy: [
       'Italy operates commercial geothermal power in Tuscany. The Ministry of Environment and Energy Security administers energy policy.',
-      'U.S. Air Force and Navy loads sit in the north, in Naples, and in Sicily.',
+      'U.S. Air Force and Navy installations operate in the north, in Naples, and in Sicily.',
     ],
     pocs: [
       { office: 'Ministry of Environment and Energy Security', url: 'https://www.mase.gov.it/' },
@@ -107,8 +113,8 @@ const COUNTRY_PAGES = {
   },
   japan: {
     energy: [
-      'Japan is a volcanic-arc nation with commercial geothermal generation. The Ministry of Economy, Trade and Industry administers geothermal policy.',
-      'U.S. air, naval, Marine, and Army loads concentrate on Okinawa, in Kanto, at Iwakuni, at Sasebo, and in northern Honshu.',
+      'Japan is a Pacific Ring of Fire volcanic-arc nation with commercial geothermal generation. The Ministry of Economy, Trade and Industry administers geothermal policy.',
+      'U.S. air, naval, Marine, and Army installations operate on Okinawa, in Kanto, at Iwakuni, at Sasebo, and in northern Honshu.',
     ],
     pocs: [
       { office: 'Ministry of Economy, Trade and Industry', url: 'https://www.meti.go.jp/english/' },
@@ -120,7 +126,7 @@ const COUNTRY_PAGES = {
   'south-korea': {
     energy: [
       'The Republic of Korea operates a large civil nuclear fleet. The Ministry of Trade, Industry and Energy administers energy policy.',
-      'Camp Humphreys, Osan Air Base, Kunsan Air Base, and Camp Casey are high-density U.S. loads.',
+      'Camp Humphreys, Osan Air Base, Kunsan Air Base, and Camp Casey are major U.S. installations.',
     ],
     pocs: [
       { office: 'Ministry of Trade, Industry and Energy', url: 'https://www.motie.go.kr/english/' },
@@ -132,7 +138,7 @@ const COUNTRY_PAGES = {
   qatar: {
     energy: [
       'Qatar’s energy program is built on natural gas and a growing solar fleet under the Ministry of State for Energy Affairs.',
-      'Al Udeid Air Base is a high cooling-load air and command location.',
+      'Al Udeid Air Base is a major air and command location with high cooling demand.',
     ],
     pocs: [
       { office: 'U.S. Embassy Doha', url: 'https://qa.usembassy.gov/' },
@@ -200,29 +206,30 @@ const REGION_PAGES = {
   europe: {
     energy: [
       'Host-nation geothermal production is established in Germany, Italy, Turkey, and the Azores. The United Kingdom is a civil nuclear market.',
-      'The largest U.S. loads are in Germany and the United Kingdom.',
+      'The largest U.S. installations in the region are in Germany and the United Kingdom.',
     ],
   },
   'indo-pacific': {
     energy: [
-      'Japan produces commercial geothermal power. The Republic of Korea operates a large civil nuclear fleet.',
-      'U.S. air, naval, Marine, and Army loads concentrate in Japan and South Korea.',
+      'Japan sits on the Pacific Ring of Fire and produces commercial geothermal power. Neighboring Ring of Fire hosts include the Philippines, Indonesia, Taiwan, Papua New Guinea, and New Zealand.',
+      'U.S. air, naval, Marine, and Army installations concentrate in Japan and South Korea.',
     ],
   },
   'middle-east': {
     energy: [
-      'Host-nation programs are dominated by gas and expanding solar. Installation loads are cooling-heavy.',
+      'Host-nation programs are dominated by gas and expanding solar. Installation energy demand is cooling-heavy.',
       'Named locations are in Qatar, Bahrain, and Kuwait.',
     ],
   },
   africa: {
     energy: [
-      'The East African Rift is a documented high-enthalpy geothermal province.',
+      'The East African Rift is a documented high-enthalpy geothermal province outside the Pacific Ring of Fire.',
       'Camp Lemonnier in Djibouti is the named U.S. installation.',
     ],
   },
   americas: {
     energy: [
+      'Pacific Ring of Fire geothermal hosts in the Americas include Mexico, Chile, El Salvador, Costa Rica, Peru, Guatemala, Nicaragua, Ecuador, and Colombia.',
       'Honduras operates geothermal plants. Pituffik and Guantanamo Bay are isolated installations with self-contained logistics.',
     ],
   },
@@ -266,6 +273,7 @@ export function getCountry(slug) {
     bases,
     rank,
     ranked: rank != null,
+    ringOfFire: isRingOfFire(name),
   }
 }
 
@@ -281,13 +289,26 @@ export function getRegion(id) {
       count: bases.filter((b) => b.hostCountry === name).length,
       rank: geothermalRank(name),
       ranked: geothermalRank(name) != null,
+      ringOfFire: isRingOfFire(name),
     }))
   const page = REGION_PAGES[id] || { energy: [] }
+  const ringCountries = GEOTHERMAL_RANK
+    .filter((name) => RING_OF_FIRE_GEO[name]?.region === id)
+    .map((name) => ({
+      name,
+      slug: countrySlug(name),
+      count: bases.filter((b) => b.hostCountry === name).length,
+      rank: geothermalRank(name),
+      ranked: true,
+      ringOfFire: true,
+      hasInstallations: bases.some((b) => b.hostCountry === name),
+    }))
   return {
     id,
     label: region.label,
     energy: page.energy,
     countries,
+    ringCountries,
     bases,
   }
 }
@@ -310,9 +331,47 @@ export function countryMarkers() {
         region: bases[0].region,
         rank,
         ranked: rank != null,
+        ringOfFire: isRingOfFire(name),
+        hasInstallations: true,
       }
     })
     .sort((a, b) => compareByGeothermalRank(a.name, b.name))
+}
+
+/** Ring of Fire countries without MILDEV installation pins, for region zoom. */
+export function ringOfFireMarkers() {
+  const hosted = new Set(CANDIDATES.map((c) => c.hostCountry))
+  return GEOTHERMAL_RANK
+    .filter((name) => !hosted.has(name) && RING_OF_FIRE_GEO[name])
+    .map((name) => {
+      const geo = RING_OF_FIRE_GEO[name]
+      return {
+        slug: countrySlug(name),
+        name,
+        count: 0,
+        lon: geo.lon,
+        lat: geo.lat,
+        region: geo.region,
+        rank: geothermalRank(name),
+        ranked: true,
+        ringOfFire: true,
+        hasInstallations: false,
+      }
+    })
+}
+
+export function ringOfFireStrip() {
+  const byCountry = new Map()
+  for (const c of CANDIDATES) {
+    byCountry.set(c.hostCountry, (byCountry.get(c.hostCountry) || 0) + 1)
+  }
+  return GEOTHERMAL_RANK.map((name) => ({
+    name,
+    slug: countrySlug(name),
+    rank: geothermalRank(name),
+    count: byCountry.get(name) || 0,
+    hasInstallations: byCountry.has(name),
+  }))
 }
 
 export function regionMarkers() {
@@ -321,5 +380,5 @@ export function regionMarkers() {
     label: r.label,
     count: CANDIDATES.filter((c) => c.region === r.id).length,
     ...REGION_MAP[r.id],
-  }))
+  })).filter((r) => r.count > 0)
 }

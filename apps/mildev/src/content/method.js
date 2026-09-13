@@ -3,7 +3,7 @@ export const DISCLOSURE = 'Not an official U.S. government publication.'
 export const SCOPE = {
   kicker: 'Thermal Underground',
   title: 'Overseas military geothermal',
-  lede: 'Geothermal at overseas U.S. installations.',
+  lede: 'Geothermal at overseas U.S. installations. Geography centers on Pacific Ring of Fire host countries.',
 }
 
 export const SOURCES = [
@@ -32,20 +32,25 @@ export const SOURCES = [
     url: 'https://www.energy.gov/eere/geothermal/geothermal-technologies-office',
   },
   {
+    id: 'ring-of-fire',
+    title: 'Pacific Ring of Fire geothermal host countries',
+    note: 'Indonesia, Philippines, Japan, New Zealand, Mexico, Chile, and related volcanic-arc hosts.',
+  },
+  {
     id: 'mdev-markets',
     title: 'MDEV international geothermal markets',
-    note: 'Asia-Pacific priority markets and published country profiles.',
+    note: 'Country market profiles adjacent to MILDEV.',
     url: '/mdev/geothermal/markets',
   },
   {
     id: 'host-public',
     title: 'Host-nation and command public affairs pages',
-    note: 'Installation names, host countries, and public descriptions.',
+    note: 'Installation names, host countries, and official public pages.',
   },
 ]
 
 export const METHOD = [
   'Named installations in public materials as U.S. military presence outside the 50 states.',
   'Host country and region recorded. Map markers use published vicinity coordinates.',
-  'Country order follows MDEV Asia-Pacific geothermal priority markets.',
+  'Geothermal geography follows Pacific Ring of Fire host countries. Installation pages link to official public sites where available.',
 ]

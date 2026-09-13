@@ -4,7 +4,7 @@ Overseas U.S. military installation geothermal. A [Thermal Underground](https://
 
 Not an official U.S. government publication.
 
-Country order follows MDEV Asia-Pacific geothermal priority markets (September 2026 brief).
+Geothermal geography follows Pacific Ring of Fire host countries. Installation pages link to official public sites where available.
 
 ## Routes
 

@@ -1606,6 +1606,15 @@ body:has(.app-shell) {
   font-weight: 500;
 }
 
+.candidate-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.candidate-card h3 a:hover {
+  color: var(--gold);
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -1626,11 +1635,6 @@ body:has(.app-shell) {
 .tag-geo {
   background: rgba(31, 157, 85, .16);
   color: #6fd39a;
-}
-
-.tag-smr {
-  background: rgba(245, 184, 25, .16);
-  color: var(--gold);
 }
 
 .candidate-card .service {
@@ -1672,10 +1676,6 @@ body:has(.app-shell) {
 
 .lens-points--geo li {
   border-left: 3px solid #1f9d55;
-}
-
-.lens-points--smr li {
-  border-left: 3px solid var(--gold);
 }
 
 .method-list {
@@ -1811,6 +1811,95 @@ body:has(.app-shell) {
   color: rgba(232, 235, 228, .45);
 }
 
+.home-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0 0;
+  max-width: 720px;
+}
+
+.home-facts > div {
+  padding: 10px 0 0;
+  border-top: 1px solid rgba(245, 184, 25, .28);
+}
+
+.home-facts dt {
+  font-family: var(--title);
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.home-facts dd {
+  margin: 6px 0 0;
+  font-family: var(--label);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(232, 235, 228, .5);
+}
+
+.home-strip-title {
+  margin: 20px 0 0;
+  font-family: var(--label);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.focus-country-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 920px;
+}
+
+.focus-country-list button,
+.focus-country-list > li > span {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 12px;
+  background: rgba(245, 184, 25, .08);
+  border: 1px solid rgba(245, 184, 25, .35);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.focus-country-list > li > span {
+  cursor: default;
+  background: rgba(232, 235, 228, .04);
+  border-color: rgba(232, 235, 228, .18);
+}
+
+.focus-country-list button:hover {
+  border-color: var(--gold);
+}
+
+.focus-country-list strong {
+  font-family: var(--title);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.focus-country-list em {
+  font-family: var(--label);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(232, 235, 228, .5);
+}
+
 .map-stage {
   flex: 1;
   display: flex;
@@ -1865,15 +1954,14 @@ body:has(.app-shell) {
 }
 
 .map-country-label {
-  fill: rgba(232, 235, 228, .92);
+  fill: rgba(232, 235, 228, .96);
   font-family: var(--label);
-  font-size: 9px;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   text-transform: uppercase;
   pointer-events: none;
   paint-order: stroke;
   stroke: #07101f;
-  stroke-width: 3px;
+  stroke-width: 3.5px;
   stroke-linejoin: round;
 }
 
@@ -1912,6 +2000,7 @@ body:has(.app-shell) {
 }
 
 .map-pin {
+  /* Opacity only: CSS transform would override SVG translate and hide pins. */
   animation: pin-in .55s ease both;
   animation-delay: calc(var(--i) * 32ms);
 }
@@ -1935,13 +2024,13 @@ body:has(.app-shell) {
 }
 
 .map-pin:not(.is-ranked) .map-pin-dot {
-  fill: rgba(232, 235, 228, .55);
+  fill: #d7dde8;
 }
 
 .map-pin:not(.is-ranked) .map-pin-halo {
-  fill: rgba(232, 235, 228, .08);
+  fill: rgba(232, 235, 228, .16);
   animation: none;
-  opacity: .5;
+  opacity: .85;
 }
 
 .map-pin.is-ranked .map-pin-dot {
@@ -1950,6 +2039,18 @@ body:has(.app-shell) {
 
 .map-pin.is-ranked .map-pin-halo {
   fill: rgba(245, 184, 25, .32);
+}
+
+.map-pin.is-ring-only .map-pin-dot {
+  fill: transparent;
+  stroke: var(--gold);
+  stroke-width: 1.6;
+  cursor: default;
+}
+
+.map-pin.is-ring-only .map-pin-halo {
+  fill: rgba(245, 184, 25, .12);
+  animation: none;
 }
 
 .rank-strip {
@@ -1984,13 +2085,24 @@ body:has(.app-shell) {
   color: var(--gold);
 }
 
-.rank-strip strong {
+.rank-strip strong,
+.rank-chip strong {
   font-family: var(--title);
   font-weight: 500;
   font-size: 15px;
 }
 
-.rank-strip em {
+.rank-chip {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(232, 235, 228, .04);
+  border: 1px solid rgba(232, 235, 228, .18);
+}
+
+.rank-strip em,
+.rank-chip em {
   font-family: var(--label);
   font-style: normal;
   font-size: 10px;
@@ -2007,8 +2119,8 @@ body:has(.app-shell) {
 }
 
 @keyframes pin-in {
-  from { opacity: 0; transform: translateY(7px) scale(.45); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes pin-halo {
@@ -2136,4 +2248,7 @@ body:has(.app-shell) {
 @media (max-width: 800px) {
   .map-home-copy { padding: 16px 16px 0; }
   .map-region-label { font-size: 9px; }
+  .home-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
