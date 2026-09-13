@@ -610,7 +610,7 @@ export const CROSS_CUTTING = {
     kicker: 'Related venture',
     title: 'Overseas U.S. military installations',
     body: [
-      'Installation-facing geothermal and SMR candidate inventory: MILDEV.',
+      'Installation-facing geothermal inventory: MILDEV.',
     ],
     href: '/mildev/',
     linkLabel: 'Open MILDEV',

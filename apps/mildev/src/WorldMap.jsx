@@ -60,22 +60,26 @@ export default function WorldMap({ countries, regions, onCountry, onRegion }) {
       <g className="map-pins">
         {countries.map((c, i) => {
           const { x, y } = project(c.lon, c.lat)
-          const r = c.count > 4 ? 5.6 : c.count > 2 ? 4.6 : 3.6
+          const base = c.ranked ? 6.2 : c.count > 4 ? 4.4 : c.count > 2 ? 3.6 : 3
           return (
             <g
               key={c.slug}
-              className="map-pin"
+              className={c.ranked ? 'map-pin is-ranked' : 'map-pin'}
               style={{ '--i': i }}
               transform={`translate(${x.toFixed(1)} ${y.toFixed(1)})`}
             >
-              <circle className="map-pin-halo" r={r + 8} />
-              <title>{`${c.name} (${c.count})`}</title>
+              <circle className="map-pin-halo" r={base + (c.ranked ? 10 : 7)} />
+              <title>{c.ranked ? `${c.name} (geothermal priority ${c.rank})` : `${c.name} (${c.count})`}</title>
               <circle
                 className="map-pin-dot"
-                r={r}
+                r={base}
                 role="button"
                 tabIndex={0}
-                aria-label={`${c.name}, ${c.count} installations`}
+                aria-label={
+                  c.ranked
+                    ? `${c.name}, geothermal priority ${c.rank}, ${c.count} installations`
+                    : `${c.name}, ${c.count} installations`
+                }
                 onClick={() => onCountry(c.slug)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {

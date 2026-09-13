@@ -1882,6 +1882,78 @@ body:has(.app-shell) {
   outline: none;
 }
 
+.map-pin:not(.is-ranked) .map-pin-dot {
+  fill: rgba(232, 235, 228, .55);
+}
+
+.map-pin:not(.is-ranked) .map-pin-halo {
+  fill: rgba(232, 235, 228, .08);
+  animation: none;
+  opacity: .5;
+}
+
+.map-pin.is-ranked .map-pin-dot {
+  fill: var(--gold);
+}
+
+.map-pin.is-ranked .map-pin-halo {
+  fill: rgba(245, 184, 25, .32);
+}
+
+.rank-strip {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rank-strip button {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(245, 184, 25, .08);
+  border: 1px solid rgba(245, 184, 25, .35);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.rank-strip button:hover {
+  border-color: var(--gold);
+}
+
+.rank-num {
+  font-family: var(--label);
+  font-size: 11px;
+  letter-spacing: .12em;
+  color: var(--gold);
+}
+
+.rank-strip strong {
+  font-family: var(--title);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.rank-strip em {
+  font-family: var(--label);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(232, 235, 228, .5);
+}
+
+.rank-source {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: rgba(232, 235, 228, .45);
+  max-width: 40em;
+}
+
 @keyframes pin-in {
   from { opacity: 0; transform: translateY(7px) scale(.45); }
   to { opacity: 1; transform: translateY(0) scale(1); }

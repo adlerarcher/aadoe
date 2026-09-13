@@ -131,7 +131,7 @@ function Landing({ onEnter }) {
           ))}
         </div>
         <p className="cross-cut-note rise d6">
-          Overseas installation energy: <a href="/mildev/">MILDEV</a>.
+          Overseas installation geothermal: <a href="/mildev/">MILDEV</a>.
         </p>
       </div>
     </main>

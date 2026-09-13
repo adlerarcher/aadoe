@@ -731,7 +731,7 @@ function MethodologyPage() {
             This reference covers fifteen published country markets across Asia and Pacific, Africa, and the Americas. Profiles show only sections supported by linked sources.
           </p>
           <p>
-            Overseas installation energy: MILDEV.
+            Overseas installation geothermal: MILDEV.
           </p>
           <h2>Sourcing</h2>
           <p>

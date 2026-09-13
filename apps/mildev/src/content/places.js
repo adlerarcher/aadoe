@@ -1,4 +1,5 @@
 import { CANDIDATES, REGIONS } from './candidates.js'
+import { compareByGeothermalRank, geothermalRank } from './ranking.js'
 
 export const COUNTRY_SLUGS = {
   Germany: 'germany',
@@ -34,7 +35,7 @@ const COUNTRY_PAGES = {
   },
   'united-kingdom': {
     energy: [
-      'The Department for Energy Security and Net Zero administers UK energy policy, including nuclear new-build and heat.',
+      'The Department for Energy Security and Net Zero administers UK energy and heat policy.',
       'RAF Lakenheath and RAF Mildenhall are dense U.S. Air Force loads in East Anglia.',
     ],
     pocs: [
@@ -254,6 +255,7 @@ export function getCountry(slug) {
   if (!bases.length) return null
   const page = COUNTRY_PAGES[slug] || { energy: [], pocs: [] }
   const region = REGIONS.find((r) => r.id === bases[0].region)
+  const rank = geothermalRank(name)
   return {
     slug,
     name,
@@ -262,6 +264,8 @@ export function getCountry(slug) {
     energy: page.energy,
     pocs: page.pocs || [],
     bases,
+    rank,
+    ranked: rank != null,
   }
 }
 
@@ -270,11 +274,13 @@ export function getRegion(id) {
   if (!region) return null
   const bases = basesForRegion(id)
   const countries = [...new Set(bases.map((b) => b.hostCountry))]
-    .sort((a, b) => a.localeCompare(b))
+    .sort(compareByGeothermalRank)
     .map((name) => ({
       name,
       slug: countrySlug(name),
       count: bases.filter((b) => b.hostCountry === name).length,
+      rank: geothermalRank(name),
+      ranked: geothermalRank(name) != null,
     }))
   const page = REGION_PAGES[id] || { energy: [] }
   return {
@@ -292,14 +298,21 @@ export function countryMarkers() {
     if (!byCountry.has(c.hostCountry)) byCountry.set(c.hostCountry, [])
     byCountry.get(c.hostCountry).push(c)
   }
-  return [...byCountry.entries()].map(([name, bases]) => ({
-    slug: countrySlug(name),
-    name,
-    count: bases.length,
-    lon: bases.reduce((s, b) => s + b.lon, 0) / bases.length,
-    lat: bases.reduce((s, b) => s + b.lat, 0) / bases.length,
-    region: bases[0].region,
-  }))
+  return [...byCountry.entries()]
+    .map(([name, bases]) => {
+      const rank = geothermalRank(name)
+      return {
+        slug: countrySlug(name),
+        name,
+        count: bases.length,
+        lon: bases.reduce((s, b) => s + b.lon, 0) / bases.length,
+        lat: bases.reduce((s, b) => s + b.lat, 0) / bases.length,
+        region: bases[0].region,
+        rank,
+        ranked: rank != null,
+      }
+    })
+    .sort((a, b) => compareByGeothermalRank(a.name, b.name))
 }
 
 export function regionMarkers() {

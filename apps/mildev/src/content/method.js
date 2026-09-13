@@ -2,8 +2,8 @@ export const DISCLOSURE = 'Not an official U.S. government publication.'
 
 export const SCOPE = {
   kicker: 'Thermal Underground',
-  title: 'Overseas military energy',
-  lede: 'Geothermal and small modular reactors at overseas U.S. installations.',
+  title: 'Overseas military geothermal',
+  lede: 'Geothermal at overseas U.S. installations.',
 }
 
 export const SOURCES = [
@@ -32,10 +32,10 @@ export const SOURCES = [
     url: 'https://www.energy.gov/eere/geothermal/geothermal-technologies-office',
   },
   {
-    id: 'nrc-smr',
-    title: 'NRC and DOE small modular reactor materials',
-    note: 'Licensing and technology context.',
-    url: 'https://www.nrc.gov/reactors/new-reactors/advanced.html',
+    id: 'mdev-markets',
+    title: 'MDEV international geothermal markets',
+    note: 'Asia-Pacific priority markets and published country profiles.',
+    url: '/mdev/geothermal/markets',
   },
   {
     id: 'host-public',
@@ -47,4 +47,5 @@ export const SOURCES = [
 export const METHOD = [
   'Named installations in public materials as U.S. military presence outside the 50 states.',
   'Host country and region recorded. Map markers use published vicinity coordinates.',
+  'Country order follows MDEV Asia-Pacific geothermal priority markets.',
 ]

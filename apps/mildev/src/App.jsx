@@ -16,6 +16,7 @@ import {
   getRegion,
   regionMarkers,
 } from './content/places.js'
+import { RANK_SOURCE, compareByGeothermalRank } from './content/ranking.js'
 
 const NAV = [
   { id: 'home', path: '/', label: 'Map' },
@@ -94,6 +95,10 @@ function HomeMap({ onCountry, onRegion }) {
   const countries = useMemo(() => countryMarkers(), [])
   const regions = useMemo(() => regionMarkers(), [])
   const stats = inventoryStats()
+  const rankedHere = useMemo(
+    () => countries.filter((c) => c.ranked),
+    [countries],
+  )
 
   return (
     <main className="map-home">
@@ -101,7 +106,23 @@ function HomeMap({ onCountry, onRegion }) {
         <p className="app-kicker">{SCOPE.kicker}</p>
         <h1>{SCOPE.title}</h1>
         <p className="map-home-lede">{SCOPE.lede}</p>
-        <p className="map-home-meta">{stats.total} installations · {stats.countries} countries</p>
+        <p className="map-home-meta">
+          {stats.total} installations · {stats.countries} countries · geothermal priority markers emphasized
+        </p>
+        {rankedHere.length > 0 ? (
+          <ol className="rank-strip">
+            {rankedHere.map((c) => (
+              <li key={c.slug}>
+                <button type="button" onClick={() => onCountry(c.slug)}>
+                  <span className="rank-num">{c.rank}</span>
+                  <strong>{c.name}</strong>
+                  <em>{c.count} installations</em>
+                </button>
+              </li>
+            ))}
+          </ol>
+        ) : null}
+        <p className="rank-source">{RANK_SOURCE}</p>
       </div>
       <div className="map-stage">
         <WorldMap
@@ -196,7 +217,10 @@ function CountryPage({ slug, onRegion, onHome }) {
             </button>
           </p>
           <h1>{place.name}</h1>
-          <p className="app-lede">{place.bases.length} installations.</p>
+          <p className="app-lede">
+            {place.bases.length} installations.
+            {place.ranked ? ` Geothermal priority ${place.rank}.` : ''}
+          </p>
         </div>
       </section>
       <section className="app-section">
@@ -214,9 +238,15 @@ function CountryPage({ slug, onRegion, onHome }) {
               <strong>{place.pocs.length}</strong>
               <span>Public offices</span>
             </div>
+            {place.ranked ? (
+              <div className="stat">
+                <strong>{place.rank}</strong>
+                <span>Geothermal priority</span>
+              </div>
+            ) : null}
           </div>
 
-          <h2 className="section-title">Energy program</h2>
+          <h2 className="section-title">Geothermal program</h2>
           <ul className="energy-points">
             {place.energy.map((line) => (
               <li key={line}>{line}</li>
@@ -277,7 +307,7 @@ function RegionPage({ regionId, onCountry, onHome }) {
             </div>
           </div>
 
-          <h2 className="section-title">Energy program</h2>
+          <h2 className="section-title">Geothermal program</h2>
           <ul className="energy-points">
             {place.energy.map((line) => (
               <li key={line}>{line}</li>
@@ -290,7 +320,10 @@ function RegionPage({ regionId, onCountry, onHome }) {
               <li key={c.slug}>
                 <button type="button" onClick={() => onCountry(c.slug)}>
                   <strong>{c.name}</strong>
-                  <span>{c.count} installations</span>
+                  <span>
+                    {c.count} installations
+                    {c.ranked ? ` · priority ${c.rank}` : ''}
+                  </span>
                 </button>
               </li>
             ))}
@@ -322,7 +355,7 @@ function InventoryPage({ onCountry }) {
       if (!map.has(key)) map.set(key, [])
       map.get(key).push(row)
     }
-    return [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+    return [...map.entries()].sort((a, b) => compareByGeothermalRank(a[0], b[0]))
   }, [rows])
 
   return (
@@ -402,6 +435,7 @@ function SourcesPage() {
         <div className="app-hero-copy">
           <p className="app-kicker">Method</p>
           <h1>Sources</h1>
+          <p className="app-lede">{RANK_SOURCE}</p>
         </div>
       </section>
       <section className="app-section">
