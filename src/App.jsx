@@ -161,6 +161,14 @@ export default function App() {
             />
           ))}
         </div>
+
+        <aside className="companion-strip rise d9" aria-label="Related ventures">
+          <p className="companion-label">Related ventures</p>
+          <div className="companion-links">
+            <a href="/mdev/">MDEV · international market development</a>
+            <a href="/mildev/">MILDEV · overseas military energy</a>
+          </div>
+        </aside>
       </main>
 
       <footer className="page-footer">

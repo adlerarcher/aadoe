@@ -131,7 +131,7 @@ function Landing({ onEnter }) {
           ))}
         </div>
         <p className="cross-cut-note rise d6">
-          Across programs, overseas U.S. military installations are a candidate class of host sites and load centers for geothermal and small modular reactors. Geothermal coverage is live. Nuclear, including SMR framing for those locations, is coming soon.
+          Overseas U.S. military energy development (geothermal + SMR) lives in <a href="/mildev/">MILDEV</a>.
         </p>
       </div>
     </main>

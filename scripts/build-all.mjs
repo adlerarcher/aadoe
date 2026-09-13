@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build the hub, then build nested Vite apps into dist/mdev and dist/guide.
+ * Build the hub, then build nested Vite apps into dist/mdev, dist/mildev, and dist/guide.
  * Static apps under public/{sepi,gpcp,gpic,odev} are copied by Vite automatically.
  */
 import { spawnSync } from 'node:child_process'
@@ -39,6 +39,7 @@ run('npm', ['run', 'build:hub'], root)
 // 3) Nested SPAs
 const spas = [
   { name: 'mdev', out: join(dist, 'mdev') },
+  { name: 'mildev', out: join(dist, 'mildev') },
   { name: 'guide', out: join(dist, 'guide') },
 ]
 
@@ -60,7 +61,7 @@ for (const spa of spas) {
 }
 
 // 4) Verify required nested roots exist (avoid silent 404s)
-const required = ['sepi', 'gpcp', 'gpic', 'odev', 'mdev', 'guide']
+const required = ['sepi', 'gpcp', 'gpic', 'odev', 'mdev', 'mildev', 'guide']
 const missing = required.filter((name) => !existsSync(join(dist, name)))
 if (missing.length) {
   console.error('\nBuild incomplete. Missing nested apps in dist:', missing.join(', '))

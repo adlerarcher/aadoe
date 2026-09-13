@@ -607,13 +607,13 @@ export const POLICY_AREAS = [
 export const CROSS_CUTTING = {
   overseasInstallations: {
     id: 'overseas-installations',
-    kicker: 'Cross-cutting opportunity',
+    kicker: 'Related venture',
     title: 'Overseas U.S. military installations',
     body: [
-      'Overseas U.S. military installations are a class of potential host sites and load centers for international geothermal development. Bases concentrate demand, raise energy-security requirements, and involve host-nation coordination that differs from grid-only commercial projects.',
-      'This reference treats those installations thematically rather than as a site inventory. Specific facilities, capacities, and procurement actions appear only when public primary sources support them.',
-      'The same class of locations is relevant to small modular reactors. Nuclear market coverage, including SMR framing for overseas installations, is forthcoming under the Nuclear program.',
+      'Installation-facing geothermal and SMR candidate inventory: MILDEV.',
     ],
+    href: '/mildev/',
+    linkLabel: 'Open MILDEV',
   },
 }
 

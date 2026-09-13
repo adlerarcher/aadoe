@@ -29,16 +29,28 @@ jobs:
         run: npm ci
       - name: Install nested SPAs
         run: |
-          npm ci --prefix apps/mdev
-          npm ci --prefix apps/guide
+          for app in apps/*/; do
+            if [ -f "${app}package.json" ]; then
+              echo "npm ci --prefix $app"
+              npm ci --prefix "$app"
+            fi
+          done
       - name: Build all (hub + nested)
         run: npm run build
       - name: Verify nested apps in dist
         run: |
           set -e
-          for d in sepi gpcp gpic odev mdev guide; do
+          # Static apps + every Vite SPA under apps/ must appear in dist/
+          for d in sepi gpcp gpic odev; do
             test -d "dist/$d" || { echo "missing dist/$d"; exit 1; }
             echo "ok dist/$d"
+          done
+          for app in apps/*/; do
+            name=$(basename "$app")
+            if [ -f "${app}package.json" ]; then
+              test -d "dist/$name" || { echo "missing dist/$name"; exit 1; }
+              echo "ok dist/$name"
+            fi
           done
           # Nested odev pages must ship as real files (Pages 404.html must not be the only hit)
           for f in dist/odev/index.html dist/odev/resources/index.html dist/odev/programs/index.html; do
