@@ -127,7 +127,7 @@ const COUNTRY_PAGES = {
   },
   japan: {
     energy: [
-      'Japan is a Pacific Ring of Fire volcanic-arc nation with commercial geothermal generation. The Ministry of Economy, Trade and Industry administers geothermal policy.',
+      'Japan produces commercial geothermal power. The Ministry of Economy, Trade and Industry administers geothermal policy.',
       'U.S. air, naval, Marine, and Army installations operate on Okinawa, in Kanto, at Iwakuni, at Sasebo, and in northern Honshu.',
     ],
     pocs: [
@@ -355,7 +355,7 @@ const REGION_PAGES = {
   },
   'indo-pacific': {
     energy: [
-      'Japan sits on the Pacific Ring of Fire and produces commercial geothermal power. Neighboring Ring of Fire hosts include the Philippines, Indonesia, Taiwan, Papua New Guinea, and New Zealand.',
+      'Japan produces commercial geothermal power. Neighboring volcanic-arc markets include the Philippines, Indonesia, Taiwan, Papua New Guinea, and New Zealand.',
       'U.S. air, naval, Marine, and Army installations concentrate in Japan and South Korea.',
     ],
   },
@@ -367,13 +367,13 @@ const REGION_PAGES = {
   },
   africa: {
     energy: [
-      'The East African Rift is a documented high-enthalpy geothermal province outside the Pacific Ring of Fire.',
+      'The East African Rift is a documented high-enthalpy geothermal province.',
       'Camp Lemonnier in Djibouti is the named U.S. installation.',
     ],
   },
   americas: {
     energy: [
-      'Pacific Ring of Fire geothermal hosts in the Americas include Mexico, Chile, El Salvador, Costa Rica, Peru, Guatemala, Nicaragua, Ecuador, and Colombia.',
+      'Americas geothermal markets include Mexico, Chile, El Salvador, Costa Rica, Peru, Guatemala, Nicaragua, Ecuador, and Colombia.',
       'Honduras operates geothermal plants. Pituffik and Guantanamo Bay are isolated installations with self-contained logistics.',
     ],
   },
@@ -509,7 +509,7 @@ export function countryMarkers() {
     .sort((a, b) => compareByGeothermalRank(a.name, b.name))
 }
 
-/** Ring of Fire countries without MILDEV installation pins, for region zoom. */
+/** Volcanic-arc countries without installation pins (legacy helper). */
 export function ringOfFireMarkers() {
   const hosted = new Set(CANDIDATES.map((c) => c.hostCountry))
   return GEOTHERMAL_RANK

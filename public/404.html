@@ -5,13 +5,18 @@
     <title>Thermal Underground</title>
     <!--
       GitHub Pages serves root 404.html for unknown paths.
-      Nested static apps have real files. Nested SPAs (/mdev, /mildev, /guide)
+      Nested static apps have real files. Nested SPAs (/mdev, /guide)
       need their index restored with the requested deep link.
+      Legacy /mildev paths redirect to /mdev/.
     -->
     <script>
       (function () {
         var path = location.pathname || '/';
-        var nested = ['/mdev', '/mildev', '/guide', '/odev'];
+        if (path === '/mildev' || path.indexOf('/mildev/') === 0) {
+          location.replace(location.origin + '/mdev/');
+          return;
+        }
+        var nested = ['/mdev', '/guide', '/odev'];
         var i;
         for (i = 0; i < nested.length; i++) {
           var base = nested[i];

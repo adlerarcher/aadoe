@@ -14,7 +14,7 @@ Each card opens that product's landing page. Role pickers live on the product si
 | **GPCP** | Enter | `/gpcp/` |
 | **Research and translation** | Field guide · Hackathons | `/guide/` · `/gpic/` |
 
-Related ventures (secondary strip): **MDEV** `/mdev/`, **MILDEV** `/mildev/`.
+Related ventures (secondary strip): **MDEV** `/mdev/`.
 
 ## Layout
 
@@ -25,7 +25,6 @@ public/gpic/     static hackathons site
 public/odev/     static ODEV site (paths rooted at /odev/)
 apps/guide/      Vite SPA → dist/guide (base /guide/)
 apps/mdev/       Vite SPA → dist/mdev (base /mdev/)
-apps/mildev/     Vite SPA → dist/mildev (base /mildev/)
 ```
 
 `npm run build` builds the hub, builds nested SPAs, and fails if any required nested folder is missing from `dist/`.

@@ -159,10 +159,8 @@ export default function WorldMap({
 }) {
   const focusPoints = useMemo(() => {
     if (!focusRegion) return countries
-    const host = countries.filter((c) => c.region === focusRegion)
-    const ring = ringCountries.filter((c) => c.region === focusRegion)
-    return [...host, ...ring]
-  }, [countries, ringCountries, focusRegion])
+    return countries.filter((c) => c.region === focusRegion)
+  }, [countries, focusRegion])
 
   const targetVb = useMemo(() => {
     if (!focusRegion) return WORLD_VB
@@ -197,7 +195,7 @@ export default function WorldMap({
       aria-label={
         zoomed
           ? 'Region map. Select a country.'
-          : 'Overseas U.S. military installations by country and region'
+          : 'International geothermal markets and overseas installations'
       }
     >
       <defs>
@@ -376,19 +374,16 @@ export default function WorldMap({
           if (!zoomed && !c.hasInstallations) return null
           const { x, y } = project(c.lon, c.lat)
           const base = c.hasInstallations
-            ? c.ranked
-              ? 6.2
-              : c.count > 4
-                ? 4.4
-                : c.count > 2
-                  ? 3.6
-                  : 3.2
-            : 4.2
+            ? c.count > 4
+              ? 4.4
+              : c.count > 2
+                ? 3.6
+                : 3.2
+            : 4.0
           const r = zoomed ? base * 1.5 : base
           const pinClass = [
             'map-pin',
-            c.ranked ? 'is-ranked' : '',
-            !c.hasInstallations ? 'is-ring-only' : '',
+            !c.hasInstallations ? 'is-market-only' : '',
           ]
             .filter(Boolean)
             .join(' ')
@@ -401,13 +396,11 @@ export default function WorldMap({
             >
               <a
                 className="map-country-link"
-                href={withBase(`/country/${encodeURIComponent(c.slug)}`)}
+                href={withBase(`/geothermal/markets/${encodeURIComponent(c.slug)}`)}
                 aria-label={
                   c.hasInstallations
-                    ? c.ranked
-                      ? `${c.name}, Ring of Fire ${c.rank}, ${c.count} installations`
-                      : `${c.name}, ${c.count} installations`
-                    : `${c.name}, Ring of Fire geothermal host`
+                    ? `${c.name}, ${c.count} installations`
+                    : `${c.name}, market profile`
                 }
                 onClick={(e) => {
                   e.stopPropagation()
@@ -416,13 +409,11 @@ export default function WorldMap({
                   onCountry?.(c.slug)
                 }}
               >
-                <circle className="map-pin-halo" r={r + (c.ranked ? 10 : 7)} />
+                <circle className="map-pin-halo" r={r + 7} />
                 <title>
                   {c.hasInstallations
-                    ? c.ranked
-                      ? `${c.name} (Ring of Fire ${c.rank}, ${c.count} installations)`
-                      : `${c.name} (${c.count} installations)`
-                    : `${c.name} (Ring of Fire ${c.rank})`}
+                    ? `${c.name} (${c.count} installations)`
+                    : `${c.name} (market profile)`}
                 </title>
                 <circle className="map-pin-dot" r={r} />
                 {zoomed ? (

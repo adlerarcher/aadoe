@@ -8,10 +8,11 @@ import {
   marketById,
   developmentsForMarket,
   publishedMarkets,
+  geothermalMarkets,
+  basesForMarket,
   docsFor,
   formatDate,
   regionLabel,
-  CROSS_CUTTING,
 } from './content/geothermal.js'
 import { asset, stripBase, withBase } from './basePath.js'
 
@@ -28,7 +29,7 @@ const HERO_IMAGES = [
 
 export function parseGeothermalPath(pathname) {
   const path = (pathname || '/').replace(/\/+$/, '') || '/'
-  if (path === '/geothermal') return { view: 'home', slug: null }
+  if (path === '/geothermal') return { view: 'markets', slug: null }
   if (path === '/geothermal/markets') return { view: 'markets', slug: null }
   if (path.startsWith('/geothermal/markets/')) {
     return { view: 'country', slug: path.slice('/geothermal/markets/'.length) }
@@ -225,131 +226,23 @@ function CountrySwitcher({ route, navigate }) {
   )
 }
 
-function ProgramSwitcher({ programs, value, onChange, onHome }) {
-  const [open, setOpen] = useState(false)
-  const current = programs.find((p) => p.id === value)
 
-  useEffect(() => {
-    if (!open) return undefined
-    const onDoc = (e) => {
-      if (!e.target.closest('.program-switch')) setOpen(false)
-    }
-    document.addEventListener('click', onDoc)
-    return () => document.removeEventListener('click', onDoc)
-  }, [open])
-
+function Header({ route, navigate, onHome }) {
   return (
-    <div className={`program-switch${open ? ' program-switch-open' : ''}`}>
-      <button
-        type="button"
-        className="program-switch-trigger"
-        aria-expanded={open}
-        aria-haspopup="listbox"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <span className="program-switch-label">Energy program</span>
-        <span className="program-switch-value">{current?.label ?? 'Choose'}</span>
-        <span className="program-switch-caret" aria-hidden="true">▾</span>
+    <div className="geo-subnav">
+      <CountrySwitcher route={route} navigate={navigate} />
+      <button type="button" className="back-link" onClick={onHome}>
+        ← Map
       </button>
-      {open && (
-        <ul className="program-switch-menu" role="listbox">
-          {programs.map((program) => (
-            <li key={program.id} role="option" aria-selected={program.id === value}>
-              <button
-                type="button"
-                className={`program-switch-item${program.id === value ? ' is-active' : ''}${program.status === 'soon' ? ' is-soon' : ''}`}
-                onClick={() => {
-                  setOpen(false)
-                  if (program.status === 'live') onChange(program.id)
-                }}
-              >
-                <span>{program.label}</span>
-                {program.status === 'soon' && <span className="program-soon">Coming soon</span>}
-              </button>
-            </li>
-          ))}
-          <li>
-            <button
-              type="button"
-              className="program-switch-item program-switch-home"
-              onClick={() => {
-                setOpen(false)
-                onHome()
-              }}
-            >
-              ← All programs
-            </button>
-          </li>
-        </ul>
-      )}
     </div>
   )
 }
 
-function Header({ route, navigate, programs, onProgram, onHome }) {
-  return (
-    <header className="app-header">
-      <div className="app-header-inner">
-        <a
-          className="app-brand"
-          href={withBase('/geothermal')}
-          onClick={(e) => {
-            e.preventDefault()
-            navigate('/geothermal')
-          }}
-        >
-          <img src={asset('logo.png')} width="256" height="256" alt="" />
-          <span>
-            <strong>MDEV</strong>
-            <em>Geothermal</em>
-          </span>
-        </a>
-        <CountrySwitcher route={route} navigate={navigate} />
-        <ProgramSwitcher
-          programs={programs}
-          value="geothermal"
-          onChange={onProgram}
-          onHome={onHome}
-        />
-      </div>
-    </header>
-  )
-}
-
-function Footer({ onHome }) {
-  return (
-    <footer className="app-footer geo-footer">
-      <div>
-        <p>Thermal Underground © Adler Archer.</p>
-        <p className="geo-meta disclosure-glow">{DISCLOSURE}</p>
-      </div>
-      <button type="button" className="back-link" onClick={onHome}>
-        ← Change energy program
-      </button>
-    </footer>
-  )
+function Footer() {
+  return null
 }
 
 
-function OverseasInstallationsSection() {
-  const theme = CROSS_CUTTING.overseasInstallations
-  const [ref, shown] = useReveal(0.1)
-  return (
-    <section className="app-section geo-cross-section" ref={ref}>
-      <div className={`app-section-inner geo-cross-panel${shown ? ' is-shown' : ''}`}>
-        <div className="editorial-kicker">{theme.kicker}</div>
-        <h2 className="geo-section-title">{theme.title}</h2>
-        <hr className="editorial-rule" />
-        <p>
-          {theme.body[0]}{' '}
-          <a href={theme.href || '/mildev/'} className="geo-inline-link">
-            {theme.linkLabel || 'Open MILDEV'} →
-          </a>
-        </p>
-      </div>
-    </section>
-  )
-}
 
 function HomePage({ navigate }) {
   const recent = [...DEVELOPMENTS].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6)
@@ -424,7 +317,6 @@ function HomePage({ navigate }) {
         </div>
       </section>
 
-      <OverseasInstallationsSection />
 
       <section className="app-section">
         <div className="app-section-inner">
@@ -485,7 +377,7 @@ function MarketsPage({ navigate }) {
         <p className="app-kicker">Markets</p>
         <h1 className="geo-page-title">Country profiles</h1>
         <p className="app-lede geo-page-lede">
-          Fifteen markets across Asia and Pacific, Africa, and the Americas. Open a profile for sourced applications, buyers, and developments.
+          Country profiles across regions. Open a profile for sourced applications, buyers, developments, and military bases where listed.
         </p>
 
         <div className="geo-filters">
@@ -563,7 +455,7 @@ function CountryPage({ slug, navigate }) {
           <button type="button" className="back-link" onClick={() => navigate('/geothermal/markets')}>
             ← Markets
           </button>
-          <p className="app-kicker">{regionLabel(market.region)}</p>
+          <p className="app-kicker">{regionLabel(market.region)}{market.hostProfile ? ' · Installations' : ''}</p>
           <h1 className="geo-page-title">{market.name}</h1>
           <p className="geo-market-apps">
             {market.applications.map((a) => APPLICATIONS.find((x) => x.id === a)?.label).filter(Boolean).join(' · ')}
@@ -637,6 +529,50 @@ function CountryPage({ slug, navigate }) {
               {market.analysis.map((p) => <p key={p}>{p}</p>)}
             </div>
           )}
+
+          {(() => {
+            const bases = basesForMarket(market)
+            if (!bases.length) return null
+            return (
+              <div className="geo-prose geo-bases">
+                <h2>Military bases</h2>
+                <p>
+                  Named overseas U.S. installations in {market.name} from the public inventory.
+                </p>
+                <ul className="candidate-list">
+                  {bases.map((b) => (
+                    <li key={b.id} className="candidate-card">
+                      <div className="candidate-top">
+                        <h3>
+                          {b.paUrl ? (
+                            <a href={b.paUrl} target="_blank" rel="noopener noreferrer">
+                              {b.name} ↗
+                            </a>
+                          ) : (
+                            b.name
+                          )}
+                        </h3>
+                        <div className="tags">
+                          <span className="tag">{b.service}</span>
+                          {b.command ? <span className="tag">{b.command}</span> : null}
+                        </div>
+                      </div>
+                      <p className="service">{b.role}</p>
+                      {b.energy ? <p>{b.energy}</p> : null}
+                      {b.paUrl ? (
+                        <p className="src-line">
+                          <a href={b.paUrl} target="_blank" rel="noopener noreferrer">
+                            Official page ↗
+                          </a>
+                        </p>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })()}
+
         </div>
       </section>
     </>
@@ -728,10 +664,7 @@ function MethodologyPage() {
         <div className="geo-prose">
           <h2>Coverage</h2>
           <p>
-            This reference covers fifteen published country markets across Asia and Pacific, Africa, and the Americas. Profiles show only sections supported by linked sources.
-          </p>
-          <p>
-            Overseas installation geothermal: MILDEV.
+            Published country markets across Asia and Pacific, Europe, the Middle East, Africa, and the Americas. Profiles show only sections supported by linked sources. Military bases appear on country pages when the public inventory lists them.
           </p>
           <h2>Sourcing</h2>
           <p>
@@ -748,26 +681,28 @@ function MethodologyPage() {
   )
 }
 
-export default function GeothermalApp({ programs, onHome, onProgram }) {
-  const [route, setRoute] = useState(() => parseGeothermalPath(stripBase(window.location.pathname)) || { view: 'home', slug: null })
+export default function GeothermalApp({ onHome, embedded = false }) {
+  const [route, setRoute] = useState(() => parseGeothermalPath(stripBase(window.location.pathname)) || { view: 'markets', slug: null })
 
   useEffect(() => {
     const onPop = () => {
       const next = parseGeothermalPath(stripBase(window.location.pathname))
       if (next) setRoute(next)
-      else onHome()
+      else onHome?.()
     }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
   }, [onHome])
 
   const navigate = (path) => {
-    const target = path === '/subsurface' ? '/geothermal' : path
+    const target = path === '/subsurface' ? '/geothermal/markets' : path
     window.history.pushState({}, '', withBase(target))
     const next = parseGeothermalPath(target)
     if (next) {
       setRoute(next)
       window.scrollTo(0, 0)
+    } else if (target === '/' || target === '') {
+      onHome?.()
     }
   }
 
@@ -786,20 +721,23 @@ export default function GeothermalApp({ programs, onHome, onProgram }) {
       body = <MethodologyPage />
       break
     default:
-      body = <HomePage navigate={navigate} />
+      body = <MarketsPage navigate={navigate} />
+  }
+
+  if (embedded) {
+    return (
+      <div className="geo-embedded">
+        <Header route={route} navigate={navigate} onHome={onHome} />
+        <main>{body}</main>
+      </div>
+    )
   }
 
   return (
     <div className="app-shell">
-      <Header
-        route={route}
-        navigate={navigate}
-        programs={programs}
-        onProgram={onProgram}
-        onHome={onHome}
-      />
+      <Header route={route} navigate={navigate} onHome={onHome} />
       <main>{body}</main>
-      <Footer onHome={onHome} />
+      <Footer />
     </div>
   )
 }

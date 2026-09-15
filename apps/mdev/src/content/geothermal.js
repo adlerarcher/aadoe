@@ -1,7 +1,12 @@
+import { HOST_MARKETS, hostNameForMarket } from './hostMarkets.js'
+import { CANDIDATES } from './candidates.js'
+
 /** Geothermal international markets — content records (September 2026 brief). */
 
 export const REGIONS = [
   { id: 'asia-pacific', label: 'Asia and Pacific' },
+  { id: 'europe', label: 'Europe' },
+  { id: 'middle-east', label: 'Middle East' },
   { id: 'africa', label: 'Africa' },
   { id: 'americas', label: 'Americas' },
 ]
@@ -603,24 +608,14 @@ export const POLICY_AREAS = [
 ]
 
 
-/** Cross-cutting opportunity lenses (not country-specific inventories). */
-export const CROSS_CUTTING = {
-  overseasInstallations: {
-    id: 'overseas-installations',
-    kicker: 'Related venture',
-    title: 'Overseas U.S. military installations',
-    body: [
-      'Installation-facing geothermal inventory: MILDEV.',
-    ],
-    href: '/mildev/',
-    linkLabel: 'Open MILDEV',
-  },
-}
+/** Combined published profiles: geothermal briefs plus installation host countries. */
+export const ALL_MARKETS = [...MARKETS, ...HOST_MARKETS]
+
 
 export const DISCLOSURE = 'Not an official U.S. government publication.'
 
 export function marketById(id) {
-  return MARKETS.find((m) => m.id === id) || null
+  return ALL_MARKETS.find((m) => m.id === id) || null
 }
 
 export function developmentsForMarket(marketId) {
@@ -628,7 +623,19 @@ export function developmentsForMarket(marketId) {
 }
 
 export function publishedMarkets() {
+  return ALL_MARKETS.filter((m) => m.status === 'published')
+}
+
+export function geothermalMarkets() {
   return MARKETS.filter((m) => m.status === 'published')
+}
+
+export function basesForMarket(marketOrId) {
+  const market = typeof marketOrId === 'string' ? marketById(marketOrId) : marketOrId
+  if (!market) return []
+  const host = hostNameForMarket(market)
+  if (!host) return []
+  return CANDIDATES.filter((c) => c.hostCountry === host)
 }
 
 export function docsFor(ids = []) {

@@ -1,10 +1,7 @@
-/**
- * Geothermal geography for MILDEV: Pacific Ring of Fire host countries.
- * Order is geothermal-program weight among Ring of Fire nations, not base count.
- */
+/** Map coordinates along the Pacific volcanic arcs (visual path only). */
 
 export const RANK_SOURCE =
-  'Pacific Ring of Fire geothermal host countries.'
+  'Pacific volcanic-arc geography for map animation.'
 
 /** Ranked names in priority order (1 = highest). */
 export const GEOTHERMAL_RANK = [
@@ -25,7 +22,7 @@ export const GEOTHERMAL_RANK = [
   'Colombia',
 ]
 
-/** Map positions for Ring of Fire countries (for region zoom labels). */
+/** Map positions along the Pacific volcanic arcs (path glow anchors). */
 export const RING_OF_FIRE_GEO = {
   Indonesia: { lon: 118, lat: -2, region: 'indo-pacific' },
   Philippines: { lon: 122, lat: 12, region: 'indo-pacific' },
