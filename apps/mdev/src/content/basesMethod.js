@@ -1,9 +1,8 @@
 export const DISCLOSURE = 'Not an official U.S. government publication.'
 
 export const SCOPE = {
-  kicker: 'Thermal Underground · MDEV',
   title: 'International geothermal markets',
-  lede: 'Country markets and overseas U.S. installations. Open a region, then a country.',
+  lede: 'Country markets and overseas U.S. installations.',
 }
 
 export const SOURCES = [

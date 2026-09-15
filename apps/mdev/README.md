@@ -2,11 +2,12 @@
 
 International market development under [AADOE](https://aadoe.thermalunderground.org) at `/mdev/`.
 
-Home is the animated world map. Country profiles keep geothermal market briefs and list military bases where the public inventory has them.
+Home is the energy program chooser. Geothermal opens the animated world map; country profiles keep market briefs and list military bases where the public inventory has them.
 
 ## Routes
 
-- `/mdev/` — map home
+- `/mdev/` — program chooser
+- `/mdev/geothermal/` — geothermal world map
 - `/mdev/geothermal/markets` — country index
 - `/mdev/geothermal/markets/:slug` — country profile (+ military bases)
 - `/mdev/geothermal/developments` — recent developments

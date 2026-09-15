@@ -371,7 +371,6 @@ export default function WorldMap({
       <g className="map-pins">
         {focusPoints.map((c, i) => {
           if (zoomed && c.region !== focusRegion) return null
-          if (!zoomed && !c.hasInstallations) return null
           const { x, y } = project(c.lon, c.lat)
           const base = c.hasInstallations
             ? c.count > 4

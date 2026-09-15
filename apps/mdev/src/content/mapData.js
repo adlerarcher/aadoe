@@ -38,16 +38,25 @@ export function countryMarkers() {
     byCountry.get(c.hostCountry).push(c)
   }
 
-  const installationPins = [...byCountry.entries()].map(([name, bases]) => ({
-    slug: countrySlug(name),
-    name: name === 'Greenland (Denmark)' ? 'Greenland' : name,
-    count: bases.length,
-    lon: bases.reduce((s, b) => s + b.lon, 0) / bases.length,
-    lat: bases.reduce((s, b) => s + b.lat, 0) / bases.length,
-    region: bases[0].region,
-    hasInstallations: true,
-    hasMarket: true,
-  }))
+  const imageBySlug = new Map()
+  for (const market of publishedMarkets()) {
+    if (market.image) imageBySlug.set(market.id, market.image)
+  }
+
+  const installationPins = [...byCountry.entries()].map(([name, bases]) => {
+    const slug = countrySlug(name)
+    return {
+      slug,
+      name: name === 'Greenland (Denmark)' ? 'Greenland' : name,
+      count: bases.length,
+      lon: bases.reduce((s, b) => s + b.lon, 0) / bases.length,
+      lat: bases.reduce((s, b) => s + b.lat, 0) / bases.length,
+      region: bases[0].region,
+      hasInstallations: true,
+      hasMarket: true,
+      image: imageBySlug.get(slug) || null,
+    }
+  })
 
   const hostedSlugs = new Set(installationPins.map((p) => p.slug))
   const marketPins = []
@@ -67,6 +76,7 @@ export function countryMarkers() {
       region: geo.region || MARKET_TO_MAP_REGION[market.region] || 'indo-pacific',
       hasInstallations: false,
       hasMarket: true,
+      image: market.image || null,
     })
   }
 

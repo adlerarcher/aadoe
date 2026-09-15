@@ -29,21 +29,12 @@ const HERO_IMAGES = [
 
 export function parseGeothermalPath(pathname) {
   const path = (pathname || '/').replace(/\/+$/, '') || '/'
-  if (path === '/geothermal') return { view: 'markets', slug: null }
   if (path === '/geothermal/markets') return { view: 'markets', slug: null }
   if (path.startsWith('/geothermal/markets/')) {
     return { view: 'country', slug: path.slice('/geothermal/markets/'.length) }
   }
   if (path === '/geothermal/developments') return { view: 'developments', slug: null }
   if (path === '/geothermal/methodology') return { view: 'methodology', slug: null }
-  if (
-    path === '/geothermal/policy-financing'
-    || path === '/geothermal/us-engagement'
-    || path === '/geothermal/us-domestic'
-  ) {
-    return { view: 'home', slug: null }
-  }
-  if (path === '/subsurface') return { view: 'home', slug: null }
   return null
 }
 
@@ -261,7 +252,7 @@ function HomePage({ navigate }) {
           </h1>
           <span className="geo-entry-rule rise d4" aria-hidden="true" />
           <p className="app-lede rise d5">
-            Explore geothermal projects, policy, and financing around the world. Open a country profile for what is sourced today—applications, buyers, and developments where the record supports them.
+            Explore geothermal projects, policy, and financing around the world. Open a country profile for sourced applications, buyers, and developments.
           </p>
           <div className="app-cta-row rise d6">
             <a
@@ -696,6 +687,10 @@ export default function GeothermalApp({ onHome, embedded = false }) {
 
   const navigate = (path) => {
     const target = path === '/subsurface' ? '/geothermal/markets' : path
+    if (target === '/geothermal' || target === '/geothermal/') {
+      onHome?.()
+      return
+    }
     window.history.pushState({}, '', withBase(target))
     const next = parseGeothermalPath(target)
     if (next) {
