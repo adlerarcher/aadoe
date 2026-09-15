@@ -638,13 +638,13 @@ h1 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 6px 22px;
+  gap: 10px 28px;
   margin-left: auto;
 }
 
 .app-nav a {
   display: inline-block;
-  padding: 6px 2px;
+  padding: 8px 4px;
   font-family: var(--label);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -652,10 +652,6 @@ h1 {
   color: rgba(232, 235, 228, 0.62);
   text-decoration: none;
   white-space: nowrap;
-}
-
-.app-nav a + a {
-  margin-left: 0;
 }
 
 .app-nav a:hover,
@@ -3093,6 +3089,14 @@ h1 {
   display: none;
 }
 .map-pin.is-market-only .map-pin-dot {
-  fill: #E8EBE4;
-  opacity: 0.85;
+  fill: #f2f5ef;
+  opacity: 1;
+  stroke: rgba(245, 184, 25, 0.55);
+  stroke-width: 1.2;
+}
+
+.map-pin.is-market-only .map-pin-halo {
+  fill: rgba(245, 184, 25, 0.2);
+  opacity: 1;
+  animation: pin-halo 3s ease-in-out infinite;
 }
