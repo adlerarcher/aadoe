@@ -2467,17 +2467,6 @@ h1 {
   cursor: pointer;
 }
 
-.map-country-label {
-  fill: rgba(232, 235, 228, .96);
-  font-family: var(--label);
-  letter-spacing: .06em;
-  text-transform: uppercase;
-  paint-order: stroke;
-  stroke: #07101f;
-  stroke-width: 3.5px;
-  stroke-linejoin: round;
-}
-
 .map-zoom-bar {
   display: flex;
   align-items: center;
@@ -2544,11 +2533,6 @@ h1 {
 .map-country-link:focus .map-pin-halo,
 .map-country-link:focus-visible .map-pin-halo {
   fill: rgba(245, 184, 25, .45);
-}
-
-.map-country-link:hover .map-country-label,
-.map-country-link:focus .map-country-label {
-  fill: var(--gold);
 }
 
 .map-pin:not(.is-ranked) .map-pin-dot {

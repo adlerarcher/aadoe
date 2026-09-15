@@ -170,8 +170,6 @@ export default function WorldMap({
   const viewBox = useAnimatedViewBox(targetVb)
   const zoomed = Boolean(focusRegion)
   const strokeScale = Math.max(viewBox.w / WIDTH, 0.35)
-  // Keep labels readable under zoom by scaling with viewBox width.
-  const labelSize = zoomed ? Math.max(7, Math.min(14, viewBox.w * 0.045)) : 9
 
   const ringPathD = useMemo(() => ringOfFirePathD(project), [])
   const ringPathRef = useRef(null)
@@ -415,16 +413,6 @@ export default function WorldMap({
                     : `${c.name} (market profile)`}
                 </title>
                 <circle className="map-pin-dot" r={r} />
-                {zoomed ? (
-                  <text
-                    className="map-country-label"
-                    y={-(r + 8)}
-                    textAnchor="middle"
-                    fontSize={labelSize}
-                  >
-                    {c.name}
-                  </text>
-                ) : null}
               </a>
             </g>
           )
