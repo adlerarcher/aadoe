@@ -1,6 +1,6 @@
-# Presidential Innovation Initiatives at DOE
+# Presidential Innovation Fellowship Services at DOE
 
-Hub for White House Presidential Innovation Initiatives at the Department of Energy: the permitting database (SEPI), the coordination dashboard (GPCP), and research and translation (field guide, hackathons). Nested apps live on the same origin.
+Hub for White House Presidential Innovation Fellowship Services at the Department of Energy: the permitting database (SEPI), the coordination dashboard (GPCP), and research and translation (field guide, hackathons). Nested apps live on the same origin.
 
 Live: [aadoe.thermalunderground.org](https://aadoe.thermalunderground.org)
 

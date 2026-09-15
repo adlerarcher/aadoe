@@ -342,6 +342,7 @@ h1 {
   max-width: min(14.5em, 100%);
   margin-inline: auto;
   overflow-wrap: break-word;
+  text-wrap: balance;
   font-style: italic;
   font-weight: 700;
   font-size: 0.72em;
@@ -690,7 +691,7 @@ h1 {
   .brand-name { font-size: 15px; }
   .tile:nth-child(n+5) { display: none; }
   h1 { font-size: 1.85rem; width: 100%; }
-  .title-accent { font-size: 0.72em; max-width: 100%; }
+  .title-accent { font-size: 0.72em; max-width: min(11.5em, 100%); }
   .title-place { font-size: .36em; }
 }
 

@@ -143,12 +143,12 @@ export default function App() {
           <LogoShell />
           <h1>
             <span className="title-line rise d2">White House</span>
-            <span className="title-accent rise d3">Presidential Innovation Initiatives</span>
+            <span className="title-accent rise d3">Presidential Innovation Fellowship Services</span>
             <span className="title-place rise d4">at the Department of Energy</span>
           </h1>
           <span className="rule rise d5" aria-hidden="true" />
           <p className="lede rise d5">
-            Authorizations for geothermal and other subsurface energy sit across federal, state, and local systems. These initiatives make those records usable for coordination and carry the findings into the field.
+            Authorizations for geothermal and other subsurface energy sit across federal, state, and local systems. These services make those records usable for coordination and carry the findings into the field.
           </p>
         </div>
 
